@@ -8,6 +8,8 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Descricao;
+use app\models\Solucao;
 
 class SiteController extends Controller
 {
@@ -121,5 +123,14 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionSearch()  // Descricao vai ter todos os dados, independente de ser somente para o rbc
+    { // add os dados adicionais no model Descricao
+        $modelDescricao = new Descricao();
+
+        return $this->render('search', [
+            'model' => $modelDescricao,
+        ]);
     }
 }
