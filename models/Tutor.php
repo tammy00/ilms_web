@@ -7,15 +7,16 @@ use Yii;
 /**
  * This is the model class for table "tutor".
  *
- * @property string $id_matricula
+ * @property string $id_tutor
  * @property string $nome
  * @property string $tipo_tutoria
  * @property string $tipo_bolsa
  * @property string $outras_caracteristicas
  * @property string $observacoes
- * @property string $polo_id
+ * @property string $id_turma
  *
- * @property Polo $polo
+ * @property Turma[] $turmas
+ * @property Turma $idTurma
  */
 class Tutor extends \yii\db\ActiveRecord
 {
@@ -33,13 +34,11 @@ class Tutor extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_matricula', 'nome', 'tipo_tutoria', 'tipo_bolsa', 'outras_caracteristicas', 'observacoes', 'polo_id'], 'required'],
             [['outras_caracteristicas', 'observacoes'], 'string'],
-            [['id_matricula'], 'string', 'max' => 10],
-            [['nome', 'polo_id'], 'string', 'max' => 150],
+            [['id_turma'], 'integer'],
+            [['nome'], 'string', 'max' => 250],
             [['tipo_tutoria', 'tipo_bolsa'], 'string', 'max' => 100],
-            [['id_matricula'], 'unique'],
-            [['polo_id'], 'exist', 'skipOnError' => true, 'targetClass' => Polo::className(), 'targetAttribute' => ['polo_id' => 'id_nome']],
+            [['id_turma'], 'exist', 'skipOnError' => true, 'targetClass' => Turma::className(), 'targetAttribute' => ['id_turma' => 'id_turma']],
         ];
     }
 
@@ -49,21 +48,29 @@ class Tutor extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_matricula' => 'Id Matricula',
+            'id_tutor' => 'Id Tutor',
             'nome' => 'Nome',
             'tipo_tutoria' => 'Tipo Tutoria',
             'tipo_bolsa' => 'Tipo Bolsa',
             'outras_caracteristicas' => 'Outras Caracteristicas',
             'observacoes' => 'Observacoes',
-            'polo_id' => 'Polo ID',
+            'id_turma' => 'Id Turma',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPolo()
+    public function getTurmas()
     {
-        return $this->hasOne(Polo::className(), ['id_nome' => 'polo_id']);
+        return $this->hasMany(Turma::className(), ['id_tutor' => 'id_tutor']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIdTurma()
+    {
+        return $this->hasOne(Turma::className(), ['id_turma' => 'id_turma']);
     }
 }

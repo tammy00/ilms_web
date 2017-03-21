@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Polo */
 
-$this->title = $model->coordenador;
+$this->title = $model->id_polo;
 $this->params['breadcrumbs'][] = ['label' => 'Polos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'coordenador' => $model->coordenador, 'tipo_conexao' => $model->tipo_conexao, 'infra_laboratorio' => $model->infra_laboratorio, 'infra_fisica' => $model->infra_fisica, 'infra_cidade' => $model->infra_cidade, 'acesso' => $model->acesso], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'coordenador' => $model->coordenador, 'tipo_conexao' => $model->tipo_conexao, 'infra_laboratorio' => $model->infra_laboratorio, 'infra_fisica' => $model->infra_fisica, 'infra_cidade' => $model->infra_cidade, 'acesso' => $model->acesso], [
+        <?= Html::a('Update', ['update', 'id' => $model->id_polo], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->id_polo], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -28,7 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id_nome',
+            'id_polo',
+            'nome',
             'coordenador',
             'tipo_conexao',
             'infra_laboratorio',
@@ -36,6 +37,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'infra_cidade',
             'acesso',
             'outras_caracteristicas:ntext',
+            'id_descricao',
+            'id_turma',
+            'id_curso',
         ],
     ]) ?>
 

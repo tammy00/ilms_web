@@ -18,8 +18,8 @@ class DescricaoSearch extends Descricao
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['natureza_problema', 'relator', 'curso_id', 'disciplina_id', 'descricao_problema', 'problema', 'palavras_chaves'], 'safe'],
+            [['id_descricao', 'id_infoc', 'id_polo'], 'integer'],
+            [['natureza_problema', 'relator', 'descricao_problema', 'problema_detalhado', 'palavras_chaves'], 'safe'],
         ];
     }
 
@@ -59,15 +59,15 @@ class DescricaoSearch extends Descricao
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            'id_descricao' => $this->id_descricao,
+            'id_infoc' => $this->id_infoc,
+            'id_polo' => $this->id_polo,
         ]);
 
         $query->andFilterWhere(['like', 'natureza_problema', $this->natureza_problema])
             ->andFilterWhere(['like', 'relator', $this->relator])
-            ->andFilterWhere(['like', 'curso_id', $this->curso_id])
-            ->andFilterWhere(['like', 'disciplina_id', $this->disciplina_id])
             ->andFilterWhere(['like', 'descricao_problema', $this->descricao_problema])
-            ->andFilterWhere(['like', 'problema', $this->problema])
+            ->andFilterWhere(['like', 'problema_detalhado', $this->problema_detalhado])
             ->andFilterWhere(['like', 'palavras_chaves', $this->palavras_chaves]);
 
         return $dataProvider;

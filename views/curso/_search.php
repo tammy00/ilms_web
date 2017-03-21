@@ -15,9 +15,9 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id_nome') ?>
+    <?= $form->field($model, 'id_curso') ?>
 
-    <?= $form->field($model, 'polo_id') ?>
+    <?= $form->field($model, 'nome') ?>
 
     <?= $form->field($model, 'tipo_curso') ?>
 
@@ -30,6 +30,12 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'outras_caracteristicas') ?>
 
     <?php // echo $form->field($model, 'observacoes') ?>
+
+    <?php // echo $form->field($model, 'id_polo') ?>
+
+    <?php // echo $form->field($model, 'id_turma') ?>
+
+    <?php // echo $form->field($model, 'id_disciplina') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

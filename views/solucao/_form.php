@@ -12,25 +12,23 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id')->textInput() ?>
-
-    <?= $form->field($model, 'diagnostico')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'solucao')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'solucao')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'palavras_chaves')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'acao_implementada')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'acao_implementada')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'solucao_implementada')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'solucao_implementada')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'efetividade_acao_implementada')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'efetividade_acao_implementada')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'custos')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'impacto_pedagogico')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'impacto_pedagogico')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'atores_envolvidos')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'id_infoc')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

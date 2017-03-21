@@ -18,7 +18,8 @@ class TutorSearch extends Tutor
     public function rules()
     {
         return [
-            [['id_matricula', 'nome', 'tipo_tutoria', 'tipo_bolsa', 'outras_caracteristicas', 'observacoes', 'polo_id'], 'safe'],
+            [['id_tutor', 'id_turma'], 'integer'],
+            [['nome', 'tipo_tutoria', 'tipo_bolsa', 'outras_caracteristicas', 'observacoes'], 'safe'],
         ];
     }
 
@@ -57,13 +58,16 @@ class TutorSearch extends Tutor
         }
 
         // grid filtering conditions
-        $query->andFilterWhere(['like', 'id_matricula', $this->id_matricula])
-            ->andFilterWhere(['like', 'nome', $this->nome])
+        $query->andFilterWhere([
+            'id_tutor' => $this->id_tutor,
+            'id_turma' => $this->id_turma,
+        ]);
+
+        $query->andFilterWhere(['like', 'nome', $this->nome])
             ->andFilterWhere(['like', 'tipo_tutoria', $this->tipo_tutoria])
             ->andFilterWhere(['like', 'tipo_bolsa', $this->tipo_bolsa])
             ->andFilterWhere(['like', 'outras_caracteristicas', $this->outras_caracteristicas])
-            ->andFilterWhere(['like', 'observacoes', $this->observacoes])
-            ->andFilterWhere(['like', 'polo_id', $this->polo_id]);
+            ->andFilterWhere(['like', 'observacoes', $this->observacoes]);
 
         return $dataProvider;
     }

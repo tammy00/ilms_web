@@ -18,7 +18,8 @@ class DisciplinaSearch extends Disciplina
     public function rules()
     {
         return [
-            [['id_nome', 'departamento', 'observacoes', 'outras_caracteristicas'], 'safe'],
+            [['id_disciplina', 'id_curso', 'id_professor'], 'integer'],
+            [['nome', 'departamento', 'observacoes', 'outras_caracteristicas'], 'safe'],
         ];
     }
 
@@ -57,7 +58,13 @@ class DisciplinaSearch extends Disciplina
         }
 
         // grid filtering conditions
-        $query->andFilterWhere(['like', 'id_nome', $this->id_nome])
+        $query->andFilterWhere([
+            'id_disciplina' => $this->id_disciplina,
+            'id_curso' => $this->id_curso,
+            'id_professor' => $this->id_professor,
+        ]);
+
+        $query->andFilterWhere(['like', 'nome', $this->nome])
             ->andFilterWhere(['like', 'departamento', $this->departamento])
             ->andFilterWhere(['like', 'observacoes', $this->observacoes])
             ->andFilterWhere(['like', 'outras_caracteristicas', $this->outras_caracteristicas]);

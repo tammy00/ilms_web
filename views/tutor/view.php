@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Tutor */
 
-$this->title = $model->nome;
+$this->title = $model->id_tutor;
 $this->params['breadcrumbs'][] = ['label' => 'Tutors', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'nome' => $model->nome, 'tipo_tutoria' => $model->tipo_tutoria, 'tipo_bolsa' => $model->tipo_bolsa, 'polo_id' => $model->polo_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'nome' => $model->nome, 'tipo_tutoria' => $model->tipo_tutoria, 'tipo_bolsa' => $model->tipo_bolsa, 'polo_id' => $model->polo_id], [
+        <?= Html::a('Update', ['update', 'id' => $model->id_tutor], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->id_tutor], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -28,13 +28,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id_matricula',
+            'id_tutor',
             'nome',
             'tipo_tutoria',
             'tipo_bolsa',
             'outras_caracteristicas:ntext',
             'observacoes:ntext',
-            'polo_id',
+            'id_turma',
         ],
     ]) ?>
 

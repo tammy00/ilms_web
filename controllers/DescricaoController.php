@@ -46,7 +46,7 @@ class DescricaoController extends Controller
 
     /**
      * Displays a single Descricao model.
-     * @param integer $id
+     * @param string $id
      * @return mixed
      */
     public function actionView($id)
@@ -66,7 +66,7 @@ class DescricaoController extends Controller
         $model = new Descricao();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id_descricao]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -77,7 +77,7 @@ class DescricaoController extends Controller
     /**
      * Updates an existing Descricao model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param string $id
      * @return mixed
      */
     public function actionUpdate($id)
@@ -85,7 +85,7 @@ class DescricaoController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id_descricao]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -96,7 +96,7 @@ class DescricaoController extends Controller
     /**
      * Deletes an existing Descricao model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param string $id
      * @return mixed
      */
     public function actionDelete($id)
@@ -109,7 +109,7 @@ class DescricaoController extends Controller
     /**
      * Finds the Descricao model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
+     * @param string $id
      * @return Descricao the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

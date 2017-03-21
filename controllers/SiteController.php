@@ -129,8 +129,79 @@ class SiteController extends Controller
     { // add os dados adicionais no model Descricao
         $modelDescricao = new Descricao();
 
-        return $this->render('search', [
-            'model' => $modelDescricao,
-        ]);
+        if ( $modelDescricao->load(Yii::$app->request->post()) ) // Se houve request-post
+        {
+            if ( )  // Verificação: se é para o rbc
+            {
+                // Enviar json pelo CURL
+                //Cria a array com os dados recebido, sendo q o ID é gerado pelo WS
+                /*
+                $postArray = array(
+                    "tema" => $modelDescricao->,
+                    "topico" => $modelDescricao->,
+                    "descricaoProblema" => $modelDescricao->descricao,
+                    "naturezaProblema" => $modelDescricao->natureza,
+                    "estiloDeAprendizagem" => $modelDescricao->,
+                );
+
+                // Converte os dados para o formato jSon
+                $json = json_encode( $postArray );
+
+                // receber resposta do servidor
+                $curl = curl_init();
+                curl_setopt_array($curl, array(
+                    CURLOPT_PORT => "8080", //porta do WS
+                    CURLOPT_URL => "http://localhost:8080/ServerRBC/ServerRBC/casos/caso", //Caminho do WS que vai receber o POST
+                    CURLOPT_RETURNTRANSFER => true, //Recebe resposta
+                    CURLOPT_ENCODING => "JSON", //Decodificação
+                    CURLOPT_MAXREDIRS => 5,
+                    CURLOPT_TIMEOUT => 30,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "POST", //metodo
+                    CURLOPT_POSTFIELDS => $json, //string com dados à serem postados
+                    CURLOPT_HTTPHEADER => array(
+                        'Content-Type: application/json',
+                        'Content-Length: ' . strlen($json)),
+                ));
+                $result = curl_exec($curl); //recebe o resultado em json
+                $err = curl_error($curl); //recebe o erro da classe ou WS
+                curl_close($curl); //Encerra a biblioteca
+
+                if ($err)
+                {
+                    return $this->render('searchsolution', [
+                        'model' => $model,
+                        'erro' => $err,
+                    ]);  
+                    //Ajeitar esse código acima - criar uma página só para essa mensagem
+
+                } // ELSE pegar o id do caso, criar variável de similaridade, return view do Solução
+                else
+                {
+                    
+                    $data = json_decode($result,true);
+
+                    $idSolucao = $data['solucaoId'];
+                    $similaridadeCalculada = $data['similaridade'];
+
+                    if ($idSolucao == null)
+                    if ( $similaridadeCalculada == 0.0)
+
+                    //Encontra o registro (no banco) do id recebido pelo componente RBC
+                    $modelSolucao = Soluca::find()->where(['id' => $idSolucao])->one();  
+                    // Mostra descricao e solução
+                    return $this->render('view', ['descricao' => $modelDescricao, 'solucao' => $modelSolucao]);
+                }
+            }
+
+*/
+        }
+        else 
+        {
+            return $this->render('search', [
+                'model' => $modelDescricao,
+            ]);        
+        }
+
     }
 }

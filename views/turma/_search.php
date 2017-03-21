@@ -15,6 +15,8 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
+    <?= $form->field($model, 'id_turma') ?>
+
     <?= $form->field($model, 'sigla') ?>
 
     <?= $form->field($model, 'qtde_alunos') ?>
@@ -23,7 +25,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'observacoes') ?>
 
-    <?= $form->field($model, 'aplicativo_movel') ?>
+    <?php // echo $form->field($model, 'aplicativo_movel') ?>
+
+    <?php // echo $form->field($model, 'id_polo') ?>
+
+    <?php // echo $form->field($model, 'id_curso') ?>
+
+    <?php // echo $form->field($model, 'id_tutor') ?>
+
+    <?php // echo $form->field($model, 'id_aplicativo') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

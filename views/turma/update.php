@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Turma */
 
-$this->title = 'Update Turma: ' . $model->sigla;
+$this->title = 'Update Turma: ' . $model->id_turma;
 $this->params['breadcrumbs'][] = ['label' => 'Turmas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->sigla, 'url' => ['view', 'id' => $model->sigla]];
+$this->params['breadcrumbs'][] = ['label' => $model->id_turma, 'url' => ['view', 'id' => $model->id_turma]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="turma-update">

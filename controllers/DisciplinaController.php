@@ -66,7 +66,7 @@ class DisciplinaController extends Controller
         $model = new Disciplina();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_nome]);
+            return $this->redirect(['view', 'id' => $model->id_disciplina]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -85,7 +85,7 @@ class DisciplinaController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_nome]);
+            return $this->redirect(['view', 'id' => $model->id_disciplina]);
         } else {
             return $this->render('update', [
                 'model' => $model,

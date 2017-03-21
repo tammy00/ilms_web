@@ -14,13 +14,21 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'sigla')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'qtde_alunos')->textInput() ?>
+    <?= $form->field($model, 'qtde_alunos')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'outras_caracteristicas')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'observacoes')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'aplicativo_movel')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'id_polo')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'id_curso')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'id_tutor')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'id_aplicativo')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

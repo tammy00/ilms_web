@@ -7,12 +7,16 @@ use Yii;
 /**
  * This is the model class for table "professor".
  *
- * @property string $id_matricula
+ * @property string $id_professor
  * @property string $nome
  * @property string $tipo_bolsa
- * @property string $departamento
+ * @property string $dapartamento
  * @property string $outras_caracteristicas
  * @property string $observacoes
+ * @property string $id_disciplina
+ *
+ * @property Disciplina[] $disciplinas
+ * @property Disciplina $idDisciplina
  */
 class Professor extends \yii\db\ActiveRecord
 {
@@ -30,11 +34,10 @@ class Professor extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_matricula', 'nome', 'tipo_bolsa', 'departamento', 'outras_caracteristicas', 'observacoes'], 'required'],
             [['outras_caracteristicas', 'observacoes'], 'string'],
-            [['id_matricula', 'nome', 'departamento'], 'string', 'max' => 150],
-            [['tipo_bolsa'], 'string', 'max' => 100],
-            [['id_matricula'], 'unique'],
+            [['id_disciplina'], 'integer'],
+            [['nome', 'tipo_bolsa', 'dapartamento'], 'string', 'max' => 250],
+            [['id_disciplina'], 'exist', 'skipOnError' => true, 'targetClass' => Disciplina::className(), 'targetAttribute' => ['id_disciplina' => 'id_disciplina']],
         ];
     }
 
@@ -44,12 +47,29 @@ class Professor extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_matricula' => 'Id Matricula',
+            'id_professor' => 'Id Professor',
             'nome' => 'Nome',
             'tipo_bolsa' => 'Tipo Bolsa',
-            'departamento' => 'Departamento',
+            'dapartamento' => 'Dapartamento',
             'outras_caracteristicas' => 'Outras Caracteristicas',
             'observacoes' => 'Observacoes',
+            'id_disciplina' => 'Id Disciplina',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDisciplinas()
+    {
+        return $this->hasMany(Disciplina::className(), ['id_professor' => 'id_professor']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIdDisciplina()
+    {
+        return $this->hasOne(Disciplina::className(), ['id_disciplina' => 'id_disciplina']);
     }
 }

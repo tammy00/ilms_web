@@ -18,8 +18,8 @@ class CursoSearch extends Curso
     public function rules()
     {
         return [
-            [['id_nome', 'polo_id', 'tipo_curso', 'departamento', 'coordenador', 'outras_caracteristicas', 'observacoes'], 'safe'],
-            [['duracao'], 'integer'],
+            [['id_curso', 'duracao', 'id_polo', 'id_turma', 'id_disciplina'], 'integer'],
+            [['nome', 'tipo_curso', 'departamento', 'coordenador', 'outras_caracteristicas', 'observacoes'], 'safe'],
         ];
     }
 
@@ -59,11 +59,14 @@ class CursoSearch extends Curso
 
         // grid filtering conditions
         $query->andFilterWhere([
+            'id_curso' => $this->id_curso,
             'duracao' => $this->duracao,
+            'id_polo' => $this->id_polo,
+            'id_turma' => $this->id_turma,
+            'id_disciplina' => $this->id_disciplina,
         ]);
 
-        $query->andFilterWhere(['like', 'id_nome', $this->id_nome])
-            ->andFilterWhere(['like', 'polo_id', $this->polo_id])
+        $query->andFilterWhere(['like', 'nome', $this->nome])
             ->andFilterWhere(['like', 'tipo_curso', $this->tipo_curso])
             ->andFilterWhere(['like', 'departamento', $this->departamento])
             ->andFilterWhere(['like', 'coordenador', $this->coordenador])

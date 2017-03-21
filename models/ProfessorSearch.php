@@ -18,7 +18,8 @@ class ProfessorSearch extends Professor
     public function rules()
     {
         return [
-            [['id_matricula', 'nome', 'tipo_bolsa', 'departamento', 'outras_caracteristicas', 'observacoes'], 'safe'],
+            [['id_professor', 'id_disciplina'], 'integer'],
+            [['nome', 'tipo_bolsa', 'dapartamento', 'outras_caracteristicas', 'observacoes'], 'safe'],
         ];
     }
 
@@ -57,10 +58,14 @@ class ProfessorSearch extends Professor
         }
 
         // grid filtering conditions
-        $query->andFilterWhere(['like', 'id_matricula', $this->id_matricula])
-            ->andFilterWhere(['like', 'nome', $this->nome])
+        $query->andFilterWhere([
+            'id_professor' => $this->id_professor,
+            'id_disciplina' => $this->id_disciplina,
+        ]);
+
+        $query->andFilterWhere(['like', 'nome', $this->nome])
             ->andFilterWhere(['like', 'tipo_bolsa', $this->tipo_bolsa])
-            ->andFilterWhere(['like', 'departamento', $this->departamento])
+            ->andFilterWhere(['like', 'dapartamento', $this->dapartamento])
             ->andFilterWhere(['like', 'outras_caracteristicas', $this->outras_caracteristicas])
             ->andFilterWhere(['like', 'observacoes', $this->observacoes]);
 

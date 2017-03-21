@@ -66,7 +66,7 @@ class TurmaController extends Controller
         $model = new Turma();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->sigla]);
+            return $this->redirect(['view', 'id' => $model->id_turma]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -85,7 +85,7 @@ class TurmaController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->sigla]);
+            return $this->redirect(['view', 'id' => $model->id_turma]);
         } else {
             return $this->render('update', [
                 'model' => $model,

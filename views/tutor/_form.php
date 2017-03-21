@@ -12,8 +12,6 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_matricula')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'tipo_tutoria')->textInput(['maxlength' => true]) ?>
@@ -24,7 +22,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'observacoes')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'polo_id')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'id_turma')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

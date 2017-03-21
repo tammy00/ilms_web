@@ -7,8 +7,7 @@ use Yii;
 /**
  * This is the model class for table "solucao".
  *
- * @property integer $id
- * @property string $diagnostico
+ * @property string $id_solucao
  * @property string $solucao
  * @property string $palavras_chaves
  * @property string $acao_implementada
@@ -17,6 +16,9 @@ use Yii;
  * @property string $custos
  * @property string $impacto_pedagogico
  * @property string $atores_envolvidos
+ * @property string $id_infoc
+ *
+ * @property InfoCaso $idInfoc
  */
 class Solucao extends \yii\db\ActiveRecord
 {
@@ -34,14 +36,11 @@ class Solucao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
-            [['id'], 'integer'],
-            [['diagnostico', 'custos', 'impacto_pedagogico'], 'string', 'max' => 400],
-            [['solucao'], 'string', 'max' => 1000],
-            [['palavras_chaves', 'atores_envolvidos'], 'string', 'max' => 255],
-            [['acao_implementada'], 'string', 'max' => 5000],
-            [['solucao_implementada'], 'string', 'max' => 10],
-            [['efetividade_acao_implementada'], 'string', 'max' => 500],
+            [['solucao', 'acao_implementada', 'solucao_implementada', 'efetividade_acao_implementada', 'impacto_pedagogico'], 'string'],
+            [['id_infoc'], 'integer'],
+            [['palavras_chaves', 'atores_envolvidos'], 'string', 'max' => 250],
+            [['custos'], 'string', 'max' => 50],
+            [['id_infoc'], 'exist', 'skipOnError' => true, 'targetClass' => InfoCaso::className(), 'targetAttribute' => ['id_infoc' => 'id_infoc']],
         ];
     }
 
@@ -51,16 +50,24 @@ class Solucao extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'diagnostico' => 'Diagnóstico',
-            'solucao' => 'Solução',
-            'palavras_chaves' => 'Palavras-Chaves',
-            'acao_implementada' => 'Ação Implementada',
-            'solucao_implementada' => 'Solução Implementada',
-            'efetividade_acao_implementada' => 'Efetividade da Ação Implementada',
+            'id_solucao' => 'Id Solucao',
+            'solucao' => 'Solucao',
+            'palavras_chaves' => 'Palavras Chaves',
+            'acao_implementada' => 'Acao Implementada',
+            'solucao_implementada' => 'Solucao Implementada',
+            'efetividade_acao_implementada' => 'Efetividade Acao Implementada',
             'custos' => 'Custos',
-            'impacto_pedagogico' => 'Impacto Pedagógico',
+            'impacto_pedagogico' => 'Impacto Pedagogico',
             'atores_envolvidos' => 'Atores Envolvidos',
+            'id_infoc' => 'Id Infoc',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIdInfoc()
+    {
+        return $this->hasOne(InfoCaso::className(), ['id_infoc' => 'id_infoc']);
     }
 }

@@ -46,15 +46,13 @@ class ProfessorController extends Controller
 
     /**
      * Displays a single Professor model.
-     * @param string $nome
-     * @param string $tipo_bolsa
-     * @param string $departamento
+     * @param string $id
      * @return mixed
      */
-    public function actionView($nome, $tipo_bolsa, $departamento)
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($nome, $tipo_bolsa, $departamento),
+            'model' => $this->findModel($id),
         ]);
     }
 
@@ -68,7 +66,7 @@ class ProfessorController extends Controller
         $model = new Professor();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'nome' => $model->nome, 'tipo_bolsa' => $model->tipo_bolsa, 'departamento' => $model->departamento]);
+            return $this->redirect(['view', 'id' => $model->id_professor]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -79,17 +77,15 @@ class ProfessorController extends Controller
     /**
      * Updates an existing Professor model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $nome
-     * @param string $tipo_bolsa
-     * @param string $departamento
+     * @param string $id
      * @return mixed
      */
-    public function actionUpdate($nome, $tipo_bolsa, $departamento)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($nome, $tipo_bolsa, $departamento);
+        $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'nome' => $model->nome, 'tipo_bolsa' => $model->tipo_bolsa, 'departamento' => $model->departamento]);
+            return $this->redirect(['view', 'id' => $model->id_professor]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -100,14 +96,12 @@ class ProfessorController extends Controller
     /**
      * Deletes an existing Professor model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $nome
-     * @param string $tipo_bolsa
-     * @param string $departamento
+     * @param string $id
      * @return mixed
      */
-    public function actionDelete($nome, $tipo_bolsa, $departamento)
+    public function actionDelete($id)
     {
-        $this->findModel($nome, $tipo_bolsa, $departamento)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
@@ -115,15 +109,13 @@ class ProfessorController extends Controller
     /**
      * Finds the Professor model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $nome
-     * @param string $tipo_bolsa
-     * @param string $departamento
+     * @param string $id
      * @return Professor the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($nome, $tipo_bolsa, $departamento)
+    protected function findModel($id)
     {
-        if (($model = Professor::findOne(['nome' => $nome, 'tipo_bolsa' => $tipo_bolsa, 'departamento' => $departamento])) !== null) {
+        if (($model = Professor::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

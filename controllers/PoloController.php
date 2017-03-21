@@ -46,18 +46,13 @@ class PoloController extends Controller
 
     /**
      * Displays a single Polo model.
-     * @param string $coordenador
-     * @param string $tipo_conexao
-     * @param string $infra_laboratorio
-     * @param string $infra_fisica
-     * @param string $infra_cidade
-     * @param string $acesso
+     * @param string $id
      * @return mixed
      */
-    public function actionView($coordenador, $tipo_conexao, $infra_laboratorio, $infra_fisica, $infra_cidade, $acesso)
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($coordenador, $tipo_conexao, $infra_laboratorio, $infra_fisica, $infra_cidade, $acesso),
+            'model' => $this->findModel($id),
         ]);
     }
 
@@ -71,7 +66,7 @@ class PoloController extends Controller
         $model = new Polo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'coordenador' => $model->coordenador, 'tipo_conexao' => $model->tipo_conexao, 'infra_laboratorio' => $model->infra_laboratorio, 'infra_fisica' => $model->infra_fisica, 'infra_cidade' => $model->infra_cidade, 'acesso' => $model->acesso]);
+            return $this->redirect(['view', 'id' => $model->id_polo]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -82,20 +77,15 @@ class PoloController extends Controller
     /**
      * Updates an existing Polo model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $coordenador
-     * @param string $tipo_conexao
-     * @param string $infra_laboratorio
-     * @param string $infra_fisica
-     * @param string $infra_cidade
-     * @param string $acesso
+     * @param string $id
      * @return mixed
      */
-    public function actionUpdate($coordenador, $tipo_conexao, $infra_laboratorio, $infra_fisica, $infra_cidade, $acesso)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($coordenador, $tipo_conexao, $infra_laboratorio, $infra_fisica, $infra_cidade, $acesso);
+        $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'coordenador' => $model->coordenador, 'tipo_conexao' => $model->tipo_conexao, 'infra_laboratorio' => $model->infra_laboratorio, 'infra_fisica' => $model->infra_fisica, 'infra_cidade' => $model->infra_cidade, 'acesso' => $model->acesso]);
+            return $this->redirect(['view', 'id' => $model->id_polo]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -106,17 +96,12 @@ class PoloController extends Controller
     /**
      * Deletes an existing Polo model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $coordenador
-     * @param string $tipo_conexao
-     * @param string $infra_laboratorio
-     * @param string $infra_fisica
-     * @param string $infra_cidade
-     * @param string $acesso
+     * @param string $id
      * @return mixed
      */
-    public function actionDelete($coordenador, $tipo_conexao, $infra_laboratorio, $infra_fisica, $infra_cidade, $acesso)
+    public function actionDelete($id)
     {
-        $this->findModel($coordenador, $tipo_conexao, $infra_laboratorio, $infra_fisica, $infra_cidade, $acesso)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
@@ -124,18 +109,13 @@ class PoloController extends Controller
     /**
      * Finds the Polo model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $coordenador
-     * @param string $tipo_conexao
-     * @param string $infra_laboratorio
-     * @param string $infra_fisica
-     * @param string $infra_cidade
-     * @param string $acesso
+     * @param string $id
      * @return Polo the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($coordenador, $tipo_conexao, $infra_laboratorio, $infra_fisica, $infra_cidade, $acesso)
+    protected function findModel($id)
     {
-        if (($model = Polo::findOne(['coordenador' => $coordenador, 'tipo_conexao' => $tipo_conexao, 'infra_laboratorio' => $infra_laboratorio, 'infra_fisica' => $infra_fisica, 'infra_cidade' => $infra_cidade, 'acesso' => $acesso])) !== null) {
+        if (($model = Polo::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

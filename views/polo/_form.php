@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_nome')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'coordenador')->textInput(['maxlength' => true]) ?>
 
@@ -27,6 +27,12 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'acesso')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'outras_caracteristicas')->textarea(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'id_descricao')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'id_turma')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'id_curso')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

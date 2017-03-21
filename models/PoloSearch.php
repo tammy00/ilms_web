@@ -18,7 +18,8 @@ class PoloSearch extends Polo
     public function rules()
     {
         return [
-            [['id_nome', 'coordenador', 'tipo_conexao', 'infra_laboratorio', 'infra_fisica', 'infra_cidade', 'acesso', 'outras_caracteristicas'], 'safe'],
+            [['id_polo', 'id_descricao', 'id_turma', 'id_curso'], 'integer'],
+            [['nome', 'coordenador', 'tipo_conexao', 'infra_laboratorio', 'infra_fisica', 'infra_cidade', 'acesso', 'outras_caracteristicas'], 'safe'],
         ];
     }
 
@@ -57,7 +58,14 @@ class PoloSearch extends Polo
         }
 
         // grid filtering conditions
-        $query->andFilterWhere(['like', 'id_nome', $this->id_nome])
+        $query->andFilterWhere([
+            'id_polo' => $this->id_polo,
+            'id_descricao' => $this->id_descricao,
+            'id_turma' => $this->id_turma,
+            'id_curso' => $this->id_curso,
+        ]);
+
+        $query->andFilterWhere(['like', 'nome', $this->nome])
             ->andFilterWhere(['like', 'coordenador', $this->coordenador])
             ->andFilterWhere(['like', 'tipo_conexao', $this->tipo_conexao])
             ->andFilterWhere(['like', 'infra_laboratorio', $this->infra_laboratorio])

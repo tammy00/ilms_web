@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Professor */
 
-$this->title = $model->nome;
+$this->title = $model->id_professor;
 $this->params['breadcrumbs'][] = ['label' => 'Professors', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'nome' => $model->nome, 'tipo_bolsa' => $model->tipo_bolsa, 'departamento' => $model->departamento], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'nome' => $model->nome, 'tipo_bolsa' => $model->tipo_bolsa, 'departamento' => $model->departamento], [
+        <?= Html::a('Update', ['update', 'id' => $model->id_professor], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->id_professor], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -28,12 +28,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id_matricula',
+            'id_professor',
             'nome',
             'tipo_bolsa',
-            'departamento',
+            'dapartamento',
             'outras_caracteristicas:ntext',
             'observacoes:ntext',
+            'id_disciplina',
         ],
     ]) ?>
 

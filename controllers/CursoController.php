@@ -46,17 +46,13 @@ class CursoController extends Controller
 
     /**
      * Displays a single Curso model.
-     * @param string $polo_id
-     * @param string $tipo_curso
-     * @param integer $duracao
-     * @param string $departamento
-     * @param string $coordenador
+     * @param string $id
      * @return mixed
      */
-    public function actionView($polo_id, $tipo_curso, $duracao, $departamento, $coordenador)
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($polo_id, $tipo_curso, $duracao, $departamento, $coordenador),
+            'model' => $this->findModel($id),
         ]);
     }
 
@@ -70,7 +66,7 @@ class CursoController extends Controller
         $model = new Curso();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'polo_id' => $model->polo_id, 'tipo_curso' => $model->tipo_curso, 'duracao' => $model->duracao, 'departamento' => $model->departamento, 'coordenador' => $model->coordenador]);
+            return $this->redirect(['view', 'id' => $model->id_curso]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -81,19 +77,15 @@ class CursoController extends Controller
     /**
      * Updates an existing Curso model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $polo_id
-     * @param string $tipo_curso
-     * @param integer $duracao
-     * @param string $departamento
-     * @param string $coordenador
+     * @param string $id
      * @return mixed
      */
-    public function actionUpdate($polo_id, $tipo_curso, $duracao, $departamento, $coordenador)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($polo_id, $tipo_curso, $duracao, $departamento, $coordenador);
+        $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'polo_id' => $model->polo_id, 'tipo_curso' => $model->tipo_curso, 'duracao' => $model->duracao, 'departamento' => $model->departamento, 'coordenador' => $model->coordenador]);
+            return $this->redirect(['view', 'id' => $model->id_curso]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -104,16 +96,12 @@ class CursoController extends Controller
     /**
      * Deletes an existing Curso model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $polo_id
-     * @param string $tipo_curso
-     * @param integer $duracao
-     * @param string $departamento
-     * @param string $coordenador
+     * @param string $id
      * @return mixed
      */
-    public function actionDelete($polo_id, $tipo_curso, $duracao, $departamento, $coordenador)
+    public function actionDelete($id)
     {
-        $this->findModel($polo_id, $tipo_curso, $duracao, $departamento, $coordenador)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
@@ -121,17 +109,13 @@ class CursoController extends Controller
     /**
      * Finds the Curso model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $polo_id
-     * @param string $tipo_curso
-     * @param integer $duracao
-     * @param string $departamento
-     * @param string $coordenador
+     * @param string $id
      * @return Curso the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($polo_id, $tipo_curso, $duracao, $departamento, $coordenador)
+    protected function findModel($id)
     {
-        if (($model = Curso::findOne(['polo_id' => $polo_id, 'tipo_curso' => $tipo_curso, 'duracao' => $duracao, 'departamento' => $departamento, 'coordenador' => $coordenador])) !== null) {
+        if (($model = Curso::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

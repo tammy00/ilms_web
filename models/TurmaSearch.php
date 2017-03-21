@@ -18,8 +18,8 @@ class TurmaSearch extends Turma
     public function rules()
     {
         return [
+            [['id_turma', 'qtde_alunos', 'id_polo', 'id_curso', 'id_tutor', 'id_aplicativo'], 'integer'],
             [['sigla', 'outras_caracteristicas', 'observacoes', 'aplicativo_movel'], 'safe'],
-            [['qtde_alunos'], 'integer'],
         ];
     }
 
@@ -59,7 +59,12 @@ class TurmaSearch extends Turma
 
         // grid filtering conditions
         $query->andFilterWhere([
+            'id_turma' => $this->id_turma,
             'qtde_alunos' => $this->qtde_alunos,
+            'id_polo' => $this->id_polo,
+            'id_curso' => $this->id_curso,
+            'id_tutor' => $this->id_tutor,
+            'id_aplicativo' => $this->id_aplicativo,
         ]);
 
         $query->andFilterWhere(['like', 'sigla', $this->sigla])

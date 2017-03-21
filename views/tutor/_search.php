@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id_matricula') ?>
+    <?= $form->field($model, 'id_tutor') ?>
 
     <?= $form->field($model, 'nome') ?>
 
@@ -27,7 +27,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'observacoes') ?>
 
-    <?php // echo $form->field($model, 'polo_id') ?>
+    <?php // echo $form->field($model, 'id_turma') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

@@ -24,12 +24,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id_matricula',
+            'id_professor',
             'nome',
             'tipo_bolsa',
-            'departamento',
+            'dapartamento',
             'outras_caracteristicas:ntext',
             // 'observacoes:ntext',
+            // 'id_disciplina',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
