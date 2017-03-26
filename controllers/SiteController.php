@@ -10,6 +10,9 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Descricao;
 use app\models\Solucao;
+use app\models\PoloSearch;
+use app\models\RelatorSearch;
+use yii\helpers\ArrayHelper;
 
 class SiteController extends Controller
 {
@@ -131,17 +134,23 @@ class SiteController extends Controller
 
         if ( $modelDescricao->load(Yii::$app->request->post()) ) // Se houve request-post
         {
-            if ( )  // Verificação: se é para o rbc
+            //return $this->render('doom', ['message' => $modelDescricao->natureza_problema]);
+        /*
+            if ($modelDescricao->natureza_problema == 'Acadêmico')  // Verificação: se é para o rbc
             {
                 // Enviar json pelo CURL
                 //Cria a array com os dados recebido, sendo q o ID é gerado pelo WS
-                /*
+
+                
+                $perfil = Relator::find()->where(['id_relator' => $modelDescricao->relator])->one();
+                
                 $postArray = array(
-                    "tema" => $modelDescricao->,
-                    "topico" => $modelDescricao->,
-                    "descricaoProblema" => $modelDescricao->descricao,
-                    "naturezaProblema" => $modelDescricao->natureza,
-                    "estiloDeAprendizagem" => $modelDescricao->,
+                    "poloId" => $modelDescricao->id_polo,
+                    "relatorId" => $perfil->perfil,
+                    "descricaoProblema" => $modelDescricao->descricao_problema,
+                    "problema" => $modelDescricao->problema_detalhado,
+                    "naturezaProblema" => $modelDescricao->natureza_problema,
+                    "palavrasChavesProblema" => $modelDescricao->palavras_chaves,
                 );
 
                 // Converte os dados para o formato jSon
@@ -154,7 +163,7 @@ class SiteController extends Controller
                     CURLOPT_URL => "http://localhost:8080/ServerRBC/ServerRBC/casos/caso", //Caminho do WS que vai receber o POST
                     CURLOPT_RETURNTRANSFER => true, //Recebe resposta
                     CURLOPT_ENCODING => "JSON", //Decodificação
-                    CURLOPT_MAXREDIRS => 5,
+                    CURLOPT_MAXREDIRS => 6,
                     CURLOPT_TIMEOUT => 30,
                     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                     CURLOPT_CUSTOMREQUEST => "POST", //metodo
@@ -169,11 +178,7 @@ class SiteController extends Controller
 
                 if ($err)
                 {
-                    return $this->render('searchsolution', [
-                        'model' => $model,
-                        'erro' => $err,
-                    ]);  
-                    //Ajeitar esse código acima - criar uma página só para essa mensagem
+                    return $this->render('doom', 'message' => 'Problema ao conectar com o servidor.');
 
                 } // ELSE pegar o id do caso, criar variável de similaridade, return view do Solução
                 else
@@ -184,24 +189,64 @@ class SiteController extends Controller
                     $idSolucao = $data['solucaoId'];
                     $similaridadeCalculada = $data['similaridade'];
 
-                    if ($idSolucao == null)
-                    if ( $similaridadeCalculada == 0.0)
+                    if ($idSolucao == null)  return $this->render('doom', 'message' => 'Registro da solução não encontrada.');
+                    if ( $similaridadeCalculada == 0.0) return $this->render('doom', ['message' => 'Não há caso similar ao apresentado.']);
 
                     //Encontra o registro (no banco) do id recebido pelo componente RBC
                     $modelSolucao = Soluca::find()->where(['id' => $idSolucao])->one();  
-                    // Mostra descricao e solução
-                    return $this->render('view', ['descricao' => $modelDescricao, 'solucao' => $modelSolucao]);
-                }
-            }
 
-*/
+                    
+
+                    // Salva a pesquisa
+                    $nova_pesquisa = new Pesquisas();
+                    $nova_pesquisa->id_solucao = $modelSolucao->id_solucao;
+                    $nova_pesquisa->id_polo = $modelDescricao->id_polo;
+                    $nova_pesquisa->id_usuario = 1;  // Só para efeito de teste MUDAR ESSE TRECHO QUANDO ADD CLASSE DE USUÁRIOS
+                    $nova_pesquisa->status = 0;  // 0 = criado, não salvo como novo caso
+                    $nova_pesquisa->relator = $perfil->perfil;  // ID do relator não é salvo nessa tabela
+                    $nova_pesquisa->natureza_problema = $modelDescricao->natureza_problema;
+                    $nova_pesquisa->descricao_problema = $modelDescricao->descricao_problema;
+                    $nova_pesquisa->problema_detalhado = $modelDescricao->problema_detalhado;
+                    $nova_pesquisa->palavras_chaves = $modelDescricao->palavras_chaves;
+
+                    if ($nova_pesquisa->save() )  // Se salvar a pesquisa
+                    {
+                        // Mostra descricao e solução
+                        return $this->render('view', ['descricao' => $modelDescricao, 'solucao' => $modelSolucao, 'id' => $nova_pesquisa->id_pesquisa]);
+                    }
+                    else return $this->render('doom', ['message' => 'A busca realizada não pode ser registrada no banco de dados.']);  // Se não salvar a pesquisa
+                }
+            } */
+            /*
+            if ( ) // Para moodle
+            {
+                //
+            }
+            if ( ) // Para experts
+            {
+                //
+            }  */
+
+            //else return $this->render('doom', ['message' => 'Você deve especificar a natureza do problema.']);
+            //else return $this->render('doom', ['message' => $modelDescricao->natureza_problema]);
+
+
         }
         else 
         {
+        	$arrayRelatores = ArrayHelper::map(RelatorSearch::find()->all(), 'id_relator', 'perfil');
+        	$arrayPolos = ArrayHelper::map(PoloSearch::find()->all(), 'id_polo', 'nome');
+
             return $this->render('search', [
                 'model' => $modelDescricao,
+                'arrayRelatores' => $arrayRelatores,
+                'arrayPolos' => $arrayPolos,
             ]);        
         }
+    }
 
+    public function actionDoom($texto)
+    {
+        return $this->render('doom', ['message' => $texto]);
     }
 }

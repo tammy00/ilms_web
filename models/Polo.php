@@ -45,8 +45,8 @@ class Polo extends \yii\db\ActiveRecord
         return [
             [['outras_caracteristicas'], 'string'],
             [['id_descricao', 'id_turma', 'id_curso'], 'integer'],
-            [['nome', 'coordenador', 'tipo_conexao', 'infra_laboratorio', 'infra_fisica', 'infra_cidade', 'acesso'], 'string', 'max' => 250],
-            [['id_curso'], 'exist', 'skipOnError' => true, 'targetClass' => Curso::className(), 'targetAttribute' => ['id_curso' => 'id_curso']],
+            [['nome', 'coordenador', 'tipo_conexao', 'infra_laboratorio', 'infra_fisica', 'infra_cidade', 'acesso'], 'string', 'max' => 250],  
+            [['id_curso'], 'exist', 'skipOnError' => true, 'targetClass' => Curso::className(), 'targetAttribute' => ['id_curso' => 'id_curso']],  
             [['id_descricao'], 'exist', 'skipOnError' => true, 'targetClass' => Descricao::className(), 'targetAttribute' => ['id_descricao' => 'id_descricao']],
             [['id_turma'], 'exist', 'skipOnError' => true, 'targetClass' => Turma::className(), 'targetAttribute' => ['id_turma' => 'id_turma']],
         ];

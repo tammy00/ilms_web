@@ -31,8 +31,8 @@ class Relator extends \yii\db\ActiveRecord
     {
         return [
             [['id_infoc'], 'integer'],
-            [['perfil'], 'string', 'max' => 250],
-            [['id_infoc'], 'exist', 'skipOnError' => true, 'targetClass' => InfoCaso::className(), 'targetAttribute' => ['id_infoc' => 'id_infoc']],
+            [['perfil'], 'string', 'max' => 250],  /*
+            [['id_infoc'], 'exist', 'skipOnError' => true, 'targetClass' => InfoCaso::className(), 'targetAttribute' => ['id_infoc' => 'id_infoc']],  */
         ];
     }
 

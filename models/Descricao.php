@@ -40,8 +40,8 @@ class Descricao extends \yii\db\ActiveRecord
             [['natureza_problema', 'descricao_problema', 'problema_detalhado'], 'string'],
             [['id_infoc', 'id_polo'], 'integer'],
             [['relator'], 'string', 'max' => 250],
-            [['palavras_chaves'], 'string', 'max' => 400],
-            [['id_infoc'], 'exist', 'skipOnError' => true, 'targetClass' => InfoCaso::className(), 'targetAttribute' => ['id_infoc' => 'id_infoc']],
+            [['palavras_chaves'], 'string', 'max' => 400],/*
+            [['id_infoc'], 'exist', 'skipOnError' => true, 'targetClass' => InfoCaso::className(), 'targetAttribute' => ['id_infoc' => 'id_infoc']],   */
             [['id_polo'], 'exist', 'skipOnError' => true, 'targetClass' => Polo::className(), 'targetAttribute' => ['id_polo' => 'id_polo']],
         ];
     }
