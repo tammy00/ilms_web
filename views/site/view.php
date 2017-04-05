@@ -5,7 +5,7 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Descricao */
-
+$this->title = 'Solução encontrada'
 
 ?>
 <div class="descricao-view">
@@ -14,7 +14,7 @@ use yii\widgets\DetailView;
 
 
     <?= DetailView::widget([
-        'model' => $modelDescricao,
+        'model' => $model,
         'attributes' => [
             'natureza_problema:ntext',
             'relator',
@@ -26,7 +26,7 @@ use yii\widgets\DetailView;
     ]) ?>
 
     <?= DetailView::widget([
-        'model' => $modelSolucao,
+        'model' => $sol,
         'attributes' => [
             'solucao:ntext',
             'palavras_chaves',
@@ -43,11 +43,11 @@ use yii\widgets\DetailView;
 
     <b>A solução recomendada ajudou na sua dúvida?</b>
 
-          <?php $url = '?r=pesquisas/newcase&id='.$id; 
-        ?>
+          <?php $url = '?r=pesquisas/newcase&id='.$model->id_pesquisa; ?>
+          
         <a href='<?php echo $url ?>' class="btn btn-primary">Sim</a>
 
-        <?php $link = '?r=pesquisas/update&id='.$id;  ?>
+        <?php $link = '?r=pesquisas/update&id='.$model->id_pesquisa;  ?>
 
         <a href='<?php echo $link ?>' class="btn btn-default">Não</a>
 

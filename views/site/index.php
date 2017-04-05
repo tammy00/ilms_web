@@ -16,13 +16,19 @@ $this->title = 'iLMS Framework';
         <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
     </div>
 
-    <?php if (Yii::$app->session->hasFlash('newcasesaved')): ?>
+    <?php if (Yii::$app->session->hasFlash('newcasesaved')) { ?>
 
         <div class="alert alert-success">
             Um novo caso foi salvo na base de dados.
         </div>
-        <p><a class="btn btn-default" href="?r=site/search">Fazer uma nova busca &raquo;</a></p>
-    <?php else: ?>
+        <p><a class="btn btn-default" href="?r=site/search">Fazer busca &raquo;</a></p>
+    <?php } if (Yii::$app->session->hasFlash('casesaved')) { ?>
+
+        <div class="alert alert-success">
+            Não sei que alerta colocar aqui.
+        </div>
+        <p><a class="btn btn-default" href="?r=site/search">Fazer busca &raquo;</a></p>
+    <?php } else { ?>
 
         <div class="body-content">
 
@@ -40,5 +46,5 @@ $this->title = 'iLMS Framework';
             </div>
 
         </div>
-    <?php endif; ?>
+    <?php } ?>
 </div>

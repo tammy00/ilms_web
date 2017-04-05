@@ -88,7 +88,10 @@ class PesquisasController extends Controller
 
         $model->status = 1; // Foi decidido que não vira um novo caso
 
-        return $this->render(['site/index']);
+        $model->save();
+
+        Yii::$app->session->setFlash('casesaved');
+        return Yii::$app->runAction('site/index');
     }
 
 
@@ -132,13 +135,13 @@ class PesquisasController extends Controller
                 if ( $novo->save() ) // Se o info_caso foi salvo
                 {
                     Yii::$app->session->setFlash('newcasesaved');
-                    return $this->render(['site/index']);
+                    return Yii::$app->runAction('site/index');
                 }
-                else return $this->render(['site/doom', 'message' => 'InfoCaso do caso novo não foi salvo.']);
+                else return Yii::$app->runAction('site/index', ['message' => 'InfoCaso do caso novo não foi salvo.']);
             }
-            else return $this->render(['site/doom', 'message' => 'Solução do caso novo não foi salvo.']);
+            else return Yii::$app->runAction('site/index', ['message' => 'Solução do caso novo não foi salvo.']);
         }
-        else return $this->render(['site/doom', 'message' => 'Descrição do caso novo não foi salvo.']);
+        else return Yii::$app->runAction('site/index', ['message' => 'Descrição do caso novo não foi salvo.']);
     }
 
     /**
