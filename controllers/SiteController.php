@@ -75,6 +75,9 @@ class SiteController extends Controller
         $model = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
         $sol = Solucao::find()->where(['id_solucao' => $model->id_solucao])->one();
 
+        $polo = Polo::find()->where(['id_polo' => $model->id_polo])->one();
+        $model->id_polo = $polo->nome;
+
         return $this->render('view', [
             'model' => $model,
             'sol' => $sol,
@@ -220,13 +223,14 @@ class SiteController extends Controller
                     $nova_pesquisa->descricao_problema = $modelDescricao->descricao_problema;
                     $nova_pesquisa->problema_detalhado = $modelDescricao->problema_detalhado;
                     $nova_pesquisa->palavras_chaves = $modelDescricao->palavras_chaves;
+                    $nova_pesquisa->similaridade = $similaridadeCalculada;
 
                     if ($nova_pesquisa->save() )  // Se salvar a pesquisa
                     {
                         // Mostra descricao e solução
                         return $this->actionView ($nova_pesquisa->id_pesquisa);
                     }
-                    else return $this->render('doom', ['message' => 'A busca realizada não pode ser registrada no banco de dados.']);  // Se não salvar a pesquisa
+                    else return $this->render('doom', ['message' => 'A busca realizada não pode ser registrada. Retorne à página anterior e tente novamente.']);  // Se não salvar a pesquisa
                 }   
             }  
             /*
@@ -241,8 +245,6 @@ class SiteController extends Controller
 
             else return $this->render('doom', ['message' => 'Você deve especificar a natureza do problema.']);
             //else return $this->render('doom', ['message' => $modelDescricao->natureza_problema]);
-
-
         }
         else 
         {

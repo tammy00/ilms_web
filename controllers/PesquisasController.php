@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Descricao;
+use app\models\Relator;
+use app\models\Polo;
 use app\models\Solucao;
 use app\models\InfoCaso;
 /**
@@ -118,7 +120,7 @@ class PesquisasController extends Controller
             $nova_solucao->efetividade_acao_implementada = $solucao->efetividade_acao_implementada;
             $nova_solucao->custos = $solucao->custos;
             $nova_solucao->impacto_pedagogico = $solucao->impacto_pedagogico;
-            $nova_solucao->atores_involvidos = $solucao->atores_involvidos;
+            $nova_solucao->atores_envolvidos = $solucao->atores_envolvidos;
 
             if ( $nova_solucao->save() )  // Se salvar a solução do novo caso
             {
@@ -134,6 +136,8 @@ class PesquisasController extends Controller
 
                 if ( $novo->save() ) // Se o info_caso foi salvo
                 {
+                    $model->status = 2;  // É um caso novo na base - só para diferenciar na tabela pesquisas
+                    $model->save();
                     Yii::$app->session->setFlash('newcasesaved');
                     return Yii::$app->runAction('site/index');
                 }

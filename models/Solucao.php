@@ -50,14 +50,14 @@ class Solucao extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_solucao' => 'Id Solucao',
-            'solucao' => 'Solucao',
-            'palavras_chaves' => 'Palavras Chaves',
-            'acao_implementada' => 'Acao Implementada',
-            'solucao_implementada' => 'Solucao Implementada',
-            'efetividade_acao_implementada' => 'Efetividade Acao Implementada',
+            'id_solucao' => 'Id Solução',
+            'solucao' => 'Solução',
+            'palavras_chaves' => 'Palavras-chaves',
+            'acao_implementada' => 'Ação Implementada',
+            'solucao_implementada' => 'Solução Implementada',
+            'efetividade_acao_implementada' => 'Efetividade da Ação Implementada',
             'custos' => 'Custos',
-            'impacto_pedagogico' => 'Impacto Pedagogico',
+            'impacto_pedagogico' => 'Impacto Pedagógico',
             'atores_envolvidos' => 'Atores Envolvidos',
             'id_infoc' => 'Id Infoc',
         ];

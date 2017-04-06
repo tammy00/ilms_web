@@ -34,6 +34,7 @@ class Pesquisas extends \yii\db\ActiveRecord
     {
         return [
             [['id_solucao', 'id_usuario', 'id_polo', 'status'], 'integer'],
+            [['similaridade'], 'number'],
             [['natureza_problema', 'descricao_problema', 'problema_detalhado'], 'string'],
             [['relator'], 'string', 'max' => 250],
             [['palavras_chaves'], 'string', 'max' => 400],
@@ -51,11 +52,12 @@ class Pesquisas extends \yii\db\ActiveRecord
             'id_usuario' => 'Id Usuario',
             'id_polo' => 'Id Polo',
             'relator' => 'Relator',
-            'natureza_problema' => 'Natureza Problema',
-            'descricao_problema' => 'Descricao Problema',
+            'natureza_problema' => 'Natureza do Problema',
+            'descricao_problema' => 'Descrição do Problema',
             'problema_detalhado' => 'Problema Detalhado',
-            'palavras_chaves' => 'Palavras Chaves',
+            'palavras_chaves' => 'Palavras-chaves',
             'status' => 'Status',
+            'similaridade' => 'Similaridade',
         ];
     }
 }
