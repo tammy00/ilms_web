@@ -13,6 +13,7 @@ use app\models\Pesquisas;
 use app\models\Relator;
 use app\models\Solucao;
 use app\models\PoloSearch;
+use app\models\Polo;
 use app\models\RelatorSearch;
 use yii\helpers\ArrayHelper;
 
