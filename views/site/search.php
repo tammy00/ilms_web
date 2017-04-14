@@ -10,23 +10,30 @@ use yii\widgets\ActiveForm;
 $this->title = 'Busca de solução';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript"> 
-    function toggleRBC(chkbox, div_rbc) { 
-        var visSetting = (chkbox.checked) ? "visible" : "hidden"; 
-        document.getElementById(div_rbc).style.visibility = visSetting; 
-    } 
 
-    function OnChangeCheckboxRBC (checkbox) {
-         if (checkbox.checked) {
-            $("#busca_rbc").prop("style", "display: block");
-                //alert ("The check box is checked.");
-        }
-        else {
-            $("#busca_rbc").prop("style", "display: none");
-                //alert ("The check box is not checked.");
-        }
-    }
+  $(document).ready(function () {
+    $("input[type=radio]").click(function () {
+      var value = $(this).val();
+      if (value == 'Acadêmica') {
+        $("#rbc_box").show();
+        $("#moodle_box").hide();
+        $("#experts_box").hide();
+      } 
+      if (value == 'Pedagógica') {
+        $("#rbc_box").hide();
+        $("#moodle_box").show();
+        $("#experts_box").hide();
+      } 
+      else if (value == 'Infraestrutura') 
+      {
+        $("#rbc_box").hide();
+        $("#moodle_box").hide();
+        $("#experts_box").show();
+      }
+    });
+  });
 
 </script> 
 
@@ -34,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <!--<div class="row">  -->
       <div class="col-xs-6 col-md-10"> <!-- class="col-lg-5" -->
+      <br>
         <?php $form = ActiveForm::begin(); ?>
 
           <?= $form->field($model, 'natureza_problema')->radioList(['Infraestrutura' => 'Infraestrutura', 'Pedagógica' => 'Pedagógica', 'Acadêmica' => 'Acadêmica'],
@@ -44,15 +52,10 @@ $this->params['breadcrumbs'][] = $this->title;
                $return .= '</label>';
                return $return;
              },
-               //'onclick' => "alert('test')"
            ]
-         )->label(false); ?>
+         )->label('Selecione a natureza do problema:');   ?>
 
-          <input type="checkbox" id="checkForMoreInfo" onclick="OnChangeCheckboxRBC(this)" >
-          <!-- <input type="checkbox" id="checkForMoreInfo" onclick="toggle(this, 'adicionais')" >  -->
-          <label for="checkForMoreInfo">Adicionar mais informações</label>
-
-          <div id="busca_rbc" style="display: none">
+          <div id="rbc_box" style="display: none">
                 <?= $form->field($model, 'relator')->dropDownList([$arrayRelatores],['style' => 'width:500px',
                                                       'prompt' => "Selecione um relator",]); ?>  
 
@@ -64,6 +67,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'id_polo')->dropDownList([$arrayPolos],['style' => 'width:500px',
                                                       'prompt' => "Selecione um polo",]); ?>  
+          </div>
+
+          <div id="moodle_box" style="display: none"> 
+                Conteudo para a box de moodle
+                <br><br>
+          </div>
+
+          <div id="experts_box" style="display: none">  
+                Conteudo para a box de experts
+                <br><br>
           </div>
 
           <div class="form-group">

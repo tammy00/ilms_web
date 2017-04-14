@@ -234,15 +234,15 @@ class SiteController extends Controller
                     else return $this->render('doom', ['message' => 'A busca realizada não pode ser registrada. Retorne à página anterior e tente novamente.']);  // Se não salvar a pesquisa
                 }   
             }  
-            /*
-            if ( ) // Para moodle
+            
+            if ( $modelDescricao->natureza_problema === 'Pedagógica') // Para moodle
             {
-                //
+                return $this->render('doom', ['message' => 'Pedagógica.']);
             }
-            if ( ) // Para experts
+            if ( $modelDescricao->natureza_problema === 'Infraestrutura' ) // Para experts
             {
-                //
-            }  */
+                return $this->render('doom', ['message' => 'Infraestrutura.']);
+            }  
 
             else return $this->render('doom', ['message' => 'Você deve especificar a natureza do problema.']);
             //else return $this->render('doom', ['message' => $modelDescricao->natureza_problema]);

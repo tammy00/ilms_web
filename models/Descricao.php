@@ -59,7 +59,7 @@ class Descricao extends \yii\db\ActiveRecord
             'problema_detalhado' => 'Problema detalhado',
             'palavras_chaves' => 'Palavras-chaves',
             'id_infoc' => 'Id Infoc',
-            'id_polo' => 'Id Polo',
+            'id_polo' => 'Polo',
         ];
     }
 
