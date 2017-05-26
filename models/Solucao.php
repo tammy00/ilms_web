@@ -36,8 +36,8 @@ class Solucao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['solucao', 'acao_implementada', 'solucao_implementada', 'efetividade_acao_implementada', 'impacto_pedagogico'], 'string'],
-            [['id_infoc'], 'integer'],
+            [['solucao', 'acao_implementada', 'solucao_implementada', 'impacto_pedagogico'], 'string'],
+            [['id_infoc', 'efetividade_acao_implementada'], 'integer'],
             [['palavras_chaves', 'atores_envolvidos'], 'string', 'max' => 250],
             [['custos'], 'string', 'max' => 50],
             [['id_infoc'], 'exist', 'skipOnError' => true, 'targetClass' => InfoCaso::className(), 'targetAttribute' => ['id_infoc' => 'id_infoc']],

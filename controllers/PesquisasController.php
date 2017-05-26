@@ -40,9 +40,20 @@ class PesquisasController extends Controller
     public function actionIndex()
     {
         $searchModel = new PesquisasSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->searchPseudoCasos(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+        public function actionAllcases()
+    {
+        $searchModel = new PesquisasSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('allcases', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -55,8 +66,13 @@ class PesquisasController extends Controller
      */
     public function actionView($id)
     {
+        $model = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
+        $sol = Solucao::find()->where(['id_solucao' => $model->id_solucao])->one();
+        $model->similaridade = round(($model->similaridade * 100 ));
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'sol' => $sol,
         ]);
     }
 

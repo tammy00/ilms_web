@@ -12,7 +12,7 @@ $this->title = 'Solução encontrada'
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-
+    <b> DESCRIÇÃO REALIZADA: </b>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -25,6 +25,7 @@ $this->title = 'Solução encontrada'
         ],
     ]) ?>
 
+    <b> SOLUÇÃO APRESENTADA: </b>
     <?= DetailView::widget([
         'model' => $sol,
         'attributes' => [
@@ -39,6 +40,7 @@ $this->title = 'Solução encontrada'
         ],
     ]) ?>
 
+    <b> Similaridade</b> calculada: <b><?php echo $model->similaridade; ?>%</b> <br><br>
     <p>
 
     <b>A solução recomendada ajudou na sua dúvida?</b>

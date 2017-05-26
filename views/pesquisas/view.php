@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Pesquisas */
 
-$this->title = $model->id_pesquisa;
+$this->title = 'Detalhes da busca';
 $this->params['breadcrumbs'][] = ['label' => 'Pesquisas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -14,22 +14,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id_pesquisa], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id_pesquisa], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
 
+    <b> DESCRIÇÃO REALIZADA: </b>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id_pesquisa',
-            'id_solucao',
             'id_usuario',
             'id_polo',
             'relator',
@@ -39,5 +28,22 @@ $this->params['breadcrumbs'][] = $this->title;
             'palavras_chaves',
         ],
     ]) ?>
+
+    <b> SOLUÇÃO APRESENTADA: </b>
+    <?= DetailView::widget([
+        'model' => $sol,
+        'attributes' => [
+            'solucao:ntext',
+            'palavras_chaves',
+            'acao_implementada:ntext',
+            'solucao_implementada:ntext',
+            'efetividade_acao_implementada:ntext',
+            'custos',
+            'impacto_pedagogico:ntext',
+            'atores_envolvidos',
+        ],
+    ]) ?>
+
+    <b> Similaridade</b> calculada: <b><?php echo $model->similaridade; ?>%</b> <br><br>
 
 </div>

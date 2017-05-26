@@ -21,27 +21,26 @@ $this->title = 'iLMS Framework';
         <div class="alert alert-success">
             Um novo caso foi salvo na base de dados.
         </div>
-        <p><a class="btn btn-default" href="?r=site/search">Fazer busca &raquo;</a></p>
     <?php } if (Yii::$app->session->hasFlash('casesaved')) { ?>
 
         <div class="alert alert-success">
             Não sei que alerta colocar aqui.
         </div>
-        <p><a class="btn btn-default" href="?r=site/search">Fazer busca &raquo;</a></p>
     <?php } else { ?>
 
         <div class="body-content">
 
             <div class="row">
                 <div class="col-lg-4">
-                    <h2>Heading</h2>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                        fugiat nulla pariatur.</p>
+                    <h3>Não sabe como solucionar um problema?</h3>
 
                     <p><a class="btn btn-default" href="?r=site/search">Fazer busca &raquo;</a></p>
+                </div>
+
+                <div class="col-lg-4">
+                    <h3>Deseja ver os casos não pertencentes a Base de Casos?</h3>
+
+                    <p><a class="btn btn-default" href="?r=pesquisas/index"> Ver casos falsos &raquo;</a></p>
                 </div>
             </div>
 

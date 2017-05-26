@@ -49,8 +49,8 @@ class Pesquisas extends \yii\db\ActiveRecord
         return [
             'id_pesquisa' => 'Id Pesquisa',
             'id_solucao' => 'Id Solucao',
-            'id_usuario' => 'Id Usuario',
-            'id_polo' => 'Id Polo',
+            'id_usuario' => 'Usuário',
+            'id_polo' => 'Polo',
             'relator' => 'Relator',
             'natureza_problema' => 'Natureza do Problema',
             'descricao_problema' => 'Descrição do Problema',
@@ -59,5 +59,24 @@ class Pesquisas extends \yii\db\ActiveRecord
             'status' => 'Status',
             'similaridade' => 'Similaridade',
         ];
+    }
+
+    public function afterFind()
+    {
+        switch ($this->status)
+        {
+             case 0: 
+                 $this->status = 'Sem resposta';
+                 break;
+             case 1: 
+                 $this->status = 'Solução não ajudou';
+                 break;
+             case 2: 
+                 $this->status = 'Caso da Base de Casos';
+                 break;
+        }
+
+        $polo = Polo::find()->where(['id_polo' => $this->id_polo])->one();
+        $this->id_polo = $polo->nome;
     }
 }

@@ -59,19 +59,44 @@ class PesquisasSearch extends Pesquisas
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id_pesquisa' => $this->id_pesquisa,
-            'id_solucao' => $this->id_solucao,
-            'id_usuario' => $this->id_usuario,
             'id_polo' => $this->id_polo,
-            'status' => $this->status,
         ]);
 
         $query->andFilterWhere(['like', 'relator', $this->relator])
             ->andFilterWhere(['like', 'natureza_problema', $this->natureza_problema])
-            ->andFilterWhere(['like', 'descricao_problema', $this->descricao_problema])
-            ->andFilterWhere(['like', 'problema_detalhado', $this->problema_detalhado])
-            ->andFilterWhere(['like', 'palavras_chaves', $this->palavras_chaves])
-            ->andFilterWhere(['like', 'status', $this->status]);
+            ->andFilterWhere(['like', 'palavras_chaves', $this->palavras_chaves]);
+
+        return $dataProvider;
+    }
+
+    // Seleciona os casos inexistentes no base
+
+    public function searchPseudoCasos($params)
+    {
+        $query = Pesquisas::find()->where('status' != 2);
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id_polo' => $this->id_polo,
+        ]);
+
+        $query->andFilterWhere(['like', 'relator', $this->relator])
+            ->andFilterWhere(['like', 'natureza_problema', $this->natureza_problema])
+            ->andFilterWhere(['like', 'palavras_chaves', $this->palavras_chaves]);
 
         return $dataProvider;
     }

@@ -79,6 +79,8 @@ class SiteController extends Controller
         $polo = Polo::find()->where(['id_polo' => $model->id_polo])->one();
         $model->id_polo = $polo->nome;
 
+        $model->similaridade = round(($model->similaridade * 100 ));
+
         return $this->render('view', [
             'model' => $model,
             'sol' => $sol,
@@ -152,88 +154,95 @@ class SiteController extends Controller
         if ( $modelDescricao->load(Yii::$app->request->post()) ) // Se houve request-post
         {
             //return $this->render('doom', ['message' => $modelDescricao->natureza_problema]);
+
         
             if ($modelDescricao->natureza_problema === 'Acadêmica')  // Verificação: se é para o rbc
             {
                 // Enviar json pelo CURL
                 //Cria a array com os dados recebido, sendo q o ID é gerado pelo WS
-                
-                $perfil = Relator::find()->where(['id_relator' => $modelDescricao->relator])->one();
-                
-                $postArray = array(
-                    "poloId" => $modelDescricao->id_polo,
-                    "relatorId" => $perfil->perfil,
-                    "descricaoProblema" => $modelDescricao->descricao_problema,
-                    "problema" => $modelDescricao->problema_detalhado,
-                    "naturezaProblema" => $modelDescricao->natureza_problema,
-                    "palavrasChavesProblema" => $modelDescricao->palavras_chaves,
-                );
 
-                // Converte os dados para o formato jSon
-                $json = json_encode( $postArray );
-
-                // receber resposta do servidor
-                $curl = curl_init();
-                curl_setopt_array($curl, array(
-                    CURLOPT_PORT => "8080", //porta do WS
-                    CURLOPT_URL => "http://localhost:8080/ServerRest/ServerRest/casos/caso", //Caminho do WS que vai receber o POST
-                    CURLOPT_RETURNTRANSFER => true, //Recebe resposta
-                    CURLOPT_ENCODING => "JSON", //Decodificação
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 30,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => "POST", //metodo
-                    CURLOPT_POSTFIELDS => $json, //string com dados à serem postados
-                    CURLOPT_HTTPHEADER => array(
-                        'Content-Type: application/json',
-                        'Content-Length: ' . strlen($json)),
-                ));
-                $result = curl_exec($curl); //recebe o resultado em json
-                $err = curl_error($curl); //recebe o erro da classe ou WS
-                curl_close($curl); //Encerra a biblioteca
-
-                if ($err)
-                {
-                    return $this->render('doom', ['message' => 'Problema ao conectar com o servidor.']);
-
-                } // ELSE pegar o id do caso, criar variável de similaridade, return view do Solução
-                else
+                if ( ($modelDescricao->id_polo != null) && ($modelDescricao->descricao_problema != null) 
+                    && ($modelDescricao->relator != null) && ($modelDescricao->problema_detalhado != null)
+                    && ($modelDescricao->natureza_problema != null) && ($modelDescricao->palavras_chaves != null))
                 {
                     
-                    $data = json_decode($result,true);
-
-                    $idSolucao = $data['solucaoId'];
-                    $similaridadeCalculada = $data['similaridade'];
-
-                    if ($idSolucao == null) return $this->render('doom', ['message' => 'Registro da solução não encontrada.']);
-                    if ( $similaridadeCalculada == 0) return $this->render('doom', ['message' => 'Não há caso similar ao apresentado.']);
-
-                    //Encontra o registro (no banco) do id recebido pelo componente RBC
-                    $modelSolucao = Solucao::find()->where(['id_solucao' => $idSolucao])->one();  
-
+                    $perfil = Relator::find()->where(['id_relator' => $modelDescricao->relator])->one();
                     
+                    $postArray = array(
+                        "poloId" => $modelDescricao->id_polo,
+                        "relatorId" => $perfil->perfil,
+                        "descricaoProblema" => $modelDescricao->descricao_problema,
+                        "problema" => $modelDescricao->problema_detalhado,
+                        "naturezaProblema" => $modelDescricao->natureza_problema,
+                        "palavrasChavesProblema" => $modelDescricao->palavras_chaves,
+                    );
 
-                    // Salva a pesquisa
-                    $nova_pesquisa = new Pesquisas();
-                    $nova_pesquisa->id_solucao = $modelSolucao->id_solucao;
-                    $nova_pesquisa->id_polo = $modelDescricao->id_polo;
-                    $nova_pesquisa->id_usuario = 1;  // Só para efeito de teste MUDAR ESSE TRECHO QUANDO ADD CLASSE DE USUÁRIOS
-                    $nova_pesquisa->status = 0;  // 0 = criado, não salvo como novo caso
-                    $nova_pesquisa->relator = $perfil->perfil;  // ID do relator não é salvo nessa tabela
-                    $nova_pesquisa->natureza_problema = $modelDescricao->natureza_problema;
-                    $nova_pesquisa->descricao_problema = $modelDescricao->descricao_problema;
-                    $nova_pesquisa->problema_detalhado = $modelDescricao->problema_detalhado;
-                    $nova_pesquisa->palavras_chaves = $modelDescricao->palavras_chaves;
-                    $nova_pesquisa->similaridade = $similaridadeCalculada;
+                    // Converte os dados para o formato jSon
+                    $json = json_encode( $postArray );
 
-                    if ($nova_pesquisa->save() )  // Se salvar a pesquisa
+                    // receber resposta do servidor
+                    $curl = curl_init();
+                    curl_setopt_array($curl, array(
+                        CURLOPT_PORT => "8080", //porta do WS
+                        CURLOPT_URL => "http://localhost:8080/ServerRest/ServerRest/casos/caso", //Caminho do WS que vai receber o POST
+                        CURLOPT_RETURNTRANSFER => true, //Recebe resposta
+                        CURLOPT_ENCODING => "JSON", //Decodificação
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 30,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => "POST", //metodo
+                        CURLOPT_POSTFIELDS => $json, //string com dados à serem postados
+                        CURLOPT_HTTPHEADER => array(
+                            'Content-Type: application/json',
+                            'Content-Length: ' . strlen($json)),
+                    ));
+                    $result = curl_exec($curl); //recebe o resultado em json
+                    $err = curl_error($curl); //recebe o erro da classe ou WS
+                    curl_close($curl); //Encerra a biblioteca
+
+                    if ($err)
                     {
-                        // Mostra descricao e solução
-                        return $this->actionView ($nova_pesquisa->id_pesquisa);
-                    }
-                    else return $this->render('doom', ['message' => 'A busca realizada não pode ser registrada. Retorne à página anterior e tente novamente.']);  // Se não salvar a pesquisa
-                }   
-            }  
+                        return $this->render('doom', ['message' => 'Problema ao conectar com o servidor.']);
+
+                    } // ELSE pegar o id do caso, criar variável de similaridade, return view do Solução
+                    else
+                    {
+                        
+                        $data = json_decode($result,true);
+
+                        $idSolucao = $data['solucaoId'];
+                        $similaridadeCalculada = $data['similaridade'];
+
+                        if ($idSolucao == null) return $this->render('doom', ['message' => 'Registro da solução não encontrada.']);
+                        if ( $similaridadeCalculada == 0) return $this->render('doom', ['message' => 'Não há caso similar ao apresentado.']);
+
+                        //Encontra o registro (no banco) do id recebido pelo componente RBC
+                        $modelSolucao = Solucao::find()->where(['id_solucao' => $idSolucao])->one();  
+
+                        
+
+                        // Salva a pesquisa
+                        $nova_pesquisa = new Pesquisas();
+                        $nova_pesquisa->id_solucao = $modelSolucao->id_solucao;
+                        $nova_pesquisa->id_polo = $modelDescricao->id_polo;
+                        $nova_pesquisa->id_usuario = 1;  // Só para efeito de teste MUDAR ESSE TRECHO QUANDO ADD CLASSE DE USUÁRIOS
+                        $nova_pesquisa->status = 0;  // 0 = criado, não salvo como novo caso
+                        $nova_pesquisa->relator = $perfil->perfil;  // ID do relator não é salvo nessa tabela
+                        $nova_pesquisa->natureza_problema = $modelDescricao->natureza_problema;
+                        $nova_pesquisa->descricao_problema = $modelDescricao->descricao_problema;
+                        $nova_pesquisa->problema_detalhado = $modelDescricao->problema_detalhado;
+                        $nova_pesquisa->palavras_chaves = $modelDescricao->palavras_chaves;
+                        $nova_pesquisa->similaridade = $similaridadeCalculada;
+
+                        if ($nova_pesquisa->save() )  // Se salvar a pesquisa
+                        {
+                            // Mostra descricao e solução
+                            return $this->actionView ($nova_pesquisa->id_pesquisa);
+                        }
+                        else return $this->render('doom', ['message' => 'A busca realizada não pode ser registrada. Retorne à página anterior e tente novamente.']);  // Se não salvar a pesquisa
+                    }  // end else para !erro
+                }  // end if se todos !null
+            }   // end if natureza Acadêmica
             
             if ( $modelDescricao->natureza_problema === 'Pedagógica') // Para moodle
             {

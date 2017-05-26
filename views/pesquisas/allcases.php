@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\PesquisasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Não constam na base de casos';
+$this->title = 'Todas as buscas realizadas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pesquisas-index">
@@ -26,7 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'descricao_problema:ntext',
             // 'problema_detalhado:ntext',
              'palavras_chaves',
-
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'Ações',
