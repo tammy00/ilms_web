@@ -77,7 +77,7 @@ class SiteController extends Controller
         $sol = Solucao::find()->where(['id_solucao' => $model->id_solucao])->one();
 
         $polo = Polo::find()->where(['id_polo' => $model->id_polo])->one();
-        $model->id_polo = $polo->nome;
+        //$model->id_polo = $polo->nome;
 
         $model->similaridade = round(($model->similaridade * 100 ));
 

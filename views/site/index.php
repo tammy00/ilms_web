@@ -9,11 +9,11 @@ $this->title = 'iLMS Framework';
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>Congratulations!</h1>
+        <h1>iLMS Framework</h1>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+        <p class="lead">Um framework para Educação à Distância</p>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+        <!-- <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>  -->
     </div>
 
     <?php if (Yii::$app->session->hasFlash('newcasesaved')) { ?>
@@ -38,9 +38,14 @@ $this->title = 'iLMS Framework';
                 </div>
 
                 <div class="col-lg-4">
-                    <h3>Deseja ver os casos não pertencentes a Base de Casos?</h3>
+                    <h3>Deseja ver os casos não pertencentes à Base de Casos?</h3>
 
                     <p><a class="btn btn-default" href="?r=pesquisas/index"> Ver casos falsos &raquo;</a></p>
+                </div>
+                <div class="col-lg-4">
+                    <h3>Deseja ver o histórico de buscas realizadas?</h3>
+
+                    <p><a class="btn btn-default" href="?r=pesquisas/allcases"> Ver histórico &raquo;</a></p>
                 </div>
             </div>
 
