@@ -10,6 +10,7 @@ use yii\widgets\ActiveForm;
 $this->title = 'Busca de solução';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<!--  
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript"> 
 
@@ -33,9 +34,9 @@ $this->params['breadcrumbs'][] = $this->title;
         $("#experts_box").show();
       }
     });
-  });
+  });  
 
-</script> 
+</script>   -->
 
 <div>
     <h1><?= Html::encode($this->title) ?></h1>
@@ -54,8 +55,8 @@ $this->params['breadcrumbs'][] = $this->title;
              },
            ]
          )->label('Selecione a natureza do problema:');   ?>
-
-          <div id="rbc_box" style="display: none">
+<!--
+          <div id="rbc_box" style="display: none">   -->
                 <?= $form->field($model, 'relator')->dropDownList([$arrayRelatores],['style' => 'width:500px',
                                                       'prompt' => "Selecione um relator",]); ?>  
 
@@ -67,6 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'id_polo')->dropDownList([$arrayPolos],['style' => 'width:500px',
                                                       'prompt' => "Selecione um polo",]); ?>  
+                                                      <!--
           </div>
 
           <div id="moodle_box" style="display: none"> 
@@ -77,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
           <div id="experts_box" style="display: none">  
                 Conteudo para a box de experts
                 <br><br>
-          </div>
+          </div>    -->
 
           <div class="form-group">
             <?= Html::submitButton('Buscar', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>

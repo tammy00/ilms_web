@@ -79,7 +79,7 @@ class SiteController extends Controller
         $polo = Polo::find()->where(['id_polo' => $model->id_polo])->one();
         //$model->id_polo = $polo->nome;
 
-        $model->similaridade = round(($model->similaridade * 100 ));
+        //$model->similaridade = round(($model->similaridade * 100 ));
 
         return $this->render('view', [
             'model' => $model,
@@ -156,8 +156,8 @@ class SiteController extends Controller
             //return $this->render('doom', ['message' => $modelDescricao->natureza_problema]);
 
         
-            if ($modelDescricao->natureza_problema === 'Acadêmica')  // Verificação: se é para o rbc
-            {
+            //if ($modelDescricao->natureza_problema === 'Acadêmica')  // Verificação: se é para o rbc
+            //{
                 // Enviar json pelo CURL
                 //Cria a array com os dados recebido, sendo q o ID é gerado pelo WS
 
@@ -242,8 +242,8 @@ class SiteController extends Controller
                         else return $this->render('doom', ['message' => 'A busca realizada não pode ser registrada. Retorne à página anterior e tente novamente.']);  // Se não salvar a pesquisa
                     }  // end else para !erro
                 }  // end if se todos !null
-            }   // end if natureza Acadêmica
-            
+            //}   // end if natureza Acadêmica
+            /*
             if ( $modelDescricao->natureza_problema === 'Pedagógica') // Para moodle
             {
                 return $this->render('doom', ['message' => 'Pedagógica.']);
@@ -251,7 +251,7 @@ class SiteController extends Controller
             if ( $modelDescricao->natureza_problema === 'Infraestrutura' ) // Para experts
             {
                 return $this->render('doom', ['message' => 'Infraestrutura.']);
-            }  
+            }    */
 
             else return $this->render('doom', ['message' => 'Você deve especificar a natureza do problema.']);
             //else return $this->render('doom', ['message' => $modelDescricao->natureza_problema]);

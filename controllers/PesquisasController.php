@@ -105,6 +105,7 @@ class PesquisasController extends Controller
         $model = $this->findModel($id);
 
         $model->status = 1; // Foi decidido que não vira um novo caso
+        $model->efetividade_acao_implementada = "Não";
 
         $model->save();
 

@@ -40,7 +40,7 @@ $this->title = 'Solução encontrada'
         ],
     ]) ?>
 
-    <b> Similaridade</b> calculada: <b><?php echo $model->similaridade; ?>%</b> <br><br>
+    <b> Similaridade calculada: <?php echo $model->similaridade; ?></b> <br><br>
     <p>
 
     <b>A solução recomendada ajudou na sua dúvida?</b>
