@@ -9,6 +9,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Descricao;
+use app\models\BuscaGeral;
 use app\models\RespostaEspecialistas;
 use app\models\TipoProblema;
 use app\models\TituloProblema;
@@ -152,32 +153,34 @@ class SiteController extends Controller
 
     public function actionSearch()  // Descricao vai ter todos os dados, independente de ser somente para o rbc
     { // add os dados adicionais no model Descricao
-        $modelDescricao = new Descricao();
 
-        if ( $modelDescricao->load(Yii::$app->request->post()) ) // Se algo for submetido
+        //tipo_problema == natureza_problema
+        $model = new BuscaGeral();
+
+        if ( $model->load(Yii::$app->request->post()) ) // Se algo for submetido
         {
             //return $this->render('doom', ['message' => $modelDescricao->natureza_problema]);
 
         
-            if ($modelDescricao->natureza_problema === 'Acadêmica')  // Verificação: se é para o rbc
+            if ($model->natureza_problema === 'Acadêmica')  // Verificação: se é para o rbc
             {
                 // Enviar json pelo CURL
                 //Cria a array com os dados recebido, sendo q o ID é gerado pelo WS
 
-                if ( ($modelDescricao->id_polo != null) && ($modelDescricao->descricao_problema != null) 
-                    && ($modelDescricao->relator != null) && ($modelDescricao->problema_detalhado != null)
-                    && ($modelDescricao->palavras_chaves != null))
+                if ( ($model->id_polo != null) && ($model->descricao_problema != null) 
+                    && ($model->relator != null) && ($model->problema_detalhado != null)
+                    && ($model->palavras_chaves != null))
                 {
                     
-                    $perfil = Relator::find()->where(['id_relator' => $modelDescricao->relator])->one();
+                    $perfil = Relator::find()->where(['id_relator' => $model->relator])->one();
                     
                     $postArray = array(
-                        "poloId" => $modelDescricao->id_polo,
+                        "poloId" => $model->id_polo,
                         "relatorId" => $perfil->perfil,
-                        "descricaoProblema" => $modelDescricao->descricao_problema,
-                        "problema" => $modelDescricao->problema_detalhado,
-                        "naturezaProblema" => $modelDescricao->natureza_problema,
-                        "palavrasChavesProblema" => $modelDescricao->palavras_chaves,
+                        "descricaoProblema" => $model->descricao_problema,
+                        "problema" => $model->problema_detalhado,
+                        "naturezaProblema" => $model->natureza_problema,
+                        "palavrasChavesProblema" => $model->palavras_chaves,
                     );
 
                     // Converte os dados para o formato jSon
@@ -227,14 +230,14 @@ class SiteController extends Controller
                         // Salva a pesquisa
                         $nova_pesquisa = new Pesquisas();
                         $nova_pesquisa->id_solucao = $modelSolucao->id_solucao;
-                        $nova_pesquisa->id_polo = $modelDescricao->id_polo;
+                        $nova_pesquisa->id_polo = $model->id_polo;
                         $nova_pesquisa->id_usuario = 1;  // Só para efeito de teste MUDAR ESSE TRECHO QUANDO ADD CLASSE DE USUÁRIOS
                         $nova_pesquisa->status = 0;  // 0 = criado, não salvo como novo caso
                         $nova_pesquisa->relator = $perfil->perfil;  // ID do relator não é salvo nessa tabela
-                        $nova_pesquisa->natureza_problema = $modelDescricao->natureza_problema;
-                        $nova_pesquisa->descricao_problema = $modelDescricao->descricao_problema;
-                        $nova_pesquisa->problema_detalhado = $modelDescricao->problema_detalhado;
-                        $nova_pesquisa->palavras_chaves = $modelDescricao->palavras_chaves;
+                        $nova_pesquisa->natureza_problema = $model->natureza_problema;
+                        $nova_pesquisa->descricao_problema = $model->descricao_problema;
+                        $nova_pesquisa->problema_detalhado = $model->problema_detalhado;
+                        $nova_pesquisa->palavras_chaves = $model->palavras_chaves;
                         $nova_pesquisa->similaridade = $similaridadeCalculada;
 
                         if ($nova_pesquisa->save() )  // Se salvar a pesquisa
@@ -246,15 +249,19 @@ class SiteController extends Controller
                     }  // end else para !erro
 
                 }  // end if se todos !null
+                else
+                {
+                    return $this->render('doom', ['message' => 'É necessário informar o polo, relator, palavras-chaves e descrever resumida e detalhadamente.']);
+                }
 
             }   // end if natureza Acadêmica
 
             
-            if ( $modelDescricao->natureza_problema === 'Pedagógica') 
+            if ( $model->natureza_problema === 'Pedagógica') 
             {
                 return $this->render('doom', ['message' => 'Pedagógica.']);
             }
-            if ( $modelDescricao->natureza_problema === 'Infraestrutura' ) 
+            if ( $model->natureza_problema === 'Infraestrutura' ) 
             {
                 //return $this->render('doom', ['message' => 'Infraestrutura.']);
             }    
@@ -267,7 +274,7 @@ class SiteController extends Controller
         	$arrayPolos = ArrayHelper::map(PoloSearch::find()->all(), 'id_polo', 'nome');
 
             return $this->render('search', [
-                'model' => $modelDescricao,
+                'model' => $model,
                 'arrayRelatores' => $arrayRelatores,
                 'arrayPolos' => $arrayPolos,
             ]);        
