@@ -16,6 +16,10 @@ class BuscaGeral extends Model
      * @inheritdoc
      */
 
+    public $check_rbc;
+    public $check_lms;
+    public $check_exp;
+
     // Atributos de 'descricao_problema'
     public $natureza_problema;   // Equivalente do tipo_problema
     public $descricao_problema;

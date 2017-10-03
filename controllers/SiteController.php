@@ -152,106 +152,40 @@ class SiteController extends Controller
     }
 
     public function actionSearch()  // Descricao vai ter todos os dados, independente de ser somente para o rbc
-    { // add os dados adicionais no model Descricao
+    { 
 
         //tipo_problema == natureza_problema
         $model = new BuscaGeral();
 
         if ( $model->load(Yii::$app->request->post()) ) // Se algo for submetido
         {
-            //return $this->render('doom', ['message' => $modelDescricao->natureza_problema]);
-
         
             if ($model->natureza_problema === 'Acadêmica')  // Verificação: se é para o rbc
             {
-                // Enviar json pelo CURL
-                //Cria a array com os dados recebido, sendo q o ID é gerado pelo WS
 
                 if ( ($model->id_polo != null) && ($model->descricao_problema != null) 
                     && ($model->relator != null) && ($model->problema_detalhado != null)
-                    && ($model->palavras_chaves != null))
+                    && ($model->palavras_chaves != null))   // Checando se todos os dados necessários foram informados
                 {
-                    
-                    $perfil = Relator::find()->where(['id_relator' => $model->relator])->one();
-                    
-                    $postArray = array(
-                        "poloId" => $model->id_polo,
-                        "relatorId" => $perfil->perfil,
-                        "descricaoProblema" => $model->descricao_problema,
-                        "problema" => $model->problema_detalhado,
-                        "naturezaProblema" => $model->natureza_problema,
-                        "palavrasChavesProblema" => $model->palavras_chaves,
-                    );
+                    $result_consulta_rbc = $this->agenteRBC($model->id_polo, 
+                        $model->descricao_problema, 
+                        $model->problema_detalhado, 
+                        $model->relator, 
+                        $model->palavras_chaves, 
+                        $model->natureza_problema);     // Consulta que retorna o id da pesquisa já salva
 
-                    // Converte os dados para o formato jSon
-                    $json = json_encode( $postArray );
-
-                    // receber resposta do servidor
-                    $curl = curl_init();
-                    curl_setopt_array($curl, array(
-                        CURLOPT_PORT => "8080", //porta do WS
-                        CURLOPT_URL => "http://localhost:8080/ServerRest/ServerRest/casos/caso", //Caminho do WS que vai receber o POST
-                        CURLOPT_RETURNTRANSFER => true, //Recebe resposta
-                        CURLOPT_ENCODING => "JSON", //Decodificação
-                        CURLOPT_MAXREDIRS => 10,
-                        CURLOPT_TIMEOUT => 30,
-                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                        CURLOPT_CUSTOMREQUEST => "POST", //metodo
-                        CURLOPT_POSTFIELDS => $json, //string com dados à serem postados
-                        CURLOPT_HTTPHEADER => array(
-                            'Content-Type: application/json',
-                            'Content-Length: ' . strlen($json)),
-                    ));
-                    $result = curl_exec($curl); //recebe o resultado em json
-                    $err = curl_error($curl); //recebe o erro da classe ou WS
-                    curl_close($curl); //Encerra a biblioteca
-
-                    if ($err)
+                    if ($result_consulta_rbc == 0)   // Caso a consulta não tenha sido salva
                     {
-                        return $this->render('doom', ['message' => 'Problema ao conectar com o servidor.']);
-
-                    } // ELSE pegar o id do caso, criar variável de similaridade, return view do Solução
-                    else
+                        return $this->render('doom', ['message' => 'A busca realizada não pode ser registrada. Retorne à página anterior e tente novamente.']);  // Se não salvar a pesquisa
+                    }
+                    else   // Caso a consulta tenha sido salva, renderiza os resultados
                     {
-                        
-                        $data = json_decode($result,true);
-
-                        $idSolucao = $data['solucaoId'];
-                        $similaridadeCalculada = $data['similaridade'];
-
-                        if ($idSolucao == null) return $this->render('doom', ['message' => 'Registro da solução não encontrada.']);
-                        if ( $similaridadeCalculada == 0) return $this->render('doom', ['message' => 'Não há caso similar ao apresentado.']);
-
-                        //Encontra o registro (no banco) do id recebido pelo componente RBC
-                        $modelSolucao = Solucao::find()->where(['id_solucao' => $idSolucao])->one();  
-
-                        
-
-                        // Salva a pesquisa
-                        $nova_pesquisa = new Pesquisas();
-                        $nova_pesquisa->id_solucao = $modelSolucao->id_solucao;
-                        $nova_pesquisa->id_polo = $model->id_polo;
-                        $nova_pesquisa->id_usuario = 1;  // Só para efeito de teste MUDAR ESSE TRECHO QUANDO ADD CLASSE DE USUÁRIOS
-                        $nova_pesquisa->status = 0;  // 0 = criado, não salvo como novo caso
-                        $nova_pesquisa->relator = $perfil->perfil;  // ID do relator não é salvo nessa tabela
-                        $nova_pesquisa->natureza_problema = $model->natureza_problema;
-                        $nova_pesquisa->descricao_problema = $model->descricao_problema;
-                        $nova_pesquisa->problema_detalhado = $model->problema_detalhado;
-                        $nova_pesquisa->palavras_chaves = $model->palavras_chaves;
-                        $nova_pesquisa->similaridade = $similaridadeCalculada;
-
-                        if ($nova_pesquisa->save() )  // Se salvar a pesquisa
-                        {
-                            // Mostra descricao e solução
-                            return $this->actionView ($nova_pesquisa->id_pesquisa);
-                        }
-                        else return $this->render('doom', ['message' => 'A busca realizada não pode ser registrada. Retorne à página anterior e tente novamente.']);  // Se não salvar a pesquisa
-                    }  // end else para !erro
-
-                }  // end if se todos !null
+                        return $this->actionView ($result_consulta_rbc);
+                    }
+                }  // Se houve pelo menos algum dado nã informado
                 else
                 {
-                    return $this->render('doom', ['message' => 'É necessário informar o polo, relator, palavras-chaves e descrever resumida e detalhadamente.']);
+                    return $this->render('doom', ['message' => 'Todos os dados devem ser informados para a pesquisa ser realizada com sucesso. Tente novamente.']);
                 }
 
             }   // end if natureza Acadêmica
@@ -281,8 +215,109 @@ class SiteController extends Controller
         }
     }
 
+
+
+
     public function actionDoom($texto)
     {
         return $this->render('doom', ['message' => $texto]);
     }
+
+
+
+
+    public function agenteRBC($polo, $desc, $detalhado, $relator, $keywords, $natureza)   // Consulta AGENTE CBR
+    {
+        $perfil = Relator::find()->where(['id_relator' => $relator])->one();   
+
+        // Enviar json pelo CURL
+        //Cria a array com os dados recebido, sendo q o ID é gerado pelo WS
+                    
+        $postArray = array(
+            "poloId" => $polo,
+            "relatorId" => $perfil->perfil,
+            "descricaoProblema" => $model->descricao_problema,
+            "problema" => $model->problema_detalhado,
+            "naturezaProblema" => $model->natureza_problema,
+            "palavrasChavesProblema" => $model->palavras_chaves,
+        );
+
+        // Converte os dados para o formato jSon
+        $json = json_encode( $postArray );
+
+        // receber resposta do servidor
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+        CURLOPT_PORT => "8080", //porta do WS
+        CURLOPT_URL => "http://localhost:8080/ServerRest/ServerRest/casos/caso", //Caminho do WS que vai receber o POST
+        CURLOPT_RETURNTRANSFER => true, //Recebe resposta
+        CURLOPT_ENCODING => "JSON", //Decodificação
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST", //metodo
+        CURLOPT_POSTFIELDS => $json, //string com dados à serem postados
+        CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($json)),
+        ));
+        $result = curl_exec($curl); //recebe o resultado em json
+        $err = curl_error($curl); //recebe o erro da classe ou WS
+        curl_close($curl); //Encerra a biblioteca
+
+        if ($err)
+        {
+            return $this->render('doom', ['message' => 'Problema ao conectar com o servidor. Tente novamente.']);
+
+        } // ELSE pegar o id do caso, criar variável de similaridade, return view do Solução
+        else
+        {
+                        
+            $data = json_decode($result,true);
+
+            $idSolucao = $data['solucaoId'];
+            $similaridadeCalculada = $data['similaridade'];
+
+            if ($idSolucao == null) return $this->render('doom', ['message' => 'Registro da solução não encontrada.']);
+
+            if ( $similaridadeCalculada == 0) return $this->render('doom', ['message' => 'Não há caso similar ao apresentado.']);
+
+            //Encontra o registro (no banco) do id recebido pelo componente RBC
+            $modelSolucao = Solucao::find()->where(['id_solucao' => $idSolucao])->one();  
+
+                        
+
+            // Salva a pesquisa
+            $nova_pesquisa = new Pesquisas();
+            $nova_pesquisa->id_solucao = $modelSolucao->id_solucao;
+            $nova_pesquisa->id_polo = $model->id_polo;
+            $nova_pesquisa->id_usuario = 1;  // Só para efeito de teste MUDAR ESSE TRECHO QUANDO ADD CLASSE DE USUÁRIOS
+            $nova_pesquisa->status = 0;  // 0 = criado, não salvo como novo caso
+            $nova_pesquisa->relator = $perfil->perfil;  // ID do relator não é salvo nessa tabela
+            $nova_pesquisa->natureza_problema = $model->natureza_problema;
+            $nova_pesquisa->descricao_problema = $model->descricao_problema;
+            $nova_pesquisa->problema_detalhado = $model->problema_detalhado;
+            $nova_pesquisa->palavras_chaves = $model->palavras_chaves;
+            $nova_pesquisa->similaridade = $similaridadeCalculada;
+
+            if ($nova_pesquisa->save() )  // Se salvar a pesquisa
+            {
+                return $nova_pesquisa->id_pesquisa;
+            }
+            else return 0;// Se a pesquisa não for salva
+        }  // end else para !erro
+    }   // agenteRBC end
+
+    public function agenteLMS(/**** DEFINIR PARÂMETROS   ****/)   // Consulta AGENTE LMS
+    {
+        return $this->render('doom', ['message' => 'Sem parâmetros ainda.']);
+    }
+
+
+    public function agenteExperts(/**** DEFINIR PARÂMETROS   ****/)   // Consulta AGENTE experts
+    {
+        // IIII
+    }
+
+
 }

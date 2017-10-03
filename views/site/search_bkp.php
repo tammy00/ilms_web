@@ -11,21 +11,32 @@ $this->title = 'Busca de solução';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript"> 
 
-<script>
-$(document).ready(function(){
-    $("#checkbox_rbc").click(function(){
-        $("#div_rbc").toggle();
+  $(document).ready(function () {
+    $("input[type=radio]").click(function () {
+      var value = $(this).val();
+      if (value == 'Acadêmica') {
+        $("#rbc_box").show();
+        $("#moodle_box").hide();
+        $("#experts_box").hide();
+      } 
+      if (value == 'Pedagógica') {
+        $("#rbc_box").hide();
+        $("#moodle_box").show();
+        $("#experts_box").hide();
+      } 
+      else if (value == 'Infraestrutura') 
+      {
+        $("#rbc_box").hide();
+        $("#moodle_box").hide();
+        $("#experts_box").show();
+      }
     });
-    $("#checkbox_lms").click(function(){
-        $("#div_lms").toggle();
-    });
-    $("#checkbox_exp").click(function(){
-        $("#div_exp").toggle();
-    });
-});
-</script>
+  });  
+
+</script>  
 
 <div>
     <h1><?= Html::encode($this->title) ?></h1>
@@ -34,18 +45,22 @@ $(document).ready(function(){
       <br>
         <?php $form = ActiveForm::begin(); ?>
 
-          <?= $form->field($model, 'natureza_problema')->radioList(['Infraestrutura' => 'Infraestrutura', 'Pedagógica' => 'Pedagógica', 'Acadêmica' => 'Acadêmica'])->label('Selecione a natureza do problema:');   ?>
+          <?= $form->field($model, 'natureza_problema')->radioList(['Infraestrutura' => 'Infraestrutura', 'Pedagógica' => 'Pedagógica', 'Acadêmica' => 'Acadêmica'],
+              ['item' => function($index, $label, $name, $checked, $value) {    
+               $return = '<label class="radio">';
+               $return .= '<input type="radio" name="' . $name . '" value="' . $value . '">';
+               $return .= '<label>' . ucwords($label) . '</label>';
+               $return .= '</label>';
+               return $return;
+             },
+           ]
+         )->label('Selecione a natureza do problema:');   ?>
 
-          <?= $form->field($model, 'descricao_problema')->textarea(['rows' => 6])->label('Descreva o problema resumidamente:'); ?>
-
-          <br><b>Selecione o agente: </b><br>
-          <input type="checkbox" id="checkbox_rbc" /> Casos Passados <br /> 
-          <input type="checkbox" id="checkbox_exp" /> Opiniões <br />
-          <input type="checkbox" id="checkbox_lms" /> Dados do AVA <br /> <br>
-
-          <div id="div_rbc" style="display: none">   
+          <div id="rbc_box" style="display: none">   
                 <?= $form->field($model, 'relator')->dropDownList([$arrayRelatores],['style' => 'width:500px',
                                                       'prompt' => "Selecione um relator",]); ?>  
+
+                <?= $form->field($model, 'descricao_problema')->textarea(['rows' => 6]) ?>
 
                 <?= $form->field($model, 'problema_detalhado')->textarea(['rows' => 6]) ?>
 
@@ -56,12 +71,12 @@ $(document).ready(function(){
                                                       
           </div>
 
-          <div id="div_lms" style="display: none"> 
+          <div id="moodle_box" style="display: none"> 
                 Conteudo para a box de moodle
                 <br><br>
           </div>
 
-          <div id="div_exp" style="display: none">  
+          <div id="experts_box" style="display: none">  
                 Conteudo para a box de experts
                 <br><br>
           </div>    
