@@ -39,9 +39,9 @@ $(document).ready(function(){
           <?= $form->field($model, 'descricao_problema')->textarea(['rows' => 6])->label('Descreva o problema resumidamente:'); ?>
 
           <br><b>Selecione o agente: </b><br>
-          <input type="checkbox" id="checkbox_rbc" /> Casos Passados <br /> 
-          <input type="checkbox" id="checkbox_exp" /> Opiniões <br />
-          <input type="checkbox" id="checkbox_lms" /> Dados do AVA <br /> <br>
+          <input type="checkbox" id="checkbox_rbc" name='agente_1' value='rbc'/> Casos Passados <br /> 
+          <input type="checkbox" id="checkbox_exp" name='agente_2' value='exp'/> Opiniões <br />
+          <input type="checkbox" id="checkbox_lms" name='agente_3' value='lms'/> Dados do AVA <br /> <br>
 
           <div id="div_rbc" style="display: none">   
                 <?= $form->field($model, 'relator')->dropDownList([$arrayRelatores],['style' => 'width:500px',
@@ -62,7 +62,8 @@ $(document).ready(function(){
           </div>
 
           <div id="div_exp" style="display: none">  
-                Conteudo para a box de experts
+                <?= $form->field($model, 'titulo_problema')->dropDownList([$arrayTitulosProblemas],['style' => 'width:500px',
+                                                      'prompt' => "Selecione um problema",]); ?> 
                 <br><br>
           </div>    
 

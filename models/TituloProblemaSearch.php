@@ -59,10 +59,11 @@ class TituloProblemaSearch extends TituloProblema
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            //'id' => $this->id,
+            'titulo' => $this->titulo,
         ]);
 
-        $query->andFilterWhere(['like', 'titulo', $this->titulo]);
+        //$query->andFilterWhere(['like', 'titulo', $this->titulo]);
 
         return $dataProvider;
     }

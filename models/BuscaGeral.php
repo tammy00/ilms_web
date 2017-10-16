@@ -16,10 +16,6 @@ class BuscaGeral extends Model
      * @inheritdoc
      */
 
-    public $check_rbc;
-    public $check_lms;
-    public $check_exp;
-
     // Atributos de 'descricao_problema'
     public $natureza_problema;   // Equivalente do tipo_problema
     public $descricao_problema;
@@ -31,6 +27,7 @@ class BuscaGeral extends Model
     public $relator;
 
     //Atributos de 'resposta_esp'
+    public $titulo_problema;
 
 
 
@@ -49,14 +46,7 @@ class BuscaGeral extends Model
             /*************************************/
 
             /*** Abaixo, os atributos de resposta_esp   ***/
-            [['id', 'id_tipo_problema', 'id_titulo_problema', 'descricao_problema', 'descricao_solucao', 'data_ocorrencia', 'data_insercao', 'nome_especialista', 'funcao_especialista', 'relator'], 'required'],
-            [['id', 'id_tipo_problema', 'id_titulo_problema'], 'integer'],
-            [['data_ocorrencia', 'data_insercao'], 'safe'],
-            [['descricao_problema', 'descricao_solucao'], 'string', 'max' => 300],
-            [['nome_especialista'], 'string', 'max' => 200],
-            [['funcao_especialista'], 'string', 'max' => 100],
-            [['id_tipo_problema'], 'exist', 'skipOnError' => true, 'targetClass' => TipoProblema::className(), 'targetAttribute' => ['id_tipo_problema' => 'id']],
-            [['id_titulo_problema'], 'exist', 'skipOnError' => true, 'targetClass' => TituloProblema::className(), 'targetAttribute' => ['id_titulo_problema' => 'id']],
+            [['titulo_problema'], 'string', 'max' => 200],
             /*************************************/
         ];
     }
@@ -75,15 +65,7 @@ class BuscaGeral extends Model
             'id_polo' => 'Polo',
 
             // ABaixo, os atributos de 'resposta_esp'
-            'id_tipo_problema' => 'Id Tipo Problema',
-            'id_titulo_problema' => 'Id Titulo Problema',
-            'descricao_esp' => 'Descricao Problema',   // Equivalente ao 'descricao_problema'
-            'solucao_esp' => 'Descricao Solucao',  // Equivalente ao 'descricao_solucao'
-            //'data_ocorrencia' => 'Data Ocorrencia',
-            //'data_insercao' => 'Data Insercao',
-            'nome_especialista' => 'Nome Especialista',
-            'funcao_especialista' => 'Funcao Especialista',
-            //'relator' => 'Relator',   // Equivalente ao 'relator' de 'descricao_problema'
+            'titulo_problema' => 'Título do Problema',
         ];
     }
 }

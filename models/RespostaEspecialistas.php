@@ -56,14 +56,14 @@ class RespostaEspecialistas extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_tipo_problema' => 'Id Tipo Problema',
-            'id_titulo_problema' => 'Id Titulo Problema',
-            'descricao_problema' => 'Descricao Problema',
-            'descricao_solucao' => 'Descricao Solucao',
-            'data_ocorrencia' => 'Data Ocorrencia',
-            'data_insercao' => 'Data Insercao',
-            'nome_especialista' => 'Nome Especialista',
-            'funcao_especialista' => 'Funcao Especialista',
+            'id_tipo_problema' => 'Tipo do Problema',
+            'id_titulo_problema' => 'Título do Problema',
+            'descricao_problema' => 'Descrição do Problema',
+            'descricao_solucao' => 'Descrição da Solucao',
+            'data_ocorrencia' => 'Data de Ocorrência',
+            'data_insercao' => 'Data de Inserção',
+            'nome_especialista' => 'Nome do Especialista',
+            'funcao_especialista' => 'Funcao do Especialista',
             'relator' => 'Relator',
         ];
     }

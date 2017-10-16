@@ -14,7 +14,7 @@ $this->title = 'Solução encontrada'
 
     <b> DESCRIÇÃO REALIZADA: </b>
     <?= DetailView::widget([
-        'model' => $model,
+        'model' => $pesquisa,
         'attributes' => [
             'natureza_problema:ntext',
             'relator',
@@ -40,9 +40,33 @@ $this->title = 'Solução encontrada'
         ],
     ]) ?>
 
-    <b> Similaridade calculada: <?php echo $model->similaridade; ?></b> <br><br>
-    <p>
+    <b> Similaridade calculada: <?php echo $pesquisa->similaridade; ?></b> <br><br>
 
+    <?php if ( ) {   ?>
+
+        <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'id',
+            'id_tipo_problema',
+            'id_titulo_problema',
+            'descricao_problema',
+            'descricao_solucao',
+            'data_ocorrencia',
+            'data_insercao',
+            'nome_especialista',
+            'funcao_especialista',
+            'relator',
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); } ?>
+
+
+    <p>
     <b>A solução recomendada ajudou na sua dúvida?</b>
 
           <?php $url = '?r=pesquisas/newcase&id='.$model->id_pesquisa; ?>

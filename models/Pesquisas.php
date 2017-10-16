@@ -33,7 +33,7 @@ class Pesquisas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_solucao', 'id_usuario', 'id_polo', 'status'], 'integer'],
+            [['id_solucao', 'id_usuario', 'id_polo', 'status', 'id_titulo_problema'], 'integer'],
             [['similaridade'], 'number'],
             [['natureza_problema', 'descricao_problema', 'problema_detalhado'], 'string'],
             [['relator'], 'string', 'max' => 250],
@@ -58,6 +58,7 @@ class Pesquisas extends \yii\db\ActiveRecord
             'palavras_chaves' => 'Palavras-chaves',
             'status' => 'Status',
             'similaridade' => 'Similaridade',
+            'id_titulo_problema' => 'Título do Problema',
         ];
     }
 

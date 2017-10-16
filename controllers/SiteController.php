@@ -20,6 +20,7 @@ use app\models\PoloSearch;
 use app\models\Polo;
 use app\models\RelatorSearch;
 use yii\helpers\ArrayHelper;
+use yii\models\TituloProblemaSearch;
 
 class SiteController extends Controller
 {
@@ -77,19 +78,20 @@ class SiteController extends Controller
 
     public function actionView($id)
     {
-        $model = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
-        $sol = Solucao::find()->where(['id_solucao' => $model->id_solucao])->one();
+        $pesquisa = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
+        $sol = Solucao::find()->where(['id_solucao' => $pesquisa->id_solucao])->one();
 
-        $polo = Polo::find()->where(['id_polo' => $model->id_polo])->one();
-        $model->id_polo = $polo->nome;
+        //$polo = Polo::find()->where(['id_polo' => $pesquisa->id_polo])->one();
+        //$pesquisa->id_polo = $polo->nome;
 
-        $model->similaridade = round(($model->similaridade * 100 ));
+        $pesquisa->similaridade = round(($pesquisa->similaridade * 100 ));
 
         return $this->render('view', [
-            'model' => $model,
+            'pesquisa' => $pesquisa,
             'sol' => $sol,
         ]);
     }
+
 
     /**
      * Login action.
@@ -159,58 +161,84 @@ class SiteController extends Controller
 
         if ( $model->load(Yii::$app->request->post()) ) // Se algo for submetido
         {
-        
-            if ($model->natureza_problema === 'Acadêmica')  // Verificação: se é para o rbc
-            {
+            $agente_1 = Yii::$app->request->post('agente_1');    // Pegando os valores para comparações
+            $agente_2 = Yii::$app->request->post('agente_2'); 
+            $agente_3 = Yii::$app->request->post('agente_3'); 
 
-                if ( ($model->id_polo != null) && ($model->descricao_problema != null) 
-                    && ($model->relator != null) && ($model->problema_detalhado != null)
-                    && ($model->palavras_chaves != null))   // Checando se todos os dados necessários foram informados
-                {
-                    $result_consulta_rbc = $this->agenteRBC($model->id_polo, 
+            if ( ($agente_1 != null) || ($agente_2 != null) || ($agente_3 != null) )    // Se houve pelo menos um agente selecionado
+            {
+                $verificacao_rbc, $verificacao_lms, $verificacao_exp, $resultado_final;
+                $resultado_id = 0;
+
+                if ($agente_1 === "rbc")  // Verificação: se é para o rbc
+                { 
+                    $verificacao_rbc = $this->verificadorDadosRBC ($model->id_polo, 
                         $model->descricao_problema, 
-                        $model->problema_detalhado, 
                         $model->relator, 
-                        $model->palavras_chaves, 
-                        $model->natureza_problema);     // Consulta que retorna o id da pesquisa já salva
+                        $model->problema_detalhado, 
+                        $model->palavras_chaves);
 
-                    if ($result_consulta_rbc == 0)   // Caso a consulta não tenha sido salva
+                    if ( $verificacao_rbc == 0 )   // Checando se todos os dados necessários foram informados
                     {
-                        return $this->render('doom', ['message' => 'A busca realizada não pode ser registrada. Retorne à página anterior e tente novamente.']);  // Se não salvar a pesquisa
-                    }
-                    else   // Caso a consulta tenha sido salva, renderiza os resultados
+                        $resultado_id = $this->agenteRBC($model->id_polo, 
+                            $model->descricao_problema, 
+                            $model->problema_detalhado, 
+                            $model->relator, 
+                            $model->palavras_chaves, 
+                            $model->natureza_problema);     // Consulta que retorna o id da pesquisa já salva
+
+
+                        // Voltando para o resultado da consulta rbc
+
+                        if ($resultado_id == 0)   // Caso a consulta não tenha sido salva
+                        {
+                            return $this->render('doom', ['message' => 'A busca realizada não pode ser registrada. Retorne à página anterior e tente novamente.']);  // Se não salvar a pesquisa
+                        }  
+
+                    }  // Se houve pelo menos algum dado não informado
+                    else
                     {
-                        return $this->actionView ($result_consulta_rbc);
+                        return $this->render('doom', ['message' => 'Todos os dados devem ser informados para a pesquisa ser realizada com sucesso. Tente novamente.']);
                     }
-                }  // Se houve pelo menos algum dado nã informado
-                else
+
+                }   // end if busca rbc
+
+                /*
+                if ( $agente_2 === "lms") 
                 {
-                    return $this->render('doom', ['message' => 'Todos os dados devem ser informados para a pesquisa ser realizada com sucesso. Tente novamente.']);
-                }
+                    if ( $this->verificadorDadosLMS($) == 0 )
+                    {
+                        $resultado_id = $this->agente (#, $resultado_id);
+                    }
+                    else return $this->render('doom', ['message' => 'Por favor, informar .']);
+                }   // end if busca lms
+*/
+                if ( $gente_3 === "exp" ) 
+                {
+                    if ( $this->verificadorDadosEXP($model->titulo_problema) == 0 )
+                    {
+                        $resultado_id = $this->agenteExperts ($model->titulo_problema, $resultado_id);
+                    }
+                    else return $this->render('doom', ['message' => 'Por favor, informar o título do problema.']);
+                }   // end if busca exp
 
-            }   // end if natureza Acadêmica
+                return $this->actionView ($resultado_id);  //
 
-            
-            if ( $model->natureza_problema === 'Pedagógica') 
-            {
-                return $this->render('doom', ['message' => 'Pedagógica.']);
             }
-            if ( $model->natureza_problema === 'Infraestrutura' ) 
-            {
-                //return $this->render('doom', ['message' => 'Infraestrutura.']);
-            }    
 
-            else return $this->render('doom', ['message' => 'Você deve especificar a natureza do problema.']);
+            else return $this->render('doom', ['message' => 'Você deve selecionar pelo menos uma forma de busca.']);
         }
         else    // Primeiro acesso à tela de busca
         {
         	$arrayRelatores = ArrayHelper::map(RelatorSearch::find()->all(), 'id_relator', 'perfil');
         	$arrayPolos = ArrayHelper::map(PoloSearch::find()->all(), 'id_polo', 'nome');
+            $arrayTitulosProblemas = ArrayHelper::map(TituloProblemaSearch::find()->all(), 'id', 'titulo');
 
             return $this->render('search', [
                 'model' => $model,
                 'arrayRelatores' => $arrayRelatores,
                 'arrayPolos' => $arrayPolos,
+                'arrayTitulosProblemas' => $arrayTitulosProblemas,
             ]);        
         }
     }
@@ -236,10 +264,10 @@ class SiteController extends Controller
         $postArray = array(
             "poloId" => $polo,
             "relatorId" => $perfil->perfil,
-            "descricaoProblema" => $model->descricao_problema,
-            "problema" => $model->problema_detalhado,
-            "naturezaProblema" => $model->natureza_problema,
-            "palavrasChavesProblema" => $model->palavras_chaves,
+            "descricaoProblema" => $desc,
+            "problema" => $detalhado,
+            "naturezaProblema" => $natureza,
+            "palavrasChavesProblema" => $keywords,
         );
 
         // Converte os dados para o formato jSon
@@ -290,14 +318,14 @@ class SiteController extends Controller
             // Salva a pesquisa
             $nova_pesquisa = new Pesquisas();
             $nova_pesquisa->id_solucao = $modelSolucao->id_solucao;
-            $nova_pesquisa->id_polo = $model->id_polo;
+            $nova_pesquisa->id_polo = $polo;
             $nova_pesquisa->id_usuario = 1;  // Só para efeito de teste MUDAR ESSE TRECHO QUANDO ADD CLASSE DE USUÁRIOS
             $nova_pesquisa->status = 0;  // 0 = criado, não salvo como novo caso
             $nova_pesquisa->relator = $perfil->perfil;  // ID do relator não é salvo nessa tabela
-            $nova_pesquisa->natureza_problema = $model->natureza_problema;
-            $nova_pesquisa->descricao_problema = $model->descricao_problema;
-            $nova_pesquisa->problema_detalhado = $model->problema_detalhado;
-            $nova_pesquisa->palavras_chaves = $model->palavras_chaves;
+            $nova_pesquisa->natureza_problema = $natureza;
+            $nova_pesquisa->descricao_problema = $desc;
+            $nova_pesquisa->problema_detalhado = $detalhado;
+            $nova_pesquisa->palavras_chaves = $keywords;
             $nova_pesquisa->similaridade = $similaridadeCalculada;
 
             if ($nova_pesquisa->save() )  // Se salvar a pesquisa
@@ -308,16 +336,76 @@ class SiteController extends Controller
         }  // end else para !erro
     }   // agenteRBC end
 
+
+
     public function agenteLMS(/**** DEFINIR PARÂMETROS   ****/)   // Consulta AGENTE LMS
     {
         return $this->render('doom', ['message' => 'Sem parâmetros ainda.']);
     }
 
 
-    public function agenteExperts(/**** DEFINIR PARÂMETROS   ****/)   // Consulta AGENTE experts
-    {
-        // IIII
+
+    public function agenteExperts($titulo_problema, $id)   // Consulta AGENTE experts
+    {    // Verifica se existe este título de problema e se existe respostas com esse título. Armazena consulta no banco.
+        $registro = TituloProblema::find()->where(['titulo_problema' => $titulo_problema])->one();
+
+        if ( $registro != null )
+        {
+            $resposta = RespostaEspecialistas::find()->where(['id' => $registro->id])->all();
+            if ( $resposta != null )
+            {
+                if ( $id != 0 )
+                { // 
+                    $atualiza_registro = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
+                    $atualiza_registro->id_titulo_problema = $registro->id;
+                    if ( $atualiza_registro->save() ) return $atualiza_registro->id_pesquisa;
+                    else return $this->render('doom', ['message' => 'Ocorreu um erro ao fazer a busca. Por favor, repita a busca.']);
+
+                }
+                else
+                { // Não existe um registro da pesquisa total do usuário - criar um registro
+                    $nova_pesquisa = new Pesquisas();
+                    $nova_pesquisa->id_titulo_problema = $registro->id;
+
+                    if ( $nova_pesquisa->save() ) return $nova_pesquisa->id_pesquisa;
+                }
+            }
+            else    // Não tem resposta de acordo com o título de problema selecionado
+            {
+                $atualiza_registro = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
+                $atualiza_registro->id_titulo_problema = 0;  // Representa a falta de resposta de acordo com o título
+                if ( $atualiza_registro->save() ) return $atualiza_registro->id_pesquisa;
+                else return $this->render('doom', ['message' => 'Não há resposta de acordo com o título de problema selecionado.']);
+            }
+        }
+        else return $this->render('doom', ['message' => 'Ocorreu um erro ao fazer a busca. Por favor, repita a busca.']);
     }
 
+
+
+    public function verificadorDadosRBC ($polo, $descricao_problema, $relator, $problema_detalhado, $palavras_chaves)
+    {
+        if ( ($polo != null) && 
+            ($descricao_problema != null) && 
+            ($relator != null) && 
+            ($problema_detalhado != null)
+            && ($palavras_chaves != null) )
+        {
+            return 0;   // Todos os dados foram informados
+        }
+        else 1;   // Faltou informar pelo menos um dado
+    }
+/*
+    public function verificadorDadosLMS ()
+    {
+        
+    }   */
+
+    public function verificadorDadosEXP ($titulo_problema)
+    {
+        if ($titulo_problema != null) return 0;
+        else return 1;  // Titulo do problema não foi informado
+        
+    }
 
 }
