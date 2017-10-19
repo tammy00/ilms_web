@@ -17,10 +17,10 @@ use app\models\Pesquisas;
 use app\models\Relator;
 use app\models\Solucao;
 use app\models\PoloSearch;
+use app\models\TituloProblemaSearch;
 use app\models\Polo;
 use app\models\RelatorSearch;
 use yii\helpers\ArrayHelper;
-use yii\models\TituloProblemaSearch;
 
 class SiteController extends Controller
 {
@@ -79,16 +79,37 @@ class SiteController extends Controller
     public function actionView($id)
     {
         $pesquisa = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
-        $sol = Solucao::find()->where(['id_solucao' => $pesquisa->id_solucao])->one();
+        if ( $pesquisa == null ) return $this->actionDoom('pesquisa não foi salva');
+
+        if ( $pesquisa->id_solucao != null ) $sol = Solucao::find()->where(['id_solucao' => $pesquisa->id_solucao])->one();
+        else $sol = null;
 
         //$polo = Polo::find()->where(['id_polo' => $pesquisa->id_polo])->one();
         //$pesquisa->id_polo = $polo->nome;
 
-        $pesquisa->similaridade = round(($pesquisa->similaridade * 100 ));
+        //$pesquisa->data_ocorrencia = Yii::$app->formatter->asDate($pesquisa->data_ocorrencia);
+        //$pesquisa->data_insercao = Yii::$app->formatter->asDate($pesquisa->data_insercao);
+
+        if ( $pesquisa->similaridade != null ) $pesquisa->similaridade = round(($pesquisa->similaridade * 100 ));
+
+        if ( $pesquisa->id_titulo_problema > 0 )
+        {
+            $exp_resposta = RespostaEspecialistas::find()->where(['id_titulo_problema' => $pesquisa->id_titulo_problema])->all();
+            /*
+            forearch ($exp_resposta as $key => $e)
+            {
+                $title = TituloProblema::find()->where(['id' => $e->id_titulo_problema])->one();
+                $type = TipoProblema::find()->where(['id' => $e->id_tipo_problema])->one();
+                $e->id_titulo_problema = $title->titulo;
+                $e->id_titulo_problema = $type->tipo;
+            }  */
+        }
+        else $exp_resposta = null;
 
         return $this->render('view', [
             'pesquisa' => $pesquisa,
             'sol' => $sol,
+            'exp_resposta' => $exp_resposta,
         ]);
     }
 
@@ -165,12 +186,15 @@ class SiteController extends Controller
             $agente_2 = Yii::$app->request->post('agente_2'); 
             $agente_3 = Yii::$app->request->post('agente_3'); 
 
-            if ( ($agente_1 != null) || ($agente_2 != null) || ($agente_3 != null) )    // Se houve pelo menos um agente selecionado
-            {
-                $verificacao_rbc, $verificacao_lms, $verificacao_exp, $resultado_final;
+            if ( ($agente_1 != null) || ($agente_2 != null) || ($agente_3 != null) )    
+            {    // Se houve pelo menos um agente selecionado
+                $verificacao_rbc = 0;
+                $verificacao_lms = 0;
+                $verificacao_exp = 0;
+                $resultado_final = 0;
                 $resultado_id = 0;
 
-                if ($agente_1 === "rbc")  // Verificação: se é para o rbc
+                if ($agente_1 == "rbc")  // Verificação: se é para o rbc
                 { 
                     $verificacao_rbc = $this->verificadorDadosRBC ($model->id_polo, 
                         $model->descricao_problema, 
@@ -186,6 +210,7 @@ class SiteController extends Controller
                             $model->relator, 
                             $model->palavras_chaves, 
                             $model->natureza_problema);     // Consulta que retorna o id da pesquisa já salva
+                        // Única função que não recebe id de pesquisa no parâmetro
 
 
                         // Voltando para o resultado da consulta rbc
@@ -204,20 +229,23 @@ class SiteController extends Controller
                 }   // end if busca rbc
 
                 /*
-                if ( $agente_2 === "lms") 
+                if ( $agente_2 == "lms") 
                 {
-                    if ( $this->verificadorDadosLMS($) == 0 )
+                    if ( $this->verificadorDadosLMS($) == 0 )  // Se os dados necessários foram informados
                     {
-                        $resultado_id = $this->agente (#, $resultado_id);
+                        $resultado_id = $this->agente (#, $resultado_id);   // COMPLETAR PARÂMETROS
                     }
                     else return $this->render('doom', ['message' => 'Por favor, informar .']);
                 }   // end if busca lms
 */
-                if ( $gente_3 === "exp" ) 
+                if ( $agente_3 == "exp" ) // erro aqui
                 {
+                    return $this->render('doom', ['message' => 'agente especialista foi selecionado']);
                     if ( $this->verificadorDadosEXP($model->titulo_problema) == 0 )
                     {
                         $resultado_id = $this->agenteExperts ($model->titulo_problema, $resultado_id);
+                        // A função acima retorna o id do registro da tabela pesquisa
+                        // Dependendo do valor de $resultado_id, o registro é criado ou não
                     }
                     else return $this->render('doom', ['message' => 'Por favor, informar o título do problema.']);
                 }   // end if busca exp
@@ -256,7 +284,8 @@ class SiteController extends Controller
 
     public function agenteRBC($polo, $desc, $detalhado, $relator, $keywords, $natureza)   // Consulta AGENTE CBR
     {
-        $perfil = Relator::find()->where(['id_relator' => $relator])->one();   
+        $perfil = Relator::find()->where(['id_relator' => $relator])->one();  
+        // find realizado para saber o nome do perfil, através do id_relator recebido 
 
         // Enviar json pelo CURL
         //Cria a array com os dados recebido, sendo q o ID é gerado pelo WS
@@ -347,18 +376,22 @@ class SiteController extends Controller
 
     public function agenteExperts($titulo_problema, $id)   // Consulta AGENTE experts
     {    // Verifica se existe este título de problema e se existe respostas com esse título. Armazena consulta no banco.
+
         $registro = TituloProblema::find()->where(['titulo_problema' => $titulo_problema])->one();
 
-        if ( $registro != null )
+        if ( $registro != null ) // Se existe algum registro com título informado
         {
-            $resposta = RespostaEspecialistas::find()->where(['id' => $registro->id])->all();
-            if ( $resposta != null )
+            $resposta = RespostaEspecialistas::find()->where(['id_titulo_problema' => $registro->id])->all();
+
+            if ( $resposta != null )  // Se existe alguma resposta (problema) com título informado
             {
-                if ( $id != 0 )
+                if ( $id > 0 )
                 { // 
                     $atualiza_registro = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
                     $atualiza_registro->id_titulo_problema = $registro->id;
+
                     if ( $atualiza_registro->save() ) return $atualiza_registro->id_pesquisa;
+
                     else return $this->render('doom', ['message' => 'Ocorreu um erro ao fazer a busca. Por favor, repita a busca.']);
 
                 }
@@ -368,6 +401,7 @@ class SiteController extends Controller
                     $nova_pesquisa->id_titulo_problema = $registro->id;
 
                     if ( $nova_pesquisa->save() ) return $nova_pesquisa->id_pesquisa;
+                    // Se a pesquisa foi salva, retorna o id da pesquisa criada
                 }
             }
             else    // Não tem resposta de acordo com o título de problema selecionado

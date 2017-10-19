@@ -12,6 +12,7 @@ $this->title = 'Solução encontrada'
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <?php if ( $pesquisa->relator != null ) {   ?>
     <b> DESCRIÇÃO REALIZADA: </b>
     <?= DetailView::widget([
         'model' => $pesquisa,
@@ -25,6 +26,7 @@ $this->title = 'Solução encontrada'
         ],
     ]) ?>
 
+    <?php if ( $sol != null ) {   ?>
     <b> SOLUÇÃO APRESENTADA: </b>
     <?= DetailView::widget([
         'model' => $sol,
@@ -38,15 +40,15 @@ $this->title = 'Solução encontrada'
             'impacto_pedagogico:ntext',
             'atores_envolvidos',
         ],
-    ]) ?>
+    ]) } ?>
 
     <b> Similaridade calculada: <?php echo $pesquisa->similaridade; ?></b> <br><br>
 
-    <?php if ( ) {   ?>
+    <?php if ( $pesquisa->id_titulo_problema > 0) {   ?>
 
         <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        'dataProvider' => $exp_resposta,
+        //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -55,8 +57,14 @@ $this->title = 'Solução encontrada'
             'id_titulo_problema',
             'descricao_problema',
             'descricao_solucao',
-            'data_ocorrencia',
-            'data_insercao',
+            [
+                'attribute' => 'data_ocorrencia',
+                'format' => ['date', 'php:d/m/Y']
+            ], 
+            [
+                'attribute' => 'data_insercao',
+                'format' => ['date', 'php:d/m/Y']
+            ], 
             'nome_especialista',
             'funcao_especialista',
             'relator',
