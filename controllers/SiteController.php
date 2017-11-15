@@ -11,6 +11,7 @@ use app\models\ContactForm;
 use app\models\Descricao;
 use app\models\BuscaGeral;
 use app\models\RespostaEspecialistas;
+use app\models\RespostaEspecialistasSearch;
 use app\models\TipoProblema;
 use app\models\TituloProblema;
 use app\models\Pesquisas;
@@ -94,17 +95,10 @@ class SiteController extends Controller
 
         if ( $pesquisa->id_titulo_problema > 0 )
         {
-            $exp_resposta = RespostaEspecialistas::find()->where(['id_titulo_problema' => $pesquisa->id_titulo_problema])->all();
-            /*
-            forearch ($exp_resposta as $key => $e)
-            {
-                $title = TituloProblema::find()->where(['id' => $e->id_titulo_problema])->one();
-                $type = TipoProblema::find()->where(['id' => $e->id_tipo_problema])->one();
-                $e->id_titulo_problema = $title->titulo;
-                $e->id_titulo_problema = $type->tipo;
-            }  */
-        }
-        else $exp_resposta = null;
+            $exp_resposta = RespostaEspecialistasSearch::searchForResponses($pesquisa->id_titulo_problema);
+
+        }  
+        else $exp_resposta = null;   
 
         return $this->render('view', [
             'pesquisa' => $pesquisa,
@@ -244,14 +238,14 @@ class SiteController extends Controller
                     //return $this->render('doom', ['message' => 'agente especialista foi selecionado']); 
                     if ( $this->verificadorDadosEXP($model->titulo_problema) == 0 )
                     {
-                        return $this->agenteExperts ($model->titulo_problema, $resultado_id);
+                        $resultado_id = $this->agenteExperts ($model->titulo_problema, $resultado_id);
                         // A função acima retorna o id do registro da tabela pesquisa
                         // Dependendo do valor de $resultado_id, o registro é criado ou não
                     }
                     else return $this->render('doom', ['message' => 'Por favor, informar o título do problema.']); 
                 }   // end if busca exp
 
-                //return $this->actionView ($resultado_id);  //
+                return $this->actionView ($resultado_id);  //
 
             }
 
@@ -394,7 +388,7 @@ class SiteController extends Controller
                     $atualiza_registro = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
                     $atualiza_registro->id_titulo_problema = $registro->id;
 
-                    if ( $atualiza_registro->save() ) return $this->actionView($atualiza_registro->id_pesquisa);
+                    if ( $atualiza_registro->save() ) return $atualiza_registro->id_pesquisa;
 
                     else return $this->render('doom', ['message' => 'Ocorreu um erro ao fazer a busca. Por favor, repita a busca.']);
 
