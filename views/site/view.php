@@ -2,6 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\grid\GridView;
+use app\models\TipoProblema;
+use app\models\TituloProblema;
+use app\models\Pesquisas;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Descricao */
@@ -24,7 +28,8 @@ $this->title = 'Solução encontrada'
             'palavras_chaves',
             'id_polo',
         ],
-    ]) ?>
+    ]); } ?>
+
 
     <?php if ( $sol != null ) {   ?>
     <b> SOLUÇÃO APRESENTADA: </b>
@@ -40,11 +45,11 @@ $this->title = 'Solução encontrada'
             'impacto_pedagogico:ntext',
             'atores_envolvidos',
         ],
-    ]) } ?>
+    ]); } 
 
-    <b> Similaridade calculada: <?php echo $pesquisa->similaridade; ?></b> <br><br>
+    echo '<b> Similaridade calculada:</b> '.$pesquisa->similaridade;  ?>
 
-    <?php if ( $pesquisa->id_titulo_problema > 0) {   ?>
+    <?php if ( ($pesquisa->id_titulo_problema > 0) && ($exp_resposta != null )) {   ?>
 
         <?= GridView::widget([
         'dataProvider' => $exp_resposta,
@@ -53,23 +58,43 @@ $this->title = 'Solução encontrada'
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'id_tipo_problema',
-            'id_titulo_problema',
+            [
+                'attribute' => 'id_tipo_problema',
+                'value' => function ($data) {
+                        $tipoproblema = TipoProblema::find()->where(['id' => $data->id_tipo_problema])->one();
+                        return $tipoproblema->tipo;
+                },
+            ],
+            [
+                'attribute' => 'id_titulo_problema',
+                'value' => function ($data) {
+                        $tituloproblema = TituloProblema::find()->where(['id' => $data->id_titulo_problema])->one();
+                        return $tituloproblema->titulo;
+                },
+            ],
             'descricao_problema',
-            'descricao_solucao',
             [
-                'attribute' => 'data_ocorrencia',
-                'format' => ['date', 'php:d/m/Y']
-            ], 
-            [
-                'attribute' => 'data_insercao',
-                'format' => ['date', 'php:d/m/Y']
-            ], 
-            'nome_especialista',
-            'funcao_especialista',
-            'relator',
-
-            ['class' => 'yii\grid\ActionColumn'],
+                'class' => 'yii\grid\ActionColumn',
+                'header'=>'Ações',
+                'headerOptions' => ['style' => 'text-align:center; color:#337AB7'],
+                'contentOptions' => ['style' => 'text-align:center; vertical-align:middle'],
+                'template' => '{view}',
+                'buttons' => 
+                [
+                    'view' => function ($url, $model) 
+                    {
+                        return Html::a(
+                            '<span class="glyphicon glyphicon-eye-open"></span>',
+                            ['pesquisas/view', 'id' => $model->id], 
+                            [
+                                'title' => 'Visualizar',
+                                'aria-label' => 'Visualizar',
+                                'data-pjax' => '0',
+                            ]
+                        );
+                    },
+                ],
+            ],
         ],
     ]); } ?>
 
@@ -77,11 +102,11 @@ $this->title = 'Solução encontrada'
     <p>
     <b>A solução recomendada ajudou na sua dúvida?</b>
 
-          <?php $url = '?r=pesquisas/newcase&id='.$model->id_pesquisa; ?>
+          <?php $url = '?r=pesquisas/newcase&id='.$pesquisa->id_pesquisa; ?>
           
         <a href='<?php echo $url ?>' class="btn btn-primary">Sim</a>
 
-        <?php $link = '?r=pesquisas/update&id='.$model->id_pesquisa;  ?>
+        <?php $link = '?r=pesquisas/update&id='.$pesquisa->id_pesquisa;  ?>
 
         <a href='<?php echo $link ?>' class="btn btn-default">Não</a>
 

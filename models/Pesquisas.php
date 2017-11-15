@@ -77,7 +77,10 @@ class Pesquisas extends \yii\db\ActiveRecord
                  break;
         }
 
-        $polo = Polo::find()->where(['id_polo' => $this->id_polo])->one();
-        $this->id_polo = $polo->nome;
+        if ( $this->id_polo != null )
+        {
+            $polo = Polo::find()->where(['id_polo' => $this->id_polo])->one();
+            $this->id_polo = $polo->nome;
+        }
     }
 }

@@ -13,6 +13,7 @@ use app\models\Relator;
 use app\models\Polo;
 use app\models\Solucao;
 use app\models\InfoCaso;
+use app\models\RespostaEspecialistas;
 /**
  * PesquisasController implements the CRUD actions for Pesquisas model.
  */
@@ -67,12 +68,28 @@ class PesquisasController extends Controller
     public function actionView($id)
     {
         $model = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
-        $sol = Solucao::find()->where(['id_solucao' => $model->id_solucao])->one();
-        $model->similaridade = round(($model->similaridade * 100 ));
+
+        if ( $model->id_solucao != null ){
+            $sol = Solucao::find()->where(['id_solucao' => $model->id_solucao])->one();
+            $model->similaridade = round(($model->similaridade * 100 ));
+        }
+        else $sol = null;
+        
+        if ( $model->id_titulo_problema > 0 )
+        {
+            $exp_resposta = RespostaEspecialistas::find()->where(['id_titulo_problema' => $model->id_titulo_problema])->one();
+            $tipoproblema = TipoProblema::find()->where(['id' => $data->id_tipo_problema])->one();
+            $exp_resposta->id_tipo_problema = $tipoproblema->tipo;
+            $tituloproblema = TituloProblema::find()->where(['id' => $data->id_titulo_problema])->one();
+            $exp_resposta->id_titulo_problema = $tituloproblema->titulo;
+
+        }  
+        else $exp_resposta = null;  
 
         return $this->render('view', [
             'model' => $model,
             'sol' => $sol,
+            'exp_resposta' => $exp_resposta,
         ]);
     }
 

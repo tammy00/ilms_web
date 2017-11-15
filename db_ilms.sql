@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 16-Out-2017 às 23:46
+-- Generation Time: 15-Nov-2017 às 16:35
 -- Versão do servidor: 10.1.13-MariaDB
 -- PHP Version: 5.5.37
 
@@ -134,7 +134,7 @@ INSERT INTO `info_caso` (`id_infoc`, `date_created`, `tipo_caso`, `quantidade_al
 CREATE TABLE `pesquisas` (
   `id_pesquisa` int(11) NOT NULL,
   `id_solucao` int(10) DEFAULT NULL,
-  `id_resposta_esp` int(11) DEFAULT NULL,
+  `id_titulo_problema` int(11) DEFAULT NULL,
   `id_usuario` int(11) DEFAULT NULL,
   `id_polo` int(10) DEFAULT NULL,
   `relator` varchar(250) DEFAULT NULL,
@@ -150,7 +150,7 @@ CREATE TABLE `pesquisas` (
 -- Extraindo dados da tabela `pesquisas`
 --
 
-INSERT INTO `pesquisas` (`id_pesquisa`, `id_solucao`, `id_resposta_esp`, `id_usuario`, `id_polo`, `relator`, `natureza_problema`, `descricao_problema`, `problema_detalhado`, `palavras_chaves`, `status`, `similaridade`) VALUES
+INSERT INTO `pesquisas` (`id_pesquisa`, `id_solucao`, `id_titulo_problema`, `id_usuario`, `id_polo`, `relator`, `natureza_problema`, `descricao_problema`, `problema_detalhado`, `palavras_chaves`, `status`, `similaridade`) VALUES
 (1, 10, 0, 1, 2, 'Coordenador do polo', 'Acadêmica', 'A dependência da disciplina Fundamentos de Anatomia estava sendo ministrada para dois polos: Santa Izabel do Rio Negro e Boa Vista/RR, no período de 09/03/2014 a 26/03/2014. O polo de Boa Vista atendeu 89 alunos do curso de Licenciatura em Educação Física no período letivo e regular de 2013/2, sendo que 53 alunos ficaram de Dependência. No início do mês de março de 2014, a sede do polo de Boa Vista sofreu com certa lentidão na velocidade internet, o que gerou reclamações por parte dos alunos, que se queixavam de dificuldades para fazer o download dos vídeos postados na sala de aula virtual.', 'A baixa velocidade de internet impedia que os alunos da Dependência conseguissem fazer o download dos vídeos postados como conteúdo das disciplinas.Os vídeos eram essenciais para a aprendizagem do conteúdo.', 'Problema internet, download vídeos', 0, 0.889752),
 (2, 9, 0, 1, 22, 'Coordenador do curso', 'Pedagógica', 'O cursos oferecidos pela Universidade Aberta do Brasil (UAB) passaram por um recadastramento no Sistema da UAB (SISUAB), para maior controle por parte do MEC em relação à quantidade de alunos por polo e por cursos. A coordenação do curso não atualizou os dados corretamente e algumas bolsas foram cortadas, ocasionando desligamento de alguns tutores.', 'Quantidade de bolsa para tutores e professores foi reduzida devido a informações erradas no sistema SISUAB.', 'Corte de bolsa', 0, 0.916264),
 (3, 8, 0, 1, 6, 'Coordenador do curso', 'Infraestrutura', 'O curso de Licenciatura em Educação Física era oferecido para os 17 polos atendidos pelo CED. Como era a primeira oferta do curso, a equipe ainda não tinha experiência e nem conhecimento das peculiaridades dos polos. Atrasos no envido de material didático e de logística da equipe de apoio (tutores e coordenadores) acabaram por prejudicar o andamento das atividades das primeiras disciplinas do primeiro módulo.', 'Dificuldades de logística e inexperiência da equipe de apoio acabaram por prejudicar o andamento das atividades das primeiras disciplinas do primeiro módulo.', 'Problemas de logística, inexperiência da equipe', 0, 0.946154),
@@ -164,7 +164,10 @@ INSERT INTO `pesquisas` (`id_pesquisa`, `id_solucao`, `id_resposta_esp`, `id_usu
 (11, 5, 0, 1, 4, 'Coordenador do polo', 'Infraestrutura', 'As disciplinas Contabilidade Geral, Macroeconomia e Ciência Política estava sendo ministrada para três polos: Tarauacá, Brasileia e Acrelândia (AC), no período de 28/04/2014 a 06/06/2014.\r\nO polo de Brasileia atendeu 14 alunos do curso Licenciatura em Administração Pública neste período letivo.\r\nEm 28/04/2014, a cidade de Brasileia, sofreu um inundação, devido ao transbordamento do rio. O polo ficou com cerca de 1m de água. Equipamentos e móveis foram destruídos.', 'A inundação ocorrida na cidade de Brasileia comprometeu as atividades no polo. ', 'Inundação', 0, 0.953879),
 (12, 5, 0, 1, 4, 'Coordenador do polo', 'Infraestrutura', 'As disciplinas Contabilidade Geral, Macroeconomia e Ciência Política estava sendo ministrada para três polos: Tarauacá, Brasileia e Acrelândia (AC), no período de 28/04/2014 a 06/06/2014.\nO polo de Brasileia atendeu 14 alunos do curso Licenciatura em Administração Pública neste período letivo.\nEm 28/04/2014, a cidade de Brasileia, sofreu um inundação, devido ao transbordamento do rio. O polo ficou com cerca de 1m de água. Equipamentos e móveis foram destruídos.', 'A inundação ocorrida na cidade de Brasileia comprometeu as atividades no polo. ', 'Inundação', 0, 0.953879),
 (13, 5, 0, 1, 4, 'Coordenador do polo', 'Infraestrutura', 'As disciplinas Contabilidade Geral, Macroeconomia e Ciência Política estava sendo ministrada para três polos: Tarauacá, Brasileia e Acrelândia (AC), no período de 28/04/2014 a 06/06/2014.\r\nO polo de Brasileia atendeu 14 alunos do curso Licenciatura em Administração Pública neste período letivo.\r\nEm 28/04/2014, a cidade de Brasileia, sofreu um inundação, devido ao transbordamento do rio. O polo ficou com cerca de 1m de água. Equipamentos e móveis foram destruídos.', 'A inundação ocorrida na cidade de Brasileia comprometeu as atividades no polo. ', 'Inundação', 0, 0.953879),
-(14, 5, 0, 1, 4, 'Coordenador do polo', 'Infraestrutura', 'A inundação ocorrida na cidade de Brasileia comprometeu as atividades no polo. ', 'As disciplinas Contabilidade Geral, Macroeconomia e Ciência Política estava sendo ministrada para três polos: Tarauacá, Brasileia e Acrelândia (AC), no período de 28/04/2014 a 06/06/2014.\r\nO polo de Brasileia atendeu 14 alunos do curso Licenciatura em Administração Pública neste período letivo.\r\nEm 28/04/2014, a cidade de Brasileia, sofreu um inundação, devido ao transbordamento do rio. O polo ficou com cerca de 1m de água. Equipamentos e móveis foram destruídos.', 'Inundação', 0, 0.706159);
+(14, 5, 0, 1, 4, 'Coordenador do polo', 'Infraestrutura', 'A inundação ocorrida na cidade de Brasileia comprometeu as atividades no polo. ', 'As disciplinas Contabilidade Geral, Macroeconomia e Ciência Política estava sendo ministrada para três polos: Tarauacá, Brasileia e Acrelândia (AC), no período de 28/04/2014 a 06/06/2014.\r\nO polo de Brasileia atendeu 14 alunos do curso Licenciatura em Administração Pública neste período letivo.\r\nEm 28/04/2014, a cidade de Brasileia, sofreu um inundação, devido ao transbordamento do rio. O polo ficou com cerca de 1m de água. Equipamentos e móveis foram destruídos.', 'Inundação', 0, 0.706159),
+(15, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(16, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(17, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -263,14 +266,21 @@ CREATE TABLE `resposta_esp` (
   `id` int(111) NOT NULL,
   `id_tipo_problema` int(111) NOT NULL,
   `id_titulo_problema` int(111) NOT NULL,
-  `descricao_problema` varchar(300) NOT NULL,
-  `descricao_solucao` varchar(300) NOT NULL,
+  `descricao_problema` varchar(300) CHARACTER SET latin1 NOT NULL,
+  `descricao_solucao` varchar(300) CHARACTER SET latin1 NOT NULL,
   `data_ocorrencia` date NOT NULL,
   `data_insercao` date NOT NULL,
-  `nome_especialista` varchar(200) NOT NULL,
-  `funcao_especialista` varchar(100) NOT NULL,
-  `relator` varchar(250) CHARACTER SET utf8 NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `nome_especialista` varchar(200) CHARACTER SET latin1 NOT NULL,
+  `funcao_especialista` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `relator` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `resposta_esp`
+--
+
+INSERT INTO `resposta_esp` (`id`, `id_tipo_problema`, `id_titulo_problema`, `descricao_problema`, `descricao_solucao`, `data_ocorrencia`, `data_insercao`, `nome_especialista`, `funcao_especialista`, `relator`) VALUES
+(1, 1, 3, 'Só um exemplo', '', '2017-11-16', '2017-11-16', 'Tammy', '', 'Estudante');
 
 -- --------------------------------------------------------
 
@@ -545,7 +555,7 @@ ALTER TABLE `info_caso`
 -- AUTO_INCREMENT for table `pesquisas`
 --
 ALTER TABLE `pesquisas`
-  MODIFY `id_pesquisa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_pesquisa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `polo`
 --
@@ -561,6 +571,11 @@ ALTER TABLE `professor`
 --
 ALTER TABLE `relator`
   MODIFY `id_relator` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `resposta_esp`
+--
+ALTER TABLE `resposta_esp`
+  MODIFY `id` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `solucao`
 --

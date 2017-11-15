@@ -6,6 +6,8 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\RespostaEspecialistas;
+use app\models\TipoProblema;
+use app\models\TituloProblema;
 
 /**
  * RespostaEspecialistasSearch represents the model behind the search form about `app\models\RespostaEspecialistas`.
@@ -71,6 +73,32 @@ class RespostaEspecialistasSearch extends RespostaEspecialistas
             ->andFilterWhere(['like', 'nome_especialista', $this->nome_especialista])
             ->andFilterWhere(['like', 'funcao_especialista', $this->funcao_especialista])
             ->andFilterWhere(['like', 'relator', $this->relator]);
+
+        return $dataProvider;
+    }
+
+    public function searchForResponses($id_titulo)
+    {
+        $query = RespostaEspecialistas::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+       /* $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }  */
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id_titulo_problema' => $id_titulo,
+        ]);
 
         return $dataProvider;
     }

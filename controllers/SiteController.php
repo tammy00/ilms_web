@@ -82,16 +82,12 @@ class SiteController extends Controller
         $pesquisa = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
         if ( $pesquisa == null ) return $this->actionDoom('pesquisa não foi salva: '.$id);
 
-        if ( $pesquisa->id_solucao != null ) $sol = Solucao::find()->where(['id_solucao' => $pesquisa->id_solucao])->one();
+        if ( $pesquisa->id_solucao != null ) 
+        {
+            $sol = Solucao::find()->where(['id_solucao' => $pesquisa->id_solucao])->one();
+            $pesquisa->similaridade = round(($pesquisa->similaridade * 100 ));
+        }
         else $sol = null;
-
-        //$polo = Polo::find()->where(['id_polo' => $pesquisa->id_polo])->one();
-        //$pesquisa->id_polo = $polo->nome;
-
-        //$pesquisa->data_ocorrencia = Yii::$app->formatter->asDate($pesquisa->data_ocorrencia);
-        //$pesquisa->data_insercao = Yii::$app->formatter->asDate($pesquisa->data_insercao);
-
-        if ( $pesquisa->similaridade != null ) $pesquisa->similaridade = round(($pesquisa->similaridade * 100 ));
 
         if ( $pesquisa->id_titulo_problema > 0 )
         {
