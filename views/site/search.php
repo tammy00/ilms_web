@@ -11,6 +11,39 @@ $this->title = 'Busca de solução';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>
+
+<script>
+$(document).ready(function()
+{
+    $("#site-cbr").click(function()
+    {
+        $("#div_rbc").toggle();
+        if ( $("#site-cbr").value != 0) 
+          $("#site-cbr").val("0");
+        else
+          $("#site-cbr").val("1");
+    });
+
+    $("#site-lms").click(function()
+    {
+        $("#div_lms").toggle();
+        if ( $("#site-lms").value != 0) 
+          $("#site-lms").val("0");
+        else
+          $("#site-lms").val("1");
+    });
+
+    $("#site-experts").click(function()
+    {
+        $("#div_exp").toggle();
+        if ( $("#site-experts").value != 0) 
+          $("#site-experts").val("0");
+        else
+          $("#site-experts").val("1");
+    });
+});
+</script>
 
 
 <div>
@@ -29,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
           <?= $form->field($model, 'lms')->checkbox() ?>
           <?= $form->field($model, 'experts')->checkbox()?>
 
-          <div id="div_rbc" style="display: none">   
+          <div id="div_rbc" >   
                 <?= $form->field($model, 'relator')->dropDownList([$arrayRelatores],['style' => 'width:500px',
                                                       'prompt' => "Selecione um relator",]); ?>  
 
@@ -42,12 +75,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                                       
           </div>
 
-          <div id="div_lms" style="display: none"> 
+          <div id="div_lms" > 
                 Conteudo para a box de moodle
                 <br><br>
           </div>
 
-          <div id="div_exp" style="display: none">  
+          <div id="div_exp" >  
                 <?= $form->field($model, 'titulo_problema')->dropDownList([$arrayTitulosProblemas],['style' => 'width:500px',
                                                       'prompt' => "Selecione um problema",]); ?> 
                 <br><br>
@@ -65,17 +98,25 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <?php
-
+/*
     $this->registerJs('
         $(document).ready(function(){
             if ($("#site-cbr").is(":checked"))
                 $("#div_rbc").prop("style", "display: block");
+            else
+              $("#div_rbc").prop("style", "display: none");
+
             if ($("#site-lms").is(":checked"))
                 $("#div_lms").prop("style", "display: block");
+            else
+              $("#div_lms").prop("style", "display: none");
+
             if ($("#site-experts").is(":checked"))
-                $("#div_lms").prop("style", "display: block");
+                $("#div_exp").prop("style", "display: block");
+            else
+              $("#div_exp").prop("style", "display: none");
         });'
-    );
+    );    
 
     $this->registerJs('
         $(document).ready(function(){
@@ -120,6 +161,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             });
         });'
-    );
+    );   */
 
 ?>

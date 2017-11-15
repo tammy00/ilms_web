@@ -241,17 +241,17 @@ class SiteController extends Controller
 */
                 if ( $model->experts != 0 ) // erro aqui
                 {
-                    return $this->render('doom', ['message' => 'agente especialista foi selecionado']); /*
+                    //return $this->render('doom', ['message' => 'agente especialista foi selecionado']); 
                     if ( $this->verificadorDadosEXP($model->titulo_problema) == 0 )
                     {
-                        $resultado_id = $this->agenteExperts ($model->titulo_problema, $resultado_id);
+                        return $this->agenteExperts ($model->titulo_problema, $resultado_id);
                         // A função acima retorna o id do registro da tabela pesquisa
                         // Dependendo do valor de $resultado_id, o registro é criado ou não
                     }
-                    else return $this->render('doom', ['message' => 'Por favor, informar o título do problema.']);  */
+                    else return $this->render('doom', ['message' => 'Por favor, informar o título do problema.']); 
                 }   // end if busca exp
 
-                return $this->actionView ($resultado_id);  //
+                //return $this->actionView ($resultado_id);  //
 
             }
 
@@ -262,6 +262,9 @@ class SiteController extends Controller
         	$arrayRelatores = ArrayHelper::map(RelatorSearch::find()->all(), 'id_relator', 'perfil');
         	$arrayPolos = ArrayHelper::map(PoloSearch::find()->all(), 'id_polo', 'nome');
             $arrayTitulosProblemas = ArrayHelper::map(TituloProblemaSearch::find()->all(), 'id', 'titulo');
+            $model->cbr = 0;
+            $model->experts = 0;
+            $model->lms =0;
 
             return $this->render('search', [
                 'model' => $model,
@@ -378,7 +381,7 @@ class SiteController extends Controller
     public function agenteExperts($titulo_problema, $id)   // Consulta AGENTE experts
     {    // Verifica se existe este título de problema e se existe respostas com esse título. Armazena consulta no banco.
 
-        $registro = TituloProblema::find()->where(['titulo_problema' => $titulo_problema])->one();
+        $registro = TituloProblema::find()->where(['id' => $titulo_problema])->one();
 
         if ( $registro != null ) // Se existe algum registro com título informado
         {
@@ -386,12 +389,12 @@ class SiteController extends Controller
 
             if ( $resposta != null )  // Se existe alguma resposta (problema) com título informado
             {
-                if ( $id > 0 )
+                if ( $id != 0 )
                 { // 
                     $atualiza_registro = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
                     $atualiza_registro->id_titulo_problema = $registro->id;
 
-                    if ( $atualiza_registro->save() ) return $atualiza_registro->id_pesquisa;
+                    if ( $atualiza_registro->save() ) return $this->actionView($atualiza_registro->id_pesquisa);
 
                     else return $this->render('doom', ['message' => 'Ocorreu um erro ao fazer a busca. Por favor, repita a busca.']);
 
