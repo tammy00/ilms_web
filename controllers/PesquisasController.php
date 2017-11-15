@@ -14,6 +14,8 @@ use app\models\Polo;
 use app\models\Solucao;
 use app\models\InfoCaso;
 use app\models\RespostaEspecialistas;
+use app\models\TipoProblema;
+use app\models\TituloProblema;
 /**
  * PesquisasController implements the CRUD actions for Pesquisas model.
  */
@@ -78,9 +80,9 @@ class PesquisasController extends Controller
         if ( $model->id_titulo_problema > 0 )
         {
             $exp_resposta = RespostaEspecialistas::find()->where(['id_titulo_problema' => $model->id_titulo_problema])->one();
-            $tipoproblema = TipoProblema::find()->where(['id' => $data->id_tipo_problema])->one();
+            $tipoproblema = TipoProblema::find()->where(['id' => $exp_resposta->id_tipo_problema])->one();
             $exp_resposta->id_tipo_problema = $tipoproblema->tipo;
-            $tituloproblema = TituloProblema::find()->where(['id' => $data->id_titulo_problema])->one();
+            $tituloproblema = TituloProblema::find()->where(['id' => $exp_resposta->id_titulo_problema])->one();
             $exp_resposta->id_titulo_problema = $tituloproblema->titulo;
 
         }  
@@ -90,6 +92,7 @@ class PesquisasController extends Controller
             'model' => $model,
             'sol' => $sol,
             'exp_resposta' => $exp_resposta,
+            'id' => $id,
         ]);
     }
 

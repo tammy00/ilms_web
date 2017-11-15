@@ -45,11 +45,13 @@ $this->title = 'Solução encontrada'
             'impacto_pedagogico:ntext',
             'atores_envolvidos',
         ],
-    ]); } 
+    ]); ?>
 
-    echo '<b> Similaridade calculada:</b> '.$pesquisa->similaridade;  ?>
+    <b> Similaridade</b> calculada: <b><?php echo $model->similaridade; ?>%</b> <br><br>
+    <?php } ?>
 
     <?php if ( ($pesquisa->id_titulo_problema > 0) && ($exp_resposta != null )) {   ?>
+    <b> OPINIÃO DO ESPECIALISTA: </b>
 
         <?= GridView::widget([
         'dataProvider' => $exp_resposta,
@@ -83,9 +85,10 @@ $this->title = 'Solução encontrada'
                 [
                     'view' => function ($url, $model) 
                     {
+                        $valor = Pesquisas::find()->where(['id_titulo_problema' => $model->id_titulo_problema])->one(); // model é de resposta=especialistas
                         return Html::a(
                             '<span class="glyphicon glyphicon-eye-open"></span>',
-                            ['pesquisas/view', 'id' => $model->id], 
+                            ['pesquisas/view', 'id' => $valor->id_pesquisa], 
                             [
                                 'title' => 'Visualizar',
                                 'aria-label' => 'Visualizar',
