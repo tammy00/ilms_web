@@ -11,7 +11,21 @@ $this->title = 'Busca de solução';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>
 
+<script>
+$(document).ready(function(){
+    $("#checkbox_rbc").click(function(){
+        $("#div_rbc").toggle();
+    });
+    $("#checkbox_lms").click(function(){
+        $("#div_lms").toggle();
+    });
+    $("#checkbox_exp").click(function(){
+        $("#div_exp").toggle();
+    });
+});
+</script>
 
 <div>
     <h1><?= Html::encode($this->title) ?></h1>
@@ -25,9 +39,9 @@ $this->params['breadcrumbs'][] = $this->title;
           <?= $form->field($model, 'descricao_problema')->textarea(['rows' => 6])->label('Descreva o problema resumidamente:'); ?>
 
           <br><b>Selecione o agente: </b><br>
-          <?= $form->field($model, 'cbr')->checkbox() ?>
-          <?= $form->field($model, 'lms')->checkbox() ?>
-          <?= $form->field($model, 'experts')->checkbox()?>
+          <input type="checkbox" id="checkbox_rbc" name='agente_1' value='rbc'/> Casos Passados <br /> 
+          <input type="checkbox" id="checkbox_exp" name='agente_2' value='exp'/> Opiniões <br />
+          <input type="checkbox" id="checkbox_lms" name='agente_3' value='lms'/> Dados do AVA <br /> <br>
 
           <div id="div_rbc" style="display: none">   
                 <?= $form->field($model, 'relator')->dropDownList([$arrayRelatores],['style' => 'width:500px',
@@ -63,63 +77,3 @@ $this->params['breadcrumbs'][] = $this->title;
         <!--</div>-->
 
 </div>
-
-<?php
-
-    $this->registerJs('
-        $(document).ready(function(){
-            if ($("#site-cbr").is(":checked"))
-                $("#div_rbc").prop("style", "display: block");
-            if ($("#site-lms").is(":checked"))
-                $("#div_lms").prop("style", "display: block");
-            if ($("#site-experts").is(":checked"))
-                $("#div_lms").prop("style", "display: block");
-        });'
-    );
-
-    $this->registerJs('
-        $(document).ready(function(){
-            $("#site-cbr").change(function(){
-                if ($("#site-cbr").is(":checked")) {
-                    $("#site-cbr").val("1");
-                    $("#div_rbc").prop("style", "display: block");
-                }
-                else {
-                    $("#site-cbr").val("0");
-                    $("#div_rbc").prop("style", "display: none");
-                }
-            });
-        });'
-    );
-
-    $this->registerJs('
-        $(document).ready(function(){
-            $("#site-lms").change(function(){
-                if ($("#site-lms").is(":checked")) {
-                    $("#site-lms").val("1");
-                    $("#div_lms").prop("style", "display: block");
-                }
-                else {
-                    $("#site-lms").val("0");
-                    $("#div_lms").prop("style", "display: none");
-                }
-            });
-        });'
-    );
-
-    $this->registerJs('
-        $(document).ready(function(){
-            $("#site-experts").change(function(){
-                if ($("#site-experts").is(":checked")) {
-                    $("#site-experts").val("1");
-                    $("#div_exp").prop("style", "display: block");
-                }
-                else {
-                    $("#site-experts").val("0");
-                    $("#div_exp").prop("style", "display: none");
-                }
-            });
-        });'
-    );
-
-?>

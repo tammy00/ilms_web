@@ -16,6 +16,12 @@ class BuscaGeral extends Model
      * @inheritdoc
      */
 
+    // Atributos checkbox
+    
+    public $cbr;
+    public $lms;
+    public $experts;    
+
     // Atributos de 'descricao_problema'
     public $natureza_problema;   // Equivalente do tipo_problema
     public $descricao_problema;
@@ -27,7 +33,7 @@ class BuscaGeral extends Model
     public $relator;
 
     //Atributos de 'resposta_esp'
-    public $titulo_problema;
+    public $titulo_problema; 
 
 
 
@@ -40,7 +46,7 @@ class BuscaGeral extends Model
         return [
         /*** Abaixo, os atributos de descricao_problema   ***/
             [['natureza_problema', 'descricao_problema', 'problema_detalhado'], 'string'],
-            [['id_polo'], 'integer'],
+            [['id_polo', 'cbr', 'lms', 'experts'], 'integer'],
             [['relator'], 'string', 'max' => 250],
             [['palavras_chaves'], 'string', 'max' => 400],   // Cadê o max dos 3 primeiros?
             /*************************************/
@@ -66,6 +72,9 @@ class BuscaGeral extends Model
 
             // ABaixo, os atributos de 'resposta_esp'
             'titulo_problema' => 'Título do Problema',
+            'cbr' => 'Casos Passados',
+            'experts' => 'Opiniões',
+            'lms' => 'Dados do AVA',
         ];
     }
 }

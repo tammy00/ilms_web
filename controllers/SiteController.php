@@ -79,7 +79,7 @@ class SiteController extends Controller
     public function actionView($id)
     {
         $pesquisa = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
-        if ( $pesquisa == null ) return $this->actionDoom('pesquisa não foi salva');
+        if ( $pesquisa == null ) return $this->actionDoom('pesquisa não foi salva: '.$id);
 
         if ( $pesquisa->id_solucao != null ) $sol = Solucao::find()->where(['id_solucao' => $pesquisa->id_solucao])->one();
         else $sol = null;
@@ -182,11 +182,12 @@ class SiteController extends Controller
 
         if ( $model->load(Yii::$app->request->post()) ) // Se algo for submetido
         {
+            /*
             $agente_1 = Yii::$app->request->post('agente_1');    // Pegando os valores para comparações
             $agente_2 = Yii::$app->request->post('agente_2'); 
-            $agente_3 = Yii::$app->request->post('agente_3'); 
+            $agente_3 = Yii::$app->request->post('agente_3');   */
 
-            if ( ($agente_1 != null) || ($agente_2 != null) || ($agente_3 != null) )    
+            if ( ($model->cbr != null) || ($model->lms != null) || ($model->experts != null) )    
             {    // Se houve pelo menos um agente selecionado
                 $verificacao_rbc = 0;
                 $verificacao_lms = 0;
@@ -194,7 +195,7 @@ class SiteController extends Controller
                 $resultado_final = 0;
                 $resultado_id = 0;
 
-                if ($agente_1 == "rbc")  // Verificação: se é para o rbc
+                if ($model->cbr != 0 )  // Verificação: se é para o rbc
                 { 
                     $verificacao_rbc = $this->verificadorDadosRBC ($model->id_polo, 
                         $model->descricao_problema, 
@@ -229,7 +230,7 @@ class SiteController extends Controller
                 }   // end if busca rbc
 
                 /*
-                if ( $agente_2 == "lms") 
+                if ( $model->lms != 0 ) 
                 {
                     if ( $this->verificadorDadosLMS($) == 0 )  // Se os dados necessários foram informados
                     {
@@ -238,16 +239,16 @@ class SiteController extends Controller
                     else return $this->render('doom', ['message' => 'Por favor, informar .']);
                 }   // end if busca lms
 */
-                if ( $agente_3 == "exp" ) // erro aqui
+                if ( $model->experts != 0 ) // erro aqui
                 {
-                    return $this->render('doom', ['message' => 'agente especialista foi selecionado']);
+                    return $this->render('doom', ['message' => 'agente especialista foi selecionado']); /*
                     if ( $this->verificadorDadosEXP($model->titulo_problema) == 0 )
                     {
                         $resultado_id = $this->agenteExperts ($model->titulo_problema, $resultado_id);
                         // A função acima retorna o id do registro da tabela pesquisa
                         // Dependendo do valor de $resultado_id, o registro é criado ou não
                     }
-                    else return $this->render('doom', ['message' => 'Por favor, informar o título do problema.']);
+                    else return $this->render('doom', ['message' => 'Por favor, informar o título do problema.']);  */
                 }   // end if busca exp
 
                 return $this->actionView ($resultado_id);  //
