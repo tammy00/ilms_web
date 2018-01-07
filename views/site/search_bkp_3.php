@@ -11,6 +11,47 @@ $this->title = 'Busca de solução';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>
+
+<script>
+$(document).ready(function()
+{
+    $("#site-cbr").click(function()
+    {
+        $("#div_rbc").toggle();
+        if ( $("#site-cbr").value != 0) 
+          $("#site-cbr").val("0");
+        else
+          $("#site-cbr").val("1");
+    });
+
+    $("#site-lms").click(function()
+    {
+        $("#div_lms").toggle();
+        if ( $("#site-lms").value != 0) 
+          $("#site-lms").val("0");
+        else
+          $("#site-lms").val("1");
+    });
+
+    $("#site-experts").click(function()
+    {
+        var e = document.getElementById('#div_exp');
+        if ( $("#site-experts").value != 0)   // Deixar escondido
+        {
+          $("#site-experts").val("0"); 
+          e.style.display = 'none';  
+        }
+        else
+        {
+          $("#site-experts").val("1");   // Elemento aparece
+          e.style.display = 'block';
+        }
+    });
+});
+</script>
+
+
 <div>
     <h1><?= Html::encode($this->title) ?></h1>
     
@@ -22,10 +63,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
           <?= $form->field($model, 'descricao_problema')->textarea(['rows' => 6])->label('Descreva o problema resumidamente:'); ?>
 
+          <br><b>Selecione o agente: </b><br>
+          <?= $form->field($model, 'cbr')->checkbox() ?>
+          <?= $form->field($model, 'lms')->checkbox() ?>
+          <?= $form->field($model, 'experts')->checkbox() ?>
 
 
-          <fieldset>   
-                <legend>Casos Passados</legend>
+
+          <div id="div_rbc" style="display: none">   
                 <?= $form->field($model, 'relator')->dropDownList([$arrayRelatores],['style' => 'width:500px',
                                                       'prompt' => "Selecione um relator",]); ?>  
 
@@ -36,20 +81,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'id_polo')->dropDownList([$arrayPolos],['style' => 'width:500px',
                                                       'prompt' => "Selecione um polo",]); ?>  
                                                       
-          </fieldset>
+          </div>
 
-          <fieldset>
-                <legend>Dados do AVA</legend>
+          <div id="div_lms" style="display: none"> 
                 Conteudo para a box de moodle
                 <br><br>
-          </fieldset>
+          </div>
 
-          <fieldset>
-                <legend>Opinião de Especialistas</legend> 
+          <div id="div_exp" style="display: none">  
                 <?= $form->field($model, 'titulo_problema')->dropDownList([$arrayTitulosProblemas],['style' => 'width:500px',
                                                       'prompt' => "Selecione um problema",]); ?> 
                 <br><br>
-          </fieldset>    
+          </div>    
 
           <div class="form-group">
             <?= Html::submitButton('Buscar', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>

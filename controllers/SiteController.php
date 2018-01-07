@@ -172,89 +172,70 @@ class SiteController extends Controller
 
         if ( $model->load(Yii::$app->request->post()) ) // Se algo for submetido
         {
-            /*
-            $agente_1 = Yii::$app->request->post('agente_1');    // Pegando os valores para comparações
-            $agente_2 = Yii::$app->request->post('agente_2'); 
-            $agente_3 = Yii::$app->request->post('agente_3');   */
+            $verificacao_rbc = 0;
+            $verificacao_lms = 0;
+            $verificacao_exp = 0;
+            $resultado_final = 0;
+            $resultado_id = 0;
 
-            if ( ($model->cbr != null) || ($model->lms != null) || ($model->experts != null) )    
-            {    // Se houve pelo menos um agente selecionado
-                $verificacao_rbc = 0;
-                $verificacao_lms = 0;
-                $verificacao_exp = 0;
-                $resultado_final = 0;
-                $resultado_id = 0;
+             $verificacao_rbc = $this->verificadorDadosRBC ($model->id_polo, 
+                $model->descricao_problema, 
+                $model->relator, 
+                $model->problema_detalhado, 
+                $model->palavras_chaves);
 
-                if ($model->cbr != 0 )  // Verificação: se é para o rbc
-                { 
-                    $verificacao_rbc = $this->verificadorDadosRBC ($model->id_polo, 
-                        $model->descricao_problema, 
-                        $model->relator, 
-                        $model->problema_detalhado, 
-                        $model->palavras_chaves);
-
-                    if ( $verificacao_rbc == 0 )   // Checando se todos os dados necessários foram informados
-                    {
-                        $resultado_id = $this->agenteRBC($model->id_polo, 
-                            $model->descricao_problema, 
-                            $model->problema_detalhado, 
-                            $model->relator, 
-                            $model->palavras_chaves, 
-                            $model->natureza_problema);     // Consulta que retorna o id da pesquisa já salva
-                        // Única função que não recebe id de pesquisa no parâmetro
+            if ( $verificacao_rbc == 0 )   // Checando se todos os dados necessários foram informados
+            {
+                $resultado_id = $this->agenteRBC($model->id_polo, 
+                    $model->descricao_problema, 
+                    $model->problema_detalhado, 
+                    $model->relator, 
+                    $model->palavras_chaves, 
+                    $model->natureza_problema);     // Consulta que retorna o id da pesquisa já salva
+                // Única função que não recebe id de pesquisa no parâmetro
 
 
-                        // Voltando para o resultado da consulta rbc
+                // Voltando para o resultado da consulta rbc
 
-                        if ($resultado_id == 0)   // Caso a consulta não tenha sido salva
-                        {
-                            return $this->render('doom', ['message' => 'A busca realizada não pode ser registrada. Retorne à página anterior e tente novamente.']);  // Se não salvar a pesquisa
-                        }  
-
-                    }  // Se houve pelo menos algum dado não informado
-                    else
-                    {
-                        return $this->render('doom', ['message' => 'Todos os dados devem ser informados para a pesquisa ser realizada com sucesso. Tente novamente.']);
-                    }
-
-                }   // end if busca rbc
-
-                /*
-                if ( $model->lms != 0 ) 
+                if ($resultado_id == 0)   // Caso a consulta não tenha sido salva
                 {
-                    if ( $this->verificadorDadosLMS($) == 0 )  // Se os dados necessários foram informados
-                    {
-                        $resultado_id = $this->agente (#, $resultado_id);   // COMPLETAR PARÂMETROS
-                    }
-                    else return $this->render('doom', ['message' => 'Por favor, informar .']);
-                }   // end if busca lms
-*/
-                if ( $model->experts != 0 ) // erro aqui
-                {
-                    //return $this->render('doom', ['message' => 'agente especialista foi selecionado']); 
-                    if ( $this->verificadorDadosEXP($model->titulo_problema) == 0 )
-                    {
-                        $resultado_id = $this->agenteExperts ($model->titulo_problema, $resultado_id);
-                        // A função acima retorna o id do registro da tabela pesquisa
-                        // Dependendo do valor de $resultado_id, o registro é criado ou não
-                    }
-                    else return $this->render('doom', ['message' => 'Por favor, informar o título do problema.']); 
-                }   // end if busca exp
+                    return $this->render('doom', ['message' => 'Não foi possível registrar a pesquisa. Retorne à página anterior e tente novamente.']);  // Se não salvar a pesquisa
+                }  
 
-                return $this->actionView ($resultado_id);  //
-
+            }  
+            else    // Se houve pelo menos algum dado não informado
+            {
+                return $this->render('doom', ['message' => 'Todos os dados devem ser informados para a pesquisa ser realizada com sucesso. Tente novamente.']);
             }
 
-            else return $this->render('doom', ['message' => 'Você deve selecionar pelo menos uma forma de busca.']);
-        }
+                /*
+             if ( $this->verificadorDadosLMS($) == 0 )  // Se os dados necessários foram informados
+            {
+                $resultado_id = $this->agente (#, $resultado_id);   // COMPLETAR PARÂMETROS
+            }
+            else return $this->render('doom', ['message' => 'Por favor, informar os dados necessários.']);
+
+*/
+            if ( $this->verificadorDadosEXP($model->titulo_problema) == 0 )
+            {
+                $resultado_id = $this->agenteExperts ($model->titulo_problema, $resultado_id);
+                // A função acima retorna o id do registro da tabela pesquisa
+                // Dependendo do valor de $resultado_id, o registro é criado ou não
+            }
+            else return $this->render('doom', ['message' => 'Por favor, informar o título do problema.']); 
+
+            return $this->actionView ($resultado_id);  //
+
+            
+        }   //else if request post
         else    // Primeiro acesso à tela de busca
         {
         	$arrayRelatores = ArrayHelper::map(RelatorSearch::find()->all(), 'id_relator', 'perfil');
         	$arrayPolos = ArrayHelper::map(PoloSearch::find()->all(), 'id_polo', 'nome');
             $arrayTitulosProblemas = ArrayHelper::map(TituloProblemaSearch::find()->all(), 'id', 'titulo');
-            $model->cbr = 0;
-            $model->experts = 0;
-            $model->lms =0;
+            $model->cbr = -1;
+            $model->experts = -1;
+            $model->lms = -1;
 
             return $this->render('search', [
                 'model' => $model,
@@ -437,3 +418,110 @@ class SiteController extends Controller
     }
 
 }
+
+
+
+
+/*********
+//bkp dp actionSearch antes das retiradas dos checkboxes no site\search.php
+   public function actionSearch()  // Descricao vai ter todos os dados, independente de ser somente para o rbc
+    { 
+
+        //tipo_problema == natureza_problema
+        $model = new BuscaGeral();
+
+        if ( $model->load(Yii::$app->request->post()) ) // Se algo for submetido
+        {
+            
+            //$agente_1 = Yii::$app->request->post('agente_1');    // Pegando os valores para comparações
+            //$agente_2 = Yii::$app->request->post('agente_2'); 
+            //$agente_3 = Yii::$app->request->post('agente_3');   
+
+            if ( ($model->cbr != null) || ($model->lms != null) || ($model->experts != null) )    
+            {    // Se houve pelo menos um agente selecionado
+                $verificacao_rbc = 0;
+                $verificacao_lms = 0;
+                $verificacao_exp = 0;
+                $resultado_final = 0;
+                $resultado_id = 0;
+
+                if ($model->cbr != 0 )  // Verificação: se é para o rbc
+                { 
+                    $verificacao_rbc = $this->verificadorDadosRBC ($model->id_polo, 
+                        $model->descricao_problema, 
+                        $model->relator, 
+                        $model->problema_detalhado, 
+                        $model->palavras_chaves);
+
+                    if ( $verificacao_rbc == 0 )   // Checando se todos os dados necessários foram informados
+                    {
+                        $resultado_id = $this->agenteRBC($model->id_polo, 
+                            $model->descricao_problema, 
+                            $model->problema_detalhado, 
+                            $model->relator, 
+                            $model->palavras_chaves, 
+                            $model->natureza_problema);     // Consulta que retorna o id da pesquisa já salva
+                        // Única função que não recebe id de pesquisa no parâmetro
+
+
+                        // Voltando para o resultado da consulta rbc
+
+                        if ($resultado_id == 0)   // Caso a consulta não tenha sido salva
+                        {
+                            return $this->render('doom', ['message' => 'A busca realizada não pode ser registrada. Retorne à página anterior e tente novamente.']);  // Se não salvar a pesquisa
+                        }  
+
+                    }  // Se houve pelo menos algum dado não informado
+                    else
+                    {
+                        return $this->render('doom', ['message' => 'Todos os dados devem ser informados para a pesquisa ser realizada com sucesso. Tente novamente.']);
+                    }
+
+                }   // end if busca rbc
+
+                
+                //if ( $model->lms != 0 ) 
+                //{
+                    //if ( $this->verificadorDadosLMS($) == 0 )  // Se os dados necessários foram informados
+                    //{
+                        //$resultado_id = $this->agente (#, $resultado_id);   // COMPLETAR PARÂMETROS
+                    //}
+                    //else return $this->render('doom', ['message' => 'Por favor, informar .']);
+                //}   // end if busca lms
+
+                if ( $model->experts != 0 ) // erro aqui
+                {
+                    //return $this->render('doom', ['message' => 'agente especialista foi selecionado']); 
+                    if ( $this->verificadorDadosEXP($model->titulo_problema) == 0 )
+                    {
+                        $resultado_id = $this->agenteExperts ($model->titulo_problema, $resultado_id);
+                        // A função acima retorna o id do registro da tabela pesquisa
+                        // Dependendo do valor de $resultado_id, o registro é criado ou não
+                    }
+                    else return $this->render('doom', ['message' => 'Por favor, informar o título do problema.']); 
+                }   // end if busca exp
+
+                return $this->actionView ($resultado_id);  //
+
+            }
+
+            else return $this->render('doom', ['message' => 'Você deve selecionar pelo menos uma forma de busca.']);
+        }
+        else    // Primeiro acesso à tela de busca
+        {
+            $arrayRelatores = ArrayHelper::map(RelatorSearch::find()->all(), 'id_relator', 'perfil');
+            $arrayPolos = ArrayHelper::map(PoloSearch::find()->all(), 'id_polo', 'nome');
+            $arrayTitulosProblemas = ArrayHelper::map(TituloProblemaSearch::find()->all(), 'id', 'titulo');
+            $model->cbr = -1;
+            $model->experts = -1;
+            $model->lms = -1;
+
+            return $this->render('search', [
+                'model' => $model,
+                'arrayRelatores' => $arrayRelatores,
+                'arrayPolos' => $arrayPolos,
+                'arrayTitulosProblemas' => $arrayTitulosProblemas,
+            ]);        
+        }
+    }
+******/
