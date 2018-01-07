@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 15-Nov-2017 às 16:35
+-- Generation Time: 07-Jan-2018 às 19:45
 -- Versão do servidor: 10.1.13-MariaDB
 -- PHP Version: 5.5.37
 
@@ -151,7 +151,7 @@ CREATE TABLE `pesquisas` (
 --
 
 INSERT INTO `pesquisas` (`id_pesquisa`, `id_solucao`, `id_titulo_problema`, `id_usuario`, `id_polo`, `relator`, `natureza_problema`, `descricao_problema`, `problema_detalhado`, `palavras_chaves`, `status`, `similaridade`) VALUES
-(1, 10, 0, 1, 2, 'Coordenador do polo', 'Acadêmica', 'A dependência da disciplina Fundamentos de Anatomia estava sendo ministrada para dois polos: Santa Izabel do Rio Negro e Boa Vista/RR, no período de 09/03/2014 a 26/03/2014. O polo de Boa Vista atendeu 89 alunos do curso de Licenciatura em Educação Física no período letivo e regular de 2013/2, sendo que 53 alunos ficaram de Dependência. No início do mês de março de 2014, a sede do polo de Boa Vista sofreu com certa lentidão na velocidade internet, o que gerou reclamações por parte dos alunos, que se queixavam de dificuldades para fazer o download dos vídeos postados na sala de aula virtual.', 'A baixa velocidade de internet impedia que os alunos da Dependência conseguissem fazer o download dos vídeos postados como conteúdo das disciplinas.Os vídeos eram essenciais para a aprendizagem do conteúdo.', 'Problema internet, download vídeos', 0, 0.889752),
+(1, 10, 3, 1, 2, 'Coordenador do polo', 'Acadêmica', 'A dependência da disciplina Fundamentos de Anatomia estava sendo ministrada para dois polos: Santa Izabel do Rio Negro e Boa Vista/RR, no período de 09/03/2014 a 26/03/2014. O polo de Boa Vista atendeu 89 alunos do curso de Licenciatura em Educação Física no período letivo e regular de 2013/2, sendo que 53 alunos ficaram de Dependência. No início do mês de março de 2014, a sede do polo de Boa Vista sofreu com certa lentidão na velocidade internet, o que gerou reclamações por parte dos alunos, que se queixavam de dificuldades para fazer o download dos vídeos postados na sala de aula virtual.', 'A baixa velocidade de internet impedia que os alunos da Dependência conseguissem fazer o download dos vídeos postados como conteúdo das disciplinas.Os vídeos eram essenciais para a aprendizagem do conteúdo.', 'Problema internet, download vídeos', 0, 0.889752),
 (2, 9, 0, 1, 22, 'Coordenador do curso', 'Pedagógica', 'O cursos oferecidos pela Universidade Aberta do Brasil (UAB) passaram por um recadastramento no Sistema da UAB (SISUAB), para maior controle por parte do MEC em relação à quantidade de alunos por polo e por cursos. A coordenação do curso não atualizou os dados corretamente e algumas bolsas foram cortadas, ocasionando desligamento de alguns tutores.', 'Quantidade de bolsa para tutores e professores foi reduzida devido a informações erradas no sistema SISUAB.', 'Corte de bolsa', 0, 0.916264),
 (3, 8, 0, 1, 6, 'Coordenador do curso', 'Infraestrutura', 'O curso de Licenciatura em Educação Física era oferecido para os 17 polos atendidos pelo CED. Como era a primeira oferta do curso, a equipe ainda não tinha experiência e nem conhecimento das peculiaridades dos polos. Atrasos no envido de material didático e de logística da equipe de apoio (tutores e coordenadores) acabaram por prejudicar o andamento das atividades das primeiras disciplinas do primeiro módulo.', 'Dificuldades de logística e inexperiência da equipe de apoio acabaram por prejudicar o andamento das atividades das primeiras disciplinas do primeiro módulo.', 'Problemas de logística, inexperiência da equipe', 0, 0.946154),
 (4, 7, 0, 1, 9, 'Coordenador do polo', 'Infraestrutura', 'Em 20/02/2010, o gerador de energia sofreu uma avaria, o que acarretou uma falta de energia elétrica em todo a cidade de Lábrea. \r\nO acesso à internet foi interrompido e as atividades dos cursos do Bacharelado em Administração Pública e Licenciatura em Ciências Agrárias tiveram que ser suspensas por 5 dias.', 'Polo sem energia elétrica e sem internet por 5 dias.', 'Falta de energia elétrica, problema internet', 0, 0.918949),
@@ -165,9 +165,7 @@ INSERT INTO `pesquisas` (`id_pesquisa`, `id_solucao`, `id_titulo_problema`, `id_
 (12, 5, 0, 1, 4, 'Coordenador do polo', 'Infraestrutura', 'As disciplinas Contabilidade Geral, Macroeconomia e Ciência Política estava sendo ministrada para três polos: Tarauacá, Brasileia e Acrelândia (AC), no período de 28/04/2014 a 06/06/2014.\nO polo de Brasileia atendeu 14 alunos do curso Licenciatura em Administração Pública neste período letivo.\nEm 28/04/2014, a cidade de Brasileia, sofreu um inundação, devido ao transbordamento do rio. O polo ficou com cerca de 1m de água. Equipamentos e móveis foram destruídos.', 'A inundação ocorrida na cidade de Brasileia comprometeu as atividades no polo. ', 'Inundação', 0, 0.953879),
 (13, 5, 0, 1, 4, 'Coordenador do polo', 'Infraestrutura', 'As disciplinas Contabilidade Geral, Macroeconomia e Ciência Política estava sendo ministrada para três polos: Tarauacá, Brasileia e Acrelândia (AC), no período de 28/04/2014 a 06/06/2014.\r\nO polo de Brasileia atendeu 14 alunos do curso Licenciatura em Administração Pública neste período letivo.\r\nEm 28/04/2014, a cidade de Brasileia, sofreu um inundação, devido ao transbordamento do rio. O polo ficou com cerca de 1m de água. Equipamentos e móveis foram destruídos.', 'A inundação ocorrida na cidade de Brasileia comprometeu as atividades no polo. ', 'Inundação', 0, 0.953879),
 (14, 5, 0, 1, 4, 'Coordenador do polo', 'Infraestrutura', 'A inundação ocorrida na cidade de Brasileia comprometeu as atividades no polo. ', 'As disciplinas Contabilidade Geral, Macroeconomia e Ciência Política estava sendo ministrada para três polos: Tarauacá, Brasileia e Acrelândia (AC), no período de 28/04/2014 a 06/06/2014.\r\nO polo de Brasileia atendeu 14 alunos do curso Licenciatura em Administração Pública neste período letivo.\r\nEm 28/04/2014, a cidade de Brasileia, sofreu um inundação, devido ao transbordamento do rio. O polo ficou com cerca de 1m de água. Equipamentos e móveis foram destruídos.', 'Inundação', 0, 0.706159),
-(15, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(16, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(17, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(15, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -280,7 +278,8 @@ CREATE TABLE `resposta_esp` (
 --
 
 INSERT INTO `resposta_esp` (`id`, `id_tipo_problema`, `id_titulo_problema`, `descricao_problema`, `descricao_solucao`, `data_ocorrencia`, `data_insercao`, `nome_especialista`, `funcao_especialista`, `relator`) VALUES
-(1, 1, 3, 'Só um exemplo', '', '2017-11-16', '2017-11-16', 'Tammy', '', 'Estudante');
+(1, 1, 3, 'Só um exemplo', '', '2017-11-16', '2017-11-16', 'Tammy', '', 'Estudante'),
+(2, 1, 3, 'LITTLE GLEE MONSTER', '', '0000-00-00', '0000-00-00', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -555,7 +554,7 @@ ALTER TABLE `info_caso`
 -- AUTO_INCREMENT for table `pesquisas`
 --
 ALTER TABLE `pesquisas`
-  MODIFY `id_pesquisa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_pesquisa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `polo`
 --
@@ -575,7 +574,7 @@ ALTER TABLE `relator`
 -- AUTO_INCREMENT for table `resposta_esp`
 --
 ALTER TABLE `resposta_esp`
-  MODIFY `id` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `solucao`
 --

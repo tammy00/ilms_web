@@ -172,11 +172,11 @@ class SiteController extends Controller
 
         if ( $model->load(Yii::$app->request->post()) ) // Se algo for submetido
         {
-            $verificacao_rbc = 0;
-            $verificacao_lms = 0;
-            $verificacao_exp = 0;
-            $resultado_final = 0;
-            $resultado_id = 0;
+            $verificacao_rbc = -1;
+            $verificacao_lms = -1;
+            $verificacao_exp = -1;
+            $resultado_final = -1;
+            $resultado_id = -1;
 
              $verificacao_rbc = $this->verificadorDadosRBC ($model->id_polo, 
                 $model->descricao_problema, 
@@ -197,16 +197,16 @@ class SiteController extends Controller
 
                 // Voltando para o resultado da consulta rbc
 
-                if ($resultado_id == 0)   // Caso a consulta não tenha sido salva
+                if ($resultado_id == -1)   // Caso a consulta não tenha sido salva
                 {
                     return $this->render('doom', ['message' => 'Não foi possível registrar a pesquisa. Retorne à página anterior e tente novamente.']);  // Se não salvar a pesquisa
                 }  
 
-            }  
+            }  /*
             else    // Se houve pelo menos algum dado não informado
             {
                 return $this->render('doom', ['message' => 'Todos os dados devem ser informados para a pesquisa ser realizada com sucesso. Tente novamente.']);
-            }
+            }  */
 
                 /*
              if ( $this->verificadorDadosLMS($) == 0 )  // Se os dados necessários foram informados
@@ -360,7 +360,7 @@ class SiteController extends Controller
 
             if ( $resposta != null )  // Se existe alguma resposta (problema) com título informado
             {
-                if ( $id != 0 )
+                if ( $id != (-1) )
                 { // 
                     $atualiza_registro = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
                     $atualiza_registro->id_titulo_problema = $registro->id;
@@ -394,15 +394,18 @@ class SiteController extends Controller
 
     public function verificadorDadosRBC ($polo, $descricao_problema, $relator, $problema_detalhado, $palavras_chaves)
     {
-        if ( ($polo != null) && 
-            ($descricao_problema != null) && 
-            ($relator != null) && 
-            ($problema_detalhado != null)
-            && ($palavras_chaves != null) )
+        if ( ($polo != null) && ($descricao_problema != null) && ($relator != null) && 
+            ($problema_detalhado != null) && ($palavras_chaves != null) )
         {
-            return 0;   // Todos os dados foram informados
+            //return 0;   // Todos os dados foram informados
+            //return $this->render('doom', ['message' => 'DADOS PARA O RBC FORAM INFORMADOS.']);
+            return (0);
         }
-        else 1;   // Faltou informar pelo menos um dado
+        else 
+        {
+            //return $this->render('doom', ['message' => 'DADOS PARA O RBC NÃO FORAM INFORMADOS.']);
+            return 1;   // Faltou informar pelo menos um dado
+        }
     }
 /*
     public function verificadorDadosLMS ()
@@ -412,8 +415,8 @@ class SiteController extends Controller
 
     public function verificadorDadosEXP ($titulo_problema)
     {
-        if ($titulo_problema != null) return 0;
-        else return 1;  // Titulo do problema não foi informado
+        if ($titulo_problema != null) return (0);
+        else return (1);  // Titulo do problema não foi informado
         
     }
 
