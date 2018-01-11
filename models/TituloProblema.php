@@ -29,6 +29,7 @@ class TituloProblema extends \yii\db\ActiveRecord
     {
         return [
             [['titulo'], 'required'],
+            [['id'], 'integer'],
             [['titulo'], 'string', 'max' => 200],
         ];
     }

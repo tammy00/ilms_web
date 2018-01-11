@@ -331,6 +331,7 @@ class SiteController extends Controller
             $nova_pesquisa->problema_detalhado = $detalhado;
             $nova_pesquisa->palavras_chaves = $keywords;
             $nova_pesquisa->similaridade = $similaridadeCalculada;
+            $nova_pesquisa->id_titulo_problema = 0;
 
             if ($nova_pesquisa->save() )  // Se salvar a pesquisa
             {
@@ -352,28 +353,33 @@ class SiteController extends Controller
     public function agenteExperts($titulo_problema, $id)   // Consulta AGENTE experts
     {    // Verifica se existe este título de problema e se existe respostas com esse título. Armazena consulta no banco.
 
-        $registro = TituloProblema::find()->where(['id' => $titulo_problema])->one();
+        $o_titulo = TituloProblema::find()->where(['id' => $titulo_problema])->one();
 
-        if ( $registro != null ) // Se existe algum registro com título informado
+        if ( $o_titulo != null ) // Se existe algum registro com título informado
         {
-            $resposta = RespostaEspecialistas::find()->where(['id_titulo_problema' => $registro->id])->all();
+            $resposta = RespostaEspecialistas::find()->where(['id_titulo_problema' => $o_titulo->id])->all();
 
             if ( $resposta != null )  // Se existe alguma resposta (problema) com título informado
             {
                 if ( $id != (-1) )
                 { // 
                     $atualiza_registro = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
-                    $atualiza_registro->id_titulo_problema = $registro->id;
+                    $atualiza_registro->id_titulo_problema = (int)($o_titulo->id);
 
-                    if ( $atualiza_registro->save() ) return $atualiza_registro->id_pesquisa;
-
-                    else return $this->render('doom', ['message' => 'Ocorreu um erro ao fazer a busca. Por favor, repita a busca.']);
+                    if ( $atualiza_registro->save() ) 
+                    {
+                        return $atualiza_registro->id_pesquisa;
+                    }
+                    else 
+                    {
+                            return $this->render('doom', ['message' => 'Ocorreu um erro ao salvar a busca. Por favor, repita a busca.']);
+                    }
 
                 }
                 else
                 { // Não existe um registro da pesquisa total do usuário - criar um registro
                     $nova_pesquisa = new Pesquisas();
-                    $nova_pesquisa->id_titulo_problema = $registro->id;
+                    $nova_pesquisa->id_titulo_problema = $o_titulo->id;
 
                     if ( $nova_pesquisa->save() ) return $nova_pesquisa->id_pesquisa;
                     // Se a pesquisa foi salva, retorna o id da pesquisa criada
@@ -387,7 +393,7 @@ class SiteController extends Controller
                 else return $this->render('doom', ['message' => 'Não há resposta de acordo com o título de problema selecionado.']);
             }
         }
-        else return $this->render('doom', ['message' => 'Ocorreu um erro ao fazer a busca. Por favor, repita a busca.']);
+        else return $this->render('doom', ['message' => 'Ocorreu um erro ao fazer a busca com o agente especialista. Por favor, repita a busca.']);
     }
 
 
@@ -397,13 +403,11 @@ class SiteController extends Controller
         if ( ($polo != null) && ($descricao_problema != null) && ($relator != null) && 
             ($problema_detalhado != null) && ($palavras_chaves != null) )
         {
-            //return 0;   // Todos os dados foram informados
-            //return $this->render('doom', ['message' => 'DADOS PARA O RBC FORAM INFORMADOS.']);
+            // Todos os dados foram informados
             return (0);
         }
         else 
         {
-            //return $this->render('doom', ['message' => 'DADOS PARA O RBC NÃO FORAM INFORMADOS.']);
             return 1;   // Faltou informar pelo menos um dado
         }
     }
