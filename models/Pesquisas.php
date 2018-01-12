@@ -62,25 +62,4 @@ class Pesquisas extends \yii\db\ActiveRecord
         ];
     }
 
-    public function afterFind()
-    {
-        switch ($this->status)
-        {
-             case 0: 
-                 $this->status = 'Sem resposta';
-                 break;
-             case 1: 
-                 $this->status = 'Solução não ajudou';
-                 break;
-             case 2: 
-                 $this->status = 'Caso da Base de Casos';
-                 break;
-        }
-
-        if ( $this->id_polo != null )
-        {
-            $polo = Polo::find()->where(['id_polo' => $this->id_polo])->one();
-            $this->id_polo = $polo->nome;
-        }
-    }
 }

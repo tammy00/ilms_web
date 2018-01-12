@@ -92,9 +92,27 @@ class SiteController extends Controller
         if ( $pesquisa->id_titulo_problema > 0 )
         {
             $exp_resposta = RespostaEspecialistasSearch::searchForResponses($pesquisa->id_titulo_problema);
-
         }  
         else $exp_resposta = null;   
+
+        if ( $pesquisa->id_polo != null )
+        {
+            $polo = Polo::find()->where(['id_polo' => $pesquisa->id_polo])->one();
+            $pesquisa->id_polo = $polo->nome;
+        }
+
+        switch ($pesquisa->status)
+        {
+             case 0: 
+                 $pesquisa->status = 'Sem resposta';
+                 break;
+             case 1: 
+                 $pesquisa->status = 'Solução não ajudou';
+                 break;
+             case 2: 
+                 $pesquisa->status = 'Caso da Base de Casos';
+                 break;
+        }
 
         return $this->render('view', [
             'pesquisa' => $pesquisa,
@@ -233,9 +251,7 @@ class SiteController extends Controller
         	$arrayRelatores = ArrayHelper::map(RelatorSearch::find()->all(), 'id_relator', 'perfil');
         	$arrayPolos = ArrayHelper::map(PoloSearch::find()->all(), 'id_polo', 'nome');
             $arrayTitulosProblemas = ArrayHelper::map(TituloProblemaSearch::find()->all(), 'id', 'titulo');
-            $model->cbr = -1;
-            $model->experts = -1;
-            $model->lms = -1;
+
 
             return $this->render('search', [
                 'model' => $model,
@@ -331,7 +347,7 @@ class SiteController extends Controller
             $nova_pesquisa->problema_detalhado = $detalhado;
             $nova_pesquisa->palavras_chaves = $keywords;
             $nova_pesquisa->similaridade = $similaridadeCalculada;
-            $nova_pesquisa->id_titulo_problema = 0;
+            //$nova_pesquisa->id_titulo_problema = 0;
 
             if ($nova_pesquisa->save() )  // Se salvar a pesquisa
             {
@@ -350,10 +366,10 @@ class SiteController extends Controller
 
 
 
-    public function agenteExperts($titulo_problema, $id)   // Consulta AGENTE experts
+    public function agenteExperts($id_titulo, $id)   // Consulta AGENTE experts
     {    // Verifica se existe este título de problema e se existe respostas com esse título. Armazena consulta no banco.
 
-        $o_titulo = TituloProblema::find()->where(['id' => $titulo_problema])->one();
+        $o_titulo = TituloProblema::find()->where(['id' => $id_titulo])->one();
 
         if ( $o_titulo != null ) // Se existe algum registro com título informado
         {
@@ -361,18 +377,22 @@ class SiteController extends Controller
 
             if ( $resposta != null )  // Se existe alguma resposta (problema) com título informado
             {
-                if ( $id != (-1) )
-                { // 
+                if ( ( $id != (-1) ) && ( $id > 0 ) )
+                { 
                     $atualiza_registro = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
+                    //$nome_polo = $atualiza_registro->id_polo;
                     $atualiza_registro->id_titulo_problema = (int)($o_titulo->id);
+
+                    //return $this->render('doom', ['message' => 'ID_PESQUISA = '.$atualiza_registro->id_pesquisa.' <br> $atualiza_registro->id_titulo_problema = '.$atualiza_registro->id_titulo_problema]);
 
                     if ( $atualiza_registro->save() ) 
                     {
+                        //return $this->render('doom', ['message' => 'STATUS = '.$atualiza_registro->status]);
                         return $atualiza_registro->id_pesquisa;
                     }
                     else 
                     {
-                            return $this->render('doom', ['message' => 'Ocorreu um erro ao salvar a busca. Por favor, repita a busca.']);
+                        return $this->render('doom', ['message' => 'Ocorreu um erro ao salvar a busca. Por favor, repita a busca.']);
                     }
 
                 }

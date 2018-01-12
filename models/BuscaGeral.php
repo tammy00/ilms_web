@@ -46,13 +46,13 @@ class BuscaGeral extends Model
         return [
         /*** Abaixo, os atributos de descricao_problema   ***/
             [['natureza_problema', 'descricao_problema', 'problema_detalhado'], 'string'],
-            [['id_polo', 'cbr', 'lms', 'experts'], 'integer'],
+            [['id_polo', 'cbr', 'lms', 'experts', 'titulo_problema'], 'integer'],
             [['relator'], 'string', 'max' => 250],
             [['palavras_chaves'], 'string', 'max' => 400],   // Cadê o max dos 3 primeiros?
             /*************************************/
 
             /*** Abaixo, os atributos de resposta_esp   ***/
-            [['titulo_problema'], 'string', 'max' => 200],
+            //[['titulo_problema'], 'string', 'max' => 200],
             /*************************************/
         ];
     }

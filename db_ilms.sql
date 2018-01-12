@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 07-Jan-2018 às 19:45
+-- Generation Time: 12-Jan-2018 às 01:51
 -- Versão do servidor: 10.1.13-MariaDB
 -- PHP Version: 5.5.37
 
@@ -160,12 +160,7 @@ INSERT INTO `pesquisas` (`id_pesquisa`, `id_solucao`, `id_titulo_problema`, `id_
 (7, 4, 0, 1, 6, 'Coordenador do curso', 'Pedagógica', 'O curso de Licenciatura em Ciência Agrárias oferecia disciplina para os polos de Manaquiri (70 alunos), Santa Izabel do Rio Negro (61), Tefé (59), pelo UAB II, como 2ª turma do curso. Na primeira oferta do curso (UAB I) os tutores e professores detectaram que os alunos tinham muitas dificuldades em produzir textos e não possuíam noções básicas de matemática. Esta deficiência acabou dificultando o aprendizado e, consequentemente, levando a um maior número de reprovações e abandono do curso.\r\nAntes do início da 2ª oferta do curso (UAB II), o coordenador decidiu que medidas preventivas deveriam ser tomadas a fim de se evitar o mesmo problema de aprendizado.', 'Grande dificuldades dos alunos em interpretação e produção de texto, e ausência de noções de matemática elementar, por parte dos alunos, comprometia o desempenho acadêmico dos mesmos.', 'Deficiência em Português, deficiência em Matemática básica', 0, 0.980479),
 (8, 3, 0, 1, 3, 'Coordenador do curso', 'Pedagógica', 'A disciplina Informática Aplicada foi ministrada para três polos, no estado do Acre: Acrelândia (60 alunos), Brasiléia (53), Tarauacá (60), no período de 28/10/2013 a 06/12/2013.\r\nOs polos atenderam um total de 173 alunos do curso de Bacharelado em Administração Pública, no período letivo e regular de 2013/2.\r\nAntes do início do disciplina, o coordenador de curso, juntamente com os coordenadores dos polos, identificaram que esta disciplina tinha um grande taxa de reprovação e abandono, pois os estudantes tinha dificuldade em trabalhar com o ambiente virtual de aprendizagem (Moodle) e com computadores em geral. ', 'Dificuldades em utilizar computadores, internet e o AVA Moodle impediam que a maioria dos alunos tivessem um bom rendimento na disciplina Informática Aplicada.', 'Dificuldades em utilizar computadores, internet e o AVA Moodle impediam que a maioria dos alunos tivessem um bom rendimento na disciplina Informática Aplicada.', 0, 0.820022),
 (9, 2, 0, 1, 2, 'Coordenador do polo', 'Infraestrutura', 'A dependência da disciplina Fundamentos de Anatomia estava sendo ministrada para dois polos: Santa Izabel do Rio Negro e Boa Vista/RR, no período de 09/03/2014 a 26/03/2014.\r\nO polo de Boa Vista atendeu 89 alunos do curso de Licenciatura em Educação Física no período letivo e regular de 2013/2, sendo que 53 alunos ficaram de Dependência.\r\nNo início do mês de março de 2014, a sede do polo de Boa Vista sofreu com certa lentidão na velocidade internet, o que gerou reclamações por parte dos alunos, que se queixavam de dificuldades para fazer o download dos vídeos postados na sala de aula virtual.', 'A baixa velocidade de internet impedia que os alunos da Dependência conseguissem fazer o download dos vídeos postados como conteúdo das disciplinas.  Os vídeos eram essenciais para a aprendizagem do conteúdo.', 'Problema internet, download vídeos', 0, 0.956338),
-(10, 1, 0, 1, 1, 'Coordenador do polo', 'Infraestrutura', 'A disciplina Fruticultura estava sendo ministrada para três polos: Manaquiri, Santa Izabel e Tefé, no período de 14/10/2014 a 23/11/2014.\r\nO polo de Santa Izabel atendeu 14 alunos do curso de Licenciatura em Ciência Agrárias neste período letivo.\r\nEm 15/10/2014, a cidade de Santa Izabel, por causa de uma forte chuva ficou sem energia durante 10 horas. O apagão danificou o equipamento (switch) e a antena de recepção do sinal de internet via satélite. A sede do polo ficou sem internet durante 7 dias até que o equipamento fosse substituído.', 'A ausência de conexão com a internet durante 7 dias prejudicaria diretamente os alunos da disciplina, pois comprometeria o andamento e as avaliações da Unidade I da disciplina.\r\nAs atividades de avaliação desta unidade tinham como prazo final dia 20/10/2014.', 'Problema internet.', 0, 0.891664),
-(11, 5, 0, 1, 4, 'Coordenador do polo', 'Infraestrutura', 'As disciplinas Contabilidade Geral, Macroeconomia e Ciência Política estava sendo ministrada para três polos: Tarauacá, Brasileia e Acrelândia (AC), no período de 28/04/2014 a 06/06/2014.\r\nO polo de Brasileia atendeu 14 alunos do curso Licenciatura em Administração Pública neste período letivo.\r\nEm 28/04/2014, a cidade de Brasileia, sofreu um inundação, devido ao transbordamento do rio. O polo ficou com cerca de 1m de água. Equipamentos e móveis foram destruídos.', 'A inundação ocorrida na cidade de Brasileia comprometeu as atividades no polo. ', 'Inundação', 0, 0.953879),
-(12, 5, 0, 1, 4, 'Coordenador do polo', 'Infraestrutura', 'As disciplinas Contabilidade Geral, Macroeconomia e Ciência Política estava sendo ministrada para três polos: Tarauacá, Brasileia e Acrelândia (AC), no período de 28/04/2014 a 06/06/2014.\nO polo de Brasileia atendeu 14 alunos do curso Licenciatura em Administração Pública neste período letivo.\nEm 28/04/2014, a cidade de Brasileia, sofreu um inundação, devido ao transbordamento do rio. O polo ficou com cerca de 1m de água. Equipamentos e móveis foram destruídos.', 'A inundação ocorrida na cidade de Brasileia comprometeu as atividades no polo. ', 'Inundação', 0, 0.953879),
-(13, 5, 0, 1, 4, 'Coordenador do polo', 'Infraestrutura', 'As disciplinas Contabilidade Geral, Macroeconomia e Ciência Política estava sendo ministrada para três polos: Tarauacá, Brasileia e Acrelândia (AC), no período de 28/04/2014 a 06/06/2014.\r\nO polo de Brasileia atendeu 14 alunos do curso Licenciatura em Administração Pública neste período letivo.\r\nEm 28/04/2014, a cidade de Brasileia, sofreu um inundação, devido ao transbordamento do rio. O polo ficou com cerca de 1m de água. Equipamentos e móveis foram destruídos.', 'A inundação ocorrida na cidade de Brasileia comprometeu as atividades no polo. ', 'Inundação', 0, 0.953879),
-(14, 5, 0, 1, 4, 'Coordenador do polo', 'Infraestrutura', 'A inundação ocorrida na cidade de Brasileia comprometeu as atividades no polo. ', 'As disciplinas Contabilidade Geral, Macroeconomia e Ciência Política estava sendo ministrada para três polos: Tarauacá, Brasileia e Acrelândia (AC), no período de 28/04/2014 a 06/06/2014.\r\nO polo de Brasileia atendeu 14 alunos do curso Licenciatura em Administração Pública neste período letivo.\r\nEm 28/04/2014, a cidade de Brasileia, sofreu um inundação, devido ao transbordamento do rio. O polo ficou com cerca de 1m de água. Equipamentos e móveis foram destruídos.', 'Inundação', 0, 0.706159),
-(15, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(10, 1, 0, 1, 1, 'Coordenador do polo', 'Infraestrutura', 'A disciplina Fruticultura estava sendo ministrada para três polos: Manaquiri, Santa Izabel e Tefé, no período de 14/10/2014 a 23/11/2014.\r\nO polo de Santa Izabel atendeu 14 alunos do curso de Licenciatura em Ciência Agrárias neste período letivo.\r\nEm 15/10/2014, a cidade de Santa Izabel, por causa de uma forte chuva ficou sem energia durante 10 horas. O apagão danificou o equipamento (switch) e a antena de recepção do sinal de internet via satélite. A sede do polo ficou sem internet durante 7 dias até que o equipamento fosse substituído.', 'A ausência de conexão com a internet durante 7 dias prejudicaria diretamente os alunos da disciplina, pois comprometeria o andamento e as avaliações da Unidade I da disciplina.\r\nAs atividades de avaliação desta unidade tinham como prazo final dia 20/10/2014.', 'Problema internet.', 0, 0.891664);
 
 -- --------------------------------------------------------
 
@@ -343,7 +338,7 @@ INSERT INTO `tipo_problema` (`id`, `tipo`) VALUES
 --
 
 CREATE TABLE `titulo_problema` (
-  `id` int(111) NOT NULL,
+  `id` int(11) NOT NULL,
   `titulo` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -554,7 +549,7 @@ ALTER TABLE `info_caso`
 -- AUTO_INCREMENT for table `pesquisas`
 --
 ALTER TABLE `pesquisas`
-  MODIFY `id_pesquisa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_pesquisa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `polo`
 --
@@ -589,7 +584,7 @@ ALTER TABLE `tipo_problema`
 -- AUTO_INCREMENT for table `titulo_problema`
 --
 ALTER TABLE `titulo_problema`
-  MODIFY `id` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `turma`
 --
