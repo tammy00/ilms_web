@@ -21,6 +21,7 @@ use app\models\PoloSearch;
 use app\models\TituloProblemaSearch;
 use app\models\Polo;
 use app\models\RelatorSearch;
+use app\models\Usuario;
 use yii\helpers\ArrayHelper;
 
 class SiteController extends Controller
@@ -33,10 +34,10 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['logout', 'index', 'view', 'search', 'doom'],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['logout', 'index', 'view', 'search', 'doom'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 12-Jan-2018 às 01:51
--- Versão do servidor: 10.1.13-MariaDB
--- PHP Version: 5.5.37
+-- Generation Time: 30-Maio-2018 às 01:17
+-- Versão do servidor: 10.1.30-MariaDB
+-- PHP Version: 5.6.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -397,6 +399,28 @@ CREATE TABLE `tutor` (
   `id_turma` int(10) UNSIGNED NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `usuario`
+--
+
+CREATE TABLE `usuario` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nome` varchar(200) NOT NULL DEFAULT '',
+  `email` varchar(200) NOT NULL DEFAULT '',
+  `perfil` varchar(200) NOT NULL DEFAULT '',
+  `senha` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `usuario`
+--
+
+INSERT INTO `usuario` (`id`, `nome`, `email`, `perfil`, `senha`) VALUES
+(1, 'Usuário Especialista', 'ketlen.teles@gmail.com ', 'Especialista', '0192023a7bbd73250516f069df18b500'),
+(2, 'Usuário Mediador', 'tammyhikari@gmail.com', 'Mediador/a', '0192023a7bbd73250516f069df18b500');
+
 --
 -- Indexes for dumped tables
 --
@@ -517,6 +541,12 @@ ALTER TABLE `tutor`
   ADD KEY `fk_tutor_turma_idx` (`id_turma`);
 
 --
+-- Indexes for table `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -525,76 +555,91 @@ ALTER TABLE `tutor`
 --
 ALTER TABLE `aplicativo`
   MODIFY `id_aplicativo` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `curso`
 --
 ALTER TABLE `curso`
   MODIFY `id_curso` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `descricao`
 --
 ALTER TABLE `descricao`
   MODIFY `id_descricao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT for table `disciplina`
 --
 ALTER TABLE `disciplina`
   MODIFY `id_disciplina` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `info_caso`
 --
 ALTER TABLE `info_caso`
   MODIFY `id_infoc` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `pesquisas`
 --
 ALTER TABLE `pesquisas`
   MODIFY `id_pesquisa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT for table `polo`
 --
 ALTER TABLE `polo`
   MODIFY `id_polo` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
 --
 -- AUTO_INCREMENT for table `professor`
 --
 ALTER TABLE `professor`
   MODIFY `id_professor` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `relator`
 --
 ALTER TABLE `relator`
   MODIFY `id_relator` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `resposta_esp`
 --
 ALTER TABLE `resposta_esp`
   MODIFY `id` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `solucao`
 --
 ALTER TABLE `solucao`
   MODIFY `id_solucao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT for table `tipo_problema`
 --
 ALTER TABLE `tipo_problema`
   MODIFY `id` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `titulo_problema`
 --
 ALTER TABLE `titulo_problema`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
 -- AUTO_INCREMENT for table `turma`
 --
 ALTER TABLE `turma`
   MODIFY `id_turma` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `tutor`
 --
 ALTER TABLE `tutor`
   MODIFY `id_tutor` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- Constraints for dumped tables
 --
@@ -681,6 +726,7 @@ ALTER TABLE `turma`
 --
 ALTER TABLE `tutor`
   ADD CONSTRAINT `fk_tutor_turma` FOREIGN KEY (`id_turma`) REFERENCES `turma` (`id_turma`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
