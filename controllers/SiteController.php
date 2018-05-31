@@ -19,6 +19,7 @@ use app\models\Relator;
 use app\models\Solucao;
 use app\models\PoloSearch;
 use app\models\TituloProblemaSearch;
+use app\models\TipoProblemaSearch;
 use app\models\Polo;
 use app\models\RelatorSearch;
 use app\models\Usuario;
@@ -155,7 +156,7 @@ class SiteController extends Controller
                  break;
         }
 
-        return $this->render('view', [
+        return $this->render('cbrview', [
             'pesquisa' => $pesquisa,
             'sol' => $sol,
         ]);
@@ -195,7 +196,7 @@ class SiteController extends Controller
                  break;
         }
 
-        return $this->render('view', [
+        return $this->render('vleview', [
             'pesquisa' => $pesquisa,
             'sol' => $sol,
         ]);
@@ -233,7 +234,7 @@ class SiteController extends Controller
                  break;
         }
 
-        return $this->render('view', [
+        return $this->render('expview', [
             'pesquisa' => $pesquisa,
             'exp_resposta' => $exp_resposta,
         ]);
@@ -313,9 +314,6 @@ class SiteController extends Controller
         if ( $model->load(Yii::$app->request->post()) ) // Se algo for submetido
         {
             $verificacao_rbc = -1;
-            $verificacao_lms = -1;
-            $verificacao_exp = -1;
-            $resultado_final = -1;
             $resultado_id = -1;
 
              $verificacao_rbc = $this->verificadorDadosRBC ($model->id_polo, 
@@ -342,44 +340,59 @@ class SiteController extends Controller
                     return $this->render('doom', ['message' => 'Não foi possível registrar a pesquisa. Retorne à página anterior e tente novamente.']);  // Se não salvar a pesquisa
                 }  
 
-            }  /*
-            else    // Se houve pelo menos algum dado não informado
-            {
-                return $this->render('doom', ['message' => 'Todos os dados devem ser informados para a pesquisa ser realizada com sucesso. Tente novamente.']);
-            }  */
+            }  
 
-                /*
-             if ( $this->verificadorDadosLMS($) == 0 )  // Se os dados necessários foram informados
-            {
-                $resultado_id = $this->agente (#, $resultado_id);   // COMPLETAR PARÂMETROS
-            }
-            else return $this->render('doom', ['message' => 'Por favor, informar os dados necessários.']);
+            return $this->actionCbrView ($resultado_id);  //
 
-*/
-            if ( $this->verificadorDadosEXP($model->titulo_problema) == 0 )
+            
+        }   //else if request post
+        else    // Primeiro acesso à tela de busca do agente RBC
+        {
+        	$arrayRelatores = ArrayHelper::map(RelatorSearch::find()->all(), 'id_relator', 'perfil');
+        	$arrayPolos = ArrayHelper::map(PoloSearch::find()->all(), 'id_polo', 'nome');
+
+
+            return $this->render('cbrsearch', [
+                'model' => $model,
+                'arrayRelatores' => $arrayRelatores,
+                'arrayPolos' => $arrayPolos,
+            ]);        
+        }
+    }
+
+
+
+    public function actionExpSearch()  // Busca na base de dados de especialistas
+    { 
+
+        $model = new BuscaGeral();
+
+        if ( $model->load(Yii::$app->request->post()) ) // Se algo for submetido
+        {
+            $verificacao_exp = -1;
+            $resultado_id = -1;
+
+            if ( $this->verificadorDadosEXP($model->titulo_problema, $model->tipo_problema) == 0 ) 
             {
-                $resultado_id = $this->agenteExperts ($model->titulo_problema, $resultado_id);
+                $resultado_id = $this->agenteExperts ($model->titulo_problema, $model->tipo_problema, $resultado_id);
                 // A função acima retorna o id do registro da tabela pesquisa
                 // Dependendo do valor de $resultado_id, o registro é criado ou não
             }
             else return $this->render('doom', ['message' => 'Por favor, informar o título do problema.']); 
 
-            return $this->actionView ($resultado_id);  //
+            return $this->actionExpView ($resultado_id);  //
 
             
         }   //else if request post
         else    // Primeiro acesso à tela de busca
         {
-        	$arrayRelatores = ArrayHelper::map(RelatorSearch::find()->all(), 'id_relator', 'perfil');
-        	$arrayPolos = ArrayHelper::map(PoloSearch::find()->all(), 'id_polo', 'nome');
             $arrayTitulosProblemas = ArrayHelper::map(TituloProblemaSearch::find()->all(), 'id', 'titulo');
+            $arrayTiposProblemas = ArrayHelper::map(TipoProblemaSearch::find()->all(), 'id', 'tipo'); 
 
-
-            return $this->render('search', [
+            return $this->render('expsearch', [
                 'model' => $model,
-                'arrayRelatores' => $arrayRelatores,
-                'arrayPolos' => $arrayPolos,
                 'arrayTitulosProblemas' => $arrayTitulosProblemas,
+                'arrayTitulosProblemas' => $arrayTiposProblemas,
             ]);        
         }
     }
@@ -488,7 +501,7 @@ class SiteController extends Controller
 
 
 
-    public function agenteExperts($id_titulo, $id)   // Consulta AGENTE experts
+    public function agenteExperts($id_titulo, $id_tipo, $id)   // Consulta AGENTE experts
     {    // Verifica se existe este título de problema e se existe respostas com esse título. Armazena consulta no banco.
 
         $o_titulo = TituloProblema::find()->where(['id' => $id_titulo])->one();
@@ -559,9 +572,9 @@ class SiteController extends Controller
         
     }   */
 
-    public function verificadorDadosEXP ($titulo_problema)
+    public function verificadorDadosEXP ($titulo_problema, $tipo_problema)
     {
-        if ($titulo_problema != null) return (0);
+        if ( ($titulo_problema != null) && ($tipo_problema != null)) return (0);
         else return (1);  // Titulo do problema não foi informado
         
     }

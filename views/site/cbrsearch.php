@@ -37,19 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                       'prompt' => "Selecione um polo",]); ?>  
                                                       
           </fieldset>
-<br><br>
-          <fieldset>
-                <legend>Dados do AVA</legend>
-                Conteudo para a box de moodle
-                <br><br>
-          </fieldset>
-<br><br>
-          <fieldset>
-                <legend>Opinião de Especialistas</legend> 
-                <?= $form->field($model, 'titulo_problema')->dropDownList([$arrayTitulosProblemas],['style' => 'width:500px',
-                                                      'prompt' => "Selecione um problema",]); ?> 
-                <br><br>
-          </fieldset>    
+<br><br> 
 
           <div class="form-group">
             <?= Html::submitButton('Buscar', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>

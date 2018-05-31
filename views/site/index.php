@@ -38,18 +38,18 @@ $this->title = 'iLMS Framework';
                 <div class="col-lg-4">
                     <h3>Busca com RBC</h3>
 
-                    <p><a class="btn btn-default" href="?r=site/search"> Clicar aqui &raquo;</a></p>
+                    <p><a class="btn btn-default" href="?r=site/cbrsearch"> Clicar aqui &raquo;</a></p>
                 </div>
 
                 <div class="col-lg-4">
                     <h3>Dados do Ambiente Virtual</h3>
 
-                    <p><a class="btn btn-default" href="?r=pesquisas/index"> Clicar aqui &raquo;</a></p>
+                    <p><a class="btn btn-default" href="?r=site/vlesearch"> Clicar aqui &raquo;</a></p>
                 </div>
                 <div class="col-lg-4">
                     <h3>Opinião de Especialistas</h3>
 
-                    <p><a class="btn btn-default" href="?r=pesquisas/allcases"> Clicar aqui &raquo;</a></p>
+                    <p><a class="btn btn-default" href="?r=site/expsearch"> Clicar aqui &raquo;</a></p>
                 </div>
             </div>
             <br>
