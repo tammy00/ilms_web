@@ -8,6 +8,7 @@ use app\models\DadosCasoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * DadosCasoController implements the CRUD actions for DadosCaso model.
@@ -20,6 +21,29 @@ class DadosCasoController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'allow' => true,
+                        'matchCallback' => function ($rule, $action) {
+                            if (!Yii::$app->user->isGuest)
+                            {
+                                if ( Yii::$app->user->identity->perfil === 'Especialista' ) 
+                                {
+                                    return Yii::$app->user->identity->perfil == 'Especialista'; 
+                                }
+                                elseif ( Yii::$app->user->identity->perfil === 'Mediador/a' ) 
+                                {
+                                    return Yii::$app->user->identity->perfil == 'Mediador/a'; 
+                                }
+                            }
+                        }
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -118,7 +142,7 @@ class DadosCasoController extends Controller
         if (($model = DadosCaso::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('A página requistada não existe.');
         }
     }
 }

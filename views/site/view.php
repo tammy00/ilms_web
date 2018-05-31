@@ -9,6 +9,9 @@ use app\models\Pesquisas;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Descricao */
+
+/** view da pesquisa geral  **/
+
 $this->title = 'Resultado(s) da busca'
 
 ?>

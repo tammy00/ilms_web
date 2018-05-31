@@ -16,6 +16,7 @@ use app\models\InfoCaso;
 use app\models\RespostaEspecialistas;
 use app\models\TipoProblema;
 use app\models\TituloProblema;
+use yii\filters\AccessControl;
 /**
  * PesquisasController implements the CRUD actions for Pesquisas model.
  */
@@ -27,6 +28,29 @@ class PesquisasController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete', 'allcases', 'newcase'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'allcases', 'newcase'],
+                        'allow' => true,
+                        'matchCallback' => function ($rule, $action) {
+                            if (!Yii::$app->user->isGuest)
+                            {
+                                if ( Yii::$app->user->identity->perfil === 'Especialista' ) 
+                                {
+                                    return Yii::$app->user->identity->perfil == 'Especialista'; 
+                                }
+                                elseif ( Yii::$app->user->identity->perfil === 'Mediador/a' ) 
+                                {
+                                    return Yii::$app->user->identity->perfil == 'Mediador/a'; 
+                                }
+                            }
+                        }
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -210,7 +234,7 @@ class PesquisasController extends Controller
         if (($model = Pesquisas::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('A página requisitada não existe.');
         }
     }
 }

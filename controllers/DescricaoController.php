@@ -8,6 +8,7 @@ use app\models\DescricaoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * DescricaoController implements the CRUD actions for Descricao model.
@@ -20,6 +21,29 @@ class DescricaoController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'allow' => true,
+                        'matchCallback' => function ($rule, $action) {
+                            if (!Yii::$app->user->isGuest)
+                            {
+                                if ( Yii::$app->user->identity->perfil === 'Especialista' ) 
+                                {
+                                    return Yii::$app->user->identity->perfil == 'Especialista'; 
+                                }
+                                elseif ( Yii::$app->user->identity->perfil === 'Mediador/a' ) 
+                                {
+                                    return Yii::$app->user->identity->perfil == 'Mediador/a'; 
+                                }
+                            }
+                        }
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -118,7 +142,7 @@ class DescricaoController extends Controller
         if (($model = Descricao::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('A página requisitada não existe.');
         }
     }
 }

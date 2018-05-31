@@ -8,6 +8,7 @@ use app\models\TipoProblemaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * TipoProblemaController implements the CRUD actions for TipoProblema model.
@@ -20,6 +21,29 @@ class TipoProblemaController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'allow' => true,
+                        'matchCallback' => function ($rule, $action) {
+                            if (!Yii::$app->user->isGuest)
+                            {
+                                if ( Yii::$app->user->identity->perfil === 'Especialista' ) 
+                                {
+                                    return Yii::$app->user->identity->perfil == 'Especialista'; 
+                                }
+                                elseif ( Yii::$app->user->identity->perfil === 'Mediador/a' ) 
+                                {
+                                    return Yii::$app->user->identity->perfil == 'Mediador/a'; 
+                                }
+                            }
+                        }
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -118,7 +142,7 @@ class TipoProblemaController extends Controller
         if (($model = TipoProblema::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('A página requisitada não existe.');
         }
     }
 }
