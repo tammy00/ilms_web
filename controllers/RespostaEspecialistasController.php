@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use Yii;
+use app\models\TipoProblema;
+use app\models\TituloProblema;
 use app\models\RespostaEspecialistas;
 use app\models\RespostaEspecialistasSearch;
 use yii\web\Controller;
@@ -75,8 +77,21 @@ class RespostaEspecialistasController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+
+        Yii::$app->formatter->locale = 'pt-BR';
+        $model->data_ocorrencia = Yii::$app->formatter->asDate($model->data_ocorrencia);
+        $model->data_insercao = Yii::$app->formatter->asDate($model->data_insercao);
+        //Yii::$app->formatter->asDate('now', 'yyyy-MM-dd'); // 2014-10-06
+        // Yii::$app->formatter->asDate('now', 'php:Y-m-d'); // 2014-10-06
+
+        $tipo = TipoProblema::find()->where(['id' => $model->id_tipo_problema])->one();
+        $titulo = TituloProblema::find()->where(['id' => $model->id_titulo_problema])->one();
+        $model->id_tipo_problema = $tipo->tipo;
+        $model->id_titulo_problema = $titulo->titulo;
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 

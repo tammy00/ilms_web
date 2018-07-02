@@ -6,6 +6,7 @@ use yii\grid\GridView;
 use app\models\TipoProblema;
 use app\models\TituloProblema;
 use app\models\Pesquisas;
+use app\models\RespostaEspecialistas;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Descricao */
@@ -21,7 +22,7 @@ $this->title = 'Resultado(s) da busca'
 
 
 
-    <?php if ( ($pesquisa->id_titulo_problema > 0) && ($exp_resposta != null )) {   ?>
+    <?php if ( ($pesquisa->id_resposta > 0) && ($exp_resposta != null )) {   ?>
     <br><br>
     <fieldset>
             <legend>Opinião do Especialista</legend>
@@ -58,10 +59,10 @@ $this->title = 'Resultado(s) da busca'
                         [
                             'view' => function ($url, $model) 
                             {
-                                $valor = Pesquisas::find()->where(['id_titulo_problema' => $model->id_titulo_problema])->one(); // model é de resposta=especialistas
+                                //$valor = RespostaEspecialistas::find()->where(['id' => $pesquisa->id_resposta])->one();
                                 return Html::a(
                                     '<span class="glyphicon glyphicon-eye-open"></span>',
-                                    ['pesquisas/view', 'id' => $valor->id_pesquisa], 
+                                    ['resposta-especialistas/view', 'id' => $model->id], 
                                     [
                                         'title' => 'Visualizar',
                                         'aria-label' => 'Visualizar',

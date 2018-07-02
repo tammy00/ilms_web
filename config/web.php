@@ -9,6 +9,9 @@ $config = [
     'timezone' => 'America/Manaus',
     'bootstrap' => ['log'],
     'components' => [
+        'formatter' => [
+            'dateFormat' => 'dd/MM/yyyy',
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'SAJKFOI2456AJjdoijsij_gijsgaeJDIA6876JEF',

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 30-Maio-2018 às 01:17
+-- Generation Time: 03-Jul-2018 às 01:49
 -- Versão do servidor: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -86,7 +86,7 @@ INSERT INTO `descricao` (`id_descricao`, `natureza_problema`, `relator`, `descri
 (7, 'Infraestrutura', 'Coordenador de polo', 'Em 20/02/2010, o gerador de energia sofreu uma avaria, o que acarretou uma falta de energia elétrica em todo a cidade de Lábrea. \nO acesso à internet foi interrompido e as atividades dos cursos do Bacharelado em Administração Pública e Licenciatura em Ciências Agrárias tiveram que ser suspensas por 5 dias.', 'Polo sem energia elétrica e sem internet por 5 dias.', 'Falta de energia elétrica, problema internet', NULL, 9),
 (8, 'Infraestrutura', 'Coordenador de curso', 'O curso de Licenciatura em Educação Física era oferecido para os 17 polos atendidos pelo CED. Como era a primeira oferta do curso, a equipe ainda não tinha experiência e nem conhecimento das peculiaridades dos polos. Atrasos no envido de material didático e de logística da equipe de apoio (tutores e coordenadores) acabaram por prejudicar o andamento das atividades das primeiras disciplinas do primeiro módulo.', 'Dificuldades de logística e inexperiência da equipe de apoio acabaram por prejudicar o andamento das atividades das primeiras disciplinas do primeiro módulo.', 'Problemas de logística, inexperiência da equipe', NULL, 6),
 (9, 'Pedagógica', 'Coordenador de curso', 'O cursos oferecidos pela Universidade Aberta do Brasil (UAB) passaram por um recadastramento no Sistema da UAB (SISUAB), para maior controle por parte do MEC em relação à quantidade de alunos por polo e por cursos.\nA coordenação do curso não atualizou os dados corretamente e algumas bolsas foram cortadas, ocasionando desligamento de alguns tutores.', 'Quantidade de bolsa para tutores e professores foi reduzida devido a informações erradas no sistema SISUAB.', 'Corte de bolsa', NULL, 22),
-(10, 'Acadêmica', 'Coordenador do polo', 'A dependência da disciplina Fundamentos de Anatomia estava sendo ministrada para dois polos: Santa Izabel do Rio Negro e Boa Vista/RR, no período de 09/03/2014 a 26/03/2014.\nO polo de Boa Vista atendeu 89 alunos do curso de Licenciatura em Educação Física no período letivo e regular de 2013/2, sendo que 53 alunos ficaram de Dependência.\nNo início do mês de março de 2014, a sede do polo de Boa Vista sofreu com certa lentidão na velocidade internet, o que gerou reclamações por parte dos alunos, que se queixavam de dificuldades para fazer o download dos vídeos postados na sala de aula virtual.', 'A baixa velocidade de internet impedia que os alunos da Dependência conseguissem fazer o download dos vídeos postados como conteúdo das disciplinas.  Os vídeos eram essenciais para a aprendizagem do conteúdo.', 'Problema internet, download vídeos', NULL, 2);
+(10, 'Acadêmica', 'Coordenador do polo', 'A baixa velocidade de internet impedia que os alunos da Dependência conseguissem fazer o download dos vídeos postados como conteúdo das disciplinas.  Os vídeos eram essenciais para a aprendizagem do conteúdo.', 'A dependência da disciplina Fundamentos de Anatomia estava sendo ministrada para dois polos: Santa Izabel do Rio Negro e Boa Vista/RR, no período de 09/03/2014 a 26/03/2014.\r\nO polo de Boa Vista atendeu 89 alunos do curso de Licenciatura em Educação Física no período letivo e regular de 2013/2, sendo que 53 alunos ficaram de Dependência.\r\nNo início do mês de março de 2014, a sede do polo de Boa Vista sofreu com certa lentidão na velocidade internet, o que gerou reclamações por parte dos alunos, que se queixavam de dificuldades para fazer o download dos vídeos postados na sala de aula virtual.', 'Problema internet, download vídeos', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -136,7 +136,7 @@ INSERT INTO `info_caso` (`id_infoc`, `date_created`, `tipo_caso`, `quantidade_al
 CREATE TABLE `pesquisas` (
   `id_pesquisa` int(11) NOT NULL,
   `id_solucao` int(10) DEFAULT NULL,
-  `id_titulo_problema` int(11) DEFAULT NULL,
+  `id_resposta` int(11) DEFAULT NULL,
   `id_usuario` int(11) DEFAULT NULL,
   `id_polo` int(10) DEFAULT NULL,
   `relator` varchar(250) DEFAULT NULL,
@@ -152,17 +152,16 @@ CREATE TABLE `pesquisas` (
 -- Extraindo dados da tabela `pesquisas`
 --
 
-INSERT INTO `pesquisas` (`id_pesquisa`, `id_solucao`, `id_titulo_problema`, `id_usuario`, `id_polo`, `relator`, `natureza_problema`, `descricao_problema`, `problema_detalhado`, `palavras_chaves`, `status`, `similaridade`) VALUES
-(1, 10, 3, 1, 2, 'Coordenador do polo', 'Acadêmica', 'A dependência da disciplina Fundamentos de Anatomia estava sendo ministrada para dois polos: Santa Izabel do Rio Negro e Boa Vista/RR, no período de 09/03/2014 a 26/03/2014. O polo de Boa Vista atendeu 89 alunos do curso de Licenciatura em Educação Física no período letivo e regular de 2013/2, sendo que 53 alunos ficaram de Dependência. No início do mês de março de 2014, a sede do polo de Boa Vista sofreu com certa lentidão na velocidade internet, o que gerou reclamações por parte dos alunos, que se queixavam de dificuldades para fazer o download dos vídeos postados na sala de aula virtual.', 'A baixa velocidade de internet impedia que os alunos da Dependência conseguissem fazer o download dos vídeos postados como conteúdo das disciplinas.Os vídeos eram essenciais para a aprendizagem do conteúdo.', 'Problema internet, download vídeos', 0, 0.889752),
-(2, 9, 0, 1, 22, 'Coordenador do curso', 'Pedagógica', 'O cursos oferecidos pela Universidade Aberta do Brasil (UAB) passaram por um recadastramento no Sistema da UAB (SISUAB), para maior controle por parte do MEC em relação à quantidade de alunos por polo e por cursos. A coordenação do curso não atualizou os dados corretamente e algumas bolsas foram cortadas, ocasionando desligamento de alguns tutores.', 'Quantidade de bolsa para tutores e professores foi reduzida devido a informações erradas no sistema SISUAB.', 'Corte de bolsa', 0, 0.916264),
-(3, 8, 0, 1, 6, 'Coordenador do curso', 'Infraestrutura', 'O curso de Licenciatura em Educação Física era oferecido para os 17 polos atendidos pelo CED. Como era a primeira oferta do curso, a equipe ainda não tinha experiência e nem conhecimento das peculiaridades dos polos. Atrasos no envido de material didático e de logística da equipe de apoio (tutores e coordenadores) acabaram por prejudicar o andamento das atividades das primeiras disciplinas do primeiro módulo.', 'Dificuldades de logística e inexperiência da equipe de apoio acabaram por prejudicar o andamento das atividades das primeiras disciplinas do primeiro módulo.', 'Problemas de logística, inexperiência da equipe', 0, 0.946154),
-(4, 7, 0, 1, 9, 'Coordenador do polo', 'Infraestrutura', 'Em 20/02/2010, o gerador de energia sofreu uma avaria, o que acarretou uma falta de energia elétrica em todo a cidade de Lábrea. \r\nO acesso à internet foi interrompido e as atividades dos cursos do Bacharelado em Administração Pública e Licenciatura em Ciências Agrárias tiveram que ser suspensas por 5 dias.', 'Polo sem energia elétrica e sem internet por 5 dias.', 'Falta de energia elétrica, problema internet', 0, 0.918949),
-(5, 6, 0, 1, 8, 'Coordenador do curso', 'Pedagógica', 'Os cursos de Licenciatura em Ciências Agrárias, Licenciatura em Artes Visuais, Bacharelado em Administração é oferecido nos seguintes polos: Maués, Lábrea, Manacapuru e Coari, no primeiro semestre de 2009.\r\nProblemas na licitação da escolha da gráfica, que imprimiria os cadernos das disciplinas dos módulos de 2009/01, impediram a impressão e o envio dos mesmos aos polos.\r\nOs cursos tiveram que ser suspensos por 4 meses até que o impasse tivesse uma solução.', 'Atraso na impressão dos cadernos das disciplinas do módulo.', 'Impressão de cadernos', 0, 0.957283),
-(6, 5, 0, 1, 4, 'Coordenador do polo', 'Infraestrutura', 'As disciplinas Contabilidade Geral, Macroeconomia e Ciência Política estava sendo ministrada para três polos: Tarauacá, Brasileia e Acrelândia (AC), no período de 28/04/2014 a 06/06/2014.\nO polo de Brasileia atendeu 14 alunos do curso Licenciatura em Administração Pública neste período letivo.\nEm 28/04/2014, a cidade de Brasileia, sofreu um inundação, devido ao transbordamento do rio. O polo ficou com cerca de 1m de água. Equipamentos e móveis foram destruídos.', 'A inundação ocorrida na cidade de Brasileia comprometeu as atividades no polo. ', 'Inundação', 0, 0.953879),
-(7, 4, 0, 1, 6, 'Coordenador do curso', 'Pedagógica', 'O curso de Licenciatura em Ciência Agrárias oferecia disciplina para os polos de Manaquiri (70 alunos), Santa Izabel do Rio Negro (61), Tefé (59), pelo UAB II, como 2ª turma do curso. Na primeira oferta do curso (UAB I) os tutores e professores detectaram que os alunos tinham muitas dificuldades em produzir textos e não possuíam noções básicas de matemática. Esta deficiência acabou dificultando o aprendizado e, consequentemente, levando a um maior número de reprovações e abandono do curso.\r\nAntes do início da 2ª oferta do curso (UAB II), o coordenador decidiu que medidas preventivas deveriam ser tomadas a fim de se evitar o mesmo problema de aprendizado.', 'Grande dificuldades dos alunos em interpretação e produção de texto, e ausência de noções de matemática elementar, por parte dos alunos, comprometia o desempenho acadêmico dos mesmos.', 'Deficiência em Português, deficiência em Matemática básica', 0, 0.980479),
-(8, 3, 0, 1, 3, 'Coordenador do curso', 'Pedagógica', 'A disciplina Informática Aplicada foi ministrada para três polos, no estado do Acre: Acrelândia (60 alunos), Brasiléia (53), Tarauacá (60), no período de 28/10/2013 a 06/12/2013.\r\nOs polos atenderam um total de 173 alunos do curso de Bacharelado em Administração Pública, no período letivo e regular de 2013/2.\r\nAntes do início do disciplina, o coordenador de curso, juntamente com os coordenadores dos polos, identificaram que esta disciplina tinha um grande taxa de reprovação e abandono, pois os estudantes tinha dificuldade em trabalhar com o ambiente virtual de aprendizagem (Moodle) e com computadores em geral. ', 'Dificuldades em utilizar computadores, internet e o AVA Moodle impediam que a maioria dos alunos tivessem um bom rendimento na disciplina Informática Aplicada.', 'Dificuldades em utilizar computadores, internet e o AVA Moodle impediam que a maioria dos alunos tivessem um bom rendimento na disciplina Informática Aplicada.', 0, 0.820022),
-(9, 2, 0, 1, 2, 'Coordenador do polo', 'Infraestrutura', 'A dependência da disciplina Fundamentos de Anatomia estava sendo ministrada para dois polos: Santa Izabel do Rio Negro e Boa Vista/RR, no período de 09/03/2014 a 26/03/2014.\r\nO polo de Boa Vista atendeu 89 alunos do curso de Licenciatura em Educação Física no período letivo e regular de 2013/2, sendo que 53 alunos ficaram de Dependência.\r\nNo início do mês de março de 2014, a sede do polo de Boa Vista sofreu com certa lentidão na velocidade internet, o que gerou reclamações por parte dos alunos, que se queixavam de dificuldades para fazer o download dos vídeos postados na sala de aula virtual.', 'A baixa velocidade de internet impedia que os alunos da Dependência conseguissem fazer o download dos vídeos postados como conteúdo das disciplinas.  Os vídeos eram essenciais para a aprendizagem do conteúdo.', 'Problema internet, download vídeos', 0, 0.956338),
-(10, 1, 0, 1, 1, 'Coordenador do polo', 'Infraestrutura', 'A disciplina Fruticultura estava sendo ministrada para três polos: Manaquiri, Santa Izabel e Tefé, no período de 14/10/2014 a 23/11/2014.\r\nO polo de Santa Izabel atendeu 14 alunos do curso de Licenciatura em Ciência Agrárias neste período letivo.\r\nEm 15/10/2014, a cidade de Santa Izabel, por causa de uma forte chuva ficou sem energia durante 10 horas. O apagão danificou o equipamento (switch) e a antena de recepção do sinal de internet via satélite. A sede do polo ficou sem internet durante 7 dias até que o equipamento fosse substituído.', 'A ausência de conexão com a internet durante 7 dias prejudicaria diretamente os alunos da disciplina, pois comprometeria o andamento e as avaliações da Unidade I da disciplina.\r\nAs atividades de avaliação desta unidade tinham como prazo final dia 20/10/2014.', 'Problema internet.', 0, 0.891664);
+INSERT INTO `pesquisas` (`id_pesquisa`, `id_solucao`, `id_resposta`, `id_usuario`, `id_polo`, `relator`, `natureza_problema`, `descricao_problema`, `problema_detalhado`, `palavras_chaves`, `status`, `similaridade`) VALUES
+(1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(6, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(8, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(9, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -275,8 +274,18 @@ CREATE TABLE `resposta_esp` (
 --
 
 INSERT INTO `resposta_esp` (`id`, `id_tipo_problema`, `id_titulo_problema`, `descricao_problema`, `descricao_solucao`, `data_ocorrencia`, `data_insercao`, `nome_especialista`, `funcao_especialista`, `relator`) VALUES
-(1, 1, 3, 'Só um exemplo', '', '2017-11-16', '2017-11-16', 'Tammy', '', 'Estudante'),
-(2, 1, 3, 'LITTLE GLEE MONSTER', '', '0000-00-00', '0000-00-00', '', '', '');
+(1, 1, 3, 'Alunos apresentam dificuldades para assimilar o conteúdo da disciplina Informática no Ensino da Física.', 'Devem ser dadas aulas presenciais extras, ministradas pelo tutor.', '2015-10-10', '2018-05-01', 'Ketlen Teles', '8', '2'),
+(2, 1, 13, 'Alunos apresentam dificuldades na atividade Forum de Discussão. ', 'Tutor deve postar uma mensagem no AVA, orientando os procedimentos da atividade.', '2016-04-03', '2018-05-01', 'Airton Gaio', '5', '8'),
+(3, 2, 11, 'Um polo ficou sem a assistência do tutor presencial.', 'O Coordenador de polo deve assumir as funções do tutor presencial, ficando responsável pelos alunos.', '2013-07-08', '2018-05-16', 'Afrânio Neves', '2', '2'),
+(4, 2, 9, 'As notas lançadas no AVA de forma errada, fora do padrão.', 'O Coordenador de tutor deve lançar novamente as notas no AVA.', '2012-08-13', '2018-05-16', 'Gisele Souza', '9', '9'),
+(5, 2, 7, 'Um grupo de alunos ausentes na aula presencial do período.', 'Os tutores presenciais devem remarcar uma nova data para a aula de reposição, porém as atividades avaliativas não devem valer a mesma nota.', '2010-04-24', '2018-06-19', 'Francisco Bentes', '4', '4'),
+(6, 3, 2, 'O link de internet interrompido no Polo.', 'O prazo de entrega das atividades deve ser estendido somente para este Polo.', '2016-10-11', '2018-06-19', 'Francisco Bentes', '4', '4'),
+(7, 3, 1, 'Por motivos climáticos, o polo ficou sem energia elétrica durante o período.', 'O prazo de entrega das atividades deve ser estendido somente para este Polo.', '2012-08-12', '2018-06-20', 'Luzinaldo Moura', '4', '4'),
+(8, 3, 15, 'Manutenção de urgência no polo.', 'O prazo de entrega das atividades deve ser estendido somente para este Polo.', '2013-07-08', '2018-06-20', 'Luzinaldo Moura', '4', '4'),
+(9, 1, 5, 'Uma turma da disciplina Matemática Básica apresenta grande reprovação ao final do período. ', 'Aulas de reciclagem na disciplina, antes do início da Reoferta do curso.', '2012-01-18', '2018-06-18', 'João Victor', '10', '9'),
+(10, 2, 8, 'Aluno com problema de saúde, com licença médica.', 'O tutor presencial deverá repassar o conteúdo e o prazo das atividades devem ser revistos para esse aluno.', '2014-05-22', '2018-06-18', 'Aliuandra', '1', '9'),
+(11, 1, 3, 'Dificuldades em utilizar o AVA.', 'O tutor presencial deverá repassar treinamento no AVA.', '2015-03-11', '2018-06-20', 'João Victor', '1', '9'),
+(12, 3, 15, 'Alagamento na cidade impede acesso ao Polo.', 'O prazo de entrega das atividades deve ser estendido somente para este Polo.', '2015-08-07', '2018-06-20', 'João Victor', '1', '9');
 
 -- --------------------------------------------------------
 
@@ -362,7 +371,8 @@ INSERT INTO `titulo_problema` (`id`, `titulo`) VALUES
 (11, 'Tutoria'),
 (12, 'Coordenação'),
 (13, 'Atividades'),
-(14, 'Conteúdo');
+(14, 'Conteúdo'),
+(15, 'Infraestrutura');
 
 -- --------------------------------------------------------
 
@@ -584,7 +594,7 @@ ALTER TABLE `info_caso`
 -- AUTO_INCREMENT for table `pesquisas`
 --
 ALTER TABLE `pesquisas`
-  MODIFY `id_pesquisa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_pesquisa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `polo`
@@ -608,7 +618,7 @@ ALTER TABLE `relator`
 -- AUTO_INCREMENT for table `resposta_esp`
 --
 ALTER TABLE `resposta_esp`
-  MODIFY `id` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `solucao`
@@ -626,7 +636,7 @@ ALTER TABLE `tipo_problema`
 -- AUTO_INCREMENT for table `titulo_problema`
 --
 ALTER TABLE `titulo_problema`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `turma`

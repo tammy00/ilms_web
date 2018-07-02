@@ -8,8 +8,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 $this->title = 'Consulta ao especialista';
-$this->params['breadcrumbs'][] = $this->title;
-?>
+$this->params['breadcrumbs'][] = $this->title; ?>
 
 <div>
     <h1><?= Html::encode($this->title) ?></h1>
@@ -21,7 +20,10 @@ $this->params['breadcrumbs'][] = $this->title;
           <fieldset>
                 <legend>Opinião de Especialistas</legend> 
                 <?= $form->field($model, 'titulo_problema')->dropDownList([$arrayTitulosProblemas],['style' => 'width:500px',
-                                                      'prompt' => "Selecione um problema",]); ?> 
+                                                      'prompt' => "Selecione um título de problema",]); ?> 
+
+                <?= $form->field($model, 'tipo_problema')->dropDownList([$arrayTiposProblemas],['style' => 'width:500px',
+                                                      'prompt' => "Selecione um tipo de problema",]); ?> 
                 <br><br>
           </fieldset>    
 
@@ -37,4 +39,3 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 
-?>

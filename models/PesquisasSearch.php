@@ -18,7 +18,7 @@ class PesquisasSearch extends Pesquisas
     public function rules()
     {
         return [
-            [['id_pesquisa', 'id_solucao', 'id_usuario', 'id_polo', 'status', 'id_titulo_problema'], 'integer'],
+            [['id_pesquisa', 'id_solucao', 'id_usuario', 'id_polo', 'status', 'id_resposta'], 'integer'],
             [['relator', 'natureza_problema', 'descricao_problema', 'problema_detalhado', 'palavras_chaves'], 'safe'],
         ];
     }

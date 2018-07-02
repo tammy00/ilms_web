@@ -125,7 +125,7 @@ class SiteController extends Controller
 
 
 
-    public function actionCbrView($id)
+    public function actionCbrview($id)
     {
         $pesquisa = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
         if ( $pesquisa == null ) return $this->actionDoom('Pesquisa não foi salva: '.$id);
@@ -164,7 +164,7 @@ class SiteController extends Controller
 
 
 
-    public function actionVleView($id)
+    public function actionVleview($id)
     {
     	/*
         $pesquisa = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
@@ -204,14 +204,16 @@ class SiteController extends Controller
     }
 
 
-    public function actionExpView($id)
+    public function actionExpview($id)
     {
         $pesquisa = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
         if ( $pesquisa == null ) return $this->actionDoom('Pesquisa não foi salva: '.$id);
 
-        if ( $pesquisa->id_titulo_problema > 0 )
+        if ( $pesquisa->id_resposta > 0 )
         {
-            $exp_resposta = RespostaEspecialistasSearch::searchForResponses($pesquisa->id_titulo_problema);
+            $dados_resp = RespostaEspecialistas::find()->where(['id' => $pesquisa->id_resposta])
+                                                 ->one();
+            $exp_resposta = RespostaEspecialistasSearch::searchForResponses($dados_resp->id_titulo_problema, $dados_resp->id_tipo_problema);
         }  
         else $exp_resposta = null;   
 
@@ -305,7 +307,7 @@ class SiteController extends Controller
 
 
 
-    public function actionCbrSearch()  // Descricao vai ter todos os dados, independente de ser somente para o rbc
+    public function actionCbrsearch()  // Descricao vai ter todos os dados, independente de ser somente para o rbc
     { 
 
         //tipo_problema == natureza_problema
@@ -342,7 +344,7 @@ class SiteController extends Controller
 
             }  
 
-            return $this->actionCbrView ($resultado_id);  //
+            return $this->actionCbrview ($resultado_id);  //
 
             
         }   //else if request post
@@ -362,7 +364,7 @@ class SiteController extends Controller
 
 
 
-    public function actionExpSearch()  // Busca na base de dados de especialistas
+    public function actionExpsearch()  // Busca na base de dados de especialistas
     { 
 
         $model = new BuscaGeral();
@@ -378,9 +380,10 @@ class SiteController extends Controller
                 // A função acima retorna o id do registro da tabela pesquisa
                 // Dependendo do valor de $resultado_id, o registro é criado ou não
             }
-            else return $this->render('doom', ['message' => 'Por favor, informar o título do problema.']); 
+            else return $this->actionDoom('Por favor, informar o título do problema.'); 
 
-            return $this->actionExpView ($resultado_id);  //
+            if ( $resultado_id == (-1) ) return $this->actionDoom('Por favor, informar o título do problema.'); 
+            else return $this->actionExpview ($resultado_id);  //
 
             
         }   //else if request post
@@ -392,7 +395,7 @@ class SiteController extends Controller
             return $this->render('expsearch', [
                 'model' => $model,
                 'arrayTitulosProblemas' => $arrayTitulosProblemas,
-                'arrayTitulosProblemas' => $arrayTiposProblemas,
+                'arrayTiposProblemas' => $arrayTiposProblemas,
             ]);        
         }
     }
@@ -461,9 +464,9 @@ class SiteController extends Controller
             $idSolucao = $data['solucaoId'];
             $similaridadeCalculada = $data['similaridade'];
 
-            if ($idSolucao == null) return $this->render('doom', ['message' => 'Registro da solução não encontrada.']);
+            if ($idSolucao == null) return $this->actionDoom('Registro da solução não encontrada.');
 
-            if ( $similaridadeCalculada == 0) return $this->render('doom', ['message' => 'Não há caso similar ao apresentado.']);
+            if ( $similaridadeCalculada == 0) return $this->actionDoom('Não há caso similar ao apresentado.');
 
             //Encontra o registro (no banco) do id recebido pelo componente RBC
             $modelSolucao = Solucao::find()->where(['id_solucao' => $idSolucao])->one();  
@@ -505,50 +508,29 @@ class SiteController extends Controller
     {    // Verifica se existe este título de problema e se existe respostas com esse título. Armazena consulta no banco.
 
         $o_titulo = TituloProblema::find()->where(['id' => $id_titulo])->one();
+        $o_tipo = TipoProblema::find()->where(['id' => $id_tipo])->one();
 
-        if ( $o_titulo != null ) // Se existe algum registro com título informado
+        if ( ($o_titulo != null) && ($o_tipo != null) ) // Se existe algum registro com título informado
         {
-            $resposta = RespostaEspecialistas::find()->where(['id_titulo_problema' => $o_titulo->id])->all();
+            $resposta = RespostaEspecialistas::find()->where(['id_titulo_problema' => $o_titulo->id])
+                                                     ->andWhere(['id_tipo_problema' => $o_tipo->id])
+                                                     ->one();
 
-            if ( $resposta != null )  // Se existe alguma resposta (problema) com título informado
+            if ( $resposta != null )  // Verifica se existe ao menos um registro
             {
-                if ( ( $id != (-1) ) && ( $id > 0 ) )
-                { 
-                    $atualiza_registro = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
-                    //$nome_polo = $atualiza_registro->id_polo;
-                    $atualiza_registro->id_titulo_problema = (int)($o_titulo->id);
+                $nova_pesquisa = new Pesquisas();
+                $nova_pesquisa->id_resposta = $resposta->id;
 
-                    //return $this->render('doom', ['message' => 'ID_PESQUISA = '.$atualiza_registro->id_pesquisa.' <br> $atualiza_registro->id_titulo_problema = '.$atualiza_registro->id_titulo_problema]);
-
-                    if ( $atualiza_registro->save() ) 
-                    {
-                        //return $this->render('doom', ['message' => 'STATUS = '.$atualiza_registro->status]);
-                        return $atualiza_registro->id_pesquisa;
-                    }
-                    else 
-                    {
-                        return $this->render('doom', ['message' => 'Ocorreu um erro ao salvar a busca. Por favor, repita a busca.']);
-                    }
-
-                }
-                else
-                { // Não existe um registro da pesquisa total do usuário - criar um registro
-                    $nova_pesquisa = new Pesquisas();
-                    $nova_pesquisa->id_titulo_problema = $o_titulo->id;
-
-                    if ( $nova_pesquisa->save() ) return $nova_pesquisa->id_pesquisa;
+                if ( $nova_pesquisa->save() ) return $nova_pesquisa->id_pesquisa;
                     // Se a pesquisa foi salva, retorna o id da pesquisa criada
-                }
+                
             }
             else    // Não tem resposta de acordo com o título de problema selecionado
             {
-                $atualiza_registro = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
-                $atualiza_registro->id_titulo_problema = 0;  // Representa a falta de resposta de acordo com o título
-                if ( $atualiza_registro->save() ) return $atualiza_registro->id_pesquisa;
-                else return $this->render('doom', ['message' => 'Não há resposta de acordo com o título de problema selecionado.']);
+                 return (-1);
             }
         }
-        else return $this->render('doom', ['message' => 'Ocorreu um erro ao fazer a busca com o agente especialista. Por favor, repita a busca.']);
+        else return $this->actionDoom('Por favor, informar o título e tipo do problema.');
     }
 
 

@@ -77,7 +77,7 @@ class RespostaEspecialistasSearch extends RespostaEspecialistas
         return $dataProvider;
     }
 
-    public function searchForResponses($id_titulo)
+    public function searchForResponses($id_titulo, $id_tipo)
     {
         $query = RespostaEspecialistas::find();
 
@@ -98,6 +98,7 @@ class RespostaEspecialistasSearch extends RespostaEspecialistas
         // grid filtering conditions
         $query->andFilterWhere([
             'id_titulo_problema' => $id_titulo,
+            'id_tipo_problema' => $id_tipo,
         ]);
 
         return $dataProvider;
