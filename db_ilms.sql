@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 03-Jul-2018 às 01:49
+-- Generation Time: 09-Jul-2018 às 04:21
 -- Versão do servidor: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -77,15 +77,15 @@ CREATE TABLE `descricao` (
 --
 
 INSERT INTO `descricao` (`id_descricao`, `natureza_problema`, `relator`, `descricao_problema`, `problema_detalhado`, `palavras_chaves`, `id_infoc`, `id_polo`) VALUES
-(1, 'Infraestrutura', 'Coordenador do polo', 'A disciplina Fruticultura estava sendo ministrada para três polos: Manaquiri, Santa Izabel e Tefé, no período de 14/10/2014 a 23/11/2014.\nO polo de Santa Izabel atendeu 14 alunos do curso de Licenciatura em Ciência Agrárias neste período letivo.\nEm 15/10/2014, a cidade de Santa Izabel, por causa de uma forte chuva ficou sem energia durante 10 horas. O apagão danificou o equipamento (switch) e a antena de recepção do sinal de internet via satélite. A sede do polo ficou sem internet durante 7 dias até que o equipamento fosse substituído.', 'A ausência de conexão com a internet durante 7 dias prejudicaria diretamente os alunos da disciplina, pois comprometeria o andamento e as avaliações da Unidade I da disciplina.\nAs atividades de avaliação desta unidade tinham como prazo final dia 20/10/2014.', 'Problema internet.', NULL, 1),
-(2, 'Infraestrutura', 'Coordenador do polo', 'A dependência da disciplina Fundamentos de Anatomia estava sendo ministrada para dois polos: Santa Izabel do Rio Negro e Boa Vista/RR, no período de 09/03/2014 a 26/03/2014.\nO polo de Boa Vista atendeu 89 alunos do curso de Licenciatura em Educação Física no período letivo e regular de 2013/2, sendo que 53 alunos ficaram de Dependência.\nNo início do mês de março de 2014, a sede do polo de Boa Vista sofreu com certa lentidão na velocidade internet, o que gerou reclamações por parte dos alunos, que se queixavam de dificuldades para fazer o download dos vídeos postados na sala de aula virtual.', 'A baixa velocidade de internet impedia que os alunos da Dependência conseguissem fazer o download dos vídeos postados como conteúdo das disciplinas.  Os vídeos eram essenciais para a aprendizagem do conteúdo.', 'Problema internet, download vídeos', NULL, 2),
-(3, 'Pedagógica', 'Coordenador do curso', 'A disciplina Informática Aplicada foi ministrada para três polos, no estado do Acre: Acrelândia (60 alunos), Brasiléia (53), Tarauacá (60), no período de 28/10/2013 a 06/12/2013.\nOs polos atenderam um total de 173 alunos do curso de Bacharelado em Administração Pública, no período letivo e regular de 2013/2.\nAntes do início do disciplina, o coordenador de curso, juntamente com os coordenadores dos polos, identificaram que esta disciplina tinha um grande taxa de reprovação e abandono, pois os estudantes tinha dificuldade em trabalhar com o ambiente virtual de aprendizagem (Moodle) e com computadores em geral. ', 'Dificuldades em utilizar computadores, internet e o AVA Moodle impediam que a maioria dos alunos tivessem um bom rendimento na disciplina Informática Aplicada.', 'Dificuldades com Moodle, deficiência em Informática Básica', NULL, 3),
-(4, 'Pedagógica', 'Coordenador do curso', 'O curso de Licenciatura em Ciência Agrárias oferecia disciplina para os polos de Manaquiri (70 alunos), Santa Izabel do Rio Negro (61), Tefé (59), pelo UAB II, como 2ª turma do curso. Na primeira oferta do curso (UAB I) os tutores e professores detectaram que os alunos tinham muitas dificuldades em produzir textos e não possuíam noções básicas de matemática. Esta deficiência acabou dificultando o aprendizado e, consequentemente, levando a um maior número de reprovações e abandono do curso.\nAntes do início da 2ª oferta do curso (UAB II), o coordenador decidiu que medidas preventivas deveriam ser tomadas a fim de se evitar o mesmo problema de aprendizado.', 'Grande dificuldades dos alunos em interpretação e produção de texto, e ausência de noções de matemática elementar, por parte dos alunos, comprometia o desempenho acadêmico dos mesmos.', 'Deficiência em Português, deficiência em Matemática básica', NULL, 6),
-(5, 'Infraestrutura', 'Coordenador do polo', 'As disciplinas Contabilidade Geral, Macroeconomia e Ciência Política estava sendo ministrada para três polos: Tarauacá, Brasileia e Acrelândia (AC), no período de 28/04/2014 a 06/06/2014.\nO polo de Brasileia atendeu 14 alunos do curso Licenciatura em Administração Pública neste período letivo.\nEm 28/04/2014, a cidade de Brasileia, sofreu um inundação, devido ao transbordamento do rio. O polo ficou com cerca de 1m de água. Equipamentos e móveis foram destruídos.', 'A inundação ocorrida na cidade de Brasileia comprometeu as atividades no polo. ', 'Inundação', NULL, 4),
-(6, 'Pedagógica', 'Coordenador do curso', 'Os cursos de Licenciatura em Ciências Agrárias, Licenciatura em Artes Visuais, Bacharelado em Administração é oferecido nos seguintes polos: Maués, Lábrea, Manacapuru e Coari, no primeiro semestre de 2009.\nProblemas na licitação da escolha da gráfica, que imprimiria os cadernos das disciplinas dos módulos de 2009/01, impediram a impressão e o envio dos mesmos aos polos.\nOs cursos tiveram que ser suspensos por 4 meses até que o impasse tivesse uma solução.', 'Atraso na impressão dos cadernos das disciplinas do módulo.', 'Impressão de cadernos', NULL, 8),
-(7, 'Infraestrutura', 'Coordenador de polo', 'Em 20/02/2010, o gerador de energia sofreu uma avaria, o que acarretou uma falta de energia elétrica em todo a cidade de Lábrea. \nO acesso à internet foi interrompido e as atividades dos cursos do Bacharelado em Administração Pública e Licenciatura em Ciências Agrárias tiveram que ser suspensas por 5 dias.', 'Polo sem energia elétrica e sem internet por 5 dias.', 'Falta de energia elétrica, problema internet', NULL, 9),
-(8, 'Infraestrutura', 'Coordenador de curso', 'O curso de Licenciatura em Educação Física era oferecido para os 17 polos atendidos pelo CED. Como era a primeira oferta do curso, a equipe ainda não tinha experiência e nem conhecimento das peculiaridades dos polos. Atrasos no envido de material didático e de logística da equipe de apoio (tutores e coordenadores) acabaram por prejudicar o andamento das atividades das primeiras disciplinas do primeiro módulo.', 'Dificuldades de logística e inexperiência da equipe de apoio acabaram por prejudicar o andamento das atividades das primeiras disciplinas do primeiro módulo.', 'Problemas de logística, inexperiência da equipe', NULL, 6),
-(9, 'Pedagógica', 'Coordenador de curso', 'O cursos oferecidos pela Universidade Aberta do Brasil (UAB) passaram por um recadastramento no Sistema da UAB (SISUAB), para maior controle por parte do MEC em relação à quantidade de alunos por polo e por cursos.\nA coordenação do curso não atualizou os dados corretamente e algumas bolsas foram cortadas, ocasionando desligamento de alguns tutores.', 'Quantidade de bolsa para tutores e professores foi reduzida devido a informações erradas no sistema SISUAB.', 'Corte de bolsa', NULL, 22),
+(1, 'Infraestrutura', 'Coordenador do polo', 'A ausência de conexão com a internet durante 7 dias prejudicaria diretamente os alunos da disciplina, pois comprometeria o andamento e as avaliações da Unidade I da disciplina.\r\nAs atividades de avaliação desta unidade tinham como prazo final dia 20/10/2014.', 'A disciplina Fruticultura estava sendo ministrada para três polos: Manaquiri, Santa Izabel e Tefé, no período de 14/10/2014 a 23/11/2014.\r\nO polo de Santa Izabel atendeu 14 alunos do curso de Licenciatura em Ciência Agrárias neste período letivo.\r\nEm 15/10/2014, a cidade de Santa Izabel, por causa de uma forte chuva ficou sem energia durante 10 horas. O apagão danificou o equipamento (switch) e a antena de recepção do sinal de internet via satélite. A sede do polo ficou sem internet durante 7 dias até que o equipamento fosse substituído.', 'Problema internet.', NULL, 1),
+(2, 'Infraestrutura', 'Coordenador do polo', 'A baixa velocidade de internet impedia que os alunos da Dependência conseguissem fazer o download dos vídeos postados como conteúdo das disciplinas.  Os vídeos eram essenciais para a aprendizagem do conteúdo.', 'A dependência da disciplina Fundamentos de Anatomia estava sendo ministrada para dois polos: Santa Izabel do Rio Negro e Boa Vista/RR, no período de 09/03/2014 a 26/03/2014.\r\nO polo de Boa Vista atendeu 89 alunos do curso de Licenciatura em Educação Física no período letivo e regular de 2013/2, sendo que 53 alunos ficaram de Dependência.\r\nNo início do mês de março de 2014, a sede do polo de Boa Vista sofreu com certa lentidão na velocidade internet, o que gerou reclamações por parte dos alunos, que se queixavam de dificuldades para fazer o download dos vídeos postados na sala de aula virtual.', 'Problema internet, download vídeos', NULL, 2),
+(3, 'Pedagógica', 'Coordenador do curso', 'Dificuldades em utilizar computadores, internet e o AVA Moodle impediam que a maioria dos alunos tivessem um bom rendimento na disciplina Informática Aplicada.', 'A disciplina Informática Aplicada foi ministrada para três polos, no estado do Acre: Acrelândia (60 alunos), Brasiléia (53), Tarauacá (60), no período de 28/10/2013 a 06/12/2013.\r\nOs polos atenderam um total de 173 alunos do curso de Bacharelado em Administração Pública, no período letivo e regular de 2013/2.\r\nAntes do início do disciplina, o coordenador de curso, juntamente com os coordenadores dos polos, identificaram que esta disciplina tinha um grande taxa de reprovação e abandono, pois os estudantes tinha dificuldade em trabalhar com o ambiente virtual de aprendizagem (Moodle) e com computadores em geral. ', 'Dificuldades com Moodle, deficiência em Informática Básica', NULL, 3),
+(4, 'Pedagógica', 'Coordenador do curso', 'Grande dificuldades dos alunos em interpretação e produção de texto, e ausência de noções de matemática elementar, por parte dos alunos, comprometia o desempenho acadêmico dos mesmos.', 'O curso de Licenciatura em Ciência Agrárias oferecia disciplina para os polos de Manaquiri (70 alunos), Santa Izabel do Rio Negro (61), Tefé (59), pelo UAB II, como 2ª turma do curso. Na primeira oferta do curso (UAB I) os tutores e professores detectaram que os alunos tinham muitas dificuldades em produzir textos e não possuíam noções básicas de matemática. Esta deficiência acabou dificultando o aprendizado e, consequentemente, levando a um maior número de reprovações e abandono do curso.\r\nAntes do início da 2ª oferta do curso (UAB II), o coordenador decidiu que medidas preventivas deveriam ser tomadas a fim de se evitar o mesmo problema de aprendizado.', 'Deficiência em Português, deficiência em Matemática básica', NULL, 6),
+(5, 'Infraestrutura', 'Coordenador do polo', 'A inundação ocorrida na cidade de Brasileia comprometeu as atividades no polo. ', 'As disciplinas Contabilidade Geral, Macroeconomia e Ciência Política estava sendo ministrada para três polos: Tarauacá, Brasileia e Acrelândia (AC), no período de 28/04/2014 a 06/06/2014.\r\nO polo de Brasileia atendeu 14 alunos do curso Licenciatura em Administração Pública neste período letivo.\r\nEm 28/04/2014, a cidade de Brasileia, sofreu um inundação, devido ao transbordamento do rio. O polo ficou com cerca de 1m de água. Equipamentos e móveis foram destruídos.', 'Inundação', NULL, 4),
+(6, 'Pedagógica', 'Coordenador do curso', 'Atraso na impressão dos cadernos das disciplinas do módulo.', 'Os cursos de Licenciatura em Ciências Agrárias, Licenciatura em Artes Visuais, Bacharelado em Administração é oferecido nos seguintes polos: Maués, Lábrea, Manacapuru e Coari, no primeiro semestre de 2009.\r\nProblemas na licitação da escolha da gráfica, que imprimiria os cadernos das disciplinas dos módulos de 2009/01, impediram a impressão e o envio dos mesmos aos polos.\r\nOs cursos tiveram que ser suspensos por 4 meses até que o impasse tivesse uma solução.', 'Impressão de cadernos', NULL, 8),
+(7, 'Infraestrutura', 'Coordenador de polo', 'Polo sem energia elétrica e sem internet por 5 dias.', 'Em 20/02/2010, o gerador de energia sofreu uma avaria, o que acarretou uma falta de energia elétrica em todo a cidade de Lábrea. \r\nO acesso à internet foi interrompido e as atividades dos cursos do Bacharelado em Administração Pública e Licenciatura em Ciências Agrárias tiveram que ser suspensas por 5 dias.', 'Falta de energia elétrica, problema internet', NULL, 9),
+(8, 'Infraestrutura', 'Coordenador de curso', 'Dificuldades de logística e inexperiência da equipe de apoio acabaram por prejudicar o andamento das atividades das primeiras disciplinas do primeiro módulo.', 'O curso de Licenciatura em Educação Física era oferecido para os 17 polos atendidos pelo CED. Como era a primeira oferta do curso, a equipe ainda não tinha experiência e nem conhecimento das peculiaridades dos polos. Atrasos no envido de material didático e de logística da equipe de apoio (tutores e coordenadores) acabaram por prejudicar o andamento das atividades das primeiras disciplinas do primeiro módulo.', 'Problemas de logística, inexperiência da equipe', NULL, 6),
+(9, 'Pedagógica', 'Coordenador de curso', 'Quantidade de bolsa para tutores e professores foi reduzida devido a informações erradas no sistema SISUAB.', 'O cursos oferecidos pela Universidade Aberta do Brasil (UAB) passaram por um recadastramento no Sistema da UAB (SISUAB), para maior controle por parte do MEC em relação à quantidade de alunos por polo e por cursos.\r\nA coordenação do curso não atualizou os dados corretamente e algumas bolsas foram cortadas, ocasionando desligamento de alguns tutores.', 'Corte de bolsa', NULL, 22),
 (10, 'Acadêmica', 'Coordenador do polo', 'A baixa velocidade de internet impedia que os alunos da Dependência conseguissem fazer o download dos vídeos postados como conteúdo das disciplinas.  Os vídeos eram essenciais para a aprendizagem do conteúdo.', 'A dependência da disciplina Fundamentos de Anatomia estava sendo ministrada para dois polos: Santa Izabel do Rio Negro e Boa Vista/RR, no período de 09/03/2014 a 26/03/2014.\r\nO polo de Boa Vista atendeu 89 alunos do curso de Licenciatura em Educação Física no período letivo e regular de 2013/2, sendo que 53 alunos ficaram de Dependência.\r\nNo início do mês de março de 2014, a sede do polo de Boa Vista sofreu com certa lentidão na velocidade internet, o que gerou reclamações por parte dos alunos, que se queixavam de dificuldades para fazer o download dos vídeos postados na sala de aula virtual.', 'Problema internet, download vídeos', NULL, 2);
 
 -- --------------------------------------------------------
@@ -147,21 +147,6 @@ CREATE TABLE `pesquisas` (
   `status` int(1) DEFAULT NULL,
   `similaridade` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `pesquisas`
---
-
-INSERT INTO `pesquisas` (`id_pesquisa`, `id_solucao`, `id_resposta`, `id_usuario`, `id_polo`, `relator`, `natureza_problema`, `descricao_problema`, `problema_detalhado`, `palavras_chaves`, `status`, `similaridade`) VALUES
-(1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(6, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(7, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(9, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -247,8 +232,16 @@ CREATE TABLE `relator` (
 --
 
 INSERT INTO `relator` (`id_relator`, `perfil`, `id_infoc`) VALUES
-(1, 'Coordenador do polo', NULL),
-(2, 'Coordenador do curso', NULL);
+(1, 'Coordenador Polo', NULL),
+(2, 'Coordenador Curso', NULL),
+(3, 'Coordenador Graduação', NULL),
+(4, 'Coordenador Tutor', NULL),
+(5, 'Tutor Presencial', NULL),
+(6, 'Tutor Distância', NULL),
+(7, 'Mediador', NULL),
+(8, 'Professor', NULL),
+(9, 'Suporte', NULL),
+(10, 'Administrador', NULL);
 
 -- --------------------------------------------------------
 
@@ -594,7 +587,7 @@ ALTER TABLE `info_caso`
 -- AUTO_INCREMENT for table `pesquisas`
 --
 ALTER TABLE `pesquisas`
-  MODIFY `id_pesquisa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_pesquisa` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `polo`
@@ -612,7 +605,7 @@ ALTER TABLE `professor`
 -- AUTO_INCREMENT for table `relator`
 --
 ALTER TABLE `relator`
-  MODIFY `id_relator` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_relator` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `resposta_esp`
