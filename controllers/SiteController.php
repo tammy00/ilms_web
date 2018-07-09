@@ -128,38 +128,43 @@ class SiteController extends Controller
     public function actionCbrview($id)
     {
         $pesquisa = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
-        if ( $pesquisa == null ) return $this->actionDoom('Pesquisa não foi salva: '.$id);
 
-        if ( $pesquisa->id_solucao != null ) 
+        if ( $pesquisa == null ) 
+        	return $this->actionDoom('Pesquisa não foi salva: '.$id);
+        else 
         {
-            $sol = Solucao::find()->where(['id_solucao' => $pesquisa->id_solucao])->one();
-            $pesquisa->similaridade = round(($pesquisa->similaridade * 100 ));
-        }
-        else $sol = null;
 
-        if ( $pesquisa->id_polo != null )
-        {
-            $polo = Polo::find()->where(['id_polo' => $pesquisa->id_polo])->one();
-            $pesquisa->id_polo = $polo->nome;
-        }
+	        if ( $pesquisa->id_solucao != null ) 
+	        {
+	            $sol = Solucao::find()->where(['id_solucao' => $pesquisa->id_solucao])->one();
+	            $pesquisa->similaridade = round(($pesquisa->similaridade * 100 ));
+	        }
+	        else $sol = null;
 
-        switch ($pesquisa->status)
-        {
-             case 0: 
-                 $pesquisa->status = 'Sem resposta';
-                 break;
-             case 1: 
-                 $pesquisa->status = 'Solução não ajudou';
-                 break;
-             case 2: 
-                 $pesquisa->status = 'Caso da Base de Casos';
-                 break;
-        }
+	        if ( $pesquisa->id_polo != null )
+	        {
+	            $polo = Polo::find()->where(['id_polo' => $pesquisa->id_polo])->one();
+	            $pesquisa->id_polo = $polo->nome;
+	        }
 
-        return $this->render('cbrview', [
-            'pesquisa' => $pesquisa,
-            'sol' => $sol,
-        ]);
+	        switch ($pesquisa->status)
+	        {
+	             case 0: 
+	                 $pesquisa->status = 'Sem resposta';
+	                 break;
+	             case 1: 
+	                 $pesquisa->status = 'Solução não ajudou';
+	                 break;
+	             case 2: 
+	                 $pesquisa->status = 'Caso da Base de Casos';
+	                 break;
+	        }
+
+	        return $this->render('cbrview', [
+	            'pesquisa' => $pesquisa,
+	            'sol' => $sol,
+	        ]);
+        }
     }
 
 
@@ -207,39 +212,42 @@ class SiteController extends Controller
     public function actionExpview($id)
     {
         $pesquisa = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
-        if ( $pesquisa == null ) return $this->actionDoom('Pesquisa não foi salva: '.$id);
 
-        if ( $pesquisa->id_resposta > 0 )
-        {
-            $dados_resp = RespostaEspecialistas::find()->where(['id' => $pesquisa->id_resposta])
-                                                 ->one();
-            $exp_resposta = RespostaEspecialistasSearch::searchForResponses($dados_resp->id_titulo_problema, $dados_resp->id_tipo_problema);
-        }  
-        else $exp_resposta = null;   
+        if ( $pesquisa == null ) 
+        	return $this->actionDoom('Pesquisa não foi salva: '.$id);
+        else {
 
-        if ( $pesquisa->id_polo != null )
-        {
-            $polo = Polo::find()->where(['id_polo' => $pesquisa->id_polo])->one();
-            $pesquisa->id_polo = $polo->nome;
+	        if ( $pesquisa->id_resposta > 0 )
+	        {
+	            $dados_resp = RespostaEspecialistas::find()->where(['id' => $pesquisa->id_resposta])->one();
+	            $exp_resposta = RespostaEspecialistasSearch::searchForResponses($dados_resp->id_titulo_problema, $dados_resp->id_tipo_problema);
+	        }  
+	        else $exp_resposta = null;   
+
+	        if ( $pesquisa->id_polo != null )
+	        {
+	            $polo = Polo::find()->where(['id_polo' => $pesquisa->id_polo])->one();
+	            $pesquisa->id_polo = $polo->nome;
+	        }
+
+	        switch ($pesquisa->status)
+	        {
+	             case 0: 
+	                 $pesquisa->status = 'Sem resposta';
+	                 break;
+	             case 1: 
+	                 $pesquisa->status = 'Solução não ajudou';
+	                 break;
+	             case 2: 
+	                 $pesquisa->status = 'Caso da Base de Casos';
+	                 break;
+	        }
+
+	        return $this->render('expview', [
+	            'pesquisa' => $pesquisa,
+	            'exp_resposta' => $exp_resposta,
+	        ]);
         }
-
-        switch ($pesquisa->status)
-        {
-             case 0: 
-                 $pesquisa->status = 'Sem resposta';
-                 break;
-             case 1: 
-                 $pesquisa->status = 'Solução não ajudou';
-                 break;
-             case 2: 
-                 $pesquisa->status = 'Caso da Base de Casos';
-                 break;
-        }
-
-        return $this->render('expview', [
-            'pesquisa' => $pesquisa,
-            'exp_resposta' => $exp_resposta,
-        ]);
     }
 
 
@@ -326,6 +334,61 @@ class SiteController extends Controller
 
             if ( $verificacao_rbc == 0 )   // Checando se todos os dados necessários foram informados
             {
+            	$perfil = Relator::find()->where(['id_relator' => $model->relator])->one();  
+		       $postArray = array(
+		            "poloId" => $model->id_polo,
+		            "relatorId" => $perfil->perfil,
+		            "descricaoProblema" => $model->descricao_problema,
+		            "problema" => $model->problema_detalhado,
+		            "naturezaProblema" => $model->natureza_problema,
+		            "palavrasChavesProblema" => $model->palavras_chaves,
+		        );
+
+		        // Converte os dados para o formato jSon
+		        $json = json_encode( $postArray );
+
+		        // receber resposta do servidor
+		        $curl = curl_init();
+		        curl_setopt_array($curl, array(
+		        CURLOPT_PORT => "8080", //porta do WS
+		        CURLOPT_URL => "http://localhost:8080/ServerRest/ServerRest/casos/caso", //Caminho do WS que vai receber o POST
+		        CURLOPT_RETURNTRANSFER => true, //Recebe resposta
+		        CURLOPT_ENCODING => "JSON", //Decodificação
+		        CURLOPT_MAXREDIRS => 10,
+		        CURLOPT_TIMEOUT => 120000, // 30
+		        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		        CURLOPT_CUSTOMREQUEST => "POST", //metodo
+		        CURLOPT_POSTFIELDS => $json, //string com dados à serem postados
+		        CURLOPT_HTTPHEADER => array(
+		            'Content-Type: application/json',
+		            'Content-Length: ' . strlen($json)),
+		        ));
+		        //$curl = curl_setopt($json, CURLOPT_ENCODING ,'UTF-8');
+		        $result = curl_exec($curl); //recebe o resultado em json
+		        $err = curl_error($curl); //recebe o erro da classe ou WS
+		        curl_close($curl); //Encerra a biblioteca
+
+		        if ($err)
+		        {
+		            return (-2);
+
+		        } // ELSE pegar o id do caso, criar variável de similaridade, return view do Solução
+		        else
+		        {
+		            $result = utf8_encode($result);
+		            $data = json_decode($result,true);
+		            //return $this->actionDoom('ID SOLUÇÃO: '.$data['solucaoId'].' <br>SIMILARIDADE: '.$data['similaridade']);
+		            //return $this->actionDoom('teste');
+		            ///return $data['solucaoId'];//((int)(var_dump($data)));
+
+
+		            $idSolucao = $data['solucaoId'];
+		            $similaridadeCalculada = $data['similaridade'];
+
+		            //return $this->actionDoom('SOLUÇÃO ID: '.$data['solucaoId'].'<br>SIMILARIDADE: '.$data['similaridade']);
+		            return $this->render('doom', ['dumbo' => $data,'message' => 'vazio']);
+		        }
+            	/*
                 $resultado_id = $this->agenteRBC($model->id_polo, 
                     $model->descricao_problema, 
                     $model->problema_detalhado, 
@@ -333,7 +396,7 @@ class SiteController extends Controller
                     $model->palavras_chaves, 
                     $model->natureza_problema);     // Consulta que retorna o id da pesquisa já salva
                 // Única função que não recebe id de pesquisa no parâmetro
-
+*/
                 /**** Legenda de retornos
                 -1 = pesqusia não foi salva (tem correspondência do servidor, mas por algum motivo a pesquisa não salvou)
                 -2 = servidor retornou erro/correspondência "infectada"
@@ -343,31 +406,36 @@ class SiteController extends Controller
                 *******/
 
                 // Voltando para o resultado da consulta rbc
+                /***** 
 
                 switch ($resultado_id)
                 {
                     case 0:
-                        $this->actionDoom('Solução existente. Porém, a pesquisa não salva com sucesso.');
+                        return $this->actionDoom('Solução existente. Porém, a pesquisa não salva com sucesso.');
                         break;
                     case (-1):
-                        $this->actionDoom('Não foi possível registrar a pesquisa. Retorne à página anterior e tente novamente.');
+                        return $this->actionDoom('Não foi possível registrar a pesquisa. Retorne à página anterior e tente novamente.');
                         break;
                     case (-2): 
-                        $this->actionDoom('Problema ao conectar com o servidor. Tente novamente.');
+                        return $this->actionDoom('Problema ao conectar com o servidor. Tente novamente.');
                         break;
                     case (-3):
-                        $this->actionDoom('Registro da solução não encontrada.');
+                        return $this->actionDoom('Registro da solução não encontrada.');
                         break; 
                     case (-4):
-                        $this->actionDoom('Não há solução na base de casos com a descrição apresentada.');
+                        return $this->actionDoom('Não há solução na base de casos com a descrição apresentada.');
                         break;
+                    case (-5):
+                    	return $this->actionCbrview (1); 
+                    	break;
                     default:
-                        $this->actionCbrview ($resultado_id);  //
-                        break;
-                }
+                    	return $this->actionCbrview ($resultado_id);  //
+                        break;   
+                } 
+                ****/
 
             }  
-            else $this->actionDoom('Faltou informar pelo menos um dado.');
+            else return $this->actionDoom('Faltou informar pelo menos um dado.');
 
             
         }   //else if request post
@@ -470,6 +538,7 @@ class SiteController extends Controller
             'Content-Type: application/json',
             'Content-Length: ' . strlen($json)),
         ));
+        //$curl = curl_setopt($json, CURLOPT_ENCODING ,'UTF-8');
         $result = curl_exec($curl); //recebe o resultado em json
         $err = curl_error($curl); //recebe o erro da classe ou WS
         curl_close($curl); //Encerra a biblioteca
@@ -481,17 +550,25 @@ class SiteController extends Controller
         } // ELSE pegar o id do caso, criar variável de similaridade, return view do Solução
         else
         {
-                        
+            $result = utf8_encode($result);
             $data = json_decode($result,true);
+            //return $this->actionDoom('ID SOLUÇÃO: '.$data['solucaoId'].' <br>SIMILARIDADE: '.$data['similaridade']);
+            //return $this->actionDoom('teste');
+            ///return $data['solucaoId'];//((int)(var_dump($data)));
+
 
             $idSolucao = $data['solucaoId'];
-            $similaridadeCalculada = $data['similaridade'];
+            $similaridadeCalculada = $data['similaridade'];/*
+            $nova_pesquisa = new Pesquisas();
+            $nova_pesquisa->similaridade = $data['similaridade'];
+            $nova_pesquisa->id_solucao = $data['solucaoId'];  
+            if ( $nova_pesquisa->save()) return (-5);  */
 
-            if ( $idSolucao == null ) 
+            if ( $data['solucaoId'] == null ) 
             {
                 return (-3);
             }
-            elseif ( $similaridadeCalculada == null )
+            elseif ( $data['similaridade'] == null )
             {
                 return (-4);
             }
@@ -519,7 +596,9 @@ class SiteController extends Controller
                     return $nova_pesquisa->id_pesquisa;
                 }
                 else return 0;// Se a pesquisa não for salva
+                
             }
+            
         }  // end else para !erro
     }   // agenteRBC end
 
