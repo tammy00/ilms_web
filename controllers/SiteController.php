@@ -334,17 +334,40 @@ class SiteController extends Controller
                     $model->natureza_problema);     // Consulta que retorna o id da pesquisa já salva
                 // Única função que não recebe id de pesquisa no parâmetro
 
+                /**** Legenda de retornos
+                -1 = pesqusia não foi salva (tem correspondência do servidor, mas por algum motivo a pesquisa não salvou)
+                -2 = servidor retornou erro/correspondência "infectada"
+                -3 = Null foi retornado como id da solução
+                -4 = Null foi retornado como similaridade calculada
+
+                *******/
 
                 // Voltando para o resultado da consulta rbc
 
-                if ($resultado_id == -1)   // Caso a consulta não tenha sido salva
+                switch ($resultado_id)
                 {
-                    return $this->render('doom', ['message' => 'Não foi possível registrar a pesquisa. Retorne à página anterior e tente novamente.']);  // Se não salvar a pesquisa
-                }  
+                    case 0:
+                        $this->actionDoom('Solução existente. Porém, a pesquisa não salva com sucesso.');
+                        break;
+                    case (-1):
+                        $this->actionDoom('Não foi possível registrar a pesquisa. Retorne à página anterior e tente novamente.');
+                        break;
+                    case (-2): 
+                        $this->actionDoom('Problema ao conectar com o servidor. Tente novamente.');
+                        break;
+                    case (-3):
+                        $this->actionDoom('Registro da solução não encontrada.');
+                        break; 
+                    case (-4):
+                        $this->actionDoom('Não há solução na base de casos com a descrição apresentada.');
+                        break;
+                    default:
+                        $this->actionCbrview ($resultado_id);  //
+                        break;
+                }
 
             }  
-
-            return $this->actionCbrview ($resultado_id);  //
+            else $this->actionDoom('Faltou informar pelo menos um dado.');
 
             
         }   //else if request post
@@ -439,7 +462,7 @@ class SiteController extends Controller
         CURLOPT_RETURNTRANSFER => true, //Recebe resposta
         CURLOPT_ENCODING => "JSON", //Decodificação
         CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
+        CURLOPT_TIMEOUT => 120000, // 30
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST", //metodo
         CURLOPT_POSTFIELDS => $json, //string com dados à serem postados
@@ -453,7 +476,7 @@ class SiteController extends Controller
 
         if ($err)
         {
-            return $this->render('doom', ['message' => 'Problema ao conectar com o servidor. Tente novamente.']);
+            return (-2);
 
         } // ELSE pegar o id do caso, criar variável de similaridade, return view do Solução
         else
@@ -464,34 +487,39 @@ class SiteController extends Controller
             $idSolucao = $data['solucaoId'];
             $similaridadeCalculada = $data['similaridade'];
 
-            if ($idSolucao == null) return $this->actionDoom('Registro da solução não encontrada.');
-
-            if ( $similaridadeCalculada == 0) return $this->actionDoom('Não há caso similar ao apresentado.');
-
-            //Encontra o registro (no banco) do id recebido pelo componente RBC
-            $modelSolucao = Solucao::find()->where(['id_solucao' => $idSolucao])->one();  
-
-                        
-
-            // Salva a pesquisa
-            $nova_pesquisa = new Pesquisas();
-            $nova_pesquisa->id_solucao = $modelSolucao->id_solucao;
-            $nova_pesquisa->id_polo = $polo;
-            $nova_pesquisa->id_usuario = 1;  // Só para efeito de teste MUDAR ESSE TRECHO QUANDO ADD CLASSE DE USUÁRIOS
-            $nova_pesquisa->status = 0;  // 0 = criado, não salvo como novo caso
-            $nova_pesquisa->relator = $perfil->perfil;  // ID do relator não é salvo nessa tabela
-            $nova_pesquisa->natureza_problema = $natureza;
-            $nova_pesquisa->descricao_problema = $desc;
-            $nova_pesquisa->problema_detalhado = $detalhado;
-            $nova_pesquisa->palavras_chaves = $keywords;
-            $nova_pesquisa->similaridade = $similaridadeCalculada;
-            //$nova_pesquisa->id_titulo_problema = 0;
-
-            if ($nova_pesquisa->save() )  // Se salvar a pesquisa
+            if ( $idSolucao == null ) 
             {
-                return $nova_pesquisa->id_pesquisa;
+                return (-3);
             }
-            else return 0;// Se a pesquisa não for salva
+            elseif ( $similaridadeCalculada == null )
+            {
+                return (-4);
+            }
+            else {
+
+                //Encontra o registro (no banco) do id recebido pelo componente RBC
+                $modelSolucao = Solucao::find()->where(['id_solucao' => $idSolucao])->one();  
+
+                // Salva a pesquisa
+                $nova_pesquisa = new Pesquisas();
+                $nova_pesquisa->id_solucao = $modelSolucao->id_solucao;
+                $nova_pesquisa->id_polo = $polo;
+                $nova_pesquisa->id_usuario = Yii::$app->user->identity->id;
+                $nova_pesquisa->status = 0;  // 0 = criado, não salvo como novo caso
+                $nova_pesquisa->relator = $perfil->perfil;  // ID do relator não é salvo nessa tabela
+                $nova_pesquisa->natureza_problema = $natureza;
+                $nova_pesquisa->descricao_problema = $desc;
+                $nova_pesquisa->problema_detalhado = $detalhado;
+                $nova_pesquisa->palavras_chaves = $keywords;
+                $nova_pesquisa->similaridade = $similaridadeCalculada;
+                //$nova_pesquisa->id_titulo_problema = 0;
+
+                if ($nova_pesquisa->save() )  // Se salvar a pesquisa
+                {
+                    return $nova_pesquisa->id_pesquisa;
+                }
+                else return 0;// Se a pesquisa não for salva
+            }
         }  // end else para !erro
     }   // agenteRBC end
 
