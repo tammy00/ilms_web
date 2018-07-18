@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 09-Jul-2018 às 23:17
--- Versão do servidor: 10.1.30-MariaDB
--- PHP Version: 5.6.33
+-- Generation Time: 18-Jul-2018 às 21:37
+-- Versão do servidor: 10.1.32-MariaDB
+-- PHP Version: 5.6.36
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -86,7 +86,12 @@ INSERT INTO `descricao` (`id_descricao`, `natureza_problema`, `relator`, `descri
 (7, 'Infraestrutura', 'Coordenador Polo', 'Polo sem energia elétrica e sem internet por 5 dias.', 'Em 20/02/2010, o gerador de energia sofreu uma avaria, o que acarretou uma falta de energia elétrica em todo a cidade de Lábrea. \r\nO acesso à internet foi interrompido e as atividades dos cursos do Bacharelado em Administração Pública e Licenciatura em Ciências Agrárias tiveram que ser suspensas por 5 dias.', 'Falta de energia elétrica, problema internet', NULL, 9),
 (8, 'Infraestrutura', 'Coordenador Curso', 'Dificuldades de logística e inexperiência da equipe de apoio acabaram por prejudicar o andamento das atividades das primeiras disciplinas do primeiro módulo.', 'O curso de Licenciatura em Educação Física era oferecido para os 17 polos atendidos pelo CED. Como era a primeira oferta do curso, a equipe ainda não tinha experiência e nem conhecimento das peculiaridades dos polos. Atrasos no envido de material didático e de logística da equipe de apoio (tutores e coordenadores) acabaram por prejudicar o andamento das atividades das primeiras disciplinas do primeiro módulo.', 'Problemas de logística, inexperiência da equipe', NULL, 6),
 (9, 'Pedagógica', 'Coordenador Curso', 'Quantidade de bolsa para tutores e professores foi reduzida devido a informações erradas no sistema SISUAB.', 'O cursos oferecidos pela Universidade Aberta do Brasil (UAB) passaram por um recadastramento no Sistema da UAB (SISUAB), para maior controle por parte do MEC em relação à quantidade de alunos por polo e por cursos.\r\nA coordenação do curso não atualizou os dados corretamente e algumas bolsas foram cortadas, ocasionando desligamento de alguns tutores.', 'Corte de bolsa', NULL, 22),
-(10, 'Acadêmica', 'Coordenador Polo', 'A baixa velocidade de internet impedia que os alunos da Dependência conseguissem fazer o download dos vídeos postados como conteúdo das disciplinas.  Os vídeos eram essenciais para a aprendizagem do conteúdo.', 'A dependência da disciplina Fundamentos de Anatomia estava sendo ministrada para dois polos: Santa Izabel do Rio Negro e Boa Vista/RR, no período de 09/03/2014 a 26/03/2014.\r\nO polo de Boa Vista atendeu 89 alunos do curso de Licenciatura em Educação Física no período letivo e regular de 2013/2, sendo que 53 alunos ficaram de Dependência.\r\nNo início do mês de março de 2014, a sede do polo de Boa Vista sofreu com certa lentidão na velocidade internet, o que gerou reclamações por parte dos alunos, que se queixavam de dificuldades para fazer o download dos vídeos postados na sala de aula virtual.', 'Problema internet, download vídeos', NULL, 2);
+(10, 'Acadêmica', 'Coordenador Polo', 'A baixa velocidade de internet impedia que os alunos da Dependência conseguissem fazer o download dos vídeos postados como conteúdo das disciplinas.  Os vídeos eram essenciais para a aprendizagem do conteúdo.', 'A dependência da disciplina Fundamentos de Anatomia estava sendo ministrada para dois polos: Santa Izabel do Rio Negro e Boa Vista/RR, no período de 09/03/2014 a 26/03/2014.\r\nO polo de Boa Vista atendeu 89 alunos do curso de Licenciatura em Educação Física no período letivo e regular de 2013/2, sendo que 53 alunos ficaram de Dependência.\r\nNo início do mês de março de 2014, a sede do polo de Boa Vista sofreu com certa lentidão na velocidade internet, o que gerou reclamações por parte dos alunos, que se queixavam de dificuldades para fazer o download dos vídeos postados na sala de aula virtual.', 'Problema internet, download vídeos', NULL, 2),
+(11, 'Pedagógica', 'Coordenador Curso', 'Baixa interação nos fóruns de atividades.', 'Os tutores perceberam que os fóruns de atividades estavam com baixíssima interação e os alunos não procuravam conversar entre si, não tiravam dúvidas e não compartilhavam experiências.\r\nIsso vinha prejudicando o bom desempenho da disciplina como um todo, pois comprometia a comunicação na sala virtual.\r\n', 'Fóruns de discussão.', NULL, 1),
+(12, 'Pedagógica', 'Coordenador Curso', 'Os alunos estavam acostumados a fazer prova com consulta e recorriam frequentemente à cola. Tinham a conivência dos tutores presenciais.', 'Foram identificados casos de cola nas provas finais das disciplinas.\r\nO coordenador de curso decidiu aplicar pessoalmente as provas, de forma rígida e tomou providências para que não houvesse fraudes.\r\n', 'Fraude em provas, cola.', NULL, 13),
+(13, 'Pedagógica', 'Coordenador Curso', 'Plágio em TCC.', 'Aluna finalista entregou documento de TCC com problemas de plágio. Foi avisada para refazer o trabalho, mas a aluna não o entregou. Um ano depois, a aluna entregou um novo e correto documento de TCC.', 'Plágio, TCC.', NULL, 11),
+(14, 'Acadêmica', 'Coordenador Curso', 'Foram identificados casos de cola nas provas finais das disciplinas.\r\nO coordenador de curso decidiu aplicar pessoalmente as provas, de forma rígida e tomou providências para que não houvesse fraudes.\r\n', 'Alunos indígenas bolsistas e residentes em Santa Izabel do Rio Negro, frequentavam com bastante dificuldades as aulas e o laboratório do curso em São Gabriel da Cachoeira. A prefeitura não deu mais apoio de transporte ao grupo e por isso eles não podiam mais ir para a aula.', 'Evasão de alunos.', NULL, 16),
+(15, 'Infraestrutura', 'Coordenador Graduação', 'Atraso na emissão de passagens e diárias.', 'A UAB não estava liberando recursos para passagens e diárias, devido a problemas burocráticos. Esta tarefa ficou a cargo do setor reitoria da UFAM. Vários problemas ocorreram como: liberação somente de um trecho, atraso nas diárias, demora na bilhetagem das passagens e outros transtornos para os professores.   ', 'Falta de recursos financeiros.', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -147,13 +152,6 @@ CREATE TABLE `pesquisas` (
   `status` int(1) DEFAULT NULL,
   `similaridade` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `pesquisas`
---
-
-INSERT INTO `pesquisas` (`id_pesquisa`, `id_solucao`, `id_resposta`, `id_usuario`, `id_polo`, `relator`, `natureza_problema`, `descricao_problema`, `problema_detalhado`, `palavras_chaves`, `status`, `similaridade`) VALUES
-(1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -320,7 +318,12 @@ INSERT INTO `solucao` (`id_solucao`, `solucao`, `palavras_chaves`, `acao_impleme
 (7, 'Adiamento das atividades e ajustes no cronograma das disciplinas.', 'Adiamento atividades, ajustes no cronograma', '- Contato do coordenador de polo com o coordenador de curso, para relato do problema e tomada de decisões.\r\n- Reunião com coordenador pedagógico com os professores das disciplinas e com o coordenador dos cursos, a fim de reorganizarem o calendário das disciplinas.\r\n- Adiamentos das atividades com prazo a vencer no período de suspensão de atividades.', 'Sim', 'Sim', 'Nenhum', 'Não houve', 'Coordenador de polo, professor, tutor à distância, tutor presencial', NULL),
 (8, 'Adaptação da equipe e contato com tutores locais para troca de experiência.', 'Adaptação da equipe, contato com locais', '- Reuniões com coordenação pedagógica e de curso. \r\n- Adaptações de prazos para envio de entrega do material didático.\r\n- Adaptação no calendário acadêmico, para recuperar aos atrasos. \r\n- Viagem do coordenador de curso e coordenador adjunto para alguns polos a fim de conhecer melhor a realidade dos polos. \r\n- Contato e reuniões com tutores presenciais para troca de experiências.', 'Sim', 'Sim', 'Não houve', 'Não houve', 'Diretor, coordenador adjunto, coordenador de curso, professor, tutor à distância, tutor presencial', NULL),
 (9, 'Correção das informações no SISUAB.', 'Atualização de informações', '- Atualização das informações sobre o curso no SISUAB. \r\n- Contato e reuniões com tutores presenciais e à distância para explicação da situação.', 'Sim', 'Sim', 'Não houve', 'Não houve', 'Diretor, coordenador de curso, coordenador de tutor.', NULL),
-(10, 'O coordenador de curso se deslocou até o polo levando os vídeos em formato de DVD, para serem exibidos para os alunos.', 'Vídeos DVD, visita ao polo', '- Contato do coordenador de polo com o coordenador de curso, para relato do problema e tomada de decisões.\r\n- Providência para viagem do coordenador de curso ao polo.\r\n- Cópia dos vídeos em mídia DVD.', 'Sim', 'Sim', 'Passagem aérea, diárias, mídia DVD', 'Não houve', 'Coordenador do curso, coordenador de polo', NULL);
+(10, 'O coordenador de curso se deslocou até o polo levando os vídeos em formato de DVD, para serem exibidos para os alunos.', 'Vídeos DVD, visita ao polo', '- Contato do coordenador de polo com o coordenador de curso, para relato do problema e tomada de decisões.\r\n- Providência para viagem do coordenador de curso ao polo.\r\n- Cópia dos vídeos em mídia DVD.', 'Sim', 'Sim', 'Passagem aérea, diárias, mídia DVD', 'Não houve', 'Coordenador do curso, coordenador de polo', NULL),
+(11, 'Comprometimento da comunicação entre alunos, professores e mediadores.', 'Intervenção.', '- Coordenador de curso realizou uma reunião online com os tutores presenciais e à distância, para expor o problema e discutir soluções.\r\n- Tutores à distância se comprometeram a estimular a interação nos fóruns através de mensagens e questionamentos diretos aos alunos.\r\n- Tutores presenciais incentivaram diretamente o aluno a participar dos fóruns, explicando a importância da interação.\r\n', 'Sim', 'Sim', 'Nenhum', 'Melhoria na comunicação na sala virtual.', 'Coordenador do curso, coordenador de tutores, tutor presencial, tutor à distância.', NULL),
+(12, 'Foi criado um formulário de norma de aplicação de prova, com regras para alunos e responsáveis pela aplicação das avaliações.', 'Norma de aplicação de prova.', '- Foi realizada uma reunião com alunos, tutores e coordenador de curso, para discutirem o problema.\r\n- As regras de procedimento em provas e avaliações foram estabelecidas formalmente.\r\n- Uma nova prova foi aplicada em substituição à anterior.\r\n- Foi criado um formulário de norma de aplicação de prova, com regras para alunos e responsáveis pela aplicação das avaliações.\r\n', 'Sim', 'Sim', 'Nenhum', 'Os alunos passaram a se preparar melhor para as provas finais.', 'Coordenador do curso, coordenador de polo, professores, tutores.', NULL),
+(13, 'A situação da aluna foi deixada em aberto e posteriormente foi permitido à mesma submeter um novo trabalho para conclusão do curso.', 'Situação em aberto.', '- Após a constatação do plágio, a aluna foi informada que o trabalho não seria aceito.\r\n- Foi dada uma chance no mesmo período para a aluna refazer e entregar um novo trabalho.\r\n- A aluna não quis essa opção e a situação da mesma ficou em aberto.\r\n- Após um ano, a aluna entregou um novo TCC, defendeu e terminou o curso.\r\n', 'Sim', 'Sim', 'Nenhum', 'Não houve.', 'Coordenador de curso, professor.', NULL),
+(14, 'Foi criado um mini-polo em Santa Izabel do Rio Negro, e os professores que iam para São Gabriel da Cachoeira também se deslocavam para esse outro município, exclusivamente para atender esses alunos.', 'Mini-polo, adaptação de calendário, adaptação de conteúdo.', '- Professores se propuseram a ir ao município para atender o grupo.\r\n- Adaptação no conteúdo e avaliação para o grupo, devido às dificuldades do grupo com o Português, pois se tratavam de indígenas.\r\n- Viagens frequentes do tutor de São Gabriel da Cachoeira à para atender o grupo.\r\n', 'Sim', 'Sim', 'Nenhum', 'Não houve', 'Diretor, coordenador adjunto, coordenador de curso, professor, tutor à distância, tutor presencial.', NULL),
+(15, 'Correção das informações no SISUAB.', 'Repasse dos recursos para a Unisol.', '- Ligações diárias para o setor responsável e acompanhamento da emissão de passagens e diárias.\r\n- Acordo com professores para aceitarem receber posteriormente as diárias.\r\n- Repasse dos recursos para a Unisol.\r\n', 'Sim', 'Sim', 'Nenhum', 'Não houve', 'Diretor, coordenador de graduação, coordenador de curso, professores.', NULL);
 
 -- --------------------------------------------------------
 
@@ -576,7 +579,7 @@ ALTER TABLE `curso`
 -- AUTO_INCREMENT for table `descricao`
 --
 ALTER TABLE `descricao`
-  MODIFY `id_descricao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_descricao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `disciplina`
@@ -594,7 +597,7 @@ ALTER TABLE `info_caso`
 -- AUTO_INCREMENT for table `pesquisas`
 --
 ALTER TABLE `pesquisas`
-  MODIFY `id_pesquisa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pesquisa` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `polo`
@@ -624,7 +627,7 @@ ALTER TABLE `resposta_esp`
 -- AUTO_INCREMENT for table `solucao`
 --
 ALTER TABLE `solucao`
-  MODIFY `id_solucao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_solucao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tipo_problema`
