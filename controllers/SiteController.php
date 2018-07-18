@@ -355,7 +355,7 @@ class SiteController extends Controller
 		        CURLOPT_RETURNTRANSFER => true, //Recebe resposta
 		        CURLOPT_ENCODING => "JSON", //Decodificação
 		        CURLOPT_MAXREDIRS => 10,
-		        CURLOPT_TIMEOUT => 120000, // 30
+		        CURLOPT_TIMEOUT => 30, // 30
 		        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		        CURLOPT_CUSTOMREQUEST => "POST", //metodo
 		        CURLOPT_POSTFIELDS => $json, //string com dados à serem postados
@@ -377,36 +377,30 @@ class SiteController extends Controller
 		        {
 		            $result = utf8_encode($result);
 		            $data = json_decode($result,true);
-		            //return $this->actionDoom('ID SOLUÇÃO: '.$data['solucaoId'].' <br>SIMILARIDADE: '.$data['similaridade']);
-		            //return $this->actionDoom('teste');
-		            ///return $data['solucaoId'];//((int)(var_dump($data)));
 
 
 		            $idSolucao = $data['solucaoId'];
 		            $similaridadeCalculada = $data['similaridade'];
-
-		            //return $this->actionDoom('SOLUÇÃO ID: '.$data['solucaoId'].'<br>SIMILARIDADE: '.$data['similaridade']);
-		            return $this->render('doom', ['dumbo' => $data,'message' => 'vazio']);
 		        }
-            	/*
+            	
                 $resultado_id = $this->agenteRBC($model->id_polo, 
                     $model->descricao_problema, 
                     $model->problema_detalhado, 
                     $model->relator, 
                     $model->palavras_chaves, 
-                    $model->natureza_problema);     // Consulta que retorna o id da pesquisa já salva
-                // Única função que não recebe id de pesquisa no parâmetro
-*/
+                    $model->natureza_problema);     
+
                 /**** Legenda de retornos
                 -1 = pesqusia não foi salva (tem correspondência do servidor, mas por algum motivo a pesquisa não salvou)
                 -2 = servidor retornou erro/correspondência "infectada"
                 -3 = Null foi retornado como id da solução
                 -4 = Null foi retornado como similaridade calculada
+                Caso nenhuma das situações anteriores, vai para a função de visualização da pesquisa
 
                 *******/
 
                 // Voltando para o resultado da consulta rbc
-                /***** 
+                
 
                 switch ($resultado_id)
                 {
@@ -425,14 +419,11 @@ class SiteController extends Controller
                     case (-4):
                         return $this->actionDoom('Não há solução na base de casos com a descrição apresentada.');
                         break;
-                    case (-5):
-                    	return $this->actionCbrview (1); 
-                    	break;
                     default:
                     	return $this->actionCbrview ($resultado_id);  //
                         break;   
                 } 
-                ****/
+                
 
             }  
             else return $this->actionDoom('Faltou informar pelo menos um dado.');
@@ -552,17 +543,9 @@ class SiteController extends Controller
         {
             $result = utf8_encode($result);
             $data = json_decode($result,true);
-            //return $this->actionDoom('ID SOLUÇÃO: '.$data['solucaoId'].' <br>SIMILARIDADE: '.$data['similaridade']);
-            //return $this->actionDoom('teste');
-            ///return $data['solucaoId'];//((int)(var_dump($data)));
-
 
             $idSolucao = $data['solucaoId'];
-            $similaridadeCalculada = $data['similaridade'];/*
-            $nova_pesquisa = new Pesquisas();
-            $nova_pesquisa->similaridade = $data['similaridade'];
-            $nova_pesquisa->id_solucao = $data['solucaoId'];  
-            if ( $nova_pesquisa->save()) return (-5);  */
+            $similaridadeCalculada = $data['similaridade'];
 
             if ( $data['solucaoId'] == null ) 
             {
@@ -627,6 +610,7 @@ class SiteController extends Controller
             {
                 $nova_pesquisa = new Pesquisas();
                 $nova_pesquisa->id_resposta = $resposta->id;
+                $nova_pesquisa->id_usuario = Yii::$app->user->identity->id;
 
                 if ( $nova_pesquisa->save() ) return $nova_pesquisa->id_pesquisa;
                     // Se a pesquisa foi salva, retorna o id da pesquisa criada

@@ -80,11 +80,11 @@ $this->title = 'Resultado(s) da busca'
     <p>
     <b>A solução recomendada ajudou na sua dúvida?</b>
 
-          <?php $url = '?r=pesquisas/newcase&id='.$pesquisa->id_pesquisa; ?>
+          <?php $url = '?r=pesquisas/updateanswer&id='.$pesquisa->id_pesquisa.'&resposta=2' ?>
           
         <a href='<?php echo $url ?>' class="btn btn-primary">Sim</a>
 
-        <?php $link = '?r=pesquisas/update&id='.$pesquisa->id_pesquisa;  ?>
+        <?php $link = '?r=pesquisas/updateanswer&id='.$pesquisa->id_pesquisa.'&resposta=1'  ?>
 
         <a href='<?php echo $link ?>' class="btn btn-default">Não</a>
 

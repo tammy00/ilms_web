@@ -158,7 +158,7 @@ class PesquisasController extends Controller
     }
 
 
-    public function actionNewcase($id)  // Registra um novo caso no banco
+    public function actionNewcase($id)  // Registra um novo caso RBC no banco
     {
         $model = $this->findModel($id);
         $solucao = Solucao::find()->where(['id_solucao' => $model->id_solucao])->one();
@@ -220,6 +220,19 @@ class PesquisasController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionUpdateanswer($id, $resposta)  // Atualiza o registro de pesquisa realizada - se a suguestão ajudou ou não
+    {
+        $model = $this->findModel($id);
+
+        $model->status = $resposta; // Foi decidido que não vira um novo caso
+        //$model->efetividade_acao_implementada = "Não";
+
+        $model->save();
+
+        //Yii::$app->session->setFlash('casesaved');
+        return Yii::$app->runAction('site/index');
     }
 
     /**

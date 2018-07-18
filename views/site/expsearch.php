@@ -18,12 +18,12 @@ $this->params['breadcrumbs'][] = $this->title; ?>
         <?php $form = ActiveForm::begin(); ?>
 
           <fieldset>
-                <legend>Opinião de Especialistas</legend> 
-                <?= $form->field($model, 'titulo_problema')->dropDownList([$arrayTitulosProblemas],['style' => 'width:500px',
-                                                      'prompt' => "Selecione um título de problema",]); ?> 
-
+<legend>Opinião de Especialistas</legend> 
                 <?= $form->field($model, 'tipo_problema')->dropDownList([$arrayTiposProblemas],['style' => 'width:500px',
                                                       'prompt' => "Selecione um tipo de problema",]); ?> 
+                
+                <?= $form->field($model, 'titulo_problema')->dropDownList([$arrayTitulosProblemas],['style' => 'width:500px',
+                                                      'prompt' => "Selecione um título de problema",]); ?> 
                 <br><br>
           </fieldset>    
 
