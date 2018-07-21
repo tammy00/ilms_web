@@ -7,125 +7,85 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$this->title = 'Busca de solução';
+$this->title = 'Dados do Ambiente Virtual';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<style>
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+</style>
+
+<script>
+function openNav() {
+    document.getElementById("mySidenav").style.width = "500px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+</script>
 
 <div>
     <h1><?= Html::encode($this->title) ?></h1>
     
       <div class="col-xs-6 col-md-10"> 
-      <br>
-        <?php $form = ActiveForm::begin(); ?>
+        <br>
+        <p> Selecione uma disciplina para ter acesso aos dados através dos plugins a serem exibidos. </p>
 
-          <?= $form->field($model, 'natureza_problema')->radioList(['Infraestrutura' => 'Infraestrutura', 'Pedagógica' => 'Pedagógica', 'Acadêmica' => 'Acadêmica'])->label('Selecione a natureza do problema:');   ?>
+        <div id="mySidenav" class="sidenav">
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+          <a href="#">Grafo de Linha de Aprendizagem</a>
+          <a href="#">Desempenho</a>
+          <a href="#">Monitor de Desempenho</a>
+        </div>
 
-          <?= $form->field($model, 'descricao_problema')->textarea(['rows' => 6])->label('Descreva o problema resumidamente:'); ?>
+<?php 
+          foreach ($disciplinas as $key => $value) {
+            echo "oi";
 
+          }
+ ?>
 
-
-          <fieldset>   
-                <legend>Casos Passados</legend>
-                <?= $form->field($model, 'relator')->dropDownList([$arrayRelatores],['style' => 'width:500px',
-                                                      'prompt' => "Selecione um relator",]); ?>  
-
-                <?= $form->field($model, 'problema_detalhado')->textarea(['rows' => 6])->label('Descreva o problema detalhadamente:'); ?>
-
-                <?= $form->field($model, 'palavras_chaves')->textInput(['maxlength' => true]) ?>
-
-                <?= $form->field($model, 'id_polo')->dropDownList([$arrayPolos],['style' => 'width:500px',
-                                                      'prompt' => "Selecione um polo",]); ?>  
-                                                      
-          </fieldset>
-<br><br>
-          <fieldset>
-                <legend>Dados do AVA</legend>
-                Conteudo para a box de moodle
-                <br><br>
-          </fieldset>
-<br><br>
-          <fieldset>
-                <legend>Opinião de Especialistas</legend> 
-                <?= $form->field($model, 'titulo_problema')->dropDownList([$arrayTitulosProblemas],['style' => 'width:500px',
-                                                      'prompt' => "Selecione um problema",]); ?> 
-                <br><br>
-          </fieldset>    
-
-          <div class="form-group">
-            <?= Html::submitButton('Buscar', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
-          </div>
-
-        <?php ActiveForm::end(); ?>
 
       </div>
-        <!--</div>-->
 
 </div>
 
-<?php
-/*
-    $this->registerJs('
-        $(document).ready(function(){
-            if ($("#site-cbr").is(":checked"))
-                $("#div_rbc").prop("style", "display: block");
-            else
-              $("#div_rbc").prop("style", "display: none");
-
-            if ($("#site-lms").is(":checked"))
-                $("#div_lms").prop("style", "display: block");
-            else
-              $("#div_lms").prop("style", "display: none");
-
-            if ($("#site-experts").is(":checked"))
-                $("#div_exp").prop("style", "display: block");
-            else
-              $("#div_exp").prop("style", "display: none");
-        });'
-    );    
-
-    $this->registerJs('
-        $(document).ready(function(){
-            $("#site-cbr").change(function(){
-                if ($("#site-cbr").is(":checked")) {
-                    $("#site-cbr").val("1");
-                    $("#div_rbc").prop("style", "display: block");
-                }
-                else {
-                    $("#site-cbr").val("0");
-                    $("#div_rbc").prop("style", "display: none");
-                }
-            });
-        });'
-    );
-
-    $this->registerJs('
-        $(document).ready(function(){
-            $("#site-lms").change(function(){
-                if ($("#site-lms").is(":checked")) {
-                    $("#site-lms").val("1");
-                    $("#div_lms").prop("style", "display: block");
-                }
-                else {
-                    $("#site-lms").val("0");
-                    $("#div_lms").prop("style", "display: none");
-                }
-            });
-        });'
-    );
-
-    $this->registerJs('
-        $(document).ready(function(){
-            $("#site-experts").change(function(){
-                if ($("#site-experts").is(":checked")) {
-                    $("#site-experts").val("1");
-                    $("#div_exp").prop("style", "display: block");
-                }
-                else {
-                    $("#site-experts").val("0");
-                    $("#div_exp").prop("style", "display: none");
-                }
-            });
-        });'
-    );   */
-
-?>

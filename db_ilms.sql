@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 18-Jul-2018 às 21:37
+-- Generation Time: 21-Jul-2018 às 22:57
 -- Versão do servidor: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -51,9 +51,16 @@ CREATE TABLE `curso` (
   `outras_caracteristicas` text,
   `observacoes` text,
   `id_polo` int(10) UNSIGNED NOT NULL DEFAULT '0',
-  `id_turma` int(10) UNSIGNED NOT NULL DEFAULT '0',
-  `id_disciplina` int(10) UNSIGNED NOT NULL DEFAULT '0'
+  `id_turma` int(10) UNSIGNED DEFAULT '0',
+  `id_disciplina` int(10) UNSIGNED DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `curso`
+--
+
+INSERT INTO `curso` (`id_curso`, `nome`, `tipo_curso`, `duracao`, `departamento`, `coordenador`, `outras_caracteristicas`, `observacoes`, `id_polo`, `id_turma`, `id_disciplina`) VALUES
+(7, 'Educação Física', 'Presencial', 120, 'Faculdade de Educação Física', 'João da Silva', NULL, NULL, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -91,7 +98,8 @@ INSERT INTO `descricao` (`id_descricao`, `natureza_problema`, `relator`, `descri
 (12, 'Pedagógica', 'Coordenador Curso', 'Os alunos estavam acostumados a fazer prova com consulta e recorriam frequentemente à cola. Tinham a conivência dos tutores presenciais.', 'Foram identificados casos de cola nas provas finais das disciplinas.\r\nO coordenador de curso decidiu aplicar pessoalmente as provas, de forma rígida e tomou providências para que não houvesse fraudes.\r\n', 'Fraude em provas, cola.', NULL, 13),
 (13, 'Pedagógica', 'Coordenador Curso', 'Plágio em TCC.', 'Aluna finalista entregou documento de TCC com problemas de plágio. Foi avisada para refazer o trabalho, mas a aluna não o entregou. Um ano depois, a aluna entregou um novo e correto documento de TCC.', 'Plágio, TCC.', NULL, 11),
 (14, 'Acadêmica', 'Coordenador Curso', 'Foram identificados casos de cola nas provas finais das disciplinas.\r\nO coordenador de curso decidiu aplicar pessoalmente as provas, de forma rígida e tomou providências para que não houvesse fraudes.\r\n', 'Alunos indígenas bolsistas e residentes em Santa Izabel do Rio Negro, frequentavam com bastante dificuldades as aulas e o laboratório do curso em São Gabriel da Cachoeira. A prefeitura não deu mais apoio de transporte ao grupo e por isso eles não podiam mais ir para a aula.', 'Evasão de alunos.', NULL, 16),
-(15, 'Infraestrutura', 'Coordenador Graduação', 'Atraso na emissão de passagens e diárias.', 'A UAB não estava liberando recursos para passagens e diárias, devido a problemas burocráticos. Esta tarefa ficou a cargo do setor reitoria da UFAM. Vários problemas ocorreram como: liberação somente de um trecho, atraso nas diárias, demora na bilhetagem das passagens e outros transtornos para os professores.   ', 'Falta de recursos financeiros.', NULL, 2);
+(15, 'Infraestrutura', 'Coordenador Graduação', 'Atraso na emissão de passagens e diárias.', 'A UAB não estava liberando recursos para passagens e diárias, devido a problemas burocráticos. Esta tarefa ficou a cargo do setor reitoria da UFAM. Vários problemas ocorreram como: liberação somente de um trecho, atraso nas diárias, demora na bilhetagem das passagens e outros transtornos para os professores.   ', 'Falta de recursos financeiros.', NULL, 2),
+(16, 'Infraestrutura', 'Coordenador Polo', 'A ausência de conexão com a internet durante 7 dias prejudicaria diretamente os alunos da disciplina, pois comprometeria o andamento e as avaliações da Unidade I da disciplina.\r\nAs atividades de avaliação desta unidade tinham como prazo final dia 20/10/2014.', 'A disciplina Fruticultura estava sendo ministrada para três polos: Manaquiri, Santa Izabel e Tefé, no período de 14/10/2014 a 23/11/2014.\r\nO polo de Santa Izabel atendeu 14 alunos do curso de Licenciatura em Ciência Agrárias neste período letivo.\r\nEm 15/10/2014, a cidade de Santa Izabel, por causa de uma forte chuva ficou sem energia durante 10 horas. O apagão danificou o equipamento (switch) e a antena de recepção do sinal de internet via satélite. A sede do polo ficou sem internet durante 7 dias até que o equipamento fosse substituído.', 'Problema internet', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -151,7 +159,19 @@ CREATE TABLE `pesquisas` (
   `palavras_chaves` varchar(400) DEFAULT NULL,
   `status` int(1) DEFAULT NULL,
   `similaridade` float DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `pesquisas`
+--
+
+INSERT INTO `pesquisas` (`id_pesquisa`, `id_solucao`, `id_resposta`, `id_usuario`, `id_polo`, `relator`, `natureza_problema`, `descricao_problema`, `problema_detalhado`, `palavras_chaves`, `status`, `similaridade`) VALUES
+(1, 1, NULL, 2, 1, 'Coordenador Polo', 'Infraestrutura', 'A ausência de conexão com a internet durante 7 dias prejudicaria diretamente os alunos da disciplina, pois comprometeria o andamento e as avaliações da Unidade I da disciplina.\r\nAs atividades de avaliação desta unidade tinham como prazo final dia 20/10/2014.', 'A disciplina Fruticultura estava sendo ministrada para três polos: Manaquiri, Santa Izabel e Tefé, no período de 14/10/2014 a 23/11/2014.\r\nO polo de Santa Izabel atendeu 14 alunos do curso de Licenciatura em Ciência Agrárias neste período letivo.\r\nEm 15/10/2014, a cidade de Santa Izabel, por causa de uma forte chuva ficou sem energia durante 10 horas. O apagão danificou o equipamento (switch) e a antena de recepção do sinal de internet via satélite. A sede do polo ficou sem internet durante 7 dias até que o equipamento fosse substituído.', 'Problema internet', 0, 0.991453),
+(2, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, NULL, 1, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, NULL, 1, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, NULL, 1, 2, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL),
+(6, NULL, 1, 2, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -334,7 +354,7 @@ INSERT INTO `solucao` (`id_solucao`, `solucao`, `palavras_chaves`, `acao_impleme
 CREATE TABLE `tipo_problema` (
   `id` int(111) NOT NULL,
   `tipo` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tipo_problema`
@@ -354,7 +374,7 @@ INSERT INTO `tipo_problema` (`id`, `tipo`) VALUES
 CREATE TABLE `titulo_problema` (
   `id` int(11) NOT NULL,
   `titulo` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `titulo_problema`
@@ -391,9 +411,9 @@ CREATE TABLE `turma` (
   `observacoes` text,
   `aplicativo_movel` varchar(50) NOT NULL DEFAULT '',
   `id_polo` int(10) UNSIGNED NOT NULL DEFAULT '0',
-  `id_curso` int(10) UNSIGNED NOT NULL DEFAULT '0',
-  `id_tutor` int(10) UNSIGNED NOT NULL DEFAULT '0',
-  `id_aplicativo` int(10) UNSIGNED NOT NULL DEFAULT '0'
+  `id_curso` int(10) UNSIGNED DEFAULT '0',
+  `id_tutor` int(10) UNSIGNED DEFAULT '0',
+  `id_aplicativo` int(10) UNSIGNED DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -450,8 +470,6 @@ ALTER TABLE `aplicativo`
 --
 ALTER TABLE `curso`
   ADD PRIMARY KEY (`id_curso`),
-  ADD KEY `fk_curso_turma_idx` (`id_turma`),
-  ADD KEY `fk_curso_disciplina_idx` (`id_disciplina`),
   ADD KEY `fk_curso_polo_idx` (`id_polo`);
 
 --
@@ -467,7 +485,6 @@ ALTER TABLE `descricao`
 --
 ALTER TABLE `disciplina`
   ADD PRIMARY KEY (`id_disciplina`),
-  ADD KEY `fk_disciplina_curso_idx` (`id_curso`),
   ADD KEY `fk_disciplina_professor_idx` (`id_professor`);
 
 --
@@ -542,8 +559,6 @@ ALTER TABLE `titulo_problema`
 ALTER TABLE `turma`
   ADD PRIMARY KEY (`id_turma`),
   ADD KEY `fk_turma_polo_idx` (`id_polo`),
-  ADD KEY `fk_turma_curso_idx` (`id_curso`),
-  ADD KEY `fk_turma_tutor_idx` (`id_tutor`),
   ADD KEY `fk_turma_aplicativo_idx` (`id_aplicativo`);
 
 --
@@ -573,13 +588,13 @@ ALTER TABLE `aplicativo`
 -- AUTO_INCREMENT for table `curso`
 --
 ALTER TABLE `curso`
-  MODIFY `id_curso` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_curso` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `descricao`
 --
 ALTER TABLE `descricao`
-  MODIFY `id_descricao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_descricao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `disciplina`
@@ -597,7 +612,7 @@ ALTER TABLE `info_caso`
 -- AUTO_INCREMENT for table `pesquisas`
 --
 ALTER TABLE `pesquisas`
-  MODIFY `id_pesquisa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pesquisa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `polo`
@@ -667,9 +682,7 @@ ALTER TABLE `aplicativo`
 -- Limitadores para a tabela `curso`
 --
 ALTER TABLE `curso`
-  ADD CONSTRAINT `fk_curso_disciplina` FOREIGN KEY (`id_disciplina`) REFERENCES `disciplina` (`id_disciplina`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_curso_polo` FOREIGN KEY (`id_polo`) REFERENCES `polo` (`id_polo`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_curso_turma` FOREIGN KEY (`id_turma`) REFERENCES `turma` (`id_turma`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_curso_polo` FOREIGN KEY (`id_polo`) REFERENCES `polo` (`id_polo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `descricao`
@@ -682,7 +695,6 @@ ALTER TABLE `descricao`
 -- Limitadores para a tabela `disciplina`
 --
 ALTER TABLE `disciplina`
-  ADD CONSTRAINT `fk_disciplina_curso` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`id_curso`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_disciplina_professor` FOREIGN KEY (`id_professor`) REFERENCES `professor` (`id_professor`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -730,9 +742,7 @@ ALTER TABLE `solucao`
 --
 ALTER TABLE `turma`
   ADD CONSTRAINT `fk_turma_aplicativo` FOREIGN KEY (`id_aplicativo`) REFERENCES `aplicativo` (`id_aplicativo`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_turma_curso` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`id_curso`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_turma_polo` FOREIGN KEY (`id_polo`) REFERENCES `polo` (`id_polo`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_turma_tutor` FOREIGN KEY (`id_tutor`) REFERENCES `tutor` (`id_tutor`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_turma_polo` FOREIGN KEY (`id_polo`) REFERENCES `polo` (`id_polo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `tutor`

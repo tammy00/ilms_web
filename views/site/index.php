@@ -17,19 +17,6 @@ $this->title = 'iLMS Framework';
     </div>
     
 
-
-    <?php if (Yii::$app->session->hasFlash('newcasesaved')) { ?>
-
-        <div class="alert alert-success">
-            Um novo caso foi salvo na base de dados.
-        </div>
-    <?php } if (Yii::$app->session->hasFlash('casesaved')) { ?>
-
-        <div class="alert alert-success">
-            Não sei que alerta colocar aqui.
-        </div>
-    <?php }?>
-
     <?php if ( Yii::$app->user->identity->perfil === 'Mediador/a' ) {   ?>
 
         <div class="body-content">

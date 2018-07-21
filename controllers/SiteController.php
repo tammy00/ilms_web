@@ -14,6 +14,7 @@ use app\models\RespostaEspecialistas;
 use app\models\RespostaEspecialistasSearch;
 use app\models\TipoProblema;
 use app\models\TituloProblema;
+use app\models\Disciplina;
 use app\models\Pesquisas;
 use app\models\Relator;
 use app\models\Solucao;
@@ -22,6 +23,7 @@ use app\models\TituloProblemaSearch;
 use app\models\TipoProblemaSearch;
 use app\models\Polo;
 use app\models\RelatorSearch;
+use app\models\DisciplinaSearch;
 use app\models\Usuario;
 use yii\helpers\ArrayHelper;
 
@@ -167,45 +169,34 @@ class SiteController extends Controller
         }
     }
 
+    public function actionVlesearch ( )
+    {
+        //$model = 
+/*
+        if ( $model->load(Yii::$app->request->post()) )
+        {
+            //
+        }
+        else {
+*/
+            //$disciplinas = ArrayHelper::map(DisciplinaSearch::find()->all(), 'id_disciplina', 'nome');
+            $disciplinas = Disciplina::find()->orderBy(['id_disciplina' => SORT_DESC])->all();  // Procurando todas as disciplinas cadastradas, porque não tem como filtrar para certo ano e/ou certo período. Ou de qualquer outra forma. Mas tá organizando do último cadastrado ao primeiro.
+            return $this->render('vlesearch', [
+                'disciplinas' => $disciplinas,
+            ]);
+        //}
+    }
+
 
 
     public function actionVleview($id)
     {
-    	/*
-        $pesquisa = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
-        if ( $pesquisa == null ) return $this->actionDoom('Pesquisa não foi salva: '.$id);
 
-        if ( $pesquisa->id_solucao != null ) 
-        {
-            $sol = Solucao::find()->where(['id_solucao' => $pesquisa->id_solucao])->one();
-            $pesquisa->similaridade = round(($pesquisa->similaridade * 100 ));
-        }
-        else $sol = null;
-
-        if ( $pesquisa->id_polo != null )
-        {
-            $polo = Polo::find()->where(['id_polo' => $pesquisa->id_polo])->one();
-            $pesquisa->id_polo = $polo->nome;
-        }
-
-        switch ($pesquisa->status)
-        {
-             case 0: 
-                 $pesquisa->status = 'Sem resposta';
-                 break;
-             case 1: 
-                 $pesquisa->status = 'Solução não ajudou';
-                 break;
-             case 2: 
-                 $pesquisa->status = 'Caso da Base de Casos';
-                 break;
-        }
 
         return $this->render('vleview', [
-            'pesquisa' => $pesquisa,
-            'sol' => $sol,
+            //
         ]);
-        */
+        
     }
 
 
