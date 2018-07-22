@@ -195,26 +195,28 @@ class SiteController extends Controller
 
     public function actionLpgraph($id)
     {
+        $model = Curso::find()->where(['id_curso' => $id])->one();
+
+
 
         return $this->render('lpgraph', [
-            
+            'model' => $model,
         ]);
     }
 
     public function actionBehaviour($id)
     {
-
+        $model = Curso::find()->where(['id_curso' => $id])->one();
         return $this->render('behaviour', [
-            
+            'model' => $model,
         ]);
     }
 
     public function actionDesempenho($id)
     {
-
-
+        $model = Curso::find()->where(['id_curso' => $id])->one();
         return $this->render('desempenho', [
-            
+            'model' => $model,
         ]);
     }
 

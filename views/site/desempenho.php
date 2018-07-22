@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Descricao */
@@ -18,6 +19,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <p>Curso: <?php echo $model->nome ?> </p>
 
+    <?php $url = Url::base().'/graphs/desempenho_curso_'.$model->id_curso.'.png' ?>
+        <img src=<?php echo $url ?> ><br>
 
 </div>
