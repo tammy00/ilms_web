@@ -27,9 +27,9 @@ $this->params['breadcrumbs'][] = $this->title;
 }
 
 .sidenav a {
-    padding: 8px 8px 8px 32px;
+    padding: 25px 8px 8px 32px; /* top right bottom left  */
     text-decoration: none;
-    font-size: 25px;
+    font-size: 19px;
     color: #818181;
     display: block;
     transition: 0.3s;
@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 .sidenav .closebtn {
     position: absolute;
-    top: 0;
+    top: 20px;
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
@@ -49,13 +49,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+  .sidenav a {font-size: 10px;}
 }
 </style>
 
 <script>
 function openNav() {
-    document.getElementById("mySidenav").style.width = "500px";
+    document.getElementById("mySidenav").style.width = "420px";
 }
 
 function closeNav() {
@@ -68,21 +68,32 @@ function closeNav() {
     
       <div class="col-xs-6 col-md-10"> 
         <br>
-        <p> Selecione uma disciplina para ter acesso aos dados através dos plugins a serem exibidos. </p>
+        <p> Selecione um curso para ter acesso aos dados através dos plugins a serem exibidos. </p>
 
-        <div id="mySidenav" class="sidenav">
-          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-          <a href="#">Grafo de Linha de Aprendizagem</a>
-          <a href="#">Desempenho</a>
-          <a href="#">Monitor de Desempenho</a>
-        </div>
 
-<?php 
-          foreach ($disciplinas as $key => $value) {
-            echo "oi";
 
-          }
- ?>
+      <?php 
+
+
+
+        foreach ($cursos as $c) 
+        {
+          $link_lpgraph = 'index.php?r=site/lpgraph&id='.$c->id_curso;
+          $link_desempenho = 'index.php?r=site/desempenho&id='.$c->id_curso;
+          $link_comportamento = 'index.php?r=site/behaviour&id='.$c->id_curso;
+
+          echo '<div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href='.$link_lpgraph.' > Grafo de Linha de Aprendizagem</a>
+            <a href='.$link_desempenho.' > Monitor de Desempenho</a>
+            <a href='.$link_comportamento.' > Monitor de Comportamento</a>
+          </div>';
+
+          echo '<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;  '.$c->nome.'</span> <br>';
+
+        }
+
+       ?>
 
 
       </div>

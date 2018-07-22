@@ -8,6 +8,8 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Curso;
+use app\models\CursoSearch;
 use app\models\Descricao;
 use app\models\BuscaGeral;
 use app\models\RespostaEspecialistas;
@@ -37,10 +39,10 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'index', 'view', 'doom', 'cbrsearch', 'vlesearch', 'expsearch', 'cbrview', 'vleview', 'expview'],
+                'only' => ['logout', 'index', 'view', 'doom', 'cbrsearch', 'vlesearch', 'expsearch', 'cbrview', 'vleview', 'expview', 'lpgraph', 'behaviour', 'desempenho'],
                 'rules' => [
                     [
-                        'actions' => ['logout', 'index', 'view', 'doom', 'cbrsearch', 'vlesearch', 'expsearch', 'cbrview', 'vleview', 'expview'],
+                        'actions' => ['logout', 'index', 'view', 'doom', 'cbrsearch', 'vlesearch', 'expsearch', 'cbrview', 'vleview', 'expview', 'lpgraph', 'behaviour', 'desempenho'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -171,24 +173,16 @@ class SiteController extends Controller
 
     public function actionVlesearch ( )
     {
-        //$model = 
-/*
-        if ( $model->load(Yii::$app->request->post()) )
-        {
-            //
-        }
-        else {
-*/
-            //$disciplinas = ArrayHelper::map(DisciplinaSearch::find()->all(), 'id_disciplina', 'nome');
-            $disciplinas = Disciplina::find()->orderBy(['id_disciplina' => SORT_DESC])->all();  // Procurando todas as disciplinas cadastradas, porque não tem como filtrar para certo ano e/ou certo período. Ou de qualquer outra forma. Mas tá organizando do último cadastrado ao primeiro.
+  
+            $cursos = Curso::find()->ORDERBY(['id_curso' => SORT_DESC])->all();  // Procurando todos os cursos cadastrados, porque não tem como filtrar para certo ano e/ou certo período. Ou de qualquer outra forma. Mas tá organizando do último cadastrado ao primeiro.
             return $this->render('vlesearch', [
-                'disciplinas' => $disciplinas,
+                'cursos' => $cursos,
             ]);
         //}
     }
 
 
-
+/*
     public function actionVleview($id)
     {
 
@@ -197,6 +191,31 @@ class SiteController extends Controller
             //
         ]);
         
+    }  */
+
+    public function actionLpgraph($id)
+    {
+
+        return $this->render('lpgraph', [
+            
+        ]);
+    }
+
+    public function actionBehaviour($id)
+    {
+
+        return $this->render('behaviour', [
+            
+        ]);
+    }
+
+    public function actionDesempenho($id)
+    {
+
+
+        return $this->render('desempenho', [
+            
+        ]);
     }
 
 

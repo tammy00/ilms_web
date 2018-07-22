@@ -3,7 +3,7 @@
 /* @var $this yii\web\View */
 use yii\helpers\Html;
 
-$this->title = 'iLMS Framework';
+$this->title = 'iDE Framework';
 
 ?>
 <div class="site-index">
