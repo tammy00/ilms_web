@@ -11,6 +11,10 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use app\models\TituloProblemaSearch;
+use app\models\TipoProblemaSearch;
+use yii\helpers\ArrayHelper;
+use app\models\RelatorSearch;
 
 /**
  * RespostaEspecialistasController implements the CRUD actions for RespostaEspecialistas model.
@@ -102,15 +106,29 @@ class RespostaEspecialistasController extends Controller
      */
     public function actionCreate()
     {
-        $model = new RespostaEspecialistas();
+        if ( Yii::$app->user->identity->perfil === 'Especialista' ) 
+        {
+            $model = new RespostaEspecialistas();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) 
+            {
+                return $this->redirect(['view', 'id' => $model->id]);
+            } 
+            else 
+            {
+                $arrayTitulosProblemas = ArrayHelper::map(TituloProblemaSearch::find()->all(), 'id', 'titulo');
+                $arrayTiposProblemas = ArrayHelper::map(TipoProblemaSearch::find()->all(), 'id', 'tipo'); 
+                $arrayRelatores = ArrayHelper::map(RelatorSearch::find()->all(), 'id_relator', 'perfil');
+
+                return $this->render('create', [
+                    'model' => $model,
+                    'arrayTitulosProblemas' => $arrayTitulosProblemas,
+                    'arrayTiposProblemas' => $arrayTiposProblemas,
+                    'arrayRelatores' => $arrayRelatores,
+                ]);
+            }
         }
+
     }
 
     /**
@@ -121,14 +139,27 @@ class RespostaEspecialistasController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if ( Yii::$app->user->identity->perfil === 'Especialista' ) 
+        {
+            $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) 
+            {
+                return $this->redirect(['view', 'id' => $model->id]);
+            } 
+            else 
+            {
+                $arrayTitulosProblemas = ArrayHelper::map(TituloProblemaSearch::find()->all(), 'id', 'titulo');
+                $arrayTiposProblemas = ArrayHelper::map(TipoProblemaSearch::find()->all(), 'id', 'tipo'); 
+                $arrayRelatores = ArrayHelper::map(RelatorSearch::find()->all(), 'id_relator', 'perfil');
+                
+                return $this->render('update', [
+                    'model' => $model,
+                    'arrayTitulosProblemas' => $arrayTitulosProblemas,
+                    'arrayTiposProblemas' => $arrayTiposProblemas,
+                    'arrayRelatores' => $arrayRelatores,
+                ]);
+            }
         }
     }
 

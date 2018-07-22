@@ -22,18 +22,18 @@ $this->title = 'iDE Framework';
         <div class="body-content">
 
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-4" align="center">
                     <h3>Busca com RBC</h3>
 
                     <p><a class="btn btn-default" href="?r=site/cbrsearch"> Clicar aqui &raquo;</a></p>
                 </div>
 
-                <div class="col-lg-4">
+                <div class="col-lg-4" align="center">
                     <h3>Dados do Ambiente Virtual</h3>
 
                     <p><a class="btn btn-default" href="?r=site/vlesearch"> Clicar aqui &raquo;</a></p>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4" align="center">
                     <h3>Opinião de Especialistas</h3>
 
                     <p><a class="btn btn-default" href="?r=site/expsearch"> Clicar aqui &raquo;</a></p>
@@ -42,13 +42,13 @@ $this->title = 'iDE Framework';
             <br>
 
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-md-6" align="center">
                     <h3>Casos Passados</h3>
 
                     <p><a class="btn btn-default" href="?r=">Clicar aqui &raquo;</a></p>
                 </div>
 
-                <div class="col-lg-4">
+                <div class="col-md-6" align="center">
                     <h3>Histórico de Buscas</h3>
 
                     <p><a class="btn btn-default" href="?r=pesquisas/allcases"> Clicar aqui &raquo;</a></p>
@@ -62,7 +62,19 @@ $this->title = 'iDE Framework';
 
         <div class="body-content">
 
+            <div class="row">
+                <div class="col-md-6" align="center">
+                    <h3>Registrar nova opinião</h3>
 
+                    <p><a class="btn btn-default" href="?r=resposta-especialistas/create">Clicar aqui &raquo;</a></p>
+                </div>
+
+                <div class="col-md-6" align="center">
+                    <h3>Histórico de opiniões</h3>
+
+                    <p><a class="btn btn-default" href="?r=resposta-especialistas/index"> Clicar aqui &raquo;</a></p>
+                </div>
+            </div>
 
         </div>
     <?php } ?>

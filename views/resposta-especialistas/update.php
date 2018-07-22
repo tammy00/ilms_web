@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\RespostaEspecialistas */
 
-$this->title = 'Update Resposta Especialistas: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Resposta Especialistas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Atualizar opinião';
+$this->params['breadcrumbs'][] = ['label' => 'Resposta dos Especialistas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Opinião', 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="resposta-especialistas-update">
 

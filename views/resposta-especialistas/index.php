@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\models\TipoProblema;
+use app\models\TituloProblema;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\RespostaEspecialistasSearch */
@@ -15,27 +17,51 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Resposta Especialistas', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    [
+                        'attribute' => 'id_tipo_problema',
+                        'value' => function ($data) {
+                                $tipoproblema = TipoProblema::find()->where(['id' => $data->id_tipo_problema])->one();
+                                return $tipoproblema->tipo;
+                        },
+                    ],
+                    [
+                        'attribute' => 'id_titulo_problema',
+                        'value' => function ($data) {
+                                $tituloproblema = TituloProblema::find()->where(['id' => $data->id_titulo_problema])->one();
+                                return $tituloproblema->titulo;
+                        },
+                    ],
+                    'data_ocorrencia',
+                    'data_insercao',
 
-            'id',
-            'id_tipo_problema',
-            'id_titulo_problema',
-            'descricao_problema',
-            'descricao_solucao',
-            // 'data_ocorrencia',
-            // 'data_insercao',
-            // 'nome_especialista',
-            // 'funcao_especialista',
-            // 'relator',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+                    [
+                        'class' => 'yii\grid\ActionColumn',
+                        'header'=>'Ações',
+                        'headerOptions' => ['style' => 'text-align:center; color:#337AB7'],
+                        'contentOptions' => ['style' => 'text-align:center; vertical-align:middle'],
+                        'template' => '{view}',
+                        'buttons' => 
+                        [
+                            'view' => function ($url, $model) 
+                            {
+                                //$valor = RespostaEspecialistas::find()->where(['id' => $pesquisa->id_resposta])->one();
+                                return Html::a(
+                                    '<span class="glyphicon glyphicon-eye-open"></span>',
+                                    ['resposta-especialistas/view', 'id' => $model->id], 
+                                    [
+                                        'title' => 'Visualizar',
+                                        'aria-label' => 'Visualizar',
+                                        'data-pjax' => '0',
+                                    ]
+                                );
+                            },
+                        ],
+                    ],
+                ],
+            ]); ?>
 </div>
