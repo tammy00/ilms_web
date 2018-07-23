@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use Yii;
+use app\models\Relator;
 use app\models\TipoProblema;
 use app\models\TituloProblema;
 use app\models\RespostaEspecialistas;
@@ -94,6 +95,10 @@ class RespostaEspecialistasController extends Controller
         $model->id_tipo_problema = $tipo->tipo;
         $model->id_titulo_problema = $titulo->titulo;
 
+        $r = Relator::find()->where(['id_relator' => $model->relator])->one();
+        $model->relator = $r->perfil;
+        $model->funcao_especialista = $model->relator;
+
         return $this->render('view', [
             'model' => $model,
         ]);
@@ -110,10 +115,18 @@ class RespostaEspecialistasController extends Controller
         {
             $model = new RespostaEspecialistas();
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) 
+            if ($model->load(Yii::$app->request->post()) ) 
             {
-                return $this->redirect(['view', 'id' => $model->id]);
-            } 
+                 //$model->data_insercao = date("Y-m-d"); 
+
+                 $model->funcao_especialista = $model->relator;
+
+                // $model->data_ocorrencia = $model->ano.'-'.$model->mes.'-'.$model->dia;
+
+                if ( $model->save() ) return $this->redirect(['view', 'id' => $model->id]);
+                else return $this->redirect(['index']);
+                //Yii::$app->runAction('site/doom', ['message' => 'Opinião NÃO cadastrada com sucesso.',]);
+            }
             else 
             {
                 $arrayTitulosProblemas = ArrayHelper::map(TituloProblemaSearch::find()->all(), 'id', 'titulo');
@@ -143,9 +156,14 @@ class RespostaEspecialistasController extends Controller
         {
             $model = $this->findModel($id);
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) 
+            if ($model->load(Yii::$app->request->post())) 
             {
-                return $this->redirect(['view', 'id' => $model->id]);
+                 $model->data_insercao = date("Y-m-d"); 
+
+                $model->funcao_especialista = $model->relator;
+
+                if ( $model->save() ) return $this->redirect(['view', 'id' => $model->id]);
+                else return Yii::$app->runAction('site/doom', ['message' => 'Opinião NÃO atualizada com sucesso.']);
             } 
             else 
             {

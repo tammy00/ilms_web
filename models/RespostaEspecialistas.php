@@ -26,6 +26,10 @@ class RespostaEspecialistas extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public $dia;
+    public $mes;
+    public $ano;
+
     public static function tableName()
     {
         return 'resposta_esp';
@@ -37,13 +41,13 @@ class RespostaEspecialistas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'id_tipo_problema', 'id_titulo_problema', 'descricao_problema', 'descricao_solucao', 'data_ocorrencia', 'data_insercao', 'nome_especialista', 'funcao_especialista', 'relator'], 'required'],
-            [['id', 'id_tipo_problema', 'id_titulo_problema'], 'integer'],
+            [['id', 'id_tipo_problema', 'id_titulo_problema', 'descricao_problema', 'descricao_solucao', 'nome_especialista', 
+                'relator'], 'required'],
+            [['id', 'id_tipo_problema', 'id_titulo_problema', 'funcao_especialista', 'relator'], 'integer'],
+            [['dia', 'mes', 'ano'], 'integer'],
             [['data_ocorrencia', 'data_insercao'], 'safe'],
             [['descricao_problema', 'descricao_solucao'], 'string', 'max' => 300],
             [['nome_especialista'], 'string', 'max' => 200],
-            [['funcao_especialista'], 'string', 'max' => 100],
-            [['relator'], 'string', 'max' => 250],
             [['id_tipo_problema'], 'exist', 'skipOnError' => true, 'targetClass' => TipoProblema::className(), 'targetAttribute' => ['id_tipo_problema' => 'id']],
             [['id_titulo_problema'], 'exist', 'skipOnError' => true, 'targetClass' => TituloProblema::className(), 'targetAttribute' => ['id_titulo_problema' => 'id']],
         ];
@@ -59,13 +63,16 @@ class RespostaEspecialistas extends \yii\db\ActiveRecord
             'id_tipo_problema' => 'Tipo do Problema',
             'id_titulo_problema' => 'Título do Problema',
             'descricao_problema' => 'Descrição do Problema',
-            'descricao_solucao' => 'Descrição da Solucao',
+            'descricao_solucao' => 'Descrição da Solução',
             'data_ocorrencia' => 'Data de Ocorrência',
             'data_insercao' => 'Data de Inserção',
             'nome_especialista' => 'Nome do Especialista',
-            'funcao_especialista' => 'Funcao do Especialista',
+            'funcao_especialista' => 'Função do Especialista',
             'relator' => 'Relator',
-        ];
+            'dia' => 'Dia',
+            'mes' => 'Mês',
+            'ano' => 'Ano',
+         ];
     }
 
     /**

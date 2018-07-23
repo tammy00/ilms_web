@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 21-Jul-2018 às 22:57
+-- Generation Time: 23-Jul-2018 às 04:42
 -- Versão do servidor: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -280,11 +280,11 @@ CREATE TABLE `resposta_esp` (
   `id_titulo_problema` int(111) NOT NULL,
   `descricao_problema` varchar(300) CHARACTER SET latin1 NOT NULL,
   `descricao_solucao` varchar(300) CHARACTER SET latin1 NOT NULL,
-  `data_ocorrencia` date NOT NULL,
-  `data_insercao` date NOT NULL,
-  `nome_especialista` varchar(200) CHARACTER SET latin1 NOT NULL,
-  `funcao_especialista` varchar(100) CHARACTER SET latin1 NOT NULL,
-  `relator` varchar(250) NOT NULL
+  `data_ocorrencia` date DEFAULT NULL,
+  `data_insercao` date DEFAULT NULL,
+  `nome_especialista` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `funcao_especialista` int(11) DEFAULT NULL,
+  `relator` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -292,18 +292,20 @@ CREATE TABLE `resposta_esp` (
 --
 
 INSERT INTO `resposta_esp` (`id`, `id_tipo_problema`, `id_titulo_problema`, `descricao_problema`, `descricao_solucao`, `data_ocorrencia`, `data_insercao`, `nome_especialista`, `funcao_especialista`, `relator`) VALUES
-(1, 1, 3, 'Alunos apresentam dificuldades para assimilar o conteúdo da disciplina Informática no Ensino da Física.', 'Devem ser dadas aulas presenciais extras, ministradas pelo tutor.', '2015-10-10', '2018-05-01', 'Ketlen Teles', '8', '2'),
-(2, 1, 13, 'Alunos apresentam dificuldades na atividade Forum de Discussão. ', 'Tutor deve postar uma mensagem no AVA, orientando os procedimentos da atividade.', '2016-04-03', '2018-05-01', 'Airton Gaio', '5', '8'),
-(3, 2, 11, 'Um polo ficou sem a assistência do tutor presencial.', 'O Coordenador de polo deve assumir as funções do tutor presencial, ficando responsável pelos alunos.', '2013-07-08', '2018-05-16', 'Afrânio Neves', '2', '2'),
-(4, 2, 9, 'As notas lançadas no AVA de forma errada, fora do padrão.', 'O Coordenador de tutor deve lançar novamente as notas no AVA.', '2012-08-13', '2018-05-16', 'Gisele Souza', '9', '9'),
-(5, 2, 7, 'Um grupo de alunos ausentes na aula presencial do período.', 'Os tutores presenciais devem remarcar uma nova data para a aula de reposição, porém as atividades avaliativas não devem valer a mesma nota.', '2010-04-24', '2018-06-19', 'Francisco Bentes', '4', '4'),
-(6, 3, 2, 'O link de internet interrompido no Polo.', 'O prazo de entrega das atividades deve ser estendido somente para este Polo.', '2016-10-11', '2018-06-19', 'Francisco Bentes', '4', '4'),
-(7, 3, 1, 'Por motivos climáticos, o polo ficou sem energia elétrica durante o período.', 'O prazo de entrega das atividades deve ser estendido somente para este Polo.', '2012-08-12', '2018-06-20', 'Luzinaldo Moura', '4', '4'),
-(8, 3, 15, 'Manutenção de urgência no polo.', 'O prazo de entrega das atividades deve ser estendido somente para este Polo.', '2013-07-08', '2018-06-20', 'Luzinaldo Moura', '4', '4'),
-(9, 1, 5, 'Uma turma da disciplina Matemática Básica apresenta grande reprovação ao final do período. ', 'Aulas de reciclagem na disciplina, antes do início da Reoferta do curso.', '2012-01-18', '2018-06-18', 'João Victor', '10', '9'),
-(10, 2, 8, 'Aluno com problema de saúde, com licença médica.', 'O tutor presencial deverá repassar o conteúdo e o prazo das atividades devem ser revistos para esse aluno.', '2014-05-22', '2018-06-18', 'Aliuandra', '1', '9'),
-(11, 1, 3, 'Dificuldades em utilizar o AVA.', 'O tutor presencial deverá repassar treinamento no AVA.', '2015-03-11', '2018-06-20', 'João Victor', '1', '9'),
-(12, 3, 15, 'Alagamento na cidade impede acesso ao Polo.', 'O prazo de entrega das atividades deve ser estendido somente para este Polo.', '2015-08-07', '2018-06-20', 'João Victor', '1', '9');
+(1, 1, 3, 'Alunos apresentam dificuldades para assimilar o conteúdo da disciplina Informática no Ensino da Física.', 'Devem ser dadas aulas presenciais extras, ministradas pelo tutor.', '2015-10-10', '2018-07-22', 'Ketlen Teles', 3, 3),
+(2, 1, 13, 'Alunos apresentam dificuldades na atividade Forum de Discussão. ', 'Tutor deve postar uma mensagem no AVA, orientando os procedimentos da atividade.', '2016-04-03', '2018-05-01', 'Airton Gaio', 5, 8),
+(3, 2, 11, 'Um polo ficou sem a assistência do tutor presencial.', 'O Coordenador de polo deve assumir as funções do tutor presencial, ficando responsável pelos alunos.', '2013-07-08', '2018-05-16', 'Afrânio Neves', 2, 2),
+(4, 2, 9, 'As notas lançadas no AVA de forma errada, fora do padrão.', 'O Coordenador de tutor deve lançar novamente as notas no AVA.', '2012-08-13', '2018-05-16', 'Gisele Souza', 9, 9),
+(5, 2, 7, 'Um grupo de alunos ausentes na aula presencial do período.', 'Os tutores presenciais devem remarcar uma nova data para a aula de reposição, porém as atividades avaliativas não devem valer a mesma nota.', '2010-04-24', '2018-06-19', 'Francisco Bentes', 4, 4),
+(6, 3, 2, 'O link de internet interrompido no Polo.', 'O prazo de entrega das atividades deve ser estendido somente para este Polo.', '2016-10-11', '2018-06-19', 'Francisco Bentes', 4, 4),
+(7, 3, 1, 'Por motivos climáticos, o polo ficou sem energia elétrica durante o período.', 'O prazo de entrega das atividades deve ser estendido somente para este Polo.', '2012-08-12', '2018-06-20', 'Luzinaldo Moura', 4, 4),
+(8, 3, 15, 'Manutenção de urgência no polo.', 'O prazo de entrega das atividades deve ser estendido somente para este Polo.', '2013-07-08', '2018-06-20', 'Luzinaldo Moura', 4, 4),
+(9, 1, 5, 'Uma turma da disciplina Matemática Básica apresenta grande reprovação ao final do período. ', 'Aulas de reciclagem na disciplina, antes do início da Reoferta do curso.', '2012-01-18', '2018-06-18', 'João Victor', 10, 9),
+(10, 2, 8, 'Aluno com problema de saúde, com licença médica.', 'O tutor presencial deverá repassar o conteúdo e o prazo das atividades devem ser revistos para esse aluno.', '2014-05-22', '2018-06-18', 'Aliuandra', 1, 9),
+(11, 1, 3, 'Dificuldades em utilizar o AVA.', 'O tutor presencial deverá repassar treinamento no AVA.', '2015-03-11', '2018-06-20', 'João Victor', 1, 9),
+(12, 3, 15, 'Alagamento na cidade impede acesso ao Polo.', 'O prazo de entrega das atividades deve ser estendido somente para este Polo.', '2015-08-07', '2018-06-20', 'João Victor', 1, 9),
+(17, 1, 1, '02. Just Wanna Know\r\nLyrics: Kodama Saori ??????\r\nComporition & Arrangement: Kawashima Hiromitsu ????', '02. Just Wanna Know\r\nLyrics: Kodama Saori ??????\r\nComporition & Arrangement: Kawashima Hiromitsu ????', NULL, NULL, 'Tammy', NULL, 1),
+(18, 1, 1, '02. Just Wanna Know', '02. Just Wanna Know\r\n', NULL, NULL, 'Tammy', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -636,7 +638,7 @@ ALTER TABLE `relator`
 -- AUTO_INCREMENT for table `resposta_esp`
 --
 ALTER TABLE `resposta_esp`
-  MODIFY `id` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `solucao`

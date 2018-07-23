@@ -9,7 +9,7 @@ use app\models\TituloProblema;
 /* @var $searchModel app\models\RespostaEspecialistasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Resposta Especialistas';
+$this->title = 'Opiniões dos Especialistas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="resposta-especialistas-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
-                'filterModel' => $searchModel,
+                //'filterModel' => $searchModel,
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
                     [
@@ -36,9 +36,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return $tituloproblema->titulo;
                         },
                     ],
-                    'data_ocorrencia',
-                    'data_insercao',
-
+                    [
+                            'attribute' => 'data_ocorrencia',
+                            'format' => ['date', 'php:d/m/Y']
+                    ],  
+                    [
+                            'attribute' => 'data_insercao',
+                            'format' => ['date', 'php:d/m/Y']
+                    ], 
                     [
                         'class' => 'yii\grid\ActionColumn',
                         'header'=>'Ações',

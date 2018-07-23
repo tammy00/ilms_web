@@ -18,14 +18,14 @@ $this->params['breadcrumbs'][] = $this->title;
       <br>
         <?php $form = ActiveForm::begin(); ?>
 
+          <fieldset>   
+                <legend>Casos Passados</legend>
+                
           <?= $form->field($model, 'natureza_problema')->radioList(['Infraestrutura' => 'Infraestrutura', 'Pedagógica' => 'Pedagógica', 'Acadêmica' => 'Acadêmica'])->label('Selecione a natureza do problema:');   ?>
 
           <?= $form->field($model, 'descricao_problema')->textarea(['rows' => 6])->label('Descreva o problema resumidamente:'); ?>
 
 
-
-          <fieldset>   
-                <legend>Casos Passados</legend>
                 <?= $form->field($model, 'relator')->dropDownList([$arrayRelatores],['style' => 'width:500px',
                                                       'prompt' => "Selecione um relator",]); ?>  
 
