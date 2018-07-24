@@ -34,52 +34,55 @@ AppAsset::register($this);
         ],
     ]);
 
-    if ( Yii::$app->user->identity->perfil == 'Mediador/a' )
+    if ( Yii::$app->user->identity!= null )
     {
-        echo Nav::widget([
-            'options' => ['class' => 'navbar-nav navbar-right'],
-            'items' => [
-                ['label' => 'Home', 'url' => ['/site/index']],
-                ['label' => 'Buscar Solução', 'url' => ['/site/cbrsearch']],
-                ['label' => 'Dados AV', 'url' => ['/site/vlesearch']],
-                ['label' => 'Opinião Esp.', 'url' => ['/site/expsearch']],
-                Yii::$app->user->isGuest ? (
-                    ['label' => 'Login', 'url' => ['/site/login']]
-                ) : (
-                    '<li>'
-                    . Html::beginForm(['/site/logout'], 'post')
-                    . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->perfil . ')',
-                        ['class' => 'btn btn-link logout']
+        if ( Yii::$app->user->identity->perfil === 'Mediador/a' )
+        {
+            echo Nav::widget([
+                'options' => ['class' => 'navbar-nav navbar-right'],
+                'items' => [
+                    ['label' => 'Home', 'url' => ['/site/index']],
+                    ['label' => 'Buscar Solução', 'url' => ['/site/cbrsearch']],
+                    ['label' => 'Dados AV', 'url' => ['/site/vlesearch']],
+                    ['label' => 'Opinião Esp.', 'url' => ['/site/expsearch']],
+                    Yii::$app->user->isGuest ? (
+                        ['label' => 'Login', 'url' => ['/site/login']]
+                    ) : (
+                        '<li>'
+                        . Html::beginForm(['/site/logout'], 'post')
+                        . Html::submitButton(
+                            'Logout (' . Yii::$app->user->identity->perfil . ')',
+                            ['class' => 'btn btn-link logout']
+                        )
+                        . Html::endForm()
+                        . '</li>'
                     )
-                    . Html::endForm()
-                    . '</li>'
-                )
-            ],
-        ]);
-    }
-    elseif ( Yii::$app->user->identity->perfil == 'Especialista' )
-    {
-        echo Nav::widget([
-            'options' => ['class' => 'navbar-nav navbar-right'],
-            'items' => [
-                ['label' => 'Home', 'url' => ['/site/index']],
-                ['label' => 'Cadastrar Opinião', 'url' => ['/resposta-especialistas/create']],
-                ['label' => 'Histórico de Opiniões', 'url' => ['/resposta-especialistas/index']],
-                Yii::$app->user->isGuest ? (
-                    ['label' => 'Login', 'url' => ['/site/login']]
-                ) : (
-                    '<li>'
-                    . Html::beginForm(['/site/logout'], 'post')
-                    . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->perfil . ')',
-                        ['class' => 'btn btn-link logout']
+                ],
+            ]);
+        }
+        elseif ( Yii::$app->user->identity->perfil == 'Especialista' )
+        {
+            echo Nav::widget([
+                'options' => ['class' => 'navbar-nav navbar-right'],
+                'items' => [
+                    ['label' => 'Home', 'url' => ['/site/index']],
+                    ['label' => 'Cadastrar Opinião', 'url' => ['/resposta-especialistas/create']],
+                    ['label' => 'Histórico de Opiniões', 'url' => ['/resposta-especialistas/index']],
+                    Yii::$app->user->isGuest ? (
+                        ['label' => 'Login', 'url' => ['/site/login']]
+                    ) : (
+                        '<li>'
+                        . Html::beginForm(['/site/logout'], 'post')
+                        . Html::submitButton(
+                            'Logout (' . Yii::$app->user->identity->perfil . ')',
+                            ['class' => 'btn btn-link logout']
+                        )
+                        . Html::endForm()
+                        . '</li>'
                     )
-                    . Html::endForm()
-                    . '</li>'
-                )
-            ],
-        ]);
+                ],
+            ]);
+        }
     }
     NavBar::end();
     ?>

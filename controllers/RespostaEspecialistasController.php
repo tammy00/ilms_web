@@ -117,11 +117,11 @@ class RespostaEspecialistasController extends Controller
 
             if ($model->load(Yii::$app->request->post()) ) 
             {
-                 //$model->data_insercao = date("Y-m-d"); 
+                 $model->data_insercao = date("Y-m-d"); 
 
                  $model->funcao_especialista = $model->relator;
 
-                // $model->data_ocorrencia = $model->ano.'-'.$model->mes.'-'.$model->dia;
+                $model->data_ocorrencia = $model->ano.'-'.$model->mes.'-'.$model->dia;
 
                 if ( $model->save() ) return $this->redirect(['view', 'id' => $model->id]);
                 else return $this->redirect(['index']);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 23-Jul-2018 às 04:42
+-- Generation Time: 24-Jul-2018 às 02:57
 -- Versão do servidor: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -98,8 +98,7 @@ INSERT INTO `descricao` (`id_descricao`, `natureza_problema`, `relator`, `descri
 (12, 'Pedagógica', 'Coordenador Curso', 'Os alunos estavam acostumados a fazer prova com consulta e recorriam frequentemente à cola. Tinham a conivência dos tutores presenciais.', 'Foram identificados casos de cola nas provas finais das disciplinas.\r\nO coordenador de curso decidiu aplicar pessoalmente as provas, de forma rígida e tomou providências para que não houvesse fraudes.\r\n', 'Fraude em provas, cola.', NULL, 13),
 (13, 'Pedagógica', 'Coordenador Curso', 'Plágio em TCC.', 'Aluna finalista entregou documento de TCC com problemas de plágio. Foi avisada para refazer o trabalho, mas a aluna não o entregou. Um ano depois, a aluna entregou um novo e correto documento de TCC.', 'Plágio, TCC.', NULL, 11),
 (14, 'Acadêmica', 'Coordenador Curso', 'Foram identificados casos de cola nas provas finais das disciplinas.\r\nO coordenador de curso decidiu aplicar pessoalmente as provas, de forma rígida e tomou providências para que não houvesse fraudes.\r\n', 'Alunos indígenas bolsistas e residentes em Santa Izabel do Rio Negro, frequentavam com bastante dificuldades as aulas e o laboratório do curso em São Gabriel da Cachoeira. A prefeitura não deu mais apoio de transporte ao grupo e por isso eles não podiam mais ir para a aula.', 'Evasão de alunos.', NULL, 16),
-(15, 'Infraestrutura', 'Coordenador Graduação', 'Atraso na emissão de passagens e diárias.', 'A UAB não estava liberando recursos para passagens e diárias, devido a problemas burocráticos. Esta tarefa ficou a cargo do setor reitoria da UFAM. Vários problemas ocorreram como: liberação somente de um trecho, atraso nas diárias, demora na bilhetagem das passagens e outros transtornos para os professores.   ', 'Falta de recursos financeiros.', NULL, 2),
-(16, 'Infraestrutura', 'Coordenador Polo', 'A ausência de conexão com a internet durante 7 dias prejudicaria diretamente os alunos da disciplina, pois comprometeria o andamento e as avaliações da Unidade I da disciplina.\r\nAs atividades de avaliação desta unidade tinham como prazo final dia 20/10/2014.', 'A disciplina Fruticultura estava sendo ministrada para três polos: Manaquiri, Santa Izabel e Tefé, no período de 14/10/2014 a 23/11/2014.\r\nO polo de Santa Izabel atendeu 14 alunos do curso de Licenciatura em Ciência Agrárias neste período letivo.\r\nEm 15/10/2014, a cidade de Santa Izabel, por causa de uma forte chuva ficou sem energia durante 10 horas. O apagão danificou o equipamento (switch) e a antena de recepção do sinal de internet via satélite. A sede do polo ficou sem internet durante 7 dias até que o equipamento fosse substituído.', 'Problema internet', NULL, 1);
+(15, 'Infraestrutura', 'Coordenador Graduação', 'Atraso na emissão de passagens e diárias.', 'A UAB não estava liberando recursos para passagens e diárias, devido a problemas burocráticos. Esta tarefa ficou a cargo do setor reitoria da UFAM. Vários problemas ocorreram como: liberação somente de um trecho, atraso nas diárias, demora na bilhetagem das passagens e outros transtornos para os professores.   ', 'Falta de recursos financeiros.', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -160,18 +159,6 @@ CREATE TABLE `pesquisas` (
   `status` int(1) DEFAULT NULL,
   `similaridade` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `pesquisas`
---
-
-INSERT INTO `pesquisas` (`id_pesquisa`, `id_solucao`, `id_resposta`, `id_usuario`, `id_polo`, `relator`, `natureza_problema`, `descricao_problema`, `problema_detalhado`, `palavras_chaves`, `status`, `similaridade`) VALUES
-(1, 1, NULL, 2, 1, 'Coordenador Polo', 'Infraestrutura', 'A ausência de conexão com a internet durante 7 dias prejudicaria diretamente os alunos da disciplina, pois comprometeria o andamento e as avaliações da Unidade I da disciplina.\r\nAs atividades de avaliação desta unidade tinham como prazo final dia 20/10/2014.', 'A disciplina Fruticultura estava sendo ministrada para três polos: Manaquiri, Santa Izabel e Tefé, no período de 14/10/2014 a 23/11/2014.\r\nO polo de Santa Izabel atendeu 14 alunos do curso de Licenciatura em Ciência Agrárias neste período letivo.\r\nEm 15/10/2014, a cidade de Santa Izabel, por causa de uma forte chuva ficou sem energia durante 10 horas. O apagão danificou o equipamento (switch) e a antena de recepção do sinal de internet via satélite. A sede do polo ficou sem internet durante 7 dias até que o equipamento fosse substituído.', 'Problema internet', 0, 0.991453),
-(2, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, NULL, 1, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, NULL, 1, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, NULL, 1, 2, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL),
-(6, NULL, 1, 2, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -303,9 +290,7 @@ INSERT INTO `resposta_esp` (`id`, `id_tipo_problema`, `id_titulo_problema`, `des
 (9, 1, 5, 'Uma turma da disciplina Matemática Básica apresenta grande reprovação ao final do período. ', 'Aulas de reciclagem na disciplina, antes do início da Reoferta do curso.', '2012-01-18', '2018-06-18', 'João Victor', 10, 9),
 (10, 2, 8, 'Aluno com problema de saúde, com licença médica.', 'O tutor presencial deverá repassar o conteúdo e o prazo das atividades devem ser revistos para esse aluno.', '2014-05-22', '2018-06-18', 'Aliuandra', 1, 9),
 (11, 1, 3, 'Dificuldades em utilizar o AVA.', 'O tutor presencial deverá repassar treinamento no AVA.', '2015-03-11', '2018-06-20', 'João Victor', 1, 9),
-(12, 3, 15, 'Alagamento na cidade impede acesso ao Polo.', 'O prazo de entrega das atividades deve ser estendido somente para este Polo.', '2015-08-07', '2018-06-20', 'João Victor', 1, 9),
-(17, 1, 1, '02. Just Wanna Know\r\nLyrics: Kodama Saori ??????\r\nComporition & Arrangement: Kawashima Hiromitsu ????', '02. Just Wanna Know\r\nLyrics: Kodama Saori ??????\r\nComporition & Arrangement: Kawashima Hiromitsu ????', NULL, NULL, 'Tammy', NULL, 1),
-(18, 1, 1, '02. Just Wanna Know', '02. Just Wanna Know\r\n', NULL, NULL, 'Tammy', 1, 1);
+(12, 3, 15, 'Alagamento na cidade impede acesso ao Polo.', 'O prazo de entrega das atividades deve ser estendido somente para este Polo.', '2015-08-07', '2018-06-20', 'João Victor', 1, 9);
 
 -- --------------------------------------------------------
 
@@ -596,7 +581,7 @@ ALTER TABLE `curso`
 -- AUTO_INCREMENT for table `descricao`
 --
 ALTER TABLE `descricao`
-  MODIFY `id_descricao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_descricao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `disciplina`
@@ -614,7 +599,7 @@ ALTER TABLE `info_caso`
 -- AUTO_INCREMENT for table `pesquisas`
 --
 ALTER TABLE `pesquisas`
-  MODIFY `id_pesquisa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_pesquisa` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `polo`
@@ -638,7 +623,7 @@ ALTER TABLE `relator`
 -- AUTO_INCREMENT for table `resposta_esp`
 --
 ALTER TABLE `resposta_esp`
-  MODIFY `id` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `solucao`
