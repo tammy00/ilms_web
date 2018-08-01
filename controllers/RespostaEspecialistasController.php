@@ -96,8 +96,17 @@ class RespostaEspecialistasController extends Controller
         $model->id_titulo_problema = $titulo->titulo;
 
         $r = Relator::find()->where(['id_relator' => $model->relator])->one();
-        $model->relator = $r->perfil;
-        $model->funcao_especialista = $model->relator;
+        if ( $model->funcao_especialista != $model->relator )
+        {
+            $novo_relator = Relator::find()->where(['id_relator' => $model->funcao_especialista])->one();
+            $model->funcao_especialista = $novo_relator->perfil;
+            $model->relator = $r->perfil;
+        }
+        else 
+        {
+            $model->relator = $r->perfil;
+            $model->funcao_especialista = $model->relator;
+        }
 
         return $this->render('view', [
             'model' => $model,
@@ -117,15 +126,58 @@ class RespostaEspecialistasController extends Controller
 
             if ($model->load(Yii::$app->request->post()) ) 
             {
-                 $model->data_insercao = date("Y-m-d"); 
+                $model->data_insercao = date("Y-m-d"); //Data de hoje
 
-                 $model->funcao_especialista = $model->relator;
+                $model->data_ocorrencia = $model->ano.'-'.$model->mes.'-'.$model->dia;  // Manipulação da data
 
-                $model->data_ocorrencia = $model->ano.'-'.$model->mes.'-'.$model->dia;
+                $relator = Relator::find()->where(['perfil' => $model->func_esp])->one();
 
-                if ( $model->save() ) return $this->redirect(['view', 'id' => $model->id]);
-                else return $this->redirect(['index']);
-                //Yii::$app->runAction('site/doom', ['message' => 'Opinião NÃO cadastrada com sucesso.',]);
+                if ( $model->funcao_especialista != null)   // funcao_especialista informado
+                {
+
+                    if ( $relator == null )   
+                    {
+                        if ( $model->save() ) return $this->redirect(['view', 'id' => $model->id]);
+                        else return  Yii::$app->runAction('site/doom', ['message' => 'Opinião NÃO cadastrada com sucesso.']);
+                    }
+                    else    // func_esp informado NÃO É relator
+                    {
+                        $model_relator = new Relator();
+                        $model_relator->perfil = $model->func_esp;
+
+                        if ( $model_relator->save() )
+                        {
+                            if ( $model->save() ) return $this->redirect(['view', 'id' => $model->id]);
+                            else return  Yii::$app->runAction('site/doom', ['message' => 'Nova função cadastrada com sucesso. Opinião NÃO cadastrada com sucesso.']);
+                        }
+                        else return Yii::$app->runAction('site/doom', ['message' => 'Nova função NÃO cadastrada com sucesso.']);
+                    }
+                }
+                else   // $model->funcao_especialista == null   --- não informado
+                {
+                    if ( $relator == null )   
+                    {
+                        $model->funcao_especialista = $model->relator;
+                        if ( $model->save() ) return $this->redirect(['view', 'id' => $model->id]);
+                        else return  Yii::$app->runAction('site/doom', ['message' => 'Opinião NÃO cadastrada com sucesso.']);
+                    }
+                    else    
+                    {
+                        $model_relator = new Relator();
+                        $model_relator->perfil = $model->func_esp;
+
+                        if ( $model_relator->save(false) )
+                        {
+                            $model->funcao_especialista = $novo_relator->id_relator;
+
+                            if ( $model->save() ) return $this->redirect(['view', 'id' => $model->id]);
+                            else return  Yii::$app->runAction('site/doom', ['message' => 'Nova função cadastrada com sucesso. Opinião NÃO cadastrada com sucesso.']);
+                        }
+                        else return Yii::$app->runAction('site/doom', ['message' => 'Nova função NÃO cadastrada com sucesso.']);
+                    }
+                }
+
+               
             }
             else 
             {
@@ -160,7 +212,22 @@ class RespostaEspecialistasController extends Controller
             {
                  $model->data_insercao = date("Y-m-d"); 
 
-                $model->funcao_especialista = $model->relator;
+
+                // Sobre o func_esp e funcao_especialista
+                $relatores = Relator::find()->where(['perfil' => $model->func_esp])->one();
+
+                if ( $relatores == null ) // criar um novo relator
+                {
+                    $novo_relator = new Relator();
+                    $novo_relator = $model->func_esp;
+
+                    if ( !$novo_relator->save() ) 
+                        return Yii::$app->runAction('site/doom', ['message' => 'Erro ao salvar a nova função do especialista.']);
+                }
+                else // função do especislita informado por texto existe - id
+                {
+                    $model->funcao_especialista = $model->relator;
+                }
 
                 if ( $model->save() ) return $this->redirect(['view', 'id' => $model->id]);
                 else return Yii::$app->runAction('site/doom', ['message' => 'Opinião NÃO atualizada com sucesso.']);

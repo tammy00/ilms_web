@@ -31,6 +31,11 @@ use app\models\TituloProblema;
         <?= $form->field($model, 'relator')->dropDownList([$arrayRelatores],['style' => 'width:500px',
                                                       'prompt' => "Selecione um tipo de relator",]); ?> 
 
+        <?= $form->field($model, 'funcao_especialista')->dropDownList([$arrayRelatores],['style' => 'width:500px',
+                                                      'prompt' => "Selecione a função do especialista",]); ?> 
+        
+       <?= $form->field($model, 'func_esp')->textInput(['maxlength' => 250, 'style' => 'width:800px',])->label('Ou informe uma nova função do especialista:') ?>
+
         <fieldset> 
             <legend>Data de Ocorrência</legend>
         <?= $form->field($model, 'dia')->dropdownList([1 => 01, 2 => 02, 3 => 03, 4 => 04, 5 => 05, 6 => 06, 7 => 07, 8 => 08, 9 => 09, 

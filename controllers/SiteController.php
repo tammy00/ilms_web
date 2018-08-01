@@ -476,7 +476,13 @@ class SiteController extends Controller
             }
             else return $this->actionDoom('Por favor, informar o título do problema.'); 
 
-            if ( $resultado_id == (-1) ) return $this->actionDoom('Por favor, informar o título do problema.'); 
+            if ( $resultado_id == (-1) )
+            {
+            	$tipo = TipoProblema::find()->where(['id' => $model->tipo_problema])->one();
+            	$titulo = TituloProblema::find()->where(['id' => $model->titulo_problema])->one();
+
+            	return $this->actionDoom('Não há opinião de especialista cadastrada no banco de dados que envolva o título de problema "'.$titulo->titulo.'" e o tipo de problema "'.$tipo->tipo.'".'); 
+            }
             else return $this->actionExpview ($resultado_id);  //
 
             

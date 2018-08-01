@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Pesquisas;
 use app\models\PesquisasSearch;
+use app\models\DescricaoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -30,10 +31,10 @@ class PesquisasController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'view', 'create', 'update', 'delete', 'allcases', 'newcase'],
+                'only' => ['index', 'view', 'create', 'update', 'delete', 'allcases', 'newcase', 'allsearches', 'casedetail'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'allcases', 'newcase'],
+                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'allcases', 'newcase', 'allsearches', 'casedetail'],
                         'allow' => true,
                         'matchCallback' => function ($rule, $action) {
                             if (!Yii::$app->user->isGuest)
@@ -75,15 +76,50 @@ class PesquisasController extends Controller
         ]);
     }
 
-        public function actionAllcases()
+    public function actionAllsearches()  // Seleciona todas as pesquisas realizadas, independente do usuário
     {
         $searchModel = new PesquisasSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('allsearches', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionAllcases()  // Seleciona todos os casos registrados no BC
+    {
+        $searchModel = new DescricaoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('allcases', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionCasedetail($id)  // Mostra dados da descrição e solução do caso selecionado anteriormente
+    {
+        $desc = Descricao::find()->where(['id_descricao' => $id])->one(); // Acha o registro da descricao
+
+        $sol = Solucao::find()->where(['id_solucao' => $desc->id_descricao])->one(); // Acha o registro da solução
+
+        if ( $sol != null )
+        {
+            $polo = Polo::find()->where(['id_polo' => $desc->id_polo])->one();
+            
+            $desc->id_polo = $polo->nome;
+            
+
+            return $this->render('casedetail', [
+                'desc' => $desc,
+                'sol' => $sol,
+            ]);            
+        }
+        else return Yii::$app->runAction('site/doom', ['message' => 'Solução do caso selecionado não encontrada. Por favor, entrar em contato com o Administrador.']); 
+        // actioDoom 'Solução do caso selecionado não encontrada. Por favor, entrar em contato com o Administrador.'
+
+
     }
 
     /**
@@ -100,10 +136,15 @@ class PesquisasController extends Controller
             $model->similaridade = round(($model->similaridade * 100 ));
         }
         else $sol = null;
+
+        $polo = Polo::find()->where(['id_polo' => $model->id_polo])->one();
+        $model->id_polo = $polo->nome;
+
+        $model->id_usuario = Yii::$app->user->identity->perfil . ' ('.Yii::$app->user->identity->email.')';
         
-        if ( $model->id_titulo_problema > 0 )
+        if ( ($model->id_resposta > 0) || ($model->id_resposta != null) ) // Verifica se, na mesma pesquisa, tem registro de pesquisa à opinião de especialistas
         {
-            $exp_resposta = RespostaEspecialistas::find()->where(['id_titulo_problema' => $model->id_titulo_problema])->one();
+            $exp_resposta = RespostaEspecialistas::find()->where(['id_resposta' => $model->id_resposta])->one();
             $tipoproblema = TipoProblema::find()->where(['id' => $exp_resposta->id_tipo_problema])->one();
             $exp_resposta->id_tipo_problema = $tipoproblema->tipo;
             $tituloproblema = TituloProblema::find()->where(['id' => $exp_resposta->id_titulo_problema])->one();

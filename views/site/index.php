@@ -45,13 +45,13 @@ $this->title = 'iDE Framework';
                 <div class="col-md-6" align="center">
                     <h3>Casos Passados</h3>
 
-                    <p><a class="btn btn-default" href="?r=">Clicar aqui &raquo;</a></p>
+                    <p><a class="btn btn-default" href="?r=pesquisas/allcases">Clicar aqui &raquo;</a></p>
                 </div>
 
                 <div class="col-md-6" align="center">
                     <h3>Histórico de Buscas</h3>
 
-                    <p><a class="btn btn-default" href="?r=pesquisas/allcases"> Clicar aqui &raquo;</a></p>
+                    <p><a class="btn btn-default" href="?r=pesquisas/allsearches"> Clicar aqui &raquo;</a></p>
                 </div>
             </div>
 

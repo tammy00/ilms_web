@@ -73,7 +73,7 @@ class PesquisasSearch extends Pesquisas
 
     public function searchPseudoCasos($params)
     {
-        $query = Pesquisas::find()->where('status' != 2);
+        $query = Pesquisas::find()->where(['status' != 2]);
 
         // add conditions that should always apply here
 
@@ -100,4 +100,8 @@ class PesquisasSearch extends Pesquisas
 
         return $dataProvider;
     }
+
+
+
+
 }

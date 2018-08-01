@@ -30,6 +30,8 @@ class RespostaEspecialistas extends \yii\db\ActiveRecord
     public $mes;
     public $ano;
 
+    public $func_esp;
+
     public static function tableName()
     {
         return 'resposta_esp';
@@ -48,6 +50,7 @@ class RespostaEspecialistas extends \yii\db\ActiveRecord
             [['data_ocorrencia', 'data_insercao'], 'safe'],
             [['descricao_problema', 'descricao_solucao'], 'string', 'max' => 300],
             [['nome_especialista'], 'string', 'max' => 200],
+            [['func_esp'], 'string', 'max' => 250],
             [['id_tipo_problema'], 'exist', 'skipOnError' => true, 'targetClass' => TipoProblema::className(), 'targetAttribute' => ['id_tipo_problema' => 'id']],
             [['id_titulo_problema'], 'exist', 'skipOnError' => true, 'targetClass' => TituloProblema::className(), 'targetAttribute' => ['id_titulo_problema' => 'id']],
 
@@ -75,6 +78,7 @@ class RespostaEspecialistas extends \yii\db\ActiveRecord
             'dia' => 'Dia',
             'mes' => 'Mês',
             'ano' => 'Ano',
+            'func_esp' => 'Função do Especialista',
          ];
     }
 

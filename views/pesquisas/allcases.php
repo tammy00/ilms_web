@@ -7,8 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\PesquisasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Todas as buscas realizadas';
-$this->params['breadcrumbs'][] = 'Pesquisas';
+$this->title = 'Base de Casos - RBC';
 ?>
 <div class="pesquisas-index">
 
@@ -17,23 +16,42 @@ $this->params['breadcrumbs'][] = 'Pesquisas';
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            'id_polo',
-            'relator',
-             'natureza_problema:ntext',
-            // 'descricao_problema:ntext',
-            // 'problema_detalhado:ntext',
-             'palavras_chaves',
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'header'=>'Ações',
-                'headerOptions' => ['style' => 'text-align:center; color:#337AB7'],
-                'contentOptions' => ['style' => 'text-align:center; vertical-align:middle'],
-                'template' => '{view}',
-
-            ],
+                    ['class' => 'yii\grid\SerialColumn'],
+                    [
+                        'attribute' => 'id_descricao',
+                        'headerOptions' => ['style' => 'text-align:center; color:#337AB7'],
+                        'contentOptions' => ['style' => 'text-align:center; vertical-align:middle'],
+                        'label' => 'Casos na Base',
+                         'value'=>function ($model, $key, $index, $widget) { 
+                               return 'Caso '.$model->id_descricao;
+                           },
+                    ],
+                    [
+                        'class' => 'yii\grid\ActionColumn',
+                        'header'=>'Ação',
+                        'headerOptions' => ['style' => 'text-align:center; color:#337AB7'],
+                        'contentOptions' => ['style' => 'text-align:center; vertical-align:middle'],
+                        'template' => '{casedetail}',
+                        'buttons' => 
+                        [
+                            'casedetail' => function ($url, $model) 
+                            {
+                                //$valor = RespostaEspecialistas::find()->where(['id' => $pesquisa->id_resposta])->one();
+                                return Html::a(
+                                    'Visualizar descrição e solução',
+                                    ['pesquisas/casedetail', 'id' => $model->id_descricao], 
+                                    [
+                                        'title' => 'Visualizar',
+                                        'aria-label' => 'Visualizar',
+                                        'data-pjax' => '0',
+                                    ]
+                                );
+                            },
+                        ],
+                    ],
         ],
+    
     ]); ?>
+
 </div>
