@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 24-Jul-2018 às 02:57
+-- Generation Time: 04-Ago-2018 às 22:48
 -- Versão do servidor: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -98,7 +98,12 @@ INSERT INTO `descricao` (`id_descricao`, `natureza_problema`, `relator`, `descri
 (12, 'Pedagógica', 'Coordenador Curso', 'Os alunos estavam acostumados a fazer prova com consulta e recorriam frequentemente à cola. Tinham a conivência dos tutores presenciais.', 'Foram identificados casos de cola nas provas finais das disciplinas.\r\nO coordenador de curso decidiu aplicar pessoalmente as provas, de forma rígida e tomou providências para que não houvesse fraudes.\r\n', 'Fraude em provas, cola.', NULL, 13),
 (13, 'Pedagógica', 'Coordenador Curso', 'Plágio em TCC.', 'Aluna finalista entregou documento de TCC com problemas de plágio. Foi avisada para refazer o trabalho, mas a aluna não o entregou. Um ano depois, a aluna entregou um novo e correto documento de TCC.', 'Plágio, TCC.', NULL, 11),
 (14, 'Acadêmica', 'Coordenador Curso', 'Foram identificados casos de cola nas provas finais das disciplinas.\r\nO coordenador de curso decidiu aplicar pessoalmente as provas, de forma rígida e tomou providências para que não houvesse fraudes.\r\n', 'Alunos indígenas bolsistas e residentes em Santa Izabel do Rio Negro, frequentavam com bastante dificuldades as aulas e o laboratório do curso em São Gabriel da Cachoeira. A prefeitura não deu mais apoio de transporte ao grupo e por isso eles não podiam mais ir para a aula.', 'Evasão de alunos.', NULL, 16),
-(15, 'Infraestrutura', 'Coordenador Graduação', 'Atraso na emissão de passagens e diárias.', 'A UAB não estava liberando recursos para passagens e diárias, devido a problemas burocráticos. Esta tarefa ficou a cargo do setor reitoria da UFAM. Vários problemas ocorreram como: liberação somente de um trecho, atraso nas diárias, demora na bilhetagem das passagens e outros transtornos para os professores.   ', 'Falta de recursos financeiros.', NULL, 2);
+(15, 'Infraestrutura', 'Coordenador Graduação', 'Atraso na emissão de passagens e diárias.', 'A UAB não estava liberando recursos para passagens e diárias, devido a problemas burocráticos. Esta tarefa ficou a cargo do setor reitoria da UFAM. Vários problemas ocorreram como: liberação somente de um trecho, atraso nas diárias, demora na bilhetagem das passagens e outros transtornos para os professores.   ', 'Falta de recursos financeiros.', NULL, 2),
+(16, 'Acadêmica', 'Coordenador Curso', 'Logística para deslocamento aos polos.', 'A coordenadora de curso precisou visitar todos os polos para resolver problemas administrativos e acadêmicos do curso. A UFAM deixou para comprar a passagem 1 dia antes e não conseguiu vaga para o dia desejado. Isso causou transtornos como remarcação de voos, de reservas de hospedagem e de aulas presenciais nos polos.', 'Deslocamento de professor.', NULL, 14),
+(17, 'Acadêmica', 'Coordenador Curso', 'Alunos prestes a ser reprovados pela não entrega do TCC.', 'Alunos não entregaram o TCC no final do curso e não quiseram entregar no prazo estabelecido.', 'TCC, reprovação.', NULL, 5),
+(18, 'Acadêmica', 'Coordenador Curso', 'Fraude nos relatórios de levantamento da disciplina.', 'Alunos da disciplina de Estágio fraudaram o relatório de levantamento da disciplina. Uma aluna fez e entregou o relatório do colega, como se fosse o mesmo.', 'Fraude, relatório de levantamento.', NULL, 9),
+(19, 'Pedagógica', 'Coordenador Curso', 'Ausência de alunos na aula presencial da disciplina Introdução Disciplinar.', 'Alunos preocupados com a prova final do período, não compareciam à aula presencial da disciplina Introdução Disciplinar. ', 'Ausência de alunos.', NULL, 2),
+(20, 'Pedagógica', 'Coordenador Graduação', 'Nota muito baixa em uma atividade.', 'Uma professora deu notas muito baixas para uma atividade de opinião sobre o curso, os alunos se sentiram injustiçados e exigiram esclarecimentos e nova correção.', 'Nota baixa.', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -290,7 +295,17 @@ INSERT INTO `resposta_esp` (`id`, `id_tipo_problema`, `id_titulo_problema`, `des
 (9, 1, 5, 'Uma turma da disciplina Matemática Básica apresenta grande reprovação ao final do período. ', 'Aulas de reciclagem na disciplina, antes do início da Reoferta do curso.', '2012-01-18', '2018-06-18', 'João Victor', 10, 9),
 (10, 2, 8, 'Aluno com problema de saúde, com licença médica.', 'O tutor presencial deverá repassar o conteúdo e o prazo das atividades devem ser revistos para esse aluno.', '2014-05-22', '2018-06-18', 'Aliuandra', 1, 9),
 (11, 1, 3, 'Dificuldades em utilizar o AVA.', 'O tutor presencial deverá repassar treinamento no AVA.', '2015-03-11', '2018-06-20', 'João Victor', 1, 9),
-(12, 3, 15, 'Alagamento na cidade impede acesso ao Polo.', 'O prazo de entrega das atividades deve ser estendido somente para este Polo.', '2015-08-07', '2018-06-20', 'João Victor', 1, 9);
+(12, 3, 15, 'Alagamento na cidade impede acesso ao Polo.', 'O prazo de entrega das atividades deve ser estendido somente para este Polo.', '2015-08-07', '2018-06-20', 'João Victor', 1, 9),
+(13, 1, 4, 'Baixa interação nos fóruns de atividades.', 'Intervenção para aumentar a interação nos fóruns de discussão.', '2009-10-03', '2018-06-20', 'Ketlen Teles', 1, 3),
+(14, 1, 4, 'Os alunos estavam acostumados a fazer prova com consulta e recorriam frequentemente à cola. Tinham a conivência dos tutores presenciais.', 'Foi criado um formulário de norma de aplicação de prova, com regras para alunos e responsáveis pela aplicação das avaliações.', '2018-05-03', '2018-06-20', 'Ketlen Teles', 8, 2),
+(15, 1, 9, 'Plágio em TCC.', 'A situação da aluna foi deixada em aberto e posteriormente foi permitido à mesma submeter um novo trabalho para conclusão do curso.', '2009-02-25', '2018-06-20', 'Ketlen Teles', 8, 2),
+(16, 2, 6, 'Alunos evadidos do curso, por problemas de logística.', 'Foi criado um mini-polo em Santa Izabel do Rio Negro, e os professores que iam para São Gabriel da Cachoeira também se deslocavam para esse outro município, exclusivamente para atender esses alunos.', '2010-06-28', '2018-06-20', 'Ketlen Teles', 8, 2),
+(17, 3, 15, 'Atraso na emissão de passagens e diárias.', 'Correção das informações no SISUAB.', '2018-04-10', '2018-06-20', 'Ketlen Teles', 8, 3),
+(18, 2, 16, 'Logística para deslocamento aos polos.', 'As passagens tiveram que ser compradas em regime de urgência para que o planejamento não ficasse totalmente comprometido.', '2018-04-23', '2018-07-22', 'Ketlen Teles', 8, 2),
+(19, 2, 5, 'Alunos prestes a ser reprovados pela não entrega do TCC.', 'Foi dada mais uma chance para que os alunos entregassem o TCC juntamente com a próxima turma.', '2015-11-10', '2018-07-22', 'Ketlen Teles', 8, 2),
+(20, 2, 13, 'Fraude nos relatórios de levantamento da disciplina.', 'Foi exigido um vídeo do aluno relatando o levantamento da escola do estágio de forma oral, além do relatório escrito.', '2014-03-30', '2018-07-22', 'Ketlen Teles', 8, 2),
+(21, 1, 6, 'Ausência de alunos na aula presencial da disciplina Introdução Disciplinar.', 'Atividade avaliativa para o dia da aula presencial da disciplina Introdução Disciplinar.', '2018-05-25', '2018-07-22', 'Ketlen Teles', 8, 2),
+(22, 1, 9, 'Nota muito baixa em uma atividade.', 'Estabelecimento de critérios objetivos de correção de cada atividade.', '2018-06-16', '2018-07-22', 'Ketlen Teles', 8, 3);
 
 -- --------------------------------------------------------
 
@@ -330,7 +345,12 @@ INSERT INTO `solucao` (`id_solucao`, `solucao`, `palavras_chaves`, `acao_impleme
 (12, 'Foi criado um formulário de norma de aplicação de prova, com regras para alunos e responsáveis pela aplicação das avaliações.', 'Norma de aplicação de prova.', '- Foi realizada uma reunião com alunos, tutores e coordenador de curso, para discutirem o problema.\r\n- As regras de procedimento em provas e avaliações foram estabelecidas formalmente.\r\n- Uma nova prova foi aplicada em substituição à anterior.\r\n- Foi criado um formulário de norma de aplicação de prova, com regras para alunos e responsáveis pela aplicação das avaliações.\r\n', 'Sim', 'Sim', 'Nenhum', 'Os alunos passaram a se preparar melhor para as provas finais.', 'Coordenador do curso, coordenador de polo, professores, tutores.', NULL),
 (13, 'A situação da aluna foi deixada em aberto e posteriormente foi permitido à mesma submeter um novo trabalho para conclusão do curso.', 'Situação em aberto.', '- Após a constatação do plágio, a aluna foi informada que o trabalho não seria aceito.\r\n- Foi dada uma chance no mesmo período para a aluna refazer e entregar um novo trabalho.\r\n- A aluna não quis essa opção e a situação da mesma ficou em aberto.\r\n- Após um ano, a aluna entregou um novo TCC, defendeu e terminou o curso.\r\n', 'Sim', 'Sim', 'Nenhum', 'Não houve.', 'Coordenador de curso, professor.', NULL),
 (14, 'Foi criado um mini-polo em Santa Izabel do Rio Negro, e os professores que iam para São Gabriel da Cachoeira também se deslocavam para esse outro município, exclusivamente para atender esses alunos.', 'Mini-polo, adaptação de calendário, adaptação de conteúdo.', '- Professores se propuseram a ir ao município para atender o grupo.\r\n- Adaptação no conteúdo e avaliação para o grupo, devido às dificuldades do grupo com o Português, pois se tratavam de indígenas.\r\n- Viagens frequentes do tutor de São Gabriel da Cachoeira à para atender o grupo.\r\n', 'Sim', 'Sim', 'Nenhum', 'Não houve', 'Diretor, coordenador adjunto, coordenador de curso, professor, tutor à distância, tutor presencial.', NULL),
-(15, 'Correção das informações no SISUAB.', 'Repasse dos recursos para a Unisol.', '- Ligações diárias para o setor responsável e acompanhamento da emissão de passagens e diárias.\r\n- Acordo com professores para aceitarem receber posteriormente as diárias.\r\n- Repasse dos recursos para a Unisol.\r\n', 'Sim', 'Sim', 'Nenhum', 'Não houve', 'Diretor, coordenador de graduação, coordenador de curso, professores.', NULL);
+(15, 'Correção das informações no SISUAB.', 'Repasse dos recursos para a Unisol.', '- Ligações diárias para o setor responsável e acompanhamento da emissão de passagens e diárias.\r\n- Acordo com professores para aceitarem receber posteriormente as diárias.\r\n- Repasse dos recursos para a Unisol.\r\n', 'Sim', 'Sim', 'Nenhum', 'Não houve', 'Diretor, coordenador de graduação, coordenador de curso, professores.', NULL),
+(16, 'As passagens tiveram que ser compradas em regime de urgência para que o planejamento não ficasse totalmente comprometido.', 'Compra de passagens, urgência.', '- O Coordenador de curso e o diretor interviram para agilizar o processo de compra de passagens.\r\n- As passagens foram compradas em regime de urgência.\r\n', 'Sim', 'Sim', 'Financeiros, devido a remarcação dos voos.', 'Atraso no calendário de atividades do curso.', 'Coordenador de graduação, diretor, coordenador do curso.', NULL),
+(17, 'Foi dada mais uma chance para que os alunos entregassem o TCC juntamente com a próxima turma.', 'Entrega em data posterior.', '- Reunião com Coordenador de graduação e coordenador de curso para decidir a questão.\r\n- Acerto com alunos para que os mesmos se comprometessem a entregar o TCC no próximo período. \r\n- Rematrícula dos alunos na próxima turma do curso.\r\n\r\n', 'Sim', 'Sim', 'Nenhum', 'Não houve', 'Coordenador do curso, tutores.', NULL),
+(18, 'Foi exigido um vídeo do aluno relatando o levantamento da escola do estágio de forma oral, além do relatório escrito.', 'Vídeo.', '- Foi decidido que, para se evitar fraudes, seria exigido um vídeo do aluno relatando as atividades das disciplinas Estágio Curricular I, II e III, além do relatório final.', 'Sim', 'Sim', 'Nenhum', 'Acréscimo de mais uma atividade para avaliação e correção.', 'Coordenador de curso, professor.', NULL),
+(19, 'Atividade avaliativa para o dia da aula presencial da disciplina Introdução Disciplinar.', 'Atividade avaliativa.', '- Foi estabelecida uma atividade avaliativa para o dia da aula presencial da disciplina Introdução Disciplinar.\r\n- A atividade devia ser entregue via AVA.\r\n- Para os alunos que faltavam a aula presencial, a avaliação teve a pontuação reduzida.\r\n', 'Sim', 'Sim', 'Nenhum', 'Mais uma atividade para correção.', 'Coordenador de curso, professor, tutor presencial.', NULL),
+(20, 'Estabelecimento de critérios objetivos de correção de cada atividade.', 'Critérios de correção.', '- O Coordenador de curso, juntamente com os professores resolveram estabelecer critérios objetivos de correção para as atividades avaliativas.\r\n- Os alunos foram informados desses critérios e os itens de avaliação foram devidamente explicados para que não houvesse dúvidas.\r\n', 'Sim', 'Sim', 'Nenhum', 'Estabelecimento de critérios em todas as atividades das disciplinas.', 'Coordenador de curso, professores.', NULL);
 
 -- --------------------------------------------------------
 
@@ -382,7 +402,8 @@ INSERT INTO `titulo_problema` (`id`, `titulo`) VALUES
 (12, 'Coordenação'),
 (13, 'Atividades'),
 (14, 'Conteúdo'),
-(15, 'Infraestrutura');
+(15, 'Infraestrutura'),
+(16, 'Logística');
 
 -- --------------------------------------------------------
 
@@ -581,7 +602,7 @@ ALTER TABLE `curso`
 -- AUTO_INCREMENT for table `descricao`
 --
 ALTER TABLE `descricao`
-  MODIFY `id_descricao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_descricao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `disciplina`
@@ -623,13 +644,13 @@ ALTER TABLE `relator`
 -- AUTO_INCREMENT for table `resposta_esp`
 --
 ALTER TABLE `resposta_esp`
-  MODIFY `id` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `solucao`
 --
 ALTER TABLE `solucao`
-  MODIFY `id_solucao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_solucao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `tipo_problema`
@@ -641,7 +662,7 @@ ALTER TABLE `tipo_problema`
 -- AUTO_INCREMENT for table `titulo_problema`
 --
 ALTER TABLE `titulo_problema`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `turma`
