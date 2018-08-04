@@ -130,54 +130,30 @@ class RespostaEspecialistasController extends Controller
 
                 $model->data_ocorrencia = $model->ano.'-'.$model->mes.'-'.$model->dia;  // Manipulação da data
 
-                $relator = Relator::find()->where(['perfil' => $model->func_esp])->one();
+                $retorno = $this->checaRelator($model->func_esp); 
+                // checaRelator verifica se existe ou não uma função com o mesmo nome. Se não, cria e retorna o id.
+                
 
-                if ( $model->funcao_especialista != null)   // funcao_especialista informado
+                if ( ( $retorno != -1 ) && ( $retorno != -2) )  // Um id foi retornado
                 {
-
-                    if ( $relator == null )   
-                    {
-                        if ( $model->save() ) return $this->redirect(['view', 'id' => $model->id]);
-                        else return  Yii::$app->runAction('site/doom', ['message' => 'Opinião NÃO cadastrada com sucesso.']);
-                    }
-                    else    // func_esp informado NÃO É relator
-                    {
-                        $model_relator = new Relator();
-                        $model_relator->perfil = $model->func_esp;
-
-                        if ( $model_relator->save() )
-                        {
-                            if ( $model->save() ) return $this->redirect(['view', 'id' => $model->id]);
-                            else return  Yii::$app->runAction('site/doom', ['message' => 'Nova função cadastrada com sucesso. Opinião NÃO cadastrada com sucesso.']);
-                        }
-                        else return Yii::$app->runAction('site/doom', ['message' => 'Nova função NÃO cadastrada com sucesso.']);
-                    }
+                    if ( $model->funcao_especialista == null )
+                        $model->funcao_especialista = $retorno;
                 }
-                else   // $model->funcao_especialista == null   --- não informado
+                elseif ( ( $retorno == -1 ) ) 
                 {
-                    if ( $relator == null )   
-                    {
+                    return Yii::$app->runAction('site/doom', ['message' => 'A nova função informada não foi salva. ']);
+                }
+                elseif ( ( $retorno == -2 ) ) 
+                {
+                    if ( $model->funcao_especialista == null )
                         $model->funcao_especialista = $model->relator;
-                        if ( $model->save() ) return $this->redirect(['view', 'id' => $model->id]);
-                        else return  Yii::$app->runAction('site/doom', ['message' => 'Opinião NÃO cadastrada com sucesso.']);
-                    }
-                    else    
-                    {
-                        $model_relator = new Relator();
-                        $model_relator->perfil = $model->func_esp;
-
-                        if ( $model_relator->save(false) )
-                        {
-                            $model->funcao_especialista = $novo_relator->id_relator;
-
-                            if ( $model->save() ) return $this->redirect(['view', 'id' => $model->id]);
-                            else return  Yii::$app->runAction('site/doom', ['message' => 'Nova função cadastrada com sucesso. Opinião NÃO cadastrada com sucesso.']);
-                        }
-                        else return Yii::$app->runAction('site/doom', ['message' => 'Nova função NÃO cadastrada com sucesso.']);
-                    }
                 }
 
-               
+                if ( $model->save() )
+                    return $this->redirect(['view', 'id' => $model->id]);
+                else
+                    return Yii::$app->runAction('site/doom', ['message' => 'O novo cadastro NÃO foi salvo.']);
+
             }
             else 
             {
@@ -195,6 +171,8 @@ class RespostaEspecialistasController extends Controller
         }
 
     }
+
+
 
     /**
      * Updates an existing RespostaEspecialistas model.
@@ -276,4 +254,30 @@ class RespostaEspecialistasController extends Controller
             throw new NotFoundHttpException('A página requisitada não existe.');
         }
     }
+
+    protected function checaRelator ($novo_perfil)
+    {
+        if ( $novo_perfil != null )
+        {
+            $procura = Relator::find()->where(['perfil' => $novo_perfil])->one();
+
+            if ( $procura == null )
+            {
+                $model = new Relator();
+
+                $model->perfil = $novo_perfil;
+
+                if ( $model->save()     )
+                    return $model->id_relator;  // Retorna o id do novo registro
+                else 
+                    return (-1);
+            }
+            else
+            {
+                return $procura->id_relator;  // Se já tem um relator com esse perfil, envia o id de registro
+            }
+        }
+        else return (-2); // Nenhum novo perfil foi informado
+    }
+
 }
