@@ -78,21 +78,160 @@ class SiteController extends Controller
     Combina o uso de RBC, AVA e opinião dos especialistas 
     ****/
 
-    public function Combinacao ()
+    public function actionCombinacao ()
     {
     	$model = new Combinacao();
 
+    	if ( $model->load(Yii::$app->request->post()) )
+    	{
+    		$resultado_id = -10;
+    		$imagem_id = 0;
+
+	    	/***** RBC   ******/
+	    	if ( $model->cbr != null )  // RBC foi selecionado
+	    	{
+	    		$tipodoproblema = TipoProblema::find()->where(['id' => $model->tipo_problema])->one();
+
+                $resultado_id = $this->agenteRBC(0, "", "", "", $model->palavras_chaves, $tipodoproblema->tipo);    
+
+                switch ($resultado_id)
+                {
+                    case 0:
+                        return $this->actionDoom('Solução existente. Porém, a pesquisa não salva com sucesso.');
+                        break;
+                    case (-1):
+                        return $this->actionDoom('Não foi possível registrar a pesquisa. Retorne à página anterior e tente novamente.');
+                        break;
+                    case (-2): 
+                        return $this->actionDoom('Problema ao conectar com o servidor. Tente novamente.');
+                        break;
+                    case (-3):
+                        return $this->actionDoom('Registro da solução não encontrada.');
+                        break; 
+                    case (-4):
+                        return $this->actionDoom('Não há solução na base de casos com a descrição apresentada.');
+                        break;
+                    default:
+                        break;   
+                } 
+	    	}
+	    	/***** RBC END  ******/
+
+	    	/***** AVA   ******/
+	    	if ( $model->ava != null ) // AVA foi selecionado
+	    	{
+	    		// Busca na tabela imagem
+	    		// Pegar o id do model com a palavra-chave informada (imagem_id)
+	    		// Salvar, na tabela pesquisa, a palavra-chave somente -> salvar no resultado_id (tanto variável quanto na pesquisa com esse id)
+	    	}
+	    	/***** AVA END  ******/
+
+	    	/***** ESPECIALISTAS   ******/
+	    	if ( $model->esp != null ) // ESP foi selecionado
+	    	{
+	            if ( $this->verificadorDadosEXP($model->titulo_problema, $model->tipo_problema) == 0 ) 
+	            {
+	            	$resposta = RespostaEspecialistas::find()->where(['id_titulo_problema' => $model->titulo_problema])
+                                                     ->andWhere(['id_tipo_problema' => $model->tipo_problema])
+                                                     ->one();
+
+		            if ( $resposta != null )  // Verifica se existe ao menos um registro
+		            {
+		            	if ( $resultado_id != (-10) )  // Onde o rbc não foi seelcionado - não tem uma pesquisa combinada já criada
+		            	{
+			                $nova_pesquisa = new Pesquisas();
+			                $nova_pesquisa->id_resposta = $resposta->id;
+			                $nova_pesquisa->id_usuario = Yii::$app->user->identity->id;
+
+			                if ( !$nova_pesquisa->save() )   // Se não salvar, tentar com false positivo
+			                	return $this->actionDoom('Solução existente. Porém, a pesquisa não salva com sucesso.');		       
+			                else $resultado_id = $nova_pesquisa->id_pesquisa;	
+		            	}
+		            	else
+		            	{
+		            		$atualiza = Pesquisas::find()->where(['id_pesquisa' => $resultado_id])->one();
+
+		            		$atualiza->id_resposta = $resposta->id;
+
+			                if ( !$atualiza->save() ) 
+			                	return $this->actionDoom('Solução existente. Porém, a pesquisa não salva com sucesso.');	
+		            	}
+
+		                
+		            }
+	            }
+	            else return $this->actionDoom('Por favor, informar o título e tipo do problema.'); 
+	    	}
+	    	/***** ESPECIALISTAS END  ******/    	
+	    	return $this->actionViewcombinacao($resultado_id);
+    	}
+    	else
+    	{
+    		$arrayTitulosProblemas = ArrayHelper::map(TituloProblemaSearch::find()->all(), 'id', 'titulo');
+            $arrayTiposProblemas = ArrayHelper::map(TipoProblemaSearch::find()->all(), 'id', 'tipo'); 
+
+	        return $this->render('combinacao', [
+	            'model' => $model,
+	            'arrayTiposProblemas' => $arrayTiposProblemas,
+	            'arrayTitulosProblemas' => $arrayTitulosProblemas,
+	        ]);
+    	}
+
+
+    }
+
+    public function actionViewcombinacao ($id)
+    {
+    	$model_descricao = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
+
     	/***** RBC   ******/
-    	.....
+
+    	$model_solucao = Solucao::find()->where(['id_solucao' => $model_descricao->id_solucao])->one();
+
+    	$model_descricao->similaridade = round(($model_descricao->similaridade * 100 ));
+
+        $polo = Polo::find()->where(['id_polo' => $model_descricao->id_polo])->one();
+	    $model_descricao->id_polo = $polo->nome;
+
     	/***** RBC END  ******/
 
     	/***** AVA   ******/
-    	.....
+
+    	// 
+
     	/***** AVA END  ******/
 
     	/***** ESPECIALISTAS   ******/
-    	.....
+    	$model_esp = RespostaEspecialistas::find()->where(['id' => $model_descricao->id_resposta])->one();
+
+        Yii::$app->formatter->locale = 'pt-BR';
+        $model_esp->data_ocorrencia = Yii::$app->formatter->asDate($model_esp->data_ocorrencia);
+        $model_esp->data_insercao = Yii::$app->formatter->asDate($model_esp->data_insercao);
+
+        $tipo = TipoProblema::find()->where(['id' => $model_esp->id_tipo_problema])->one();
+        $titulo = TituloProblema::find()->where(['id' => $model_esp->id_titulo_problema])->one();
+        $model_esp->id_tipo_problema = $tipo->tipo;
+        $model_esp->id_titulo_problema = $titulo->titulo;
+
+        $r = Relator::find()->where(['id_relator' => $model_esp->relator])->one();
+        if ( $model_esp->funcao_especialista != $model_esp->relator )
+        {
+            $novo_relator = Relator::find()->where(['id_relator' => $model_esp->funcao_especialista])->one();
+            $model_esp->funcao_especialista = $novo_relator->perfil;
+            $model_esp->relator = $r->perfil;
+        }
+        else 
+        {
+            $model_esp->relator = $r->perfil;
+            $model_esp->funcao_especialista = $model_esp->relator;
+        }
     	/***** ESPECIALISTAS END  ******/
+
+        return $this->render('view', [
+            'model_descricao' => $model_descricao,
+            'sol' => $sol,
+            'model_esp' => $model_esp,
+        ]);
     }
 
     /**
@@ -369,6 +508,7 @@ class SiteController extends Controller
             if ( $verificacao_rbc == 0 )   // Checando se todos os dados necessários foram informados
             {
             	$perfil = Relator::find()->where(['id_relator' => $model->relator])->one();  
+            	/*
 		       $postArray = array(
 		            "poloId" => $model->id_polo,
 		            "relatorId" => $perfil->perfil,
@@ -415,7 +555,7 @@ class SiteController extends Controller
 
 		            $idSolucao = $data['solucaoId'];
 		            $similaridadeCalculada = $data['similaridade'];
-		        }
+		        }   */
             	
                 $resultado_id = $this->agenteRBC($model->id_polo, 
                     $model->descricao_problema, 
