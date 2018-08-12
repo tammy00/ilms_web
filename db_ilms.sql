@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 04-Ago-2018 às 22:48
+-- Generation Time: 12-Ago-2018 às 04:53
 -- Versão do servidor: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -60,7 +60,11 @@ CREATE TABLE `curso` (
 --
 
 INSERT INTO `curso` (`id_curso`, `nome`, `tipo_curso`, `duracao`, `departamento`, `coordenador`, `outras_caracteristicas`, `observacoes`, `id_polo`, `id_turma`, `id_disciplina`) VALUES
-(7, 'Educação Física', 'Presencial', 120, 'Faculdade de Educação Física', 'João da Silva', NULL, NULL, 1, 0, 0);
+(1, 'Artes Visuais', 'Presencial', 120, 'Faculdade de Artes', 'João da Silva', NULL, NULL, 15, NULL, NULL),
+(2, 'Administração', 'Presencial', 120, 'Faculdade de Administração', 'João da Silva', NULL, NULL, 14, NULL, NULL),
+(3, 'Ciências Agrárias', 'Presencial', 120, 'Faculdade de Ciências Agrárias', 'João da Silva', NULL, NULL, 12, NULL, NULL),
+(4, 'Biologia', 'Presencial', 120, 'Faculdade de Biologia', 'João da Silva', NULL, NULL, 10, NULL, NULL),
+(5, 'Educação Física', 'Presencial', 120, 'Faculdade de Educação Física', 'João da Silva', NULL, NULL, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -103,7 +107,17 @@ INSERT INTO `descricao` (`id_descricao`, `natureza_problema`, `relator`, `descri
 (17, 'Acadêmica', 'Coordenador Curso', 'Alunos prestes a ser reprovados pela não entrega do TCC.', 'Alunos não entregaram o TCC no final do curso e não quiseram entregar no prazo estabelecido.', 'TCC, reprovação.', NULL, 5),
 (18, 'Acadêmica', 'Coordenador Curso', 'Fraude nos relatórios de levantamento da disciplina.', 'Alunos da disciplina de Estágio fraudaram o relatório de levantamento da disciplina. Uma aluna fez e entregou o relatório do colega, como se fosse o mesmo.', 'Fraude, relatório de levantamento.', NULL, 9),
 (19, 'Pedagógica', 'Coordenador Curso', 'Ausência de alunos na aula presencial da disciplina Introdução Disciplinar.', 'Alunos preocupados com a prova final do período, não compareciam à aula presencial da disciplina Introdução Disciplinar. ', 'Ausência de alunos.', NULL, 2),
-(20, 'Pedagógica', 'Coordenador Graduação', 'Nota muito baixa em uma atividade.', 'Uma professora deu notas muito baixas para uma atividade de opinião sobre o curso, os alunos se sentiram injustiçados e exigiram esclarecimentos e nova correção.', 'Nota baixa.', NULL, 2);
+(20, 'Pedagógica', 'Coordenador Graduação', 'Nota muito baixa em uma atividade.', 'Uma professora deu notas muito baixas para uma atividade de opinião sobre o curso, os alunos se sentiram injustiçados e exigiram esclarecimentos e nova correção.', 'Nota baixa.', NULL, 2),
+(21, 'Acadêmica', 'Coordenador Curso', 'Extravio de documentação e requerimentos.', 'Os alunos frequentemente enviavam por e-mail ou entregavam ao tutor presencial formulários, requerimentos e documentos solicitando ou comprovando alguma questão. Esses documentos não eram devidamente arquivados e às vezes se extraviavam.', 'Extravio.', NULL, 2),
+(22, 'Acadêmica', 'Coordenador Curso', 'Alunos prestes a ser reprovados pela não entrega do TCC.', 'Alunos não entregaram o TCC no final do curso e não quiseram entregar no prazo estabelecido.', 'TCC, reprovação.', NULL, 2),
+(23, 'Acadêmica', 'Professor', 'Plágio em trabalhos.', 'Alunos frequentemente estavam entregando trabalho com plágio, com trechos copiados da internet.', 'Fraude em trabalhos.', NULL, 6),
+(24, 'Pedagógica', 'Professor', 'Plágio em trabalho final de curso', 'Aluna finalista entregou o trabalho final de curso com plágio, foi alertada, fez a dependência da disciplina e entregou novamente com plágio.', 'Plágio em TCC', NULL, 2),
+(25, 'Pedagógica', 'Coordenador Curso', 'Plágio cruzado entre polos.', 'Recorrência de plágio cruzado entre os polos em atividades escritas.', 'Critérios de correção para trabalhos com plágio.', NULL, 2),
+(26, 'Infraestrutura', 'Coordenador Curso', 'Solicitação de adiamento de atividades devido a problemas de energia.', 'Alunos solicitaram adiamento de atividade alegando problemas de energia elétrica, durante dois dias seguidos, na sede do polo. ', 'Adiamento, energia.', NULL, 10),
+(27, 'Acadêmica', 'Coordenador Curso', 'Evasão de alunos devido a grande oferta de outros cursos.', 'Detecção de evasão do curso por causa de aumento na oferta de outros cursos no polo.', 'Reunião com alunos.', NULL, 7),
+(28, 'Acadêmica', 'Professor', 'Chantagem infundada de alunos. Alegação de serem prejudicados por causa de deficiência na infraestrutura do polo. Exigiam tratamento diferenciado.', 'Alunos frequentemente alegavam que, por serem de um polo com infraestrutura inferior aos demais, deveriam ser beneficiados com maior prazo para entrega de atividades e com outros critérios de avaliação.', 'Chantagem.', NULL, 7),
+(29, 'Pedagógica', 'Coordenador Curso', 'Devido ao uso não organizado de material didático, o aluno se prejudicava e comprometia o desempenho nas atividades avaliativas.', 'Alunos não conseguiam fazer uso do material didático disponível na sala virtual. Acabavam por ignorar o material, prejudicando assim seu rendimento acadêmico.', 'Material didático.', NULL, 2),
+(30, 'Pedagógica', 'Coordenador Curso', 'Alunos do início do curso reclamaram de muita dificuldade em realizar atividades do AVA dentro do prazo solicitado.', 'Alunos calouros relataram dificuldades em lidar com prazos em EaD.', 'Prazos, EaD.', NULL, 5);
 
 -- --------------------------------------------------------
 
@@ -120,6 +134,22 @@ CREATE TABLE `disciplina` (
   `id_curso` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `id_professor` int(10) UNSIGNED NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `imagem`
+--
+
+CREATE TABLE `imagem` (
+  `id_imagem` int(11) NOT NULL,
+  `curso` varchar(250) NOT NULL,
+  `disciplina` varchar(250) NOT NULL,
+  `periodo` int(1) NOT NULL,
+  `palavra_chave` varchar(400) NOT NULL,
+  `descricao` text NOT NULL,
+  `ano` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -142,7 +172,27 @@ CREATE TABLE `info_caso` (
 --
 
 INSERT INTO `info_caso` (`id_infoc`, `date_created`, `tipo_caso`, `quantidade_alunos`, `polo`, `id_descricao`, `id_relator`) VALUES
-(2, '2017-05-22', 'Tipo Caso', 40, 'Boa Vista', 10, 1);
+(2, '2017-05-22', 'Tipo Caso', 40, 'Boa Vista', 10, 1),
+(3, '2018-07-18', 'Novo', 120, 'Santa Izabel da Cachoeira', 11, 3),
+(4, '2018-07-18', 'Novo', 60, 'Parintins', 12, 2),
+(5, '2018-07-18', 'Novo', 1, 'Coari', 13, 2),
+(6, '2018-07-18', 'Novo', 12, 'São Gabriel da Cachoeira', 14, 2),
+(7, '2018-07-18', 'Novo', 250, 'Boa Vista', 15, 3),
+(8, '2018-07-22', 'Novo', 167, 'Guajará', 16, 2),
+(9, '2018-07-22', 'Novo', 6, 'Tarauacá', 17, 2),
+(10, '2018-07-22', 'Novo', 2, 'Lábrea', 18, 2),
+(11, '2018-07-22', 'Novo', 80, 'Boa Vista', 19, 2),
+(12, '2018-07-22', 'Novo', 40, 'Boa Vista', 20, 3),
+(13, '2018-08-05', 'Novo', 40, 'Boa Vista', 21, 2),
+(14, '2018-08-05', 'Novo', 40, 'Boa Vista', 22, 2),
+(15, '2018-08-05', 'Novo', 60, 'Tarauacá', 23, 8),
+(16, '2018-08-05', 'Novo', 1, 'Boa Vista', 24, 8),
+(17, '2018-08-05', 'Novo', 40, 'Boa Vista', 25, 2),
+(18, '2018-08-05', 'Novo', 15, 'Manacapuru', 26, 2),
+(19, '2018-08-05', 'Novo', 15, 'Tefé', 27, 2),
+(20, '2018-08-05', 'Novo', 18, 'Tefé', 28, 8),
+(21, '2018-08-05', 'Novo', 40, 'Boa Vista', 29, 2),
+(22, '2018-08-05', 'Novo', 60, 'Tarauacá', 30, 2);
 
 -- --------------------------------------------------------
 
@@ -305,7 +355,17 @@ INSERT INTO `resposta_esp` (`id`, `id_tipo_problema`, `id_titulo_problema`, `des
 (19, 2, 5, 'Alunos prestes a ser reprovados pela não entrega do TCC.', 'Foi dada mais uma chance para que os alunos entregassem o TCC juntamente com a próxima turma.', '2015-11-10', '2018-07-22', 'Ketlen Teles', 8, 2),
 (20, 2, 13, 'Fraude nos relatórios de levantamento da disciplina.', 'Foi exigido um vídeo do aluno relatando o levantamento da escola do estágio de forma oral, além do relatório escrito.', '2014-03-30', '2018-07-22', 'Ketlen Teles', 8, 2),
 (21, 1, 6, 'Ausência de alunos na aula presencial da disciplina Introdução Disciplinar.', 'Atividade avaliativa para o dia da aula presencial da disciplina Introdução Disciplinar.', '2018-05-25', '2018-07-22', 'Ketlen Teles', 8, 2),
-(22, 1, 9, 'Nota muito baixa em uma atividade.', 'Estabelecimento de critérios objetivos de correção de cada atividade.', '2018-06-16', '2018-07-22', 'Ketlen Teles', 8, 3);
+(22, 1, 9, 'Nota muito baixa em uma atividade.', 'Estabelecimento de critérios objetivos de correção de cada atividade.', '2018-06-16', '2018-07-22', 'Ketlen Teles', 8, 3),
+(23, 1, 17, 'Extravio de documentação e requerimentos.', 'Foi criada na sala virtual principal do curso, um Fórum de Envio e Recebimento de Documentos, para que os alunos enviassem de forma digital os requerimentos e os documentos comprobatórios de sua solicitação.', '2018-07-14', '2018-08-05', 'Ketlen Teles', 8, 2),
+(24, 2, 5, 'Alunos prestes a ser reprovados pela não entrega do TCC.', 'Foi dada mais uma chance para que os alunos entregassem o TCC juntamente com a próxima turma.', '2015-11-10', '2018-08-05', 'Ketlen Teles', 8, 2),
+(25, 2, 18, 'Plágio em trabalhos.', 'Foi feito um vídeo explicativo sobre o assunto, enviado para todos os polos. ', '2014-05-03', '2018-08-05', 'Ketlen Teles', 8, 8),
+(26, 1, 18, 'Plágio em trabalho final de curso', 'Foi dada uma nova chance para a aluna, mas a mesma continuou entregando o trabalho com plágio. ', '2016-12-04', '2018-08-05', 'Ketlen Teles', 8, 8),
+(27, 1, 18, 'Plágio cruzado entre polos.', 'Estabelecimento de critérios para correção quando houver plágio: o primeiro trabalho a ser postado será o válido, os outros que o plagiaram serão considerados invalidados.', '2018-07-16', '2018-08-05', 'Ketlen Teles', 8, 2),
+(28, 3, 1, 'Solicitação de adiamento de atividades devido a problemas de energia.', 'Foi solicitado ao coordenador de polo e tutores presenciais um relatório sobre o problema. Ao constatar-se a veracidade do mesmo, foi feito o adiamento das atividades.', '2018-07-13', '2018-08-05', 'Ketlen Teles', 8, 2),
+(29, 2, 6, 'Evasão de alunos devido a grande oferta de outros cursos.', 'Coordenador do curso foi até o polo para se reunir com alunos e alertar sobre os benefícios de concluir o curso.', '2017-07-11', '2018-08-05', 'Ketlen Teles', 8, 2),
+(30, 2, 15, 'Chantagem infundada de alunos. Alegação de serem prejudicados por causa de deficiência na infraestrutura do polo. Exigiam tratamento diferenciado.', 'Foi realizada uma reunião com alunos, coordenador de polo, coordenador de curso e tutores presenciais para informar que a exigência era infundada pois as condições de infraestrutura eram iguais a todos os polos.', '2014-05-03', '2018-08-05', 'Ketlen Teles', 8, 8),
+(31, 1, 14, 'Devido ao uso não organizado de material didático, o aluno se prejudicava e comprometia o desempenho nas atividades avaliativas.', 'Foi elaborado pelo coordenador de tutor e pelo coordenador de curso um guia de utilização de material didático do curso. Cada tutor presencial teve que montar um cronograma com sugestões de datas para utilização de cada recurso didático, organização de leitura dos textos e estudos gerais.', '2016-12-04', '2018-08-05', 'Ketlen Teles', 8, 2),
+(32, 1, 13, 'Alunos do início do curso reclamaram de muita dificuldade em realizar atividades do AVA dentro do prazo solicitado.', 'O coordenador de curso foi em todos os polos realizar palestras de orientação de organização dos estudos. As sugestões foram em relação a administração do tempo, adiantamento de tarefas, montagem de cronograma individual e foco no cumprimento de prazos.', '2018-05-08', '2018-08-05', 'Ketlen Teles', 8, 2);
 
 -- --------------------------------------------------------
 
@@ -350,7 +410,17 @@ INSERT INTO `solucao` (`id_solucao`, `solucao`, `palavras_chaves`, `acao_impleme
 (17, 'Foi dada mais uma chance para que os alunos entregassem o TCC juntamente com a próxima turma.', 'Entrega em data posterior.', '- Reunião com Coordenador de graduação e coordenador de curso para decidir a questão.\r\n- Acerto com alunos para que os mesmos se comprometessem a entregar o TCC no próximo período. \r\n- Rematrícula dos alunos na próxima turma do curso.\r\n\r\n', 'Sim', 'Sim', 'Nenhum', 'Não houve', 'Coordenador do curso, tutores.', NULL),
 (18, 'Foi exigido um vídeo do aluno relatando o levantamento da escola do estágio de forma oral, além do relatório escrito.', 'Vídeo.', '- Foi decidido que, para se evitar fraudes, seria exigido um vídeo do aluno relatando as atividades das disciplinas Estágio Curricular I, II e III, além do relatório final.', 'Sim', 'Sim', 'Nenhum', 'Acréscimo de mais uma atividade para avaliação e correção.', 'Coordenador de curso, professor.', NULL),
 (19, 'Atividade avaliativa para o dia da aula presencial da disciplina Introdução Disciplinar.', 'Atividade avaliativa.', '- Foi estabelecida uma atividade avaliativa para o dia da aula presencial da disciplina Introdução Disciplinar.\r\n- A atividade devia ser entregue via AVA.\r\n- Para os alunos que faltavam a aula presencial, a avaliação teve a pontuação reduzida.\r\n', 'Sim', 'Sim', 'Nenhum', 'Mais uma atividade para correção.', 'Coordenador de curso, professor, tutor presencial.', NULL),
-(20, 'Estabelecimento de critérios objetivos de correção de cada atividade.', 'Critérios de correção.', '- O Coordenador de curso, juntamente com os professores resolveram estabelecer critérios objetivos de correção para as atividades avaliativas.\r\n- Os alunos foram informados desses critérios e os itens de avaliação foram devidamente explicados para que não houvesse dúvidas.\r\n', 'Sim', 'Sim', 'Nenhum', 'Estabelecimento de critérios em todas as atividades das disciplinas.', 'Coordenador de curso, professores.', NULL);
+(20, 'Estabelecimento de critérios objetivos de correção de cada atividade.', 'Critérios de correção.', '- O Coordenador de curso, juntamente com os professores resolveram estabelecer critérios objetivos de correção para as atividades avaliativas.\r\n- Os alunos foram informados desses critérios e os itens de avaliação foram devidamente explicados para que não houvesse dúvidas.\r\n', 'Sim', 'Sim', 'Nenhum', 'Estabelecimento de critérios em todas as atividades das disciplinas.', 'Coordenador de curso, professores.', NULL),
+(21, 'Foi criada na sala virtual principal do curso, um Fórum de Envio e Recebimento de Documentos, para que os alunos enviassem de forma digital os requerimentos e os documentos comprobatórios de sua solicitação.', 'Fórum de envio e recebimento de documentos.', '- O Coordenador de curso criou um fórum exclusivamente para envio e recebimento de documentos.\r\n- Foi disponibilizado nesse fórum um formulário específico para que o aluno pudesse escrever a sua solicitação com mais detalhes.\r\n', 'Sim', 'Sim', 'Nenhum.', 'Mais agilidade no recebimento e análise de solicitações formais.', 'Coordenador de curso, coordenador de tutores, tutor presencial, tutor à distância.', NULL),
+(22, 'Foi dada mais uma chance para que os alunos entregassem o TCC juntamente com a próxima turma.', 'Entrega em data posterior, rematrícula.', '- Reunião com Coordenador de graduação e coordenador de curso para decidir a questão.\r\n- Acerto com alunos para que os mesmos se comprometessem a entregar o TCC no próximo período. \r\n- Rematrícula dos alunos na próxima turma do curso.\r\n', 'Sim', 'Sim', 'Nenhum.', 'Não houve.', 'Coordenador do curso, tutor presencial e tutor à distância.', NULL),
+(23, 'Foi feito um vídeo explicativo sobre o assunto, enviado para todos os polos. ', 'Vídeo.', '-  Foi feito um vídeo explicativo sobre o assunto e enviado para todos os polos. \r\n- Nos primeiros períodos do curso foi considerada uma certa tolerância nos trabalhos. \r\n- Os alunos foram avisados de que a partir do 3º período a correção seria mais rigorosa em relação a plágios.\r\n', 'Sim', 'Sim', 'Nenhum.', 'Não houve.', 'Coordenador de curso, professor, tutor presencial.', NULL),
+(24, 'Foi dada uma nova chance para a aluna, mas a mesma continuou entregando o trabalho com plágio. ', 'Reprovação.', '- Foi dada uma nova chance para a aluna entregar um trabalho válido, mas ela entregou novamente um com plágio.\r\n- A aluna foi reprovada.\r\n', 'Sim', 'Sim', 'Nenhum.', 'Não houve.', 'Coordenador de graduação, coordenador de curso.', NULL),
+(25, 'Estabelecimento de critérios para correção quando houver plágio: o primeiro trabalho a ser postado será o válido, os outros que o plagiaram serão considerados invalidados.', 'Critérios de correção para trabalhos com plágio.', '- O Coordenador de curso, juntamente com os professores resolveram determinar critérios para trabalhos plagiados.\r\n- O primeiro trabalho a ser postado será o válido, os outros que o plagiaram serão considerados invalidados.\r\n- Divulgação das leis de plágio.\r\n- Em alguns casos, se houver reclamação por parte dos alunos envolvidos, será checado com o tutor presencial o histórico e o desempenho desses alunos, para se tentar chegar a uma solução justa.\r\n', 'Sim', 'Sim', 'Nenhum.', 'Estabelecimento de critérios para correção para trabalhos com plágio entre si.', 'Coordenador de curso, professores, tutor presencial.', NULL),
+(26, 'Foi solicitado ao coordenador de polo e tutores presenciais um relatório sobre o problema. Ao constatar-se a veracidade do mesmo, foi feito o adiamento das atividades.', 'Adiamento, relatório.', '- O Coordenador de curso solicitou um relatório sobre o caso ao coordenador de polo e tutores presenciais.\r\n- Constatado o problema, optou-se pelo adiamento das atividades pelo mesmo período em que houve a ausência de energia elétrica.\r\n', 'Sim', 'Sim', 'Nenhum.', 'Atraso no recebimento das atividades somente para o polo.', 'Coordenador de curso, coordenador de tutores, tutor presencial.', NULL),
+(27, 'Coordenador do curso foi até o polo para se reunir com alunos e alertar sobre os benefícios de concluir o curso.', 'Reunião com alunos.', '- Reunião do coordenador de curso com alunos para falar sobre a importância de concluir o curso.\r\n- Depoimentos de professores e egressos sobre a profissão e as possibilidades do curso.\r\n', 'Sim', 'Sim', 'Financeiros.', 'Não houve.', 'Coordenador do curso, coordenador de polo, tutor presencial.', NULL),
+(28, 'Foi realizada uma reunião com alunos, coordenador de polo, coordenador de curso e tutores presenciais para informar que a exigência era infundada pois as condições de infraestrutura eram iguais a todos os polos.', 'Reunião para esclarecimentos.', '-  Foi realizada uma reunião com alunos, coordenador de polo, coordenador de curso e tutores presenciais para informar que a exigência era infundada pois as condições de infraestrutura eram iguais a todos os polos.\r\n- Foram mostradas a realidade dos outros polos e foi feita a comparação com o polo em questão. \r\n- Professores e tutores presencias e à distância foram alertados para não fazerem nenhuma diferenciação de tratamento e avaliação com os alunos deste polo.\r\n', 'Sim', 'Sim', 'Nenhum.', 'Não houve.', 'Coordenador de curso, coordenador de polo, professor, tutor presencial, tutor à distância', NULL),
+(29, 'Foi elaborado pelo coordenador de tutor e pelo coordenador de curso um guia de utilização de material didático do curso. Cada tutor presencial teve que montar um cronograma com sugestões de datas para utilização de cada recurso didático, organização de leitura dos textos e estudos gerais.', 'Material didático.', '- Criação de um Guia de utilização de material didático.\r\n- Cada tutor presencial elaborou um cronograma com sugestões de datas para utilização de cada recurso didático, organização de leitura dos textos e estudos gerais.\r\n', 'Sim', 'Sim', 'Nenhum.', 'Organização de estudos.', 'Coordenador de curso, coordenador de tutor, tutor presencial.', NULL),
+(30, 'O coordenador de curso foi em todos os polos realizar palestras de orientação de organização dos estudos. As sugestões foram em relação a administração do tempo, adiantamento de tarefas, montagem de cronograma individual e foco no cumprimento de prazos.', 'Palestra de orientação, cronograma individual.', '- Viagem do coordenador de curso a todos os polos para realizar palestras de orientação de organização dos estudos. \r\n- Sugestões: administração do tempo, adiantamento de tarefas, montagem de cronograma individual e foco no cumprimento de prazos.\r\n- Orientação a tutores presenciais para acompanhamento individual do cumprimento dos prazos.\r\n', 'Sim', 'Sim', 'Nenhum.', 'Melhoria no cumprimento de prazos das atividades no AVA.', 'Coordenador de curso, Coordenador de polo, tutor presencial.', NULL);
 
 -- --------------------------------------------------------
 
@@ -403,7 +473,9 @@ INSERT INTO `titulo_problema` (`id`, `titulo`) VALUES
 (13, 'Atividades'),
 (14, 'Conteúdo'),
 (15, 'Infraestrutura'),
-(16, 'Logística');
+(16, 'Logística'),
+(17, 'Extravio'),
+(18, 'Plágio');
 
 -- --------------------------------------------------------
 
@@ -494,6 +566,12 @@ ALTER TABLE `descricao`
 ALTER TABLE `disciplina`
   ADD PRIMARY KEY (`id_disciplina`),
   ADD KEY `fk_disciplina_professor_idx` (`id_professor`);
+
+--
+-- Indexes for table `imagem`
+--
+ALTER TABLE `imagem`
+  ADD PRIMARY KEY (`id_imagem`);
 
 --
 -- Indexes for table `info_caso`
@@ -596,13 +674,13 @@ ALTER TABLE `aplicativo`
 -- AUTO_INCREMENT for table `curso`
 --
 ALTER TABLE `curso`
-  MODIFY `id_curso` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_curso` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `descricao`
 --
 ALTER TABLE `descricao`
-  MODIFY `id_descricao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_descricao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `disciplina`
@@ -611,10 +689,16 @@ ALTER TABLE `disciplina`
   MODIFY `id_disciplina` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `imagem`
+--
+ALTER TABLE `imagem`
+  MODIFY `id_imagem` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `info_caso`
 --
 ALTER TABLE `info_caso`
-  MODIFY `id_infoc` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_infoc` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `pesquisas`
@@ -644,13 +728,13 @@ ALTER TABLE `relator`
 -- AUTO_INCREMENT for table `resposta_esp`
 --
 ALTER TABLE `resposta_esp`
-  MODIFY `id` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `solucao`
 --
 ALTER TABLE `solucao`
-  MODIFY `id_solucao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_solucao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `tipo_problema`
@@ -662,7 +746,7 @@ ALTER TABLE `tipo_problema`
 -- AUTO_INCREMENT for table `titulo_problema`
 --
 ALTER TABLE `titulo_problema`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `turma`

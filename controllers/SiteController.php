@@ -12,6 +12,7 @@ use app\models\Curso;
 use app\models\CursoSearch;
 use app\models\Descricao;
 use app\models\BuscaGeral;
+use app\models\Combinacao;
 use app\models\RespostaEspecialistas;
 use app\models\RespostaEspecialistasSearch;
 use app\models\TipoProblema;
@@ -39,7 +40,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'index', 'view', 'doom', 'cbrsearch', 'vlesearch', 'expsearch', 'cbrview', 'vleview', 'expview', 'lpgraph', 'behaviour', 'desempenho'],
+                'only' => ['logout', 'index', 'view', 'doom', 'cbrsearch', 'vlesearch', 'expsearch', 'cbrview', 'vleview', 'expview', 'lpgraph', 'behaviour', 'desempenho', 'combinacao', 'viewcombinacao'],
                 'rules' => [
                     [
                         'actions' => ['logout', 'index', 'view', 'doom', 'cbrsearch', 'vlesearch', 'expsearch', 'cbrview', 'vleview', 'expview', 'lpgraph', 'behaviour', 'desempenho'],
@@ -71,6 +72,27 @@ class SiteController extends Controller
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
+    }
+
+    /****
+    Combina o uso de RBC, AVA e opinião dos especialistas 
+    ****/
+
+    public function Combinacao ()
+    {
+    	$model = new Combinacao();
+
+    	/***** RBC   ******/
+    	.....
+    	/***** RBC END  ******/
+
+    	/***** AVA   ******/
+    	.....
+    	/***** AVA END  ******/
+
+    	/***** ESPECIALISTAS   ******/
+    	.....
+    	/***** ESPECIALISTAS END  ******/
     }
 
     /**
