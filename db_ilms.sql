@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 12-Ago-2018 às 04:53
+-- Generation Time: 17-Ago-2018 às 02:20
 -- Versão do servidor: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -138,18 +138,32 @@ CREATE TABLE `disciplina` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `imagem`
+-- Estrutura da tabela `figuras_ava`
 --
 
-CREATE TABLE `imagem` (
-  `id_imagem` int(11) NOT NULL,
-  `curso` varchar(250) NOT NULL,
-  `disciplina` varchar(250) NOT NULL,
-  `periodo` int(1) NOT NULL,
-  `palavra_chave` varchar(400) NOT NULL,
-  `descricao` text NOT NULL,
-  `ano` int(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `figuras_ava` (
+  `id_figura` int(10) UNSIGNED NOT NULL,
+  `nome_figura` varchar(200) NOT NULL DEFAULT '',
+  `aplicativo` varchar(100) NOT NULL DEFAULT '',
+  `tipo_grafico` varchar(100) NOT NULL DEFAULT '',
+  `curso` varchar(100) NOT NULL DEFAULT '',
+  `disciplina` varchar(200) NOT NULL DEFAULT '',
+  `polo` varchar(100) NOT NULL DEFAULT '',
+  `ano_periodo` varchar(100) NOT NULL DEFAULT '',
+  `total_alunos` int(111) UNSIGNED NOT NULL,
+  `palavras_chaves` varchar(200) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `figuras_ava`
+--
+
+INSERT INTO `figuras_ava` (`id_figura`, `nome_figura`, `aplicativo`, `tipo_grafico`, `curso`, `disciplina`, `polo`, `ano_periodo`, `total_alunos`, `palavras_chaves`) VALUES
+(1, 'Fundamentos da Anatomia_LMSMonitor', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Fundamentos da Anatomia', 'Santa Isavel do Rio Negro', '2015/2', 22, 'reprovação, aprovação'),
+(2, 'Informática Básica_LMSMonitor', 'LMSMonitor', 'Aprovação', 'Administração', 'Informática Básica', 'Boa Vista', '2016/2', 30, 'reprovação, aprovação'),
+(3, 'Informática Básica_WebMonitor', 'WebMonitor', 'Nível de participação nas tarefas', 'Ciências Agrárias', 'Informática Básica', 'Tefé', '2016/1', 15, 'participação, tarefas'),
+(4, 'Ritmo e Movimento_LMSMonitor', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Ritmo e Movimento', 'Santa Isabel do Rio Negro', '2015/1', 22, 'reprovação, aprovação'),
+(5, 'Informática Básica_LPGraph', 'LPGraph', 'Trilha de Aprendizagem', 'Administração', 'Informática Básica', 'Tarauacá', '2017/1', 60, 'trilha de aprendizagem');
 
 -- --------------------------------------------------------
 
@@ -568,10 +582,10 @@ ALTER TABLE `disciplina`
   ADD KEY `fk_disciplina_professor_idx` (`id_professor`);
 
 --
--- Indexes for table `imagem`
+-- Indexes for table `figuras_ava`
 --
-ALTER TABLE `imagem`
-  ADD PRIMARY KEY (`id_imagem`);
+ALTER TABLE `figuras_ava`
+  ADD PRIMARY KEY (`id_figura`);
 
 --
 -- Indexes for table `info_caso`
@@ -687,12 +701,6 @@ ALTER TABLE `descricao`
 --
 ALTER TABLE `disciplina`
   MODIFY `id_disciplina` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `imagem`
---
-ALTER TABLE `imagem`
-  MODIFY `id_imagem` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `info_caso`
