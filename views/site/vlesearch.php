@@ -6,94 +6,93 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\grid\GridView;
+use app\models\Polo;
 
 $this->title = 'Dados do Ambiente Virtual';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
-<style>
-
-.sidenav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-}
-
-.sidenav a {
-    padding: 25px 8px 8px 32px; /* top right bottom left  */
-    text-decoration: none;
-    font-size: 19px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-}
-
-.sidenav a:hover {
-    color: #f1f1f1;
-}
-
-.sidenav .closebtn {
-    position: absolute;
-    top: 20px;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 10px;}
-}
-</style>
-
-<script>
-function openNav() {
-    document.getElementById("mySidenav").style.width = "420px";
-}
-
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-}
-</script>
 
 <div>
     <h1><?= Html::encode($this->title) ?></h1>
     
       <div class="col-xs-6 col-md-10"> 
         <br>
-        <p> Selecione um curso para ter acesso aos dados através dos plugins a serem exibidos. </p>
 
-
-
-      <?php 
-
-
-
-        foreach ($cursos as $c) 
-        {
-          $link_lpgraph = 'index.php?r=site/lpgraph&id='.$c->id_curso;
-          $link_desempenho = 'index.php?r=site/desempenho&id='.$c->id_curso;
-          $link_comportamento = 'index.php?r=site/behaviour&id='.$c->id_curso;
-
-          echo '<div id="mySidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href='.$link_lpgraph.' > Grafo de Linha de Aprendizagem</a>
-            <a href='.$link_desempenho.' > Monitor de Desempenho</a>
-            <a href='.$link_comportamento.' > Monitor de Comportamento</a>
-          </div>';
-
-          echo '<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;  '.$c->nome.'</span> <br>';
-
-        }
-
-       ?>
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                //'filterModel' => $searchModel,
+                'columns' => [
+                    [
+                       'class' => 'yii\grid\SerialColumn',
+                        'headerOptions' => ['style' => 'text-align:center; color:#337AB7'],
+                        'contentOptions' => ['style' => 'text-align:center; vertical-align:middle'],
+                    ],
+                    [
+                        'attribute' => 'nome',
+                        'contentOptions' => ['style' => 'text-align:center; vertical-align:middle'],
+                        'headerOptions' => ['style' => 'text-align:center; color:#337AB7'],
+                    ],
+                    [
+                        'attribute' => 'id_polo',
+                        'contentOptions' => ['style' => 'text-align:center; vertical-align:middle'],
+                        'headerOptions' => ['style' => 'text-align:center; color:#337AB7'],
+                        'value' => function ($data) {
+                                $polo = Polo::find()->where(['id_polo' => $data->id_polo])->one();
+                                return $polo->nome;
+                        },
+                    ],
+                    [
+                        'class' => 'yii\grid\ActionColumn',
+                        'header'=>'Ações',
+                        'headerOptions' => ['style' => 'text-align:center; color:#337AB7'],
+                        'contentOptions' => ['style' => 'text-align:center; vertical-align:middle'],
+                        'template' => '{lpgraph} {behaviour} {desempenho}',
+                        'buttons' => 
+                        [
+                            'lpgraph' => function ($url, $model) 
+                            {
+                                //$valor = RespostaEspecialistas::find()->where(['id' => $pesquisa->id_resposta])->one();
+                                return Html::a(
+                                    'Trilha de Aprendizagem<br>',
+                                    ['site/lpgraph', 'id' => $model->id_curso], 
+                                    [
+                                        'title' => 'Grafo Trilha de Aprendizagem',
+                                        'aria-label' => 'Grafo Trilha de Aprendizagem',
+                                        'data-pjax' => '0',
+                                    ]
+                                );
+                            },
+                            'behaviour' => function ($url, $model) 
+                            {
+                                //$valor = RespostaEspecialistas::find()->where(['id' => $pesquisa->id_resposta])->one();
+                                return Html::a(
+                                    'Monitoramento de Comportamento<br>',
+                                    ['site/behaviour', 'id' => $model->id_curso], 
+                                    [
+                                        'title' => 'Monitoramento de Comportamento',
+                                        'aria-label' => 'Monitoramento de Comportamento',
+                                        'data-pjax' => '0',
+                                    ]
+                                );
+                            },
+                            'desempenho' => function ($url, $model) 
+                            {
+                                //$valor = RespostaEspecialistas::find()->where(['id' => $pesquisa->id_resposta])->one();
+                                return Html::a(
+                                    'Monitoramento de Desempenho<br>',
+                                    ['site/desempenho', 'id' => $model->id_curso], 
+                                    [
+                                        'title' => 'Monitoramento de Desempenho',
+                                        'aria-label' => 'Monitoramento de Desempenho',
+                                        'data-pjax' => '0',
+                                    ]
+                                );
+                            },
+                        ],
+                    ],
+                ],
+            ]); ?>
 
 
       </div>

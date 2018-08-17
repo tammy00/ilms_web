@@ -28,6 +28,7 @@ use app\models\Polo;
 use app\models\RelatorSearch;
 use app\models\DisciplinaSearch;
 use app\models\Usuario;
+use app\models\FigurasAva;
 use yii\helpers\ArrayHelper;
 
 class SiteController extends Controller
@@ -335,30 +336,21 @@ class SiteController extends Controller
     public function actionVlesearch ( )
     {
   
-            $cursos = Curso::find()->ORDERBY(['id_curso' => SORT_DESC])->all();  // Procurando todos os cursos cadastrados, porque não tem como filtrar para certo ano e/ou certo período. Ou de qualquer outra forma. Mas tá organizando do último cadastrado ao primeiro.
+        $searchModel = new CursoSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
             return $this->render('vlesearch', [
-                'cursos' => $cursos,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
             ]);
-        //}
-    }
-
-
-/*
-    public function actionVleview($id)
-    {
-
-
-        return $this->render('vleview', [
-            //
-        ]);
         
-    }  */
+    }
 
     public function actionLpgraph($id)
     {
-        $model = Curso::find()->where(['id_curso' => $id])->one();
+        $curso_model = Curso::find()->where(['id_curso' => $id])->one();
 
-
+        $model = FigurasAva::find()->where(['curso' => $curso_model->nome])->andWhere(['aplicativo' => 'LPGraph'])->one();
 
         return $this->render('lpgraph', [
             'model' => $model,
@@ -367,7 +359,10 @@ class SiteController extends Controller
 
     public function actionBehaviour($id)
     {
-        $model = Curso::find()->where(['id_curso' => $id])->one();
+    	$curso = Curso::find()->where(['id_curso' => $id])->one();
+
+        $model = FigurasAva::find()->where(['curso' => $curso->nome])->andWhere(['aplicativo' => 'LMSMonitor'])->one();
+
         return $this->render('behaviour', [
             'model' => $model,
         ]);
@@ -375,10 +370,17 @@ class SiteController extends Controller
 
     public function actionDesempenho($id)
     {
-        $model = Curso::find()->where(['id_curso' => $id])->one();
-        return $this->render('desempenho', [
-            'model' => $model,
-        ]);
+        $curso = Curso::find()->where(['id_curso' => $id])->one();
+
+        $model = FigurasAva::find()->where(['curso' => $curso->nome])->andWhere(['aplicativo' => 'WebMonitor'])->one();
+
+        if ( $model != null ){
+	        return $this->render('desempenho', [
+	            'model' => $model,
+	        ]);        	
+        }
+        else return $this->actionIndex();
+
     }
 
 

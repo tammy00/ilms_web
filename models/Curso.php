@@ -57,15 +57,15 @@ class Curso extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_curso' => 'Id Curso',
-            'nome' => 'Nome',
+            'id_curso' => 'Curso',
+            'nome' => 'Nome do Curso',
             'tipo_curso' => 'Tipo Curso',
             'duracao' => 'Duracao',
             'departamento' => 'Departamento',
             'coordenador' => 'Coordenador',
             'outras_caracteristicas' => 'Outras Caracteristicas',
             'observacoes' => 'Observacoes',
-            'id_polo' => 'Id Polo',
+            'id_polo' => 'Polo',
             'id_turma' => 'Id Turma',
             'id_disciplina' => 'Id Disciplina',
         ];
