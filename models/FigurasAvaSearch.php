@@ -41,7 +41,7 @@ class FigurasAvaSearch extends FigurasAva
      */
     public function search($params)
     {
-        $query = FigurasAva::find();
+        $query = FigurasAva::find()->orderBy(['curso' => SORT_ASC]);
 
         // add conditions that should always apply here
 

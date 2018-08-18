@@ -29,6 +29,7 @@ use app\models\RelatorSearch;
 use app\models\DisciplinaSearch;
 use app\models\Usuario;
 use app\models\FigurasAva;
+use app\models\FigurasAvaSearch;
 use yii\helpers\ArrayHelper;
 
 class SiteController extends Controller
@@ -336,7 +337,8 @@ class SiteController extends Controller
     public function actionVlesearch ( )
     {
   
-        $searchModel = new CursoSearch();
+        //$searchModel = new CursoSearch();
+        $searchModel = new FigurasAvaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
             return $this->render('vlesearch', [
@@ -348,9 +350,8 @@ class SiteController extends Controller
 
     public function actionLpgraph($id)
     {
-        $curso_model = Curso::find()->where(['id_curso' => $id])->one();
 
-        $model = FigurasAva::find()->where(['curso' => $curso_model->nome])->andWhere(['aplicativo' => 'LPGraph'])->one();
+        $model = FigurasAva::find()->where(['id_figura' => $id])->one();
 
         return $this->render('lpgraph', [
             'model' => $model,
@@ -359,9 +360,8 @@ class SiteController extends Controller
 
     public function actionBehaviour($id)
     {
-    	$curso = Curso::find()->where(['id_curso' => $id])->one();
 
-        $model = FigurasAva::find()->where(['curso' => $curso->nome])->andWhere(['aplicativo' => 'LMSMonitor'])->one();
+        $model = FigurasAva::find()->where(['id_figura' => $id])->one();
 
         return $this->render('behaviour', [
             'model' => $model,
@@ -370,16 +370,13 @@ class SiteController extends Controller
 
     public function actionDesempenho($id)
     {
-        $curso = Curso::find()->where(['id_curso' => $id])->one();
 
-        $model = FigurasAva::find()->where(['curso' => $curso->nome])->andWhere(['aplicativo' => 'WebMonitor'])->one();
+        $model = FigurasAva::find()->where(['id_figura' => $id])->one();
 
-        if ( $model != null ){
-	        return $this->render('desempenho', [
+        return $this->render('desempenho', [
 	            'model' => $model,
 	        ]);        	
-        }
-        else return $this->actionIndex();
+        
 
     }
 
