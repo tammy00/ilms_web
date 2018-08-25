@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 17-Ago-2018 às 04:01
+-- Generation Time: 25-Ago-2018 às 22:13
 -- Versão do servidor: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -159,11 +159,26 @@ CREATE TABLE `figuras_ava` (
 --
 
 INSERT INTO `figuras_ava` (`id_figura`, `nome_figura`, `aplicativo`, `tipo_grafico`, `curso`, `disciplina`, `polo`, `ano_periodo`, `total_alunos`, `palavras_chaves`) VALUES
-(1, 'Fundamentos da Anatomia_LMSMonitor', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Fundamentos da Anatomia', 'Santa Isavel do Rio Negro', '2015/2', 22, 'reprovação, aprovação'),
-(2, 'Informática Básica_LMSMonitor', 'LMSMonitor', 'Aprovação', 'Administração', 'Informática Básica', 'Boa Vista', '2016/2', 30, 'reprovação, aprovação'),
-(3, 'Informática Básica_WebMonitor', 'WebMonitor', 'Nível de participação nas tarefas', 'Ciências Agrárias', 'Informática Básica', 'Tefé', '2016/1', 15, 'participação, tarefas'),
-(4, 'Ritmo e Movimento_LMSMonitor', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Ritmo e Movimento', 'Santa Isabel do Rio Negro', '2015/1', 22, 'reprovação, aprovação'),
-(5, 'Informática Básica_LPGraph', 'LPGraph', 'Trilha de Aprendizagem', 'Administração', 'Informática Básica', 'Tarauacá', '2017/1', 60, 'trilha de aprendizagem');
+(1, 'Fig1_FundamentosAnatomia_Sta_L', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Fundamentos da Anatomia', 'Santa Isabel do Rio Negro', '2015/2', 22, 'reprovação, aprovação'),
+(2, 'Fig2_InformaticaBasica_Boa_L', 'LMSMonitor', 'Aprovação', 'Administração', 'Informática Básica', 'Boa Vista', '2016/2', 30, 'reprovação, aprovação'),
+(3, 'Fig3_InformaticaBasica_Tef_W', 'WebMonitor', 'Nível de participação nas tarefas', 'Ciências Agrárias', 'Informática Básica', 'Tefé', '2016/1', 15, 'participação, tarefas'),
+(4, 'Fig4_RitmoMovimento_Sta_L', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Ritmo e Movimento', 'Santa Isabel do Rio Negro', '2015/1', 22, 'reprovação, aprovação'),
+(5, 'Fig5_InformaticaBasica_Tar_G', 'LPGraph', 'Trilha de Aprendizagem', 'Administração', 'Informática Básica', 'Tarauacá', '2017/1', 60, 'trilha de aprendizagem'),
+(6, 'Fig6_RitmoMovimento_Tef_L', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Ritmo e Movimento', 'Tefé', '2014/1', 18, 'reprovação, aprovação'),
+(7, 'Fig7_AtividadesCulturais_Sta_L', 'LMSMonitor', 'Aprovação', 'Artes', 'Atividades Culturais', 'Santa Izabel do Rio Negro', '2016/1', 12, 'reprovação, aprovação'),
+(8, 'Fig8_Bioquimica_Car_L', 'LMSMonitor', 'Aprovação', 'Biologia', 'Bioquímica', 'Caracaraí', '2016/2', 21, 'reprovação, aprovação'),
+(9, 'Fig9_DidaticaAplicada_Mau_L', 'LMSMonitor', 'Aprovação', 'Ciências Agrárias', 'Didática Aplicada', 'Maués', '2015/2', 14, 'reprovação, aprovação'),
+(10, 'Fig10_InformaticaBasica_Lab_L', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Informática Básica', 'Lábrea', '2014/1', 20, 'reprovação, aprovação'),
+(11, 'Fig11_EdFisicaInfancia_Lab_L', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Educação Física na Infância', 'Lábrea', '2014/2', 13, 'reprovação, aprovação'),
+(12, 'Fig12_FundamentosAnatomia_Lab_L', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Fundamentos da Anatomia', 'Lábrea', '2015/2', 13, 'reprovação, aprovação'),
+(13, 'Fig13_MetodologiaEnsino_Coa_L', 'LMSMonitor', 'Aprovação', 'Ciências Agrárias', 'Metodologia do Ensino', 'Coari', '2017/1', 15, 'reprovação, aprovação'),
+(14, 'Fig14_NutricaoAplicada_Bar_L', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Nutrição aplicada à Educação Física', 'Barcelos', '2016/2', 18, 'reprovação, aprovação'),
+(15, 'Fig15_PedagogiaEsporte_Bor_L', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Pedagogia do Esporte', 'Borba', '2017/2', 14, 'reprovação, aprovação'),
+(16, 'Fig16_Bioquimica_Coa_W', 'WebMonitor', 'Nível de participação nas tarefas', 'Biologia', 'Bioquímica', 'Coari', '2009/1', 24, 'participação, tarefas'),
+(17, 'Fig17_InformaticaBasica_Lab_W', 'WebMonitor', 'Nível de participação nas tarefas', 'Administração', 'Informática Básica', 'Brasileia', '2013/1', 22, 'participação, tarefas'),
+(18, 'Fig18_FundamentosAnatomia_Bar_W', 'WebMonitor', 'Nível de participação nas tarefas', 'Educação Física', 'Fundamentos da Anatomia', 'Barcelos', '2012/2', 25, 'participação, tarefas'),
+(19, 'Fig19_PedagogiaEsporte_Bor_W', 'WebMonitor', 'Nível de participação nas tarefas', 'Educação Física', 'Pedagogia do Esporte', 'Borba', '2017/2', 14, 'participação, tarefas'),
+(20, 'Fig20_RitmoMovimento_Tef_W', 'WebMonitor', 'Nível de participação nas tarefas', 'Educação Física', 'Ritmo e Movimento', 'Tefé', '2014/1', 18, 'participação, tarefas');
 
 -- --------------------------------------------------------
 
