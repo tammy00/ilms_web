@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 25-Ago-2018 às 22:13
+-- Generation Time: 26-Ago-2018 às 18:00
 -- Versão do servidor: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -375,26 +375,24 @@ INSERT INTO `resposta_esp` (`id`, `id_tipo_problema`, `id_titulo_problema`, `des
 (10, 2, 8, 'Aluno com problema de saúde, com licença médica.', 'O tutor presencial deverá repassar o conteúdo e o prazo das atividades devem ser revistos para esse aluno.', '2014-05-22', '2018-06-18', 'Aliuandra', 1, 9),
 (11, 1, 3, 'Dificuldades em utilizar o AVA.', 'O tutor presencial deverá repassar treinamento no AVA.', '2015-03-11', '2018-06-20', 'João Victor', 1, 9),
 (12, 3, 15, 'Alagamento na cidade impede acesso ao Polo.', 'O prazo de entrega das atividades deve ser estendido somente para este Polo.', '2015-08-07', '2018-06-20', 'João Victor', 1, 9),
-(13, 1, 4, 'Baixa interação nos fóruns de atividades.', 'Intervenção para aumentar a interação nos fóruns de discussão.', '2009-10-03', '2018-06-20', 'Ketlen Teles', 1, 3),
-(14, 1, 4, 'Os alunos estavam acostumados a fazer prova com consulta e recorriam frequentemente à cola. Tinham a conivência dos tutores presenciais.', 'Foi criado um formulário de norma de aplicação de prova, com regras para alunos e responsáveis pela aplicação das avaliações.', '2018-05-03', '2018-06-20', 'Ketlen Teles', 8, 2),
-(15, 1, 9, 'Plágio em TCC.', 'A situação da aluna foi deixada em aberto e posteriormente foi permitido à mesma submeter um novo trabalho para conclusão do curso.', '2009-02-25', '2018-06-20', 'Ketlen Teles', 8, 2),
-(16, 2, 6, 'Alunos evadidos do curso, por problemas de logística.', 'Foi criado um mini-polo em Santa Izabel do Rio Negro, e os professores que iam para São Gabriel da Cachoeira também se deslocavam para esse outro município, exclusivamente para atender esses alunos.', '2010-06-28', '2018-06-20', 'Ketlen Teles', 8, 2),
-(17, 3, 15, 'Atraso na emissão de passagens e diárias.', 'Correção das informações no SISUAB.', '2018-04-10', '2018-06-20', 'Ketlen Teles', 8, 3),
-(18, 2, 16, 'Logística para deslocamento aos polos.', 'As passagens tiveram que ser compradas em regime de urgência para que o planejamento não ficasse totalmente comprometido.', '2018-04-23', '2018-07-22', 'Ketlen Teles', 8, 2),
-(19, 2, 5, 'Alunos prestes a ser reprovados pela não entrega do TCC.', 'Foi dada mais uma chance para que os alunos entregassem o TCC juntamente com a próxima turma.', '2015-11-10', '2018-07-22', 'Ketlen Teles', 8, 2),
-(20, 2, 13, 'Fraude nos relatórios de levantamento da disciplina.', 'Foi exigido um vídeo do aluno relatando o levantamento da escola do estágio de forma oral, além do relatório escrito.', '2014-03-30', '2018-07-22', 'Ketlen Teles', 8, 2),
-(21, 1, 6, 'Ausência de alunos na aula presencial da disciplina Introdução Disciplinar.', 'Atividade avaliativa para o dia da aula presencial da disciplina Introdução Disciplinar.', '2018-05-25', '2018-07-22', 'Ketlen Teles', 8, 2),
-(22, 1, 9, 'Nota muito baixa em uma atividade.', 'Estabelecimento de critérios objetivos de correção de cada atividade.', '2018-06-16', '2018-07-22', 'Ketlen Teles', 8, 3),
-(23, 1, 17, 'Extravio de documentação e requerimentos.', 'Foi criada na sala virtual principal do curso, um Fórum de Envio e Recebimento de Documentos, para que os alunos enviassem de forma digital os requerimentos e os documentos comprobatórios de sua solicitação.', '2018-07-14', '2018-08-05', 'Ketlen Teles', 8, 2),
-(24, 2, 5, 'Alunos prestes a ser reprovados pela não entrega do TCC.', 'Foi dada mais uma chance para que os alunos entregassem o TCC juntamente com a próxima turma.', '2015-11-10', '2018-08-05', 'Ketlen Teles', 8, 2),
-(25, 2, 18, 'Plágio em trabalhos.', 'Foi feito um vídeo explicativo sobre o assunto, enviado para todos os polos. ', '2014-05-03', '2018-08-05', 'Ketlen Teles', 8, 8),
-(26, 1, 18, 'Plágio em trabalho final de curso', 'Foi dada uma nova chance para a aluna, mas a mesma continuou entregando o trabalho com plágio. ', '2016-12-04', '2018-08-05', 'Ketlen Teles', 8, 8),
-(27, 1, 18, 'Plágio cruzado entre polos.', 'Estabelecimento de critérios para correção quando houver plágio: o primeiro trabalho a ser postado será o válido, os outros que o plagiaram serão considerados invalidados.', '2018-07-16', '2018-08-05', 'Ketlen Teles', 8, 2),
-(28, 3, 1, 'Solicitação de adiamento de atividades devido a problemas de energia.', 'Foi solicitado ao coordenador de polo e tutores presenciais um relatório sobre o problema. Ao constatar-se a veracidade do mesmo, foi feito o adiamento das atividades.', '2018-07-13', '2018-08-05', 'Ketlen Teles', 8, 2),
-(29, 2, 6, 'Evasão de alunos devido a grande oferta de outros cursos.', 'Coordenador do curso foi até o polo para se reunir com alunos e alertar sobre os benefícios de concluir o curso.', '2017-07-11', '2018-08-05', 'Ketlen Teles', 8, 2),
-(30, 2, 15, 'Chantagem infundada de alunos. Alegação de serem prejudicados por causa de deficiência na infraestrutura do polo. Exigiam tratamento diferenciado.', 'Foi realizada uma reunião com alunos, coordenador de polo, coordenador de curso e tutores presenciais para informar que a exigência era infundada pois as condições de infraestrutura eram iguais a todos os polos.', '2014-05-03', '2018-08-05', 'Ketlen Teles', 8, 8),
-(31, 1, 14, 'Devido ao uso não organizado de material didático, o aluno se prejudicava e comprometia o desempenho nas atividades avaliativas.', 'Foi elaborado pelo coordenador de tutor e pelo coordenador de curso um guia de utilização de material didático do curso. Cada tutor presencial teve que montar um cronograma com sugestões de datas para utilização de cada recurso didático, organização de leitura dos textos e estudos gerais.', '2016-12-04', '2018-08-05', 'Ketlen Teles', 8, 2),
-(32, 1, 13, 'Alunos do início do curso reclamaram de muita dificuldade em realizar atividades do AVA dentro do prazo solicitado.', 'O coordenador de curso foi em todos os polos realizar palestras de orientação de organização dos estudos. As sugestões foram em relação a administração do tempo, adiantamento de tarefas, montagem de cronograma individual e foco no cumprimento de prazos.', '2018-05-08', '2018-08-05', 'Ketlen Teles', 8, 2);
+(13, 4, 16, 'Falta de recurso para envio de professores aos polos, para ministrarem aula inaugural.', 'O CED deve recorrer a Reitoria da UFAM para garantir passagens e diárias aos professores.', '2017-08-14', '2018-06-21', 'Ana Clarice', 10, 9),
+(14, 4, 15, 'Problemas de infiltração no prédio que abriga o polo.', 'O CED deve recorrer à Prefeitura para ajudar na manutenção do prédio.', '2016-07-18', '2018-08-15', 'Francisco Bentes', 10, 4),
+(15, 1, 11, 'Tutor presencial está com problemas de relacionamento com a turma.', 'Coordenador de Curso e  Coordenador de Tutor devem intervir e conversar com a turma e com o tutor presencial.', '2017-11-03', '2018-08-15', 'Jurandir Dutra', 2, 2),
+(16, 1, 17, 'Alunos apresentam dificuldades em enviar tarefas via AVA.', 'Tutor presencial deve realizar uma aula de utilização dos principais recursos do AVA.', '2014-05-22', '2018-07-21', 'João Victor', 1, 8),
+(17, 2, 9, 'As atividades dos alunos de uma disciplina foram avaliadas erroneamente.', 'Coordenador de Curso deve pedir que o professor reveja sua correção.', '2006-05-13', '2018-08-15', 'Régis Tribuzy', 2, 4),
+(18, 2, 6, 'Dois alunos abandonaram o curso sem avisar o tutor ou coordenador.', 'Coordenador de Curso deve solicitar que o tutor presencial entre em contato com o aluno para confirmar o abandono do curso.', '2008-04-11', '2018-07-14', 'Núbia Najar', 8, 7),
+(19, 3, 1, 'Falta de energia elétrica somente na sede do polo.', 'O Coordenador de polo deve comunicar quanto tempo a sede do polo ficou sem energia e o coordenador de curso deve adiar por este período a entrega de atividades.', '2016-06-26', '2018-07-19', 'Núbia Najar', 2, 3),
+(20, 3, 15, 'Alguns computadores do polo não estavam funcionando.', 'Coordenador de Curso deve solicitar que a Coordenação Tecnológica envie um técnico para fazer o conserto das máquinas.', '2016-09-16', '2018-07-01', 'Gisele Souza', 9, 9),
+(21, 4, 11, 'O Coordenador de polo pediu para sair do cargo.', 'Coordenador de Curso deve solicitar substituição do coordenador de polo. Enquanto isso, quem assume a função deve ser um tutor presencial.', '2012-03-19', '2018-08-19', 'Régis Tribuzy', 2, 5),
+(22, 4, 12, 'O tutores presenciais de um polo não estavam conseguindo receber a bolsa.', 'Coordenador Administrativo deve tentar resolver este problema com a Capes.', '2016-09-18', '2018-06-25', 'Ana Clarice', 10, 5),
+(23, 1, 4, 'Alunos se recusam a fazer a atividade por considerarem muito difícil.', 'Coordenador de Curso deve vistar o polo e conversar com os alunos sobre essas dificuldades.', '2005-07-01', '2018-07-21', 'Afrânio Neves', 2, 3),
+(24, 1, 2, 'Alunos alegam que não poderão enviar um vídeo como atividade, por causa do link precário com internet.', 'Coordenador de Curso deve pedir que o tutor presencial auxilie os alunos e tente reenviar os vídeos. Se não for possível, deve-se gravar um CD e enviar a atividade pelo Correio.', '2009-12-21', '2018-06-02', 'Francisco Bentes', 4, 4),
+(25, 2, 4, 'Alunos pedem mais prazo devido a sua condição de moradores de polo menos favorecido.', 'Coordenador de Curso deve vistar o polo e conversar com os alunos sobre o quão sem fundamento é essa alegação. ', '2011-09-10', '2018-11-17', 'Francisco Bentes', 4, 5),
+(26, 2, 6, 'Alunos abandonam o curso devido a dificuldades em frequentar o polo.', 'Coordenador de polo deve conversar com os alunos e levantar as dificuldades. Em seguida, deve discutir com o coordenador de curso e de graduação uma forma de ajudar os alunos.', '2008-05-16', '2018-01-28', 'Luzinaldo Moura', 4, 7),
+(27, 3, 16, 'Falta de recursos para impressão do caderno da disciplina.', 'Coordenador de graduação deve determinar que sejam usados cadernos digitais no curso.', '2013-09-08', '2018-11-04', 'Armando Silva', 4, 8),
+(28, 3, 15, 'Roteador na sede do polo não está funcionando.', 'Coordenador de Curso deve solicitar que a Coordenação Tecnológica envie um técnico para fazer o conserto do equipamento.', '2009-03-25', '2018-04-17', 'Gisele Souza', 9, 9),
+(29, 4, 10, '', '', '2011-08-27', '2018-06-21', 'João Victor', 1, 7),
+(30, 4, 8, 'Coordenador de tutor está doente e precisa ser afastado por 1 mês.', 'O Coordenador de curso e um outro coordenador de tutor devem assumir as funções do coordenador afastado.', '2007-12-07', '2018-07-15', 'Afrânio Neves', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -469,7 +467,8 @@ CREATE TABLE `tipo_problema` (
 INSERT INTO `tipo_problema` (`id`, `tipo`) VALUES
 (1, 'Pedagógico'),
 (2, 'Acadêmico'),
-(3, 'Infraestrutura');
+(3, 'Infraestrutura'),
+(4, 'Administrativo');
 
 -- --------------------------------------------------------
 
@@ -503,8 +502,9 @@ INSERT INTO `titulo_problema` (`id`, `titulo`) VALUES
 (14, 'Conteúdo'),
 (15, 'Infraestrutura'),
 (16, 'Logística'),
-(17, 'Extravio'),
-(18, 'Plágio');
+(17, 'AVA'),
+(18, 'Plágio'),
+(19, 'Extravio');
 
 -- --------------------------------------------------------
 
@@ -751,7 +751,7 @@ ALTER TABLE `relator`
 -- AUTO_INCREMENT for table `resposta_esp`
 --
 ALTER TABLE `resposta_esp`
-  MODIFY `id` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `solucao`
@@ -763,13 +763,13 @@ ALTER TABLE `solucao`
 -- AUTO_INCREMENT for table `tipo_problema`
 --
 ALTER TABLE `tipo_problema`
-  MODIFY `id` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `titulo_problema`
 --
 ALTER TABLE `titulo_problema`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `turma`
