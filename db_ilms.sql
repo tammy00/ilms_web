@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 26-Ago-2018 às 18:00
+-- Generation Time: 23-Set-2018 às 00:58
 -- Versão do servidor: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -178,7 +178,17 @@ INSERT INTO `figuras_ava` (`id_figura`, `nome_figura`, `aplicativo`, `tipo_grafi
 (17, 'Fig17_InformaticaBasica_Lab_W', 'WebMonitor', 'Nível de participação nas tarefas', 'Administração', 'Informática Básica', 'Brasileia', '2013/1', 22, 'participação, tarefas'),
 (18, 'Fig18_FundamentosAnatomia_Bar_W', 'WebMonitor', 'Nível de participação nas tarefas', 'Educação Física', 'Fundamentos da Anatomia', 'Barcelos', '2012/2', 25, 'participação, tarefas'),
 (19, 'Fig19_PedagogiaEsporte_Bor_W', 'WebMonitor', 'Nível de participação nas tarefas', 'Educação Física', 'Pedagogia do Esporte', 'Borba', '2017/2', 14, 'participação, tarefas'),
-(20, 'Fig20_RitmoMovimento_Tef_W', 'WebMonitor', 'Nível de participação nas tarefas', 'Educação Física', 'Ritmo e Movimento', 'Tefé', '2014/1', 18, 'participação, tarefas');
+(20, 'Fig20_RitmoMovimento_Tef_W', 'WebMonitor', 'Nível de participação nas tarefas', 'Educação Física', 'Ritmo e Movimento', 'Tefé', '2014/1', 18, 'participação, tarefas'),
+(21, 'Fig21_InformaticaBasica_Sta_G', 'LPGraph', 'Trilha de Aprendizagem', 'Educação Física', 'Informática Básica', 'Santa Isabel do Rio Negro', '2013/1', 22, 'trilha de aprendizagem'),
+(22, 'Fig22_InformaticaBasica_Boa_G', 'LPGraph', 'Trilha de Aprendizagem', 'Educação Física', 'Informática Básica', 'Boa Vista', '2013/1', 26, 'trilha de aprendizagem'),
+(23, 'Fig23_RitmoMovimento_Tef_G', 'LPGraph', 'Trilha de Aprendizagem', 'Educação Física', 'Ritmo e Movimento', 'Tefé', '2014/1', 18, 'trilha de aprendizagem'),
+(24, 'Fig24_Bioquímica_Coa_G', 'LPGraph', 'Trilha de Aprendizagem', 'Biologia', 'Bioquímica', 'Coari', '2009/1', 24, 'trilha de aprendizagem'),
+(25, 'Fig25_InformaticaBasica_Boa_G', 'LPGraph', 'Trilha de Aprendizagem', 'Administração', 'Informática´Básica', 'Boa Vista', '2016/2', 30, 'trilha de aprendizagem'),
+(26, 'Fig26_FundAnatomia_Car_G', 'LPGraph', 'Trilha de Aprendizagem', 'Biologia', 'Fundamentos da Anatomia', 'Caracaraí', '2016/2', 21, 'trilha de aprendizagem'),
+(27, 'Fig27_FundAnatomia_Sta_G', 'LPGraph', 'Trilha de Aprendizagem', 'Educação Física', 'Fundamentos da Anatomia', 'Santa Isabel do Rio Negro', '2013/1', 25, 'trilha de aprendizagem'),
+(28, 'Fig28_FundAnatomia_Boa_G', 'LPGraph', 'Trilha de Aprendizagem', 'Educação Física', 'Fundamentos da Anatomia', 'Boa Vista', '2013/1', 26, 'trilha de aprendizagem'),
+(29, 'Fig29_InformaticaBasica_Tef_G', 'LPGraph', 'Trilha de Aprendizagem', 'Ciências Agrárias', 'Informática Básica', 'Tefé', '2016/1', 15, 'trilha de aprendizagem'),
+(30, 'Fig30_RitmoMovimento_Sta_G', 'LPGraph', 'Trilha de Aprendizagem', 'Educação Física', 'Ritmo e Movimento', 'Santa Isabel do Rio Negro', '2015/1', 22, 'trilha de aprendizagem');
 
 -- --------------------------------------------------------
 
