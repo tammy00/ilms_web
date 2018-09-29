@@ -64,7 +64,8 @@ class PesquisasSearch extends Pesquisas
 
         $query->andFilterWhere(['like', 'relator', $this->relator])
             ->andFilterWhere(['like', 'natureza_problema', $this->natureza_problema])
-            ->andFilterWhere(['like', 'palavras_chaves', $this->palavras_chaves]);
+            ->andFilterWhere(['like', 'palavras_chaves', $this->palavras_chaves])
+            ->andFilterWhere(['like', 'metodo', $this->metodo]);
 
         return $dataProvider;
     }
@@ -96,7 +97,8 @@ class PesquisasSearch extends Pesquisas
 
         $query->andFilterWhere(['like', 'relator', $this->relator])
             ->andFilterWhere(['like', 'natureza_problema', $this->natureza_problema])
-            ->andFilterWhere(['like', 'palavras_chaves', $this->palavras_chaves]);
+            ->andFilterWhere(['like', 'palavras_chaves', $this->palavras_chaves])
+            ->andFilterWhere(['like', 'metodo', $this->metodo]);
 
         return $dataProvider;
     }

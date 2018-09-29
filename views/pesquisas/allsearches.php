@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = 'Pesquisas';
             // 'descricao_problema:ntext',
             // 'problema_detalhado:ntext',
              'palavras_chaves',
+             'metodo',
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'Ações',
