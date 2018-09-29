@@ -2,6 +2,7 @@
 
 /* @var $this yii\web\View */
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 $this->title = 'iDE Framework';
 
@@ -15,9 +16,12 @@ $this->title = 'iDE Framework';
 
         <!-- <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>  -->
     </div>
+
+
     
 
     <?php if ( Yii::$app->user->identity->perfil === 'Mediador/a' ) {   ?>
+        
 
         <div class="body-content">
 
@@ -25,7 +29,8 @@ $this->title = 'iDE Framework';
                 <div class="col-lg-4" align="center">
                     <h3>Busca com RBC</h3>
 
-                    <p><a class="btn btn-default" href="?r=site/cbrsearch"> Clicar aqui &raquo;</a></p>
+                    <p><a class="btn btn-default" href='?r=site/cbrsearch'> Clicar aqui &raquo;</a></p>
+                    <?php $url = '?r=site/cbrsearch&resumo='.$model->descricao_problema ?>
                 </div>
 
                 <div class="col-lg-4" align="center">
@@ -40,6 +45,8 @@ $this->title = 'iDE Framework';
                 </div>
             </div>
             <br>
+
+
 
             <div class="row">
                 <div class="col-md-6" align="center">

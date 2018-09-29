@@ -76,11 +76,337 @@ class SiteController extends Controller
         ];
     }
 
+/*******     INDEX início     *******************/
+
+    /**
+     * Displays homepage.
+     *
+     * @return string
+     */
+    public function actionIndex()
+    {
+    	$model = new BuscaGeral();
+    	//$model->descricao_problema = null;
+
+        return $this->render('index', [
+			            'model' => $model,
+			        ]);
+        
+        
+    }
+
+/*******************     INDEX fim     *******************/
+
+
+/******************     LOGIN LOGOUT   FINDONE   CONTACT    ABOUT   DOOM   início     *******************/
+
+
+
+    /**
+     * Login action.
+     *
+     * @return string
+     */
+    public function actionLogin()
+    {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return $this->goBack();
+        }
+        return $this->render('login', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Logout action.
+     *
+     * @return string
+     */
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+
+        return $this->goHome();
+    }
+
+    /**
+     * Displays contact page.
+     *
+     * @return string
+     */
+    public function actionContact()
+    {
+        $model = new ContactForm();
+        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
+            Yii::$app->session->setFlash('contactFormSubmitted');
+
+            return $this->refresh();
+        }
+        return $this->render('contact', [
+            'model' => $model,
+        ]);
+    }
+
+
+
+    /**
+     * Displays about page.
+     *
+     * @return string
+     */
+    public function actionAbout()
+    {
+        return $this->render('about');
+    }
+
+
+    public function actionDoom($texto)
+    {
+        return $this->render('doom', ['message' => $texto]);
+    }
+
+    public function actionView($id)   // Em desuso, mas acesso ainda possível
+    {
+        $pesquisa = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
+        if ( $pesquisa == null ) return $this->actionDoom('pesquisa não foi salva: '.$id);
+
+        if ( $pesquisa->id_solucao != null ) 
+        {
+            $sol = Solucao::find()->where(['id_solucao' => $pesquisa->id_solucao])->one();
+            $pesquisa->similaridade = round(($pesquisa->similaridade * 100 ));
+        }
+        else $sol = null;
+
+        if ( $pesquisa->id_titulo_problema > 0 )
+        {
+            $exp_resposta = RespostaEspecialistasSearch::searchForResponses($pesquisa->id_titulo_problema);
+        }  
+        else $exp_resposta = null;   
+
+        if ( $pesquisa->id_polo != null )
+        {
+            $polo = Polo::find()->where(['id_polo' => $pesquisa->id_polo])->one();
+            $pesquisa->id_polo = $polo->nome;
+        }
+
+        switch ($pesquisa->status)
+        {
+             case 0: 
+                 $pesquisa->status = 'Sem resposta';
+                 break;
+             case 1: 
+                 $pesquisa->status = 'Solução não ajudou';
+                 break;
+             case 2: 
+                 $pesquisa->status = 'Caso da Base de Casos';
+                 break;
+        }
+
+        return $this->render('view', [
+            'pesquisa' => $pesquisa,
+            'sol' => $sol,
+            'exp_resposta' => $exp_resposta,
+        ]);
+    }
+
+
+
+/******************     LOGIN LOGOUT   FINDONE   CONTACT    ABOUT   DOOM   fim     *******************/
+
+
+
+
+/********************************    VIEWS    início      ******************************/
+
+
+    public function actionViewcombinacao ($id)
+    {
+    	$model_descricao = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
+
+    	/***** RBC   ******/
+
+    	$model_solucao = Solucao::find()->where(['id_solucao' => $model_descricao->id_solucao])->one();
+
+    	$model_descricao->similaridade = round(($model_descricao->similaridade * 100 ));
+
+        $polo = Polo::find()->where(['id_polo' => $model_descricao->id_polo])->one();
+	    $model_descricao->id_polo = $polo->nome;
+
+    	/***** RBC END  ******/
+
+    	/***** AVA   ******/
+
+    	// 
+
+    	/***** AVA END  ******/
+
+    	/***** ESPECIALISTAS   ******/
+    	$model_esp = RespostaEspecialistas::find()->where(['id' => $model_descricao->id_resposta])->one();
+
+        Yii::$app->formatter->locale = 'pt-BR';
+        $model_esp->data_ocorrencia = Yii::$app->formatter->asDate($model_esp->data_ocorrencia);
+        $model_esp->data_insercao = Yii::$app->formatter->asDate($model_esp->data_insercao);
+
+        $tipo = TipoProblema::find()->where(['id' => $model_esp->id_tipo_problema])->one();
+        $titulo = TituloProblema::find()->where(['id' => $model_esp->id_titulo_problema])->one();
+        $model_esp->id_tipo_problema = $tipo->tipo;
+        $model_esp->id_titulo_problema = $titulo->titulo;
+
+        $r = Relator::find()->where(['id_relator' => $model_esp->relator])->one();
+        if ( $model_esp->funcao_especialista != $model_esp->relator )
+        {
+            $novo_relator = Relator::find()->where(['id_relator' => $model_esp->funcao_especialista])->one();
+            $model_esp->funcao_especialista = $novo_relator->perfil;
+            $model_esp->relator = $r->perfil;
+        }
+        else 
+        {
+            $model_esp->relator = $r->perfil;
+            $model_esp->funcao_especialista = $model_esp->relator;
+        }
+    	/***** ESPECIALISTAS END  ******/
+
+        return $this->render('view', [
+            'model_descricao' => $model_descricao,
+            'sol' => $sol,
+            'model_esp' => $model_esp,
+        ]);
+    }
+
+
+    public function actionCbrview($id)
+    {
+        $pesquisa = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
+
+        if ( $pesquisa == null ) 
+        	return $this->actionDoom('Pesquisa não foi salva: '.$id);
+        else 
+        {
+
+	        if ( $pesquisa->id_solucao != null ) 
+	        {
+	            $sol = Solucao::find()->where(['id_solucao' => $pesquisa->id_solucao])->one();
+	            $pesquisa->similaridade = round(($pesquisa->similaridade * 100 ));
+	        }
+	        else $sol = null;
+
+	        if ( $pesquisa->id_polo != null )
+	        {
+	            $polo = Polo::find()->where(['id_polo' => $pesquisa->id_polo])->one();
+	            $pesquisa->id_polo = $polo->nome;
+	        }
+
+	        switch ($pesquisa->status)
+	        {
+	             case 0: 
+	                 $pesquisa->status = 'Sem resposta';
+	                 break;
+	             case 1: 
+	                 $pesquisa->status = 'Solução não ajudou';
+	                 break;
+	             case 2: 
+	                 $pesquisa->status = 'Caso da Base de Casos';
+	                 break;
+	        }
+
+	        return $this->render('cbrview', [
+	            'pesquisa' => $pesquisa,
+	            'sol' => $sol,
+	        ]);
+        }
+    }
+
+
+
+    public function actionExpview($id)
+    {
+        $pesquisa = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
+
+        if ( $pesquisa == null ) 
+        	return $this->actionDoom('Pesquisa não foi salva: '.$id);
+        else {
+
+	        if ( $pesquisa->id_resposta > 0 )
+	        {
+	            $dados_resp = RespostaEspecialistas::find()->where(['id' => $pesquisa->id_resposta])->one();
+	            $exp_resposta = RespostaEspecialistasSearch::searchForResponses($dados_resp->id_titulo_problema, $dados_resp->id_tipo_problema);
+	        }  
+	        else $exp_resposta = null;   
+
+	        if ( $pesquisa->id_polo != null )
+	        {
+	            $polo = Polo::find()->where(['id_polo' => $pesquisa->id_polo])->one();
+	            $pesquisa->id_polo = $polo->nome;
+	        }
+
+	        switch ($pesquisa->status)
+	        {
+	             case 0: 
+	                 $pesquisa->status = 'Sem resposta';
+	                 break;
+	             case 1: 
+	                 $pesquisa->status = 'Solução não ajudou';
+	                 break;
+	             case 2: 
+	                 $pesquisa->status = 'Caso da Base de Casos';
+	                 break;
+	        }
+
+	        return $this->render('expview', [
+	            'pesquisa' => $pesquisa,
+	            'exp_resposta' => $exp_resposta,
+	        ]);
+        }
+    }
+
+
+    public function actionLpgraph($id)
+    {
+
+        $model = FigurasAva::find()->where(['id_figura' => $id])->one();
+
+        return $this->render('lpgraph', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionBehaviour($id)
+    {
+
+        $model = FigurasAva::find()->where(['id_figura' => $id])->one();
+
+        return $this->render('behaviour', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionDesempenho($id)
+    {
+
+        $model = FigurasAva::find()->where(['id_figura' => $id])->one();
+
+        return $this->render('desempenho', [
+	            'model' => $model,
+	        ]);        	
+    }
+
+
+
+/***********************************    VIEWS    fim      ******************************/
+
+
+
+/**********************    MECANISMOS DE BUSCA     início     *****************/
     /****
     Combina o uso de RBC, AVA e opinião dos especialistas 
     ****/
 
-    public function actionCombinacao ()
+    public function actionCombinacao ($desc_resumido)
     {
     	$model = new Combinacao();
 
@@ -182,159 +508,9 @@ class SiteController extends Controller
 
     }
 
-    public function actionViewcombinacao ($id)
-    {
-    	$model_descricao = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
-
-    	/***** RBC   ******/
-
-    	$model_solucao = Solucao::find()->where(['id_solucao' => $model_descricao->id_solucao])->one();
-
-    	$model_descricao->similaridade = round(($model_descricao->similaridade * 100 ));
-
-        $polo = Polo::find()->where(['id_polo' => $model_descricao->id_polo])->one();
-	    $model_descricao->id_polo = $polo->nome;
-
-    	/***** RBC END  ******/
-
-    	/***** AVA   ******/
-
-    	// 
-
-    	/***** AVA END  ******/
-
-    	/***** ESPECIALISTAS   ******/
-    	$model_esp = RespostaEspecialistas::find()->where(['id' => $model_descricao->id_resposta])->one();
-
-        Yii::$app->formatter->locale = 'pt-BR';
-        $model_esp->data_ocorrencia = Yii::$app->formatter->asDate($model_esp->data_ocorrencia);
-        $model_esp->data_insercao = Yii::$app->formatter->asDate($model_esp->data_insercao);
-
-        $tipo = TipoProblema::find()->where(['id' => $model_esp->id_tipo_problema])->one();
-        $titulo = TituloProblema::find()->where(['id' => $model_esp->id_titulo_problema])->one();
-        $model_esp->id_tipo_problema = $tipo->tipo;
-        $model_esp->id_titulo_problema = $titulo->titulo;
-
-        $r = Relator::find()->where(['id_relator' => $model_esp->relator])->one();
-        if ( $model_esp->funcao_especialista != $model_esp->relator )
-        {
-            $novo_relator = Relator::find()->where(['id_relator' => $model_esp->funcao_especialista])->one();
-            $model_esp->funcao_especialista = $novo_relator->perfil;
-            $model_esp->relator = $r->perfil;
-        }
-        else 
-        {
-            $model_esp->relator = $r->perfil;
-            $model_esp->funcao_especialista = $model_esp->relator;
-        }
-    	/***** ESPECIALISTAS END  ******/
-
-        return $this->render('view', [
-            'model_descricao' => $model_descricao,
-            'sol' => $sol,
-            'model_esp' => $model_esp,
-        ]);
-    }
-
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
-
-    public function actionView($id)
-    {
-        $pesquisa = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
-        if ( $pesquisa == null ) return $this->actionDoom('pesquisa não foi salva: '.$id);
-
-        if ( $pesquisa->id_solucao != null ) 
-        {
-            $sol = Solucao::find()->where(['id_solucao' => $pesquisa->id_solucao])->one();
-            $pesquisa->similaridade = round(($pesquisa->similaridade * 100 ));
-        }
-        else $sol = null;
-
-        if ( $pesquisa->id_titulo_problema > 0 )
-        {
-            $exp_resposta = RespostaEspecialistasSearch::searchForResponses($pesquisa->id_titulo_problema);
-        }  
-        else $exp_resposta = null;   
-
-        if ( $pesquisa->id_polo != null )
-        {
-            $polo = Polo::find()->where(['id_polo' => $pesquisa->id_polo])->one();
-            $pesquisa->id_polo = $polo->nome;
-        }
-
-        switch ($pesquisa->status)
-        {
-             case 0: 
-                 $pesquisa->status = 'Sem resposta';
-                 break;
-             case 1: 
-                 $pesquisa->status = 'Solução não ajudou';
-                 break;
-             case 2: 
-                 $pesquisa->status = 'Caso da Base de Casos';
-                 break;
-        }
-
-        return $this->render('view', [
-            'pesquisa' => $pesquisa,
-            'sol' => $sol,
-            'exp_resposta' => $exp_resposta,
-        ]);
-    }
 
 
-
-    public function actionCbrview($id)
-    {
-        $pesquisa = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
-
-        if ( $pesquisa == null ) 
-        	return $this->actionDoom('Pesquisa não foi salva: '.$id);
-        else 
-        {
-
-	        if ( $pesquisa->id_solucao != null ) 
-	        {
-	            $sol = Solucao::find()->where(['id_solucao' => $pesquisa->id_solucao])->one();
-	            $pesquisa->similaridade = round(($pesquisa->similaridade * 100 ));
-	        }
-	        else $sol = null;
-
-	        if ( $pesquisa->id_polo != null )
-	        {
-	            $polo = Polo::find()->where(['id_polo' => $pesquisa->id_polo])->one();
-	            $pesquisa->id_polo = $polo->nome;
-	        }
-
-	        switch ($pesquisa->status)
-	        {
-	             case 0: 
-	                 $pesquisa->status = 'Sem resposta';
-	                 break;
-	             case 1: 
-	                 $pesquisa->status = 'Solução não ajudou';
-	                 break;
-	             case 2: 
-	                 $pesquisa->status = 'Caso da Base de Casos';
-	                 break;
-	        }
-
-	        return $this->render('cbrview', [
-	            'pesquisa' => $pesquisa,
-	            'sol' => $sol,
-	        ]);
-        }
-    }
-
-    public function actionVlesearch ( )
+    public function actionVlesearch ($desc_resumido)
     {
   
         //$searchModel = new CursoSearch();
@@ -348,142 +524,6 @@ class SiteController extends Controller
         
     }
 
-    public function actionLpgraph($id)
-    {
-
-        $model = FigurasAva::find()->where(['id_figura' => $id])->one();
-
-        return $this->render('lpgraph', [
-            'model' => $model,
-        ]);
-    }
-
-    public function actionBehaviour($id)
-    {
-
-        $model = FigurasAva::find()->where(['id_figura' => $id])->one();
-
-        return $this->render('behaviour', [
-            'model' => $model,
-        ]);
-    }
-
-    public function actionDesempenho($id)
-    {
-
-        $model = FigurasAva::find()->where(['id_figura' => $id])->one();
-
-        return $this->render('desempenho', [
-	            'model' => $model,
-	        ]);        	
-        
-
-    }
-
-
-    public function actionExpview($id)
-    {
-        $pesquisa = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
-
-        if ( $pesquisa == null ) 
-        	return $this->actionDoom('Pesquisa não foi salva: '.$id);
-        else {
-
-	        if ( $pesquisa->id_resposta > 0 )
-	        {
-	            $dados_resp = RespostaEspecialistas::find()->where(['id' => $pesquisa->id_resposta])->one();
-	            $exp_resposta = RespostaEspecialistasSearch::searchForResponses($dados_resp->id_titulo_problema, $dados_resp->id_tipo_problema);
-	        }  
-	        else $exp_resposta = null;   
-
-	        if ( $pesquisa->id_polo != null )
-	        {
-	            $polo = Polo::find()->where(['id_polo' => $pesquisa->id_polo])->one();
-	            $pesquisa->id_polo = $polo->nome;
-	        }
-
-	        switch ($pesquisa->status)
-	        {
-	             case 0: 
-	                 $pesquisa->status = 'Sem resposta';
-	                 break;
-	             case 1: 
-	                 $pesquisa->status = 'Solução não ajudou';
-	                 break;
-	             case 2: 
-	                 $pesquisa->status = 'Caso da Base de Casos';
-	                 break;
-	        }
-
-	        return $this->render('expview', [
-	            'pesquisa' => $pesquisa,
-	            'exp_resposta' => $exp_resposta,
-	        ]);
-        }
-    }
-
-
-    /**
-     * Login action.
-     *
-     * @return string
-     */
-    public function actionLogin()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-        return $this->render('login', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Logout action.
-     *
-     * @return string
-     */
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
-
-        return $this->goHome();
-    }
-
-    /**
-     * Displays contact page.
-     *
-     * @return string
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
-
-
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
 
 
 
@@ -607,7 +647,7 @@ class SiteController extends Controller
         {
         	$arrayRelatores = ArrayHelper::map(RelatorSearch::find()->all(), 'id_relator', 'perfil');
         	$arrayPolos = ArrayHelper::map(PoloSearch::find()->all(), 'id_polo', 'nome');
-
+        	$model->descricao_problema = $_POST["resumo_descricao"];
 
             return $this->render('cbrsearch', [
                 'model' => $model,
@@ -619,7 +659,7 @@ class SiteController extends Controller
 
 
 
-    public function actionExpsearch()  // Busca na base de dados de especialistas
+    public function actionExpsearch($desc_resumido)  // Busca na base de dados de especialistas
     { 
 
         $model = new BuscaGeral();
@@ -661,16 +701,9 @@ class SiteController extends Controller
         }
     }
 
+/**********************    MECANISMOS DE BUSCA     fim     *****************/
 
-
-
-    public function actionDoom($texto)
-    {
-        return $this->render('doom', ['message' => $texto]);
-    }
-
-
-
+/**********************    AGENTES     início     *****************/
 
     public function agenteRBC($polo, $desc, $detalhado, $relator, $keywords, $natureza)   // Consulta AGENTE CBR
     {
@@ -803,7 +836,10 @@ class SiteController extends Controller
         else return $this->actionDoom('Por favor, informar o título e tipo do problema.');
     }
 
+/**********************    AGENTES     fim     *****************/
 
+
+/**********************    VERIFICADORES     início     *****************/
 
     public function verificadorDadosRBC ($polo, $descricao_problema, $relator, $problema_detalhado, $palavras_chaves)
     {
@@ -830,6 +866,8 @@ class SiteController extends Controller
         else return (1);  // Titulo do problema não foi informado
         
     }
+
+/**********************    VERIFICADORES     fim     *****************/
 
 }
 
