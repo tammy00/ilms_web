@@ -86,13 +86,21 @@ class SiteController extends Controller
     public function actionIndex()
     {
     	$model = new BuscaGeral();
-    	//$model->descricao_problema = null;
 
-        return $this->render('index', [
-			            'model' => $model,
-			        ]);
-        
-        
+    	if ( $model->load(Yii::$app->request->post() ))
+    	{
+
+    		if ( $model->agente == 1 ) return $this->actionCbrsearch($resumo);
+    		elseif ( $model->agente == 2) return $this->actionVlesearch();
+    		elseif ( $model->agente == 3) return $this->actionExpsearch();
+    		return $this->actionDoom('não deu certo');
+    	}
+    	else
+    	{
+    		return $this->render('index', [
+				            'model' => $model,
+				        ]);    
+    	}
     }
 
 /*******************     INDEX fim     *******************/
@@ -510,7 +518,7 @@ class SiteController extends Controller
 
 
 
-    public function actionVlesearch ($desc_resumido)
+    public function actionVlesearch ()
     {
   
         //$searchModel = new CursoSearch();
@@ -527,7 +535,7 @@ class SiteController extends Controller
 
 
 
-    public function actionCbrsearch()  // Descricao vai ter todos os dados, independente de ser somente para o rbc
+    public function actionCbrsearch($resumo)  // Descricao vai ter todos os dados, independente de ser somente para o rbc
     { 
 
         //tipo_problema == natureza_problema
@@ -547,7 +555,7 @@ class SiteController extends Controller
             if ( $verificacao_rbc == 0 )   // Checando se todos os dados necessários foram informados
             {
             	$perfil = Relator::find()->where(['id_relator' => $model->relator])->one();  
-            	/*
+            	
 		       $postArray = array(
 		            "poloId" => $model->id_polo,
 		            "relatorId" => $perfil->perfil,
@@ -594,7 +602,7 @@ class SiteController extends Controller
 
 		            $idSolucao = $data['solucaoId'];
 		            $similaridadeCalculada = $data['similaridade'];
-		        }   */
+		        }   
             	
                 $resultado_id = $this->agenteRBC($model->id_polo, 
                     $model->descricao_problema, 
@@ -647,7 +655,7 @@ class SiteController extends Controller
         {
         	$arrayRelatores = ArrayHelper::map(RelatorSearch::find()->all(), 'id_relator', 'perfil');
         	$arrayPolos = ArrayHelper::map(PoloSearch::find()->all(), 'id_polo', 'nome');
-        	$model->descricao_problema = $_POST["resumo_descricao"];
+        	$model->descricao_problema = $resumo;
 
             return $this->render('cbrsearch', [
                 'model' => $model,
@@ -659,7 +667,7 @@ class SiteController extends Controller
 
 
 
-    public function actionExpsearch($desc_resumido)  // Busca na base de dados de especialistas
+    public function actionExpsearch()  // Busca na base de dados de especialistas
     { 
 
         $model = new BuscaGeral();
@@ -870,6 +878,7 @@ class SiteController extends Controller
 /**********************    VERIFICADORES     fim     *****************/
 
 }
+
 
 
 

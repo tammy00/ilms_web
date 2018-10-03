@@ -20,7 +20,8 @@ class BuscaGeral extends Model
     
     public $cbr;
     public $lms;
-    public $experts;    
+    public $experts;  
+    public $agente;  
 
     // Atributos de 'descricao_problema'
     public $natureza_problema;   // Equivalente do tipo_problema
@@ -47,7 +48,7 @@ class BuscaGeral extends Model
         return [
         /*** Abaixo, os atributos de descricao_problema   ***/
             [['natureza_problema', 'descricao_problema', 'problema_detalhado'], 'string'],
-            [['id_polo', 'cbr', 'lms', 'experts', 'titulo_problema', 'tipo_problema'], 'integer'],
+            [['id_polo', 'cbr', 'lms', 'experts', 'titulo_problema', 'tipo_problema', 'agente'], 'integer'],
             [['relator'], 'string', 'max' => 250],
             [['palavras_chaves'], 'string', 'max' => 400],   // Cadê o max dos 3 primeiros?
             /*************************************/
