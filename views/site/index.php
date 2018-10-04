@@ -26,7 +26,7 @@ $this->title = 'iDE Framework';
 
           <?php $form = ActiveForm::begin(); ?>
 
-             <?= $form->field($model, 'descricao_problema')->textarea(['rows' => 6])->label('Descreva o problema resumidamente:'); ?>
+             <?= $form->field($model, 'resumo')->textarea(['rows' => 6])->label('Descreva o problema resumidamente:'); ?>
 
              <?= $form->field($model, 'agente')->radioList([ 1 => 'Busca com RBC', 2 => 'Dados do Ambiente Virtual', 3 => 'Opinião de Especialistas']); 
 

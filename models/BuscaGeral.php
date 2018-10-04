@@ -6,7 +6,7 @@ use yii\base\Model;
 use Yii;
 
 /**
- * This is the model class for tables 'resposta_esp', 'descricao_problema' and 'moodle259'.
+ * This is the model class for tables 'descricao' and 'pesquisas'
  *
 
  */

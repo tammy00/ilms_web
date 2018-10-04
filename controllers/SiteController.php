@@ -12,6 +12,7 @@ use app\models\Curso;
 use app\models\CursoSearch;
 use app\models\Descricao;
 use app\models\BuscaGeral;
+use app\models\FormInicial;
 use app\models\Combinacao;
 use app\models\RespostaEspecialistas;
 use app\models\RespostaEspecialistasSearch;
@@ -85,15 +86,18 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-    	$model = new BuscaGeral();
+    	$model = new FormInicial();
 
     	if ( $model->load(Yii::$app->request->post() ))
     	{
 
-    		if ( $model->agente == 1 ) return $this->actionCbrsearch($resumo);
-    		elseif ( $model->agente == 2) return $this->actionVlesearch();
-    		elseif ( $model->agente == 3) return $this->actionExpsearch();
-    		return $this->actionDoom('não deu certo');
+    		if ( $model->agente == 1 ) return $this->redirect(['site/cbrsearch', 'resumo' => $model->resumo]);
+    		//return $this->actionCbrsearch($model->resumo);
+    		//return Yii::$app->runAction('site/cbrsearch',['resumo' => $resumo ]);
+    		//return $this->actionCbrsearch();
+    		elseif ( $model->agente == 2) return $this->redirect(['site/vlesearch']);
+    		elseif ( $model->agente == 3) return $this->redirect(['site/expsearch']);
+    		//else return $this->actionDoom('não deu certo');
     	}
     	else
     	{
@@ -551,6 +555,7 @@ class SiteController extends Controller
                 $model->relator, 
                 $model->problema_detalhado, 
                 $model->palavras_chaves);
+             //return $this->actionDoom('Passou do verificador');
 
             if ( $verificacao_rbc == 0 )   // Checando se todos os dados necessários foram informados
             {
@@ -647,20 +652,30 @@ class SiteController extends Controller
                 
 
             }  
-            else return $this->actionDoom('Faltou informar pelo menos um dado.');
+            else
+            {/*
+            	$model->descricao_problema = $resumo;
+            	return $this->render('cbrsearch', [
+	                'model' => $model,
+	                'arrayRelatores' => $this->arrayhelper_relator(),
+	                'arrayPolos' => $this->arrayhelper_polo(),
+	            ]);   */
+	            return $this->actionDoom('Faltou pelo menos um dado.');
+            }
 
             
         }   //else if request post
         else    // Primeiro acesso à tela de busca do agente RBC
         {
-        	$arrayRelatores = ArrayHelper::map(RelatorSearch::find()->all(), 'id_relator', 'perfil');
-        	$arrayPolos = ArrayHelper::map(PoloSearch::find()->all(), 'id_polo', 'nome');
+        	//$arrayRelatores = $this->arrayhelper_relator();
+        	//$arrayPolos = $this->arrayhelper_polo();
         	$model->descricao_problema = $resumo;
+        	
 
             return $this->render('cbrsearch', [
                 'model' => $model,
-                'arrayRelatores' => $arrayRelatores,
-                'arrayPolos' => $arrayPolos,
+	            'arrayRelatores' => $this->arrayhelper_relator(),
+	            'arrayPolos' => $this->arrayhelper_polo(),
             ]);        
         }
     }
@@ -876,6 +891,21 @@ class SiteController extends Controller
     }
 
 /**********************    VERIFICADORES     fim     *****************/
+
+
+
+
+/**********************    auxiliadores  - criadores de arrayhelpers    ****************/
+
+	protected function arrayhelper_relator ()
+	{
+		return ArrayHelper::map(RelatorSearch::find()->all(), 'id_relator', 'perfil');;
+	}
+
+	protected function arrayhelper_polo ()
+	{
+		return ArrayHelper::map(PoloSearch::find()->all(), 'id_polo', 'nome');
+	}
 
 }
 
