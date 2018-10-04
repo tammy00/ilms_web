@@ -25,8 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'id_tipo_problema',
                         'value' => function ($data) {
-                                $tipoproblema = TipoProblema::find()->where(['id' => $data->id_tipo_problema])->one();
-                                return $tipoproblema->tipo;
+                                $x = TipoProblema::find()->where(['id' => $data->id_tipo_problema])->one();
+                                return $x->nome;
                         },
                     ],
                     [

@@ -558,56 +558,7 @@ class SiteController extends Controller
              //return $this->actionDoom('Passou do verificador');
 
             if ( $verificacao_rbc == 0 )   // Checando se todos os dados necessários foram informados
-            {
-            	$perfil = Relator::find()->where(['id_relator' => $model->relator])->one();  
-            	
-		       $postArray = array(
-		            "poloId" => $model->id_polo,
-		            "relatorId" => $perfil->perfil,
-		            "descricaoProblema" => $model->descricao_problema,
-		            "problema" => $model->problema_detalhado,
-		            "naturezaProblema" => $model->natureza_problema,
-		            "palavrasChavesProblema" => $model->palavras_chaves,
-		        );
-
-		        // Converte os dados para o formato jSon
-		        $json = json_encode( $postArray );
-
-		        // receber resposta do servidor
-		        $curl = curl_init();
-		        curl_setopt_array($curl, array(
-		        CURLOPT_PORT => "8080", //porta do WS
-		        CURLOPT_URL => "http://localhost:8080/ServerRest/ServerRest/casos/caso", //Caminho do WS que vai receber o POST
-		        CURLOPT_RETURNTRANSFER => true, //Recebe resposta
-		        CURLOPT_ENCODING => "JSON", //Decodificação
-		        CURLOPT_MAXREDIRS => 10,
-		        CURLOPT_TIMEOUT => 30, // 30
-		        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		        CURLOPT_CUSTOMREQUEST => "POST", //metodo
-		        CURLOPT_POSTFIELDS => $json, //string com dados à serem postados
-		        CURLOPT_HTTPHEADER => array(
-		            'Content-Type: application/json',
-		            'Content-Length: ' . strlen($json)),
-		        ));
-		        //$curl = curl_setopt($json, CURLOPT_ENCODING ,'UTF-8');
-		        $result = curl_exec($curl); //recebe o resultado em json
-		        $err = curl_error($curl); //recebe o erro da classe ou WS
-		        curl_close($curl); //Encerra a biblioteca
-
-		        if ($err)
-		        {
-		            return (-2);
-
-		        } // ELSE pegar o id do caso, criar variável de similaridade, return view do Solução
-		        else
-		        {
-		            $result = utf8_encode($result);
-		            $data = json_decode($result,true);
-
-
-		            $idSolucao = $data['solucaoId'];
-		            $similaridadeCalculada = $data['similaridade'];
-		        }   
+            { 
             	
                 $resultado_id = $this->agenteRBC($model->id_polo, 
                     $model->descricao_problema, 
@@ -756,7 +707,7 @@ class SiteController extends Controller
         CURLOPT_RETURNTRANSFER => true, //Recebe resposta
         CURLOPT_ENCODING => "JSON", //Decodificação
         CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 120000, // 30
+        CURLOPT_TIMEOUT => 30, // 30
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST", //metodo
         CURLOPT_POSTFIELDS => $json, //string com dados à serem postados
@@ -807,7 +758,7 @@ class SiteController extends Controller
                 $nova_pesquisa->problema_detalhado = $detalhado;
                 $nova_pesquisa->palavras_chaves = $keywords;
                 $nova_pesquisa->similaridade = $similaridadeCalculada;
-                //$nova_pesquisa->id_titulo_problema = 0;
+                $nova_pesquisa->metodo = 'RBC';
 
                 if ($nova_pesquisa->save() )  // Se salvar a pesquisa
                 {

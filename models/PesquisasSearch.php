@@ -19,7 +19,7 @@ class PesquisasSearch extends Pesquisas
     {
         return [
             [['id_pesquisa', 'id_solucao', 'id_usuario', 'id_polo', 'status', 'id_resposta'], 'integer'],
-            [['relator', 'natureza_problema', 'descricao_problema', 'problema_detalhado', 'palavras_chaves'], 'safe'],
+            [['relator', 'natureza_problema', 'descricao_problema', 'problema_detalhado', 'palavras_chaves', 'metodo'], 'safe'],
         ];
     }
 

@@ -35,7 +35,8 @@ class Pesquisas extends \yii\db\ActiveRecord
         return [
             [['id_solucao', 'id_usuario', 'id_polo', 'status', 'id_resposta'], 'integer'],
             [['similaridade'], 'number'],
-            [['natureza_problema', 'descricao_problema', 'problema_detalhado', 'metodo'], 'string'],
+            [['natureza_problema', 'descricao_problema', 'problema_detalhado'], 'string'],
+            [['metodo'], 'string', 'max' => 100],
             [['relator'], 'string', 'max' => 250],
             [['palavras_chaves'], 'string', 'max' => 400],
         ];

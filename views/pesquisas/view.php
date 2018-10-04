@@ -25,6 +25,7 @@ $this->title = 'Detalhes da busca';
             'descricao_problema:ntext',
             'problema_detalhado:ntext',
             'palavras_chaves',
+            
         ],
     ]) ?>
 

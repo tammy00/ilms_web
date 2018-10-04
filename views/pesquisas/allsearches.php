@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\models\Polo;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\PesquisasSearch */
@@ -18,9 +19,16 @@ $this->params['breadcrumbs'][] = 'Pesquisas';
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'id_polo',
+            [
+                'attribute' => 'id_polo',
+                'value' => function ($data) {
+                        $x = Polo::find()->where(['id_polo' => $data->id_polo])->one();
+                        return $x->nome;
+                },
+            ],
             'relator',
              'natureza_problema:ntext',
             // 'descricao_problema:ntext',
