@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 29-Set-2018 às 19:53
+-- Generation Time: 08-Out-2018 às 01:08
 -- Versão do servidor: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -151,44 +151,45 @@ CREATE TABLE `figuras_ava` (
   `polo` varchar(100) NOT NULL DEFAULT '',
   `ano_periodo` varchar(100) NOT NULL DEFAULT '',
   `total_alunos` int(111) UNSIGNED NOT NULL,
-  `palavras_chaves` varchar(200) NOT NULL DEFAULT ''
+  `palavras_chaves` varchar(200) NOT NULL DEFAULT '',
+  `descricao` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `figuras_ava`
 --
 
-INSERT INTO `figuras_ava` (`id_figura`, `nome_figura`, `aplicativo`, `tipo_grafico`, `curso`, `disciplina`, `polo`, `ano_periodo`, `total_alunos`, `palavras_chaves`) VALUES
-(1, 'Fig1_FundamentosAnatomia_Sta_L', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Fundamentos da Anatomia', 'Santa Isabel do Rio Negro', '2015/2', 22, 'reprovação, aprovação'),
-(2, 'Fig2_InformaticaBasica_Boa_L', 'LMSMonitor', 'Aprovação', 'Administração', 'Informática Básica', 'Boa Vista', '2016/2', 30, 'reprovação, aprovação'),
-(3, 'Fig3_InformaticaBasica_Tef_W', 'WebMonitor', 'Nível de participação nas tarefas', 'Ciências Agrárias', 'Informática Básica', 'Tefé', '2016/1', 15, 'participação, tarefas'),
-(4, 'Fig4_RitmoMovimento_Sta_L', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Ritmo e Movimento', 'Santa Isabel do Rio Negro', '2015/1', 22, 'reprovação, aprovação'),
-(5, 'Fig5_InformaticaBasica_Tar_G', 'LPGraph', 'Trilha de Aprendizagem', 'Administração', 'Informática Básica', 'Tarauacá', '2017/1', 60, 'trilha de aprendizagem'),
-(6, 'Fig6_RitmoMovimento_Tef_L', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Ritmo e Movimento', 'Tefé', '2014/1', 18, 'reprovação, aprovação'),
-(7, 'Fig7_AtividadesCulturais_Sta_L', 'LMSMonitor', 'Aprovação', 'Artes', 'Atividades Culturais', 'Santa Izabel do Rio Negro', '2016/1', 12, 'reprovação, aprovação'),
-(8, 'Fig8_Bioquimica_Car_L', 'LMSMonitor', 'Aprovação', 'Biologia', 'Bioquímica', 'Caracaraí', '2016/2', 21, 'reprovação, aprovação'),
-(9, 'Fig9_DidaticaAplicada_Mau_L', 'LMSMonitor', 'Aprovação', 'Ciências Agrárias', 'Didática Aplicada', 'Maués', '2015/2', 14, 'reprovação, aprovação'),
-(10, 'Fig10_InformaticaBasica_Lab_L', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Informática Básica', 'Lábrea', '2014/1', 20, 'reprovação, aprovação'),
-(11, 'Fig11_EdFisicaInfancia_Lab_L', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Educação Física na Infância', 'Lábrea', '2014/2', 13, 'reprovação, aprovação'),
-(12, 'Fig12_FundamentosAnatomia_Lab_L', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Fundamentos da Anatomia', 'Lábrea', '2015/2', 13, 'reprovação, aprovação'),
-(13, 'Fig13_MetodologiaEnsino_Coa_L', 'LMSMonitor', 'Aprovação', 'Ciências Agrárias', 'Metodologia do Ensino', 'Coari', '2017/1', 15, 'reprovação, aprovação'),
-(14, 'Fig14_NutricaoAplicada_Bar_L', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Nutrição aplicada à Educação Física', 'Barcelos', '2016/2', 18, 'reprovação, aprovação'),
-(15, 'Fig15_PedagogiaEsporte_Bor_L', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Pedagogia do Esporte', 'Borba', '2017/2', 14, 'reprovação, aprovação'),
-(16, 'Fig16_Bioquimica_Coa_W', 'WebMonitor', 'Nível de participação nas tarefas', 'Biologia', 'Bioquímica', 'Coari', '2009/1', 24, 'participação, tarefas'),
-(17, 'Fig17_InformaticaBasica_Lab_W', 'WebMonitor', 'Nível de participação nas tarefas', 'Administração', 'Informática Básica', 'Brasileia', '2013/1', 22, 'participação, tarefas'),
-(18, 'Fig18_FundamentosAnatomia_Bar_W', 'WebMonitor', 'Nível de participação nas tarefas', 'Educação Física', 'Fundamentos da Anatomia', 'Barcelos', '2012/2', 25, 'participação, tarefas'),
-(19, 'Fig19_PedagogiaEsporte_Bor_W', 'WebMonitor', 'Nível de participação nas tarefas', 'Educação Física', 'Pedagogia do Esporte', 'Borba', '2017/2', 14, 'participação, tarefas'),
-(20, 'Fig20_RitmoMovimento_Tef_W', 'WebMonitor', 'Nível de participação nas tarefas', 'Educação Física', 'Ritmo e Movimento', 'Tefé', '2014/1', 18, 'participação, tarefas'),
-(21, 'Fig21_InformaticaBasica_Sta_G', 'LPGraph', 'Trilha de Aprendizagem', 'Educação Física', 'Informática Básica', 'Santa Isabel do Rio Negro', '2013/1', 22, 'trilha de aprendizagem'),
-(22, 'Fig22_InformaticaBasica_Boa_G', 'LPGraph', 'Trilha de Aprendizagem', 'Educação Física', 'Informática Básica', 'Boa Vista', '2013/1', 26, 'trilha de aprendizagem'),
-(23, 'Fig23_RitmoMovimento_Tef_G', 'LPGraph', 'Trilha de Aprendizagem', 'Educação Física', 'Ritmo e Movimento', 'Tefé', '2014/1', 18, 'trilha de aprendizagem'),
-(24, 'Fig24_Bioquímica_Coa_G', 'LPGraph', 'Trilha de Aprendizagem', 'Biologia', 'Bioquímica', 'Coari', '2009/1', 24, 'trilha de aprendizagem'),
-(25, 'Fig25_InformaticaBasica_Boa_G', 'LPGraph', 'Trilha de Aprendizagem', 'Administração', 'Informática´Básica', 'Boa Vista', '2016/2', 30, 'trilha de aprendizagem'),
-(26, 'Fig26_FundAnatomia_Car_G', 'LPGraph', 'Trilha de Aprendizagem', 'Biologia', 'Fundamentos da Anatomia', 'Caracaraí', '2016/2', 21, 'trilha de aprendizagem'),
-(27, 'Fig27_FundAnatomia_Sta_G', 'LPGraph', 'Trilha de Aprendizagem', 'Educação Física', 'Fundamentos da Anatomia', 'Santa Isabel do Rio Negro', '2013/1', 25, 'trilha de aprendizagem'),
-(28, 'Fig28_FundAnatomia_Boa_G', 'LPGraph', 'Trilha de Aprendizagem', 'Educação Física', 'Fundamentos da Anatomia', 'Boa Vista', '2013/1', 26, 'trilha de aprendizagem'),
-(29, 'Fig29_InformaticaBasica_Tef_G', 'LPGraph', 'Trilha de Aprendizagem', 'Ciências Agrárias', 'Informática Básica', 'Tefé', '2016/1', 15, 'trilha de aprendizagem'),
-(30, 'Fig30_RitmoMovimento_Sta_G', 'LPGraph', 'Trilha de Aprendizagem', 'Educação Física', 'Ritmo e Movimento', 'Santa Isabel do Rio Negro', '2015/1', 22, 'trilha de aprendizagem');
+INSERT INTO `figuras_ava` (`id_figura`, `nome_figura`, `aplicativo`, `tipo_grafico`, `curso`, `disciplina`, `polo`, `ano_periodo`, `total_alunos`, `palavras_chaves`, `descricao`) VALUES
+(1, 'Fig1_FundamentosAnatomia_Sta_L', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Fundamentos da Anatomia', 'Santa Isabel do Rio Negro', '2015/2', 22, 'reprovação, aprovação', NULL),
+(2, 'Fig2_InformaticaBasica_Boa_L', 'LMSMonitor', 'Aprovação', 'Administração', 'Informática Básica', 'Boa Vista', '2016/2', 30, 'reprovação, aprovação', NULL),
+(3, 'Fig3_InformaticaBasica_Tef_W', 'WebMonitor', 'Nível de participação nas tarefas', 'Ciências Agrárias', 'Informática Básica', 'Tefé', '2016/1', 15, 'participação, tarefas', NULL),
+(4, 'Fig4_RitmoMovimento_Sta_L', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Ritmo e Movimento', 'Santa Isabel do Rio Negro', '2015/1', 22, 'reprovação, aprovação', NULL),
+(5, 'Fig5_InformaticaBasica_Tar_G', 'LPGraph', 'Trilha de Aprendizagem', 'Administração', 'Informática Básica', 'Tarauacá', '2017/1', 60, 'trilha de aprendizagem', NULL),
+(6, 'Fig6_RitmoMovimento_Tef_L', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Ritmo e Movimento', 'Tefé', '2014/1', 18, 'reprovação, aprovação', NULL),
+(7, 'Fig7_AtividadesCulturais_Sta_L', 'LMSMonitor', 'Aprovação', 'Artes', 'Atividades Culturais', 'Santa Izabel do Rio Negro', '2016/1', 12, 'reprovação, aprovação', NULL),
+(8, 'Fig8_Bioquimica_Car_L', 'LMSMonitor', 'Aprovação', 'Biologia', 'Bioquímica', 'Caracaraí', '2016/2', 21, 'reprovação, aprovação', NULL),
+(9, 'Fig9_DidaticaAplicada_Mau_L', 'LMSMonitor', 'Aprovação', 'Ciências Agrárias', 'Didática Aplicada', 'Maués', '2015/2', 14, 'reprovação, aprovação', NULL),
+(10, 'Fig10_InformaticaBasica_Lab_L', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Informática Básica', 'Lábrea', '2014/1', 20, 'reprovação, aprovação', NULL),
+(11, 'Fig11_EdFisicaInfancia_Lab_L', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Educação Física na Infância', 'Lábrea', '2014/2', 13, 'reprovação, aprovação', NULL),
+(12, 'Fig12_FundamentosAnatomia_Lab_L', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Fundamentos da Anatomia', 'Lábrea', '2015/2', 13, 'reprovação, aprovação', NULL),
+(13, 'Fig13_MetodologiaEnsino_Coa_L', 'LMSMonitor', 'Aprovação', 'Ciências Agrárias', 'Metodologia do Ensino', 'Coari', '2017/1', 15, 'reprovação, aprovação', NULL),
+(14, 'Fig14_NutricaoAplicada_Bar_L', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Nutrição aplicada à Educação Física', 'Barcelos', '2016/2', 18, 'reprovação, aprovação', NULL),
+(15, 'Fig15_PedagogiaEsporte_Bor_L', 'LMSMonitor', 'Aprovação', 'Educação Física', 'Pedagogia do Esporte', 'Borba', '2017/2', 14, 'reprovação, aprovação', NULL),
+(16, 'Fig16_Bioquimica_Coa_W', 'WebMonitor', 'Nível de participação nas tarefas', 'Biologia', 'Bioquímica', 'Coari', '2009/1', 24, 'participação, tarefas', NULL),
+(17, 'Fig17_InformaticaBasica_Lab_W', 'WebMonitor', 'Nível de participação nas tarefas', 'Administração', 'Informática Básica', 'Brasileia', '2013/1', 22, 'participação, tarefas', NULL),
+(18, 'Fig18_FundamentosAnatomia_Bar_W', 'WebMonitor', 'Nível de participação nas tarefas', 'Educação Física', 'Fundamentos da Anatomia', 'Barcelos', '2012/2', 25, 'participação, tarefas', NULL),
+(19, 'Fig19_PedagogiaEsporte_Bor_W', 'WebMonitor', 'Nível de participação nas tarefas', 'Educação Física', 'Pedagogia do Esporte', 'Borba', '2017/2', 14, 'participação, tarefas', NULL),
+(20, 'Fig20_RitmoMovimento_Tef_W', 'WebMonitor', 'Nível de participação nas tarefas', 'Educação Física', 'Ritmo e Movimento', 'Tefé', '2014/1', 18, 'participação, tarefas', NULL),
+(21, 'Fig21_InformaticaBasica_Sta_G', 'LPGraph', 'Trilha de Aprendizagem', 'Educação Física', 'Informática Básica', 'Santa Isabel do Rio Negro', '2013/1', 22, 'trilha de aprendizagem', NULL),
+(22, 'Fig22_InformaticaBasica_Boa_G', 'LPGraph', 'Trilha de Aprendizagem', 'Educação Física', 'Informática Básica', 'Boa Vista', '2013/1', 26, 'trilha de aprendizagem', NULL),
+(23, 'Fig23_RitmoMovimento_Tef_G', 'LPGraph', 'Trilha de Aprendizagem', 'Educação Física', 'Ritmo e Movimento', 'Tefé', '2014/1', 18, 'trilha de aprendizagem', NULL),
+(24, 'Fig24_Bioquímica_Coa_G', 'LPGraph', 'Trilha de Aprendizagem', 'Biologia', 'Bioquímica', 'Coari', '2009/1', 24, 'trilha de aprendizagem', NULL),
+(25, 'Fig25_InformaticaBasica_Boa_G', 'LPGraph', 'Trilha de Aprendizagem', 'Administração', 'Informática´Básica', 'Boa Vista', '2016/2', 30, 'trilha de aprendizagem', NULL),
+(26, 'Fig26_FundAnatomia_Car_G', 'LPGraph', 'Trilha de Aprendizagem', 'Biologia', 'Fundamentos da Anatomia', 'Caracaraí', '2016/2', 21, 'trilha de aprendizagem', NULL),
+(27, 'Fig27_FundAnatomia_Sta_G', 'LPGraph', 'Trilha de Aprendizagem', 'Educação Física', 'Fundamentos da Anatomia', 'Santa Isabel do Rio Negro', '2013/1', 25, 'trilha de aprendizagem', NULL),
+(28, 'Fig28_FundAnatomia_Boa_G', 'LPGraph', 'Trilha de Aprendizagem', 'Educação Física', 'Fundamentos da Anatomia', 'Boa Vista', '2013/1', 26, 'trilha de aprendizagem', NULL),
+(29, 'Fig29_InformaticaBasica_Tef_G', 'LPGraph', 'Trilha de Aprendizagem', 'Ciências Agrárias', 'Informática Básica', 'Tefé', '2016/1', 15, 'trilha de aprendizagem', NULL),
+(30, 'Fig30_RitmoMovimento_Sta_G', 'LPGraph', 'Trilha de Aprendizagem', 'Educação Física', 'Ritmo e Movimento', 'Santa Isabel do Rio Negro', '2015/1', 22, 'trilha de aprendizagem', NULL);
 
 -- --------------------------------------------------------
 
@@ -205,33 +206,6 @@ CREATE TABLE `info_caso` (
   `id_descricao` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `id_relator` int(10) UNSIGNED NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `info_caso`
---
-
-INSERT INTO `info_caso` (`id_infoc`, `date_created`, `tipo_caso`, `quantidade_alunos`, `polo`, `id_descricao`, `id_relator`) VALUES
-(2, '2017-05-22', 'Tipo Caso', 40, 'Boa Vista', 10, 1),
-(3, '2018-07-18', 'Novo', 120, 'Santa Izabel da Cachoeira', 11, 3),
-(4, '2018-07-18', 'Novo', 60, 'Parintins', 12, 2),
-(5, '2018-07-18', 'Novo', 1, 'Coari', 13, 2),
-(6, '2018-07-18', 'Novo', 12, 'São Gabriel da Cachoeira', 14, 2),
-(7, '2018-07-18', 'Novo', 250, 'Boa Vista', 15, 3),
-(8, '2018-07-22', 'Novo', 167, 'Guajará', 16, 2),
-(9, '2018-07-22', 'Novo', 6, 'Tarauacá', 17, 2),
-(10, '2018-07-22', 'Novo', 2, 'Lábrea', 18, 2),
-(11, '2018-07-22', 'Novo', 80, 'Boa Vista', 19, 2),
-(12, '2018-07-22', 'Novo', 40, 'Boa Vista', 20, 3),
-(13, '2018-08-05', 'Novo', 40, 'Boa Vista', 21, 2),
-(14, '2018-08-05', 'Novo', 40, 'Boa Vista', 22, 2),
-(15, '2018-08-05', 'Novo', 60, 'Tarauacá', 23, 8),
-(16, '2018-08-05', 'Novo', 1, 'Boa Vista', 24, 8),
-(17, '2018-08-05', 'Novo', 40, 'Boa Vista', 25, 2),
-(18, '2018-08-05', 'Novo', 15, 'Manacapuru', 26, 2),
-(19, '2018-08-05', 'Novo', 15, 'Tefé', 27, 2),
-(20, '2018-08-05', 'Novo', 18, 'Tefé', 28, 8),
-(21, '2018-08-05', 'Novo', 40, 'Boa Vista', 29, 2),
-(22, '2018-08-05', 'Novo', 60, 'Tarauacá', 30, 2);
 
 -- --------------------------------------------------------
 
@@ -720,7 +694,7 @@ ALTER TABLE `curso`
 -- AUTO_INCREMENT for table `descricao`
 --
 ALTER TABLE `descricao`
-  MODIFY `id_descricao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_descricao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `disciplina`
@@ -732,7 +706,7 @@ ALTER TABLE `disciplina`
 -- AUTO_INCREMENT for table `info_caso`
 --
 ALTER TABLE `info_caso`
-  MODIFY `id_infoc` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_infoc` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pesquisas`
@@ -768,7 +742,7 @@ ALTER TABLE `resposta_esp`
 -- AUTO_INCREMENT for table `solucao`
 --
 ALTER TABLE `solucao`
-  MODIFY `id_solucao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_solucao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `tipo_problema`

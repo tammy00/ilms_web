@@ -28,7 +28,7 @@ $this->title = 'iDE Framework';
 
              <?= $form->field($model, 'resumo')->textarea(['rows' => 6])->label('Descreva o problema resumidamente:'); ?>
 
-             <?= $form->field($model, 'agente')->radioList([ 1 => 'Busca com RBC', 2 => 'Dados do Ambiente Virtual', 3 => 'Opinião de Especialistas']); 
+             <?= $form->field($model, 'agente')->radioList([ 1 => 'Busca com RBC', 2 => 'Dados do Ambiente Virtual', 3 => 'Opinião de Especialistas', 4 => 'Combinar agentes']); 
 
              ?> 
 
@@ -47,7 +47,7 @@ $this->title = 'iDE Framework';
                 <div class="col-lg-4" align="center">
                     <h3>Agentes combinados</h3>
 
-                    <p><a class="btn btn-default" href="?r="> Clicar aqui &raquo;</a></p>
+                    <p><a class="btn btn-default" href="?r=site/combinacao&resumo=''"> Clicar aqui &raquo;</a></p>
 
                 </div>
 

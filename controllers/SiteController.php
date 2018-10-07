@@ -46,7 +46,7 @@ class SiteController extends Controller
                 'only' => ['logout', 'index', 'view', 'doom', 'cbrsearch', 'vlesearch', 'expsearch', 'cbrview', 'vleview', 'expview', 'lpgraph', 'behaviour', 'desempenho', 'combinacao', 'viewcombinacao'],
                 'rules' => [
                     [
-                        'actions' => ['logout', 'index', 'view', 'doom', 'cbrsearch', 'vlesearch', 'expsearch', 'cbrview', 'vleview', 'expview', 'lpgraph', 'behaviour', 'desempenho'],
+                        'actions' => ['logout', 'index', 'view', 'doom', 'cbrsearch', 'vlesearch', 'expsearch', 'cbrview', 'vleview', 'expview', 'lpgraph', 'behaviour', 'desempenho', 'combinacao', 'viewcombinacao'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -95,8 +95,9 @@ class SiteController extends Controller
     		//return $this->actionCbrsearch($model->resumo);
     		//return Yii::$app->runAction('site/cbrsearch',['resumo' => $resumo ]);
     		//return $this->actionCbrsearch();
-    		elseif ( $model->agente == 2) return $this->redirect(['site/vlesearch']);
-    		elseif ( $model->agente == 3) return $this->redirect(['site/expsearch']);
+    		elseif ( $model->agente == 2) return $this->redirect(['site/vlesearch', 'resumo' => $model->resumo]);
+    		elseif ( $model->agente == 3) return $this->redirect(['site/expsearch', 'resumo' => $model->resumo]);
+            elseif ( $model->agente == 4) return $this->redirect(['site/combinacao', 'resumo' => $model->resumo]);
     		//else return $this->actionDoom('não deu certo');
     	}
     	else
@@ -246,14 +247,14 @@ class SiteController extends Controller
 
     	$model_descricao->similaridade = round(($model_descricao->similaridade * 100 ));
 
-        $polo = Polo::find()->where(['id_polo' => $model_descricao->id_polo])->one();
-	    $model_descricao->id_polo = $polo->nome;
+        
+        $model_descricao->id_polo = "";
 
     	/***** RBC END  ******/
 
     	/***** AVA   ******/
 
-    	// 
+    	$model_ava = new FigurasAva();
 
     	/***** AVA END  ******/
 
@@ -269,23 +270,15 @@ class SiteController extends Controller
         $model_esp->id_tipo_problema = $tipo->tipo;
         $model_esp->id_titulo_problema = $titulo->titulo;
 
-        $r = Relator::find()->where(['id_relator' => $model_esp->relator])->one();
-        if ( $model_esp->funcao_especialista != $model_esp->relator )
-        {
-            $novo_relator = Relator::find()->where(['id_relator' => $model_esp->funcao_especialista])->one();
-            $model_esp->funcao_especialista = $novo_relator->perfil;
-            $model_esp->relator = $r->perfil;
-        }
-        else 
-        {
-            $model_esp->relator = $r->perfil;
-            $model_esp->funcao_especialista = $model_esp->relator;
-        }
+        $model_esp->funcao_especialista = "";
+        $model_esp->relator = "";
+
     	/***** ESPECIALISTAS END  ******/
 
-        return $this->render('view', [
+        return $this->render('viewcombinacao', [
             'model_descricao' => $model_descricao,
-            'sol' => $sol,
+            'model_solucao' => $model_solucao,
+            'model_ava' => $model_ava,
             'model_esp' => $model_esp,
         ]);
     }
@@ -418,7 +411,7 @@ class SiteController extends Controller
     Combina o uso de RBC, AVA e opinião dos especialistas 
     ****/
 
-    public function actionCombinacao ()
+    public function actionCombinacao ($resumo)
     {
     	$model = new Combinacao();
 
@@ -432,7 +425,8 @@ class SiteController extends Controller
 	    	{
 	    		$tipodoproblema = TipoProblema::find()->where(['id' => $model->tipo_problema])->one();
 
-                $resultado_id = $this->agenteRBC(0, "", "", "", $model->palavras_chaves, $tipodoproblema->tipo);    
+                $resultado_id = $this->agenteRBC(NULL, $resumo, NULL, NULL, $model->palavras_chaves, $tipodoproblema->tipo);   
+                //($polo, $desc, $detalhado, $relator, $keywords, $natureza) 
 
                 switch ($resultado_id)
                 {
@@ -477,7 +471,7 @@ class SiteController extends Controller
 
 		            if ( $resposta != null )  // Verifica se existe ao menos um registro
 		            {
-		            	if ( $resultado_id != (-10) )  // Onde o rbc não foi seelcionado - não tem uma pesquisa combinada já criada
+		            	if ( $resultado_id == (-10) )  // Onde o rbc não foi seelcionado - não tem uma pesquisa combinada já criada
 		            	{
 			                $nova_pesquisa = new Pesquisas();
 			                $nova_pesquisa->id_resposta = $resposta->id;
@@ -491,7 +485,7 @@ class SiteController extends Controller
 		            	{
 		            		$atualiza = Pesquisas::find()->where(['id_pesquisa' => $resultado_id])->one();
 
-		            		$atualiza->id_resposta = $resposta->id;
+		            		$atualiza->id_resposta = $resultado_id;
 
 			                if ( !$atualiza->save() ) 
 			                	return $this->actionDoom('Solução existente. Porém, a pesquisa não salva com sucesso.');	
@@ -522,7 +516,7 @@ class SiteController extends Controller
 
 
 
-    public function actionVlesearch ()
+    public function actionVlesearch ($resumo)
     {
   
         //$searchModel = new CursoSearch();
@@ -686,15 +680,31 @@ class SiteController extends Controller
 
         // Enviar json pelo CURL
         //Cria a array com os dados recebido, sendo q o ID é gerado pelo WS
-                    
-        $postArray = array(
-            "poloId" => $polo,
-            "relatorId" => $perfil->perfil,
-            "descricaoProblema" => $desc,
-            "problema" => $detalhado,
-            "naturezaProblema" => $natureza,
-            "palavrasChavesProblema" => $keywords,
-        );
+        $flag = 0;
+
+        if ( ($perfil == null) && ($detalhado == null) && ($relator == null ))
+        {
+            $postArray = array(
+                "poloId" => $polo,
+                "relatorId" => NULL,
+                "descricaoProblema" => $desc,
+                "problema" => NULL,
+                "naturezaProblema" => $natureza,
+                "palavrasChavesProblema" => $keywords,
+            );
+
+            $flag = 1;
+        }
+        else {         
+            $postArray = array(
+                "poloId" => $polo,
+                "relatorId" => $perfil->perfil,
+                "descricaoProblema" => $desc,
+                "problema" => $detalhado,
+                "naturezaProblema" => $natureza,
+                "palavrasChavesProblema" => $keywords,
+            );
+        }
 
         // Converte os dados para o formato jSon
         $json = json_encode( $postArray );
@@ -752,10 +762,20 @@ class SiteController extends Controller
                 $nova_pesquisa->id_polo = $polo;
                 $nova_pesquisa->id_usuario = Yii::$app->user->identity->id;
                 $nova_pesquisa->status = 0;  // 0 = criado, não salvo como novo caso
-                $nova_pesquisa->relator = $perfil->perfil;  // ID do relator não é salvo nessa tabela
+
+                if ( $flag == 1 )
+                {
+                    $nova_pesquisa->relator = "";  // ID do relator não é salvo nessa tabela
+                    $nova_pesquisa->problema_detalhado = "";
+                }
+                else 
+                {
+                    $nova_pesquisa->relator = $perfil->perfil;  // ID do relator não é salvo nessa tabela
+                    $nova_pesquisa->problema_detalhado = $detalhado;
+                }
+                
                 $nova_pesquisa->natureza_problema = $natureza;
                 $nova_pesquisa->descricao_problema = $desc;
-                $nova_pesquisa->problema_detalhado = $detalhado;
                 $nova_pesquisa->palavras_chaves = $keywords;
                 $nova_pesquisa->similaridade = $similaridadeCalculada;
                 $nova_pesquisa->metodo = 'RBC';

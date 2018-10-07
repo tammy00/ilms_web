@@ -24,8 +24,9 @@ $this->title = 'Resultado(s) da busca'
         <legend>Solução do RBC</legend>
         <b> DESCRIÇÃO REALIZADA: </b>
         <?= DetailView::widget([
-            'model' => $$model_descricao,
+            'model' => $model_descricao,
             'attributes' => [
+                'descricao_problema',
                 'natureza_problema:ntext',
                 'palavras_chaves',
             ],
@@ -70,9 +71,9 @@ $this->title = 'Resultado(s) da busca'
                     'funcao_especialista',
                     'relator',
                 ],
-            ]) ?>
+            ]); ?>
 
-    <?= } ?>
+    <?php } ?>
     </fieldset>
     <br>
 
@@ -81,19 +82,19 @@ $this->title = 'Resultado(s) da busca'
     <fieldset>
             <legend>Pesquisa no AVA</legend>
 
-
-    <?= } ?>
-    </fieldset>
+</fieldset>
+    <?php } ?>
+    
     <br>
 
     <p>
     <b>A informação é útil?</b>
 
-          <?php $url = '#'.$model_descricao->id_pesquisa; ?>
+          <?php $url = '?r=pesquisas/newcase&id='.$model_descricao->id_pesquisa; ?>
           
         <a href='<?php echo $url ?>' class="btn btn-primary">Sim</a>
 
-        <?php $link = '#'.$model_descricao->id_pesquisa;  ?>
+        <?php $link = '?r=pesquisas/update&id='.$model_descricao->id_pesquisa;  ?>
 
         <a href='<?php echo $link ?>' class="btn btn-default">Não</a>
 
