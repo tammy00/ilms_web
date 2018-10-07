@@ -418,7 +418,7 @@ class SiteController extends Controller
     Combina o uso de RBC, AVA e opinião dos especialistas 
     ****/
 
-    public function actionCombinacao ($desc_resumido)
+    public function actionCombinacao ()
     {
     	$model = new Combinacao();
 

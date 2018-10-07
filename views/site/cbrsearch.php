@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
           <fieldset>   
                 <legend>Casos Passados</legend>
                 
-          <?= $form->field($model, 'natureza_problema')->radioList(['Infraestrutura' => 'Infraestrutura', 'Pedagógica' => 'Pedagógica', 'Acadêmica' => 'Acadêmica'])->label('Selecione a natureza do problema:');   ?>
+          <?= $form->field($model, 'natureza_problema')->radioList(['Infraestrutura/Administrativa' => 'Infraestrutura/Administrativa', 'Pedagógica' => 'Pedagógica', 'Acadêmica' => 'Acadêmica'])->label('Selecione a natureza do problema:');   ?>
 
           <?= $form->field($model, 'descricao_problema')->textarea(['rows' => 6])->label('Descreva o problema resumidamente:'); ?>
 

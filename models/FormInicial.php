@@ -34,7 +34,7 @@ class FormInicial extends Model
         return [
 
             [[ 'agente'], 'integer'],
-            [['resumo'], 'string', 'max' => 250],
+            [['resumo'], 'string'],
             /*************************************/
 
             /*** Abaixo, os atributos de resposta_esp   ***/

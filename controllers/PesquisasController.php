@@ -190,7 +190,7 @@ class PesquisasController extends Controller
         $model = $this->findModel($id);
 
         $model->status = 1; // Foi decidido que não vira um novo caso
-        $model->efetividade_acao_implementada = "Não";
+        //$model->efetividade_acao_implementada = "Não";
 
         $model->save();
 
@@ -240,7 +240,9 @@ class PesquisasController extends Controller
                 {
                     $model->status = 2;  // É um caso novo na base - só para diferenciar na tabela pesquisas
                     $model->save();
+
                     Yii::$app->session->setFlash('newcasesaved');
+
                     return Yii::$app->runAction('site/index');
                 }
                 else return Yii::$app->runAction('site/index', ['message' => 'InfoCaso do caso novo não foi salvo.']);
