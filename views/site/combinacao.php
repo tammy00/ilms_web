@@ -21,9 +21,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 <fieldset>
                         <legend>Opções de combinação</legend> 
 
-                        <?= $form->field($model, 'cbr')->radio() ?>
-                        <?= $form->field($model, 'ava')->radio() ?>
-                        <?= $form->field($model, 'esp')->radio() ?>
+                        <?= $form->field($model, 'cbr')->radio(['value' => 1, 'uncheck' => null]) ?>
+                        <?= $form->field($model, 'ava')->radio(['value' => 1, 'uncheck' => null]) ?>
+                        <?= $form->field($model, 'esp')->radio(['value' => 1, 'uncheck' => null]) ?>
 
                 </fieldset>
 

@@ -243,7 +243,14 @@ class SiteController extends Controller
 
     	/***** RBC   ******/
 
-    	$model_solucao = Solucao::find()->where(['id_solucao' => $model_descricao->id_solucao])->one();
+        $model_solucao = new Solucao();
+
+        if ( $model_descricao->id_solucao != null)
+        {
+            $model_solucao = Solucao::find()->where(['id_solucao' => $model_descricao->id_solucao])->one();
+        }
+
+    	
 
     	$model_descricao->similaridade = round(($model_descricao->similaridade * 100 ));
 
@@ -254,24 +261,29 @@ class SiteController extends Controller
 
     	/***** AVA   ******/
 
-    	$model_ava = new FigurasAva();
+    	$model_ava = FigurasAva::find()->where(['id_figura' => $model_descricao->id_ava])->one();
 
     	/***** AVA END  ******/
 
     	/***** ESPECIALISTAS   ******/
+
     	$model_esp = RespostaEspecialistas::find()->where(['id' => $model_descricao->id_resposta])->one();
 
-        Yii::$app->formatter->locale = 'pt-BR';
-        $model_esp->data_ocorrencia = Yii::$app->formatter->asDate($model_esp->data_ocorrencia);
-        $model_esp->data_insercao = Yii::$app->formatter->asDate($model_esp->data_insercao);
+        if ( $model_esp != null )
+        {
+            Yii::$app->formatter->locale = 'pt-BR';
+            $model_esp->data_ocorrencia = Yii::$app->formatter->asDate($model_esp->data_ocorrencia);
+            $model_esp->data_insercao = Yii::$app->formatter->asDate($model_esp->data_insercao);
 
-        $tipo = TipoProblema::find()->where(['id' => $model_esp->id_tipo_problema])->one();
-        $titulo = TituloProblema::find()->where(['id' => $model_esp->id_titulo_problema])->one();
-        $model_esp->id_tipo_problema = $tipo->tipo;
-        $model_esp->id_titulo_problema = $titulo->titulo;
+            $tipo = TipoProblema::find()->where(['id' => $model_esp->id_tipo_problema])->one();
+            $titulo = TituloProblema::find()->where(['id' => $model_esp->id_titulo_problema])->one();
+            $model_esp->id_tipo_problema = $tipo->tipo;
+            $model_esp->id_titulo_problema = $titulo->titulo;
 
-        $model_esp->funcao_especialista = "";
-        $model_esp->relator = "";
+            $model_esp->funcao_especialista = "";
+            $model_esp->relator = "";            
+        }
+
 
     	/***** ESPECIALISTAS END  ******/
 
@@ -373,31 +385,86 @@ class SiteController extends Controller
     public function actionLpgraph($id)
     {
 
-        $model = FigurasAva::find()->where(['id_figura' => $id])->one();
+        $model1 = FigurasAva::find()->where(['id_figura' => $id])->one();
 
-        return $this->render('lpgraph', [
-            'model' => $model,
-        ]);
+        if ( $model1->aplicativo == 'LPGraph')
+        {
+            return $this->render('lpgraph', [
+                'model' => $model1,
+            ]);
+        }
+        else
+        {
+            $model_verdadeiro = FigurasAva::find()
+                      ->where(['aplicativo' => 'LPGraph'])
+                      ->andWhere(['curso' => $model1->curso])
+                      ->andWhere(['disciplina' => $model1->disciplina])
+                      ->andWhere(['ano_periodo' => $model1->ano_periodo])
+                      ->andWhere(['total_aluno' => $model1->total_aluno])
+                      ->one();
+
+            return $this->render('lpgraph', [
+                'model' => $model_verdadeiro,
+            ]);            
+        }
+
+
     }
 
     public function actionBehaviour($id)
     {
 
-        $model = FigurasAva::find()->where(['id_figura' => $id])->one();
+         $model1 = FigurasAva::find()->where(['id_figura' => $id])->one();
 
-        return $this->render('behaviour', [
-            'model' => $model,
-        ]);
+        if ( $model1->aplicativo == 'LMSMonitor')
+        {
+            return $this->render('behaviour', [
+                'model' => $model1,
+            ]);
+        }
+        else
+        {
+            $model_verdadeiro = FigurasAva::find()
+                      ->where(['aplicativo' => 'LMSMonitor'])
+                      ->andWhere(['curso' => $model1->curso])
+                      ->andWhere(['disciplina' => $model1->disciplina])
+                      ->andWhere(['ano_periodo' => $model1->ano_periodo])
+                      ->andWhere(['total_aluno' => $model1->total_aluno])
+                      ->one();
+
+            return $this->render('behaviour', [
+                'model' => $model_verdadeiro,
+            ]);            
+        }
+
     }
 
     public function actionDesempenho($id)
     {
 
-        $model = FigurasAva::find()->where(['id_figura' => $id])->one();
+         $model1 = FigurasAva::find()->where(['id_figura' => $id])->one();
 
-        return $this->render('desempenho', [
-	            'model' => $model,
-	        ]);        	
+        if ( $model1->aplicativo == 'WebMonitor')
+        {
+            return $this->render('desempenho', [
+                'model' => $model1,
+            ]);
+        }
+        else
+        {
+            $model_verdadeiro = FigurasAva::find()
+                      ->where(['aplicativo' => 'WebMonitor'])
+                      ->andWhere(['curso' => $model1->curso])
+                      ->andWhere(['disciplina' => $model1->disciplina])
+                      ->andWhere(['ano_periodo' => $model1->ano_periodo])
+                      ->andWhere(['total_aluno' => $model1->total_aluno])
+                      ->one();
+
+            return $this->render('desempenho', [
+                'model' => $model_verdadeiro,
+            ]);            
+        }
+      	
     }
 
 
@@ -428,35 +495,13 @@ class SiteController extends Controller
                 $resultado_id = $this->agenteRBC(NULL, $resumo, NULL, NULL, $model->palavras_chaves, $tipodoproblema->tipo);   
                 //($polo, $desc, $detalhado, $relator, $keywords, $natureza) 
 
-                switch ($resultado_id)
-                {
-                    case 0:
-                        return $this->actionDoom('Solução existente. Porém, a pesquisa não salva com sucesso.');
-                        break;
-                    case (-1):
-                        return $this->actionDoom('Não foi possível registrar a pesquisa. Retorne à página anterior e tente novamente.');
-                        break;
-                    case (-2): 
-                        return $this->actionDoom('Problema ao conectar com o servidor. Tente novamente.');
-                        break;
-                    case (-3):
-                        return $this->actionDoom('Registro da solução não encontrada.');
-                        break; 
-                    case (-4):
-                        return $this->actionDoom('Não há solução na base de casos com a descrição apresentada.');
-                        break;
-                    default:
-                        break;   
-                } 
 	    	}
 	    	/***** RBC END  ******/
 
 	    	/***** AVA   ******/
 	    	if ( $model->ava != null ) // AVA foi selecionado
 	    	{
-	    		// Busca na tabela imagem
-	    		// Pegar o id do model com a palavra-chave informada (imagem_id)
-	    		// Salvar, na tabela pesquisa, a palavra-chave somente -> salvar no resultado_id (tanto variável quanto na pesquisa com esse id)
+	    		$resultado_id = $this->agenteLMS($resultado_id, $model->palavras_chaves);
 	    	}
 	    	/***** AVA END  ******/
 
@@ -496,7 +541,27 @@ class SiteController extends Controller
 	            }
 	            else return $this->actionDoom('Por favor, informar o título e tipo do problema.'); 
 	    	}
-	    	/***** ESPECIALISTAS END  ******/    	
+	    	/***** ESPECIALISTAS END  ******/   
+            switch ($resultado_id)
+                {
+                    case 0:
+                        return $this->actionDoom('Solução existente. Porém, a pesquisa não salva com sucesso.');
+                        break;
+                    case (-1):
+                        return $this->actionDoom('Não foi possível registrar a pesquisa. Retorne à página anterior e tente novamente.');
+                        break;
+                    case (-2): 
+                        return $this->actionDoom('Problema ao conectar com o servidor. Tente novamente.');
+                        break;
+                    case (-3):
+                        return $this->actionDoom('Registro da solução não encontrada.');
+                        break; 
+                    case (-4):
+                        return $this->actionDoom('Não há solução na base de casos com a descrição apresentada.');
+                        break;
+                    default:
+                        break;   
+                }  	
 	    	return $this->actionViewcombinacao($resultado_id);
     	}
     	else
@@ -793,9 +858,44 @@ class SiteController extends Controller
 
 
 
-    public function agenteLMS(/**** DEFINIR PARÂMETROS   ****/)   // Consulta AGENTE LMS
+    public function agenteLMS($id, $palavras_chaves)   // Consulta AGENTE LMS linha 512
     {
-        return $this->render('doom', ['message' => 'Sem parâmetros ainda.']);
+        $model = FigurasAva::find()->where(['palavras_chaves' => $palavras_chaves])->andWhere(['<>','aplicativo','LPGraph'])->one();
+
+        if ( $model != null )
+        {
+            if ( $id != (-10) ) // Já tem uma pesquisa feita, pelo mesmo usuário e mesmo momento
+            {
+                //
+                $model_pesquisa = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
+
+                $model_pesquisa->id_ava = $model->id_figura;
+
+                $model_pesquisa->palavras_chaves = $palavras_chaves;
+
+                $model_pesquisa->metodo = $model_pesquisa->metodo . ', AVA';
+
+                if ( $model_pesquisa->save()) return $model_pesquisa->id_pesquisa;
+                else return (-1);
+            }
+            else // Gerar registro de pesquisa nova
+            {
+                $novo_registro = new Pesquisas();
+
+                $novo_registro->id_ava = $model->id_figura;
+
+                $novo_registro->metodo = 'AVA';
+
+                $novo_registro->palavras_chaves = $palavras_chaves;
+
+                if ( $novo_registro->save() ) return $novo_registro->id_pesquisa;
+                else return (-1);
+            }
+        }
+        else
+        {
+            return (-1);
+        }
     }
 
 
@@ -814,12 +914,28 @@ class SiteController extends Controller
 
             if ( $resposta != null )  // Verifica se existe ao menos um registro
             {
-                $nova_pesquisa = new Pesquisas();
-                $nova_pesquisa->id_resposta = $resposta->id;
-                $nova_pesquisa->id_usuario = Yii::$app->user->identity->id;
+                $registro_pesquisa = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
 
-                if ( $nova_pesquisa->save() ) return $nova_pesquisa->id_pesquisa;
-                    // Se a pesquisa foi salva, retorna o id da pesquisa criada
+                if ( $registro_pesquisa == null )
+                {
+                    $nova_pesquisa = new Pesquisas();
+                    $nova_pesquisa->id_resposta = $resposta->id;
+                    $nova_pesquisa->id_usuario = Yii::$app->user->identity->id;   
+                    $nova_pesquisa->metodo = 'Especialistas';                 
+                    
+                    if ( $nova_pesquisa->save() ) return $nova_pesquisa->id_pesquisa;// Se a pesquisa foi salva, retorna o id da pesquisa criada
+                    else return (-1);
+                }
+                else
+                {
+                    $registro_pesquisa->metodo = $registro_pesquisa->metodo . ', Especialistas';
+                    $registro_pesquisa->id_resposta = $resposta->id;
+                    
+                    if ( $registro_pesquisa->save() ) return $registro_pesquisa->id_pesquisa;
+                    else return (-1);
+                }
+
+                    
                 
             }
             else    // Não tem resposta de acordo com o título de problema selecionado

@@ -7,6 +7,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\grid\GridView;
+use app\models\FigurasAva;
 
 $this->title = 'Dados do Ambiente Virtual';
 $this->params['breadcrumbs'][] = $this->title;
@@ -53,14 +54,17 @@ $this->params['breadcrumbs'][] = $this->title;
                         'template' => '{lpgraph} {behaviour} {desempenho}',
                         'buttons' => 
                         [
+
+
                             'lpgraph' => function ($url, $model) 
                             {
-                                //$valor = RespostaEspecialistas::find()->where(['id' => $pesquisa->id_resposta])->one();
+                            
+
                                 return Html::a(
                                     'Trilha de Aprendizagem<br>',
                                     ['site/lpgraph', 'id' => $model->id_figura], 
                                     [
-                                        'title' => 'Grafo Trilha de Aprendizagem',
+                                        'title' => 'Trilha de Aprendizagem',
                                         'aria-label' => 'Grafo Trilha de Aprendizagem',
                                         'data-pjax' => '0',
                                     ]
@@ -68,25 +72,25 @@ $this->params['breadcrumbs'][] = $this->title;
                             },
                             'behaviour' => function ($url, $model) 
                             {
-                                //$valor = RespostaEspecialistas::find()->where(['id' => $pesquisa->id_resposta])->one();
+
                                 return Html::a(
                                     'Monitoramento de Comportamento<br>',
                                     ['site/behaviour', 'id' => $model->id_figura], 
                                     [
-                                        'title' => 'Monitoramento de Comportamento',
-                                        'aria-label' => 'Monitoramento de Comportamento',
+                                        'title' => 'Parti',
+                                        'aria-label' => 'Reprovação e Aprovação',
                                         'data-pjax' => '0',
                                     ]
                                 );
                             },
                             'desempenho' => function ($url, $model) 
                             {
-                                //$valor = RespostaEspecialistas::find()->where(['id' => $pesquisa->id_resposta])->one();
+
                                 return Html::a(
                                     'Monitoramento de Desempenho<br>',
                                     ['site/desempenho', 'id' => $model->id_figura], 
                                     [
-                                        'title' => 'Monitoramento de Desempenho',
+                                        'title' => 'Participação, tarefas',
                                         'aria-label' => 'Monitoramento de Desempenho',
                                         'data-pjax' => '0',
                                     ]

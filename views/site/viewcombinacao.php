@@ -6,6 +6,7 @@ use yii\grid\GridView;
 use app\models\TipoProblema;
 use app\models\TituloProblema;
 use app\models\Pesquisas;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Descricao */
@@ -33,7 +34,7 @@ $this->title = 'Resultado(s) da busca'
         ]); } ?>
 
 
-        <?php if ( $model_solucao != null ) {   ?>
+        <?php if ( $model_descricao->id_solucao!= null ) {   ?>
 
         <b> SOLUÇÃO APRESENTADA: </b>
         <?= DetailView::widget([
@@ -78,9 +79,19 @@ $this->title = 'Resultado(s) da busca'
     <br>
 
     <?php if ( $model_ava != null ) {   ?>
-    <br><br>
+    <br>
     <fieldset>
             <legend>Pesquisa no AVA</legend>
+
+        <p>Curso: <?php echo $model_ava->curso ?>   <br>
+       Disciplina: <?php echo $model_ava->disciplina ?> <br>    
+       Período: <?php echo $model_ava->ano_periodo ?> <br>
+       Polo: <?php echo $model_ava->polo ?> <br>
+       Total de Alunos: <?php echo $model_ava->total_alunos ?> <br>  </p><br>
+
+    <?php $url = Url::base().'/graphs/'.$model_ava->nome_figura.'.png' ?>
+
+     <img alt=<?php echo $model_ava->nome_figura ?> src=<?php echo $url?> > <br>
 
 </fieldset>
     <?php } ?>

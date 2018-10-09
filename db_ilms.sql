@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 08-Out-2018 às 02:41
+-- Generation Time: 09-Out-2018 às 03:59
 -- Versão do servidor: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -183,7 +183,7 @@ INSERT INTO `figuras_ava` (`id_figura`, `nome_figura`, `aplicativo`, `tipo_grafi
 (21, 'Fig21_InformaticaBasica_Sta_G', 'LPGraph', 'Trilha de Aprendizagem', 'Educação Física', 'Informática Básica', 'Santa Isabel do Rio Negro', '2013/1', 22, 'trilha de aprendizagem', 'Dados do gráfico:\\r\\n- Cada Tópico corresponde a uma Unidade na sala virtual.\\r\\n- Os Vértices armazenam as seguintes informações:\\r\\n•	Sequência definida pelo docente para recursos e atividades;\\r\\n•	Nome do recurso/atividade;\\r\\n•	Tipo do recurso/atividade;\\r\\n•	Tópico (unidade) do vértice; \\r\\n•	Número de interações (V): tamanho do vértice.\\r\\nAnálise do gráfico:\\r\\n- Navegação mais concentrada, o que pode ser observado pelas arestas mais largas.\\r\\n-  Verificar que os alunos retornaram mais aos recursos anteriores.\\r\\n- Quando isso ocorre, indica que a turma teve dificuldades para compreender o assunto do tópico.\\r\\n- Uma proporção maior do número de arestas vermelhas indica que há uma grande chance de a turma estar enfrentando dificuldades no aprendizado.\\r\\nResultados a considerar:\\r\\n- Verificar se a turma costuma acessar os recursos diretamente.\\r\\n- Acessaram pouco alguns determinados recursos, como por exemplo, os links externos (URL)\\r\\n- Alunos com notas altas: poucas arestas, em sua maioria de avanço.\\r\\n- Alunos com notas baixas: há mais arestas e elas estão mais dispersas, em geral a quantidade de arestas de retorno (vermelhas) é maior que os demais tipos.'),
 (22, 'Fig22_InformaticaBasica_Boa_G', 'LPGraph', 'Trilha de Aprendizagem', 'Educação Física', 'Informática Básica', 'Boa Vista', '2013/1', 26, 'trilha de aprendizagem', 'Dados do gráfico:\\r\\n- Cada Tópico corresponde a uma Unidade na sala virtual.\\r\\n- Os Vértices armazenam as seguintes informações:\\r\\n•	Sequência definida pelo docente para recursos e atividades;\\r\\n•	Nome do recurso/atividade;\\r\\n•	Tipo do recurso/atividade;\\r\\n•	Tópico (unidade) do vértice;\\r\\n•	Número de interações (V): tamanho do vértice.\\r\\nAnálise do gráfico:\\r\\n- Navegação mais concentrada, o que pode ser observado pelas arestas mais largas.\\r\\n-  Verificar que os alunos retornaram mais aos recursos anteriores, quando isso ocorre, indica que a turma teve dificuldades para compreender o assunto do tópico.\\r\\n- Uma proporção maior do número de arestas vermelhas indica que há uma grande chance de a turma estar enfrentando dificuldades no aprendizado.\\r\\nResultados a considerar:\\r\\n- Verificar se a turma costuma acessar os recursos diretamente.\\r\\n- Acessaram pouco alguns determinados recursos, como por exemplo, os links externos (URL)\\r\\n- Alunos com notas altas: poucas arestas, em sua maioria de avanço.\\r\\n- Alunos com notas baixas: há mais arestas e elas estão mais dispersas, em geral a quantidade de arestas de retorno (vermelhas) é maior que os demais tipos.'),
 (23, 'Fig23_RitmoMovimento_Tef_G', 'LPGraph', 'Trilha de Aprendizagem', 'Educação Física', 'Ritmo e Movimento', 'Tefé', '2014/1', 18, 'trilha de aprendizagem', 'Dados do gráfico:\\r\\n- Cada Tópico corresponde a uma Unidade na sala virtual.\\r\\n- Os Vértices armazenam as seguintes informações:\\r\\n•	Sequência definida pelo docente para recursos e atividades;\\r\\n•	Nome do recurso/atividade;\\r\\n•	Tipo do recurso/atividade;\\r\\n•	Tópico (unidade) do vértice;\\r\\n•	Número de interações (V): tamanho do vértice.\\r\\nAnálise do gráfico:\\r\\n- Navegação mais concentrada, o que pode ser observado pelas arestas mais largas.\\r\\n-  Verificar que os alunos retornaram mais aos recursos anteriores, quando isso ocorre, indica que a turma teve dificuldades para compreender o assunto do tópico.\\r\\n- Uma proporção maior do número de arestas vermelhas indica que há uma grande chance de a turma estar enfrentando dificuldades no aprendizado.\\r\\nResultados a considerar:\\r\\n- Verificar se a turma costuma acessar os recursos diretamente.\\r\\n- Acessaram pouco alguns determinados recursos, como por exemplo, os links externos (URL)\\r\\n- Alunos com notas altas: poucas arestas, em sua maioria de avanço.\\r\\n- Alunos com notas baixas: há mais arestas e elas estão mais dispersas, em geral a quantidade de arestas de retorno (vermelhas) é maior que os demais tipos.'),
-(24, 'Fig24_Bioquímica_Coa_G', 'LPGraph', 'Trilha de Aprendizagem', 'Biologia', 'Bioquímica', 'Coari', '2009/1', 24, 'trilha de aprendizagem', 'Dados do gráfico:\\r\\n- Cada Tópico corresponde a uma Unidade na sala virtual.\\r\\n- Os Vértices armazenam as seguintes informações:\\r\\n•	Sequência definida pelo docente para recursos e atividades;\\r\\n•	Nome do recurso/atividade;\\r\\n•	Tipo do recurso/atividade;\\r\\n•	Tópico (unidade) do vértice;\\r\\n•	Número de interações (V): tamanho do vértice.\\r\\nAnálise do gráfico:\\r\\n- Navegação mais concentrada, o que pode ser observado pelas arestas mais largas.\\r\\n-  Verificar que os alunos retornaram mais aos recursos anteriores, quando isso ocorre, indica que a turma teve dificuldades para compreender o assunto do tópico.\\r\\n- Uma proporção maior do número de arestas vermelhas indica que há uma grande chance de a turma estar enfrentando dificuldades no aprendizado.\\r\\nResultados a considerar:\\r\\n- Verificar se a turma costuma acessar os recursos diretamente.\\r\\n- Acessaram pouco alguns determinados recursos, como por exemplo, os links externos (URL)\\r\\n- Alunos com notas altas: poucas arestas, em sua maioria de avanço.\\r\\n- Alunos com notas baixas: há mais arestas e elas estão mais dispersas, em geral a quantidade de arestas de retorno (vermelhas) é maior que os demais tipos.'),
+(24, 'Fig24_Bioquimica_Coa_G', 'LPGraph', 'Trilha de Aprendizagem', 'Biologia', 'Bioquímica', 'Coari', '2009/1', 24, 'trilha de aprendizagem', 'Dados do gráfico:\\r\\n- Cada Tópico corresponde a uma Unidade na sala virtual.\\r\\n- Os Vértices armazenam as seguintes informações:\\r\\n•	Sequência definida pelo docente para recursos e atividades;\\r\\n•	Nome do recurso/atividade;\\r\\n•	Tipo do recurso/atividade;\\r\\n•	Tópico (unidade) do vértice;\\r\\n•	Número de interações (V): tamanho do vértice.\\r\\nAnálise do gráfico:\\r\\n- Navegação mais concentrada, o que pode ser observado pelas arestas mais largas.\\r\\n-  Verificar que os alunos retornaram mais aos recursos anteriores, quando isso ocorre, indica que a turma teve dificuldades para compreender o assunto do tópico.\\r\\n- Uma proporção maior do número de arestas vermelhas indica que há uma grande chance de a turma estar enfrentando dificuldades no aprendizado.\\r\\nResultados a considerar:\\r\\n- Verificar se a turma costuma acessar os recursos diretamente.\\r\\n- Acessaram pouco alguns determinados recursos, como por exemplo, os links externos (URL)\\r\\n- Alunos com notas altas: poucas arestas, em sua maioria de avanço.\\r\\n- Alunos com notas baixas: há mais arestas e elas estão mais dispersas, em geral a quantidade de arestas de retorno (vermelhas) é maior que os demais tipos.'),
 (25, 'Fig25_InformaticaBasica_Boa_G', 'LPGraph', 'Trilha de Aprendizagem', 'Administração', 'Informática´Básica', 'Boa Vista', '2016/2', 30, 'trilha de aprendizagem', 'Dados do gráfico:\\r\\n- Cada Tópico corresponde a uma Unidade na sala virtual.\\r\\n- Os Vértices armazenam as seguintes informações:\\r\\n•	Sequência definida pelo docente para recursos e atividades;\\r\\n•	Nome do recurso/atividade;\\r\\n•	Tipo do recurso/atividade;\\r\\n•	Tópico (unidade) do vértice;\\r\\n•	Número de interações (V): tamanho do vértice.\\r\\nAnálise do gráfico:\\r\\n- Navegação mais concentrada, o que pode ser observado pelas arestas mais largas.\\r\\n-  Verificar que os alunos retornaram mais aos recursos anteriores, quando isso ocorre, indica que a turma teve dificuldades para compreender o assunto do tópico.\\r\\n- Uma proporção maior do número de arestas vermelhas indica que há uma grande chance de a turma estar enfrentando dificuldades no aprendizado.\\r\\nResultados a considerar:\\r\\n- Verificar se a turma costuma acessar os recursos diretamente.\\r\\n- Acessaram pouco alguns determinados recursos, como por exemplo, os links externos (URL)\\r\\n- Alunos com notas altas: poucas arestas, em sua maioria de avanço.\\r\\n- Alunos com notas baixas: há mais arestas e elas estão mais dispersas, em geral a quantidade de arestas de retorno (vermelhas) é maior que os demais tipos.'),
 (26, 'Fig26_FundAnatomia_Car_G', 'LPGraph', 'Trilha de Aprendizagem', 'Biologia', 'Fundamentos da Anatomia', 'Caracaraí', '2016/2', 21, 'trilha de aprendizagem', 'Dados do gráfico:\\r\\n- Cada Tópico corresponde a uma Unidade na sala virtual.\\r\\n- Os Vértices armazenam as seguintes informações:\\r\\n•	Sequência definida pelo docente para recursos e atividades;\\r\\n•	Nome do recurso/atividade;\\r\\n•	Tipo do recurso/atividade;\\r\\n•	Tópico (unidade) do vértice;\\r\\n•	Número de interações (V): tamanho do vértice.\\r\\nAnálise do gráfico:\\r\\n- Navegação mais concentrada, o que pode ser observado pelas arestas mais largas.\\r\\n-  Verificar que os alunos retornaram mais aos recursos anteriores, quando isso ocorre, indica que a turma teve dificuldades para compreender o assunto do tópico.\\r\\n- Uma proporção maior do número de arestas vermelhas indica que há uma grande chance de a turma estar enfrentando dificuldades no aprendizado.\\r\\nResultados a considerar:\\r\\n- Verificar se a turma costuma acessar os recursos diretamente.\\r\\n- Acessaram pouco alguns determinados recursos, como por exemplo, os links externos (URL)\\r\\n- Alunos com notas altas: poucas arestas, em sua maioria de avanço.\\r\\n- Alunos com notas baixas: há mais arestas e elas estão mais dispersas, em geral a quantidade de arestas de retorno (vermelhas) é maior que os demais tipos.'),
 (27, 'Fig27_FundAnatomia_Sta_G', 'LPGraph', 'Trilha de Aprendizagem', 'Educação Física', 'Fundamentos da Anatomia', 'Santa Isabel do Rio Negro', '2013/1', 25, 'trilha de aprendizagem', 'Dados do gráfico:\\r\\n- Cada Tópico corresponde a uma Unidade na sala virtual.\\r\\n- Os Vértices armazenam as seguintes informações:\\r\\n•	Sequência definida pelo docente para recursos e atividades;\\r\\n•	Nome do recurso/atividade;\\r\\n•	Tipo do recurso/atividade;\\r\\n•	Tópico (unidade) do vértice;\\r\\n•	Número de interações (V): tamanho do vértice.\\r\\nAnálise do gráfico:\\r\\n- Navegação mais concentrada, o que pode ser observado pelas arestas mais largas.\\r\\n-  Verificar que os alunos retornaram mais aos recursos anteriores, quando isso ocorre, indica que a turma teve dificuldades para compreender o assunto do tópico.\\r\\n- Uma proporção maior do número de arestas vermelhas indica que há uma grande chance de a turma estar enfrentando dificuldades no aprendizado.\\r\\nResultados a considerar:\\r\\n- Verificar se a turma costuma acessar os recursos diretamente.\\r\\n- Acessaram pouco alguns determinados recursos, como por exemplo, os links externos (URL)\\r\\n- Alunos com notas altas: poucas arestas, em sua maioria de avanço.\\r\\n- Alunos com notas baixas: há mais arestas e elas estão mais dispersas, em geral a quantidade de arestas de retorno (vermelhas) é maior que os demais tipos. '),
@@ -217,6 +217,7 @@ CREATE TABLE `pesquisas` (
   `id_pesquisa` int(11) NOT NULL,
   `id_solucao` int(10) DEFAULT NULL,
   `id_resposta` int(11) DEFAULT NULL,
+  `id_ava` int(10) DEFAULT NULL,
   `id_usuario` int(11) DEFAULT NULL,
   `id_polo` int(10) DEFAULT NULL,
   `relator` varchar(250) DEFAULT NULL,
@@ -228,6 +229,17 @@ CREATE TABLE `pesquisas` (
   `similaridade` float DEFAULT NULL,
   `metodo` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `pesquisas`
+--
+
+INSERT INTO `pesquisas` (`id_pesquisa`, `id_solucao`, `id_resposta`, `id_ava`, `id_usuario`, `id_polo`, `relator`, `natureza_problema`, `descricao_problema`, `problema_detalhado`, `palavras_chaves`, `status`, `similaridade`, `metodo`) VALUES
+(8, NULL, 8, 3, NULL, NULL, NULL, NULL, NULL, NULL, 'participação, tarefas', NULL, NULL, 'AVA'),
+(9, NULL, 1, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, NULL, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, 'participação, tarefas', NULL, NULL, 'AVA'),
+(11, NULL, 1, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(12, NULL, 12, 3, NULL, NULL, NULL, NULL, NULL, NULL, 'participação, tarefas', NULL, NULL, 'AVA');
 
 -- --------------------------------------------------------
 
@@ -694,7 +706,7 @@ ALTER TABLE `curso`
 -- AUTO_INCREMENT for table `descricao`
 --
 ALTER TABLE `descricao`
-  MODIFY `id_descricao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_descricao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `disciplina`
@@ -712,7 +724,7 @@ ALTER TABLE `info_caso`
 -- AUTO_INCREMENT for table `pesquisas`
 --
 ALTER TABLE `pesquisas`
-  MODIFY `id_pesquisa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pesquisa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `polo`
@@ -742,7 +754,7 @@ ALTER TABLE `resposta_esp`
 -- AUTO_INCREMENT for table `solucao`
 --
 ALTER TABLE `solucao`
-  MODIFY `id_solucao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_solucao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `tipo_problema`
