@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 09-Out-2018 às 03:59
+-- Generation Time: 10-Out-2018 às 17:30
 -- Versão do servidor: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -229,17 +229,6 @@ CREATE TABLE `pesquisas` (
   `similaridade` float DEFAULT NULL,
   `metodo` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `pesquisas`
---
-
-INSERT INTO `pesquisas` (`id_pesquisa`, `id_solucao`, `id_resposta`, `id_ava`, `id_usuario`, `id_polo`, `relator`, `natureza_problema`, `descricao_problema`, `problema_detalhado`, `palavras_chaves`, `status`, `similaridade`, `metodo`) VALUES
-(8, NULL, 8, 3, NULL, NULL, NULL, NULL, NULL, NULL, 'participação, tarefas', NULL, NULL, 'AVA'),
-(9, NULL, 1, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(10, NULL, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, 'participação, tarefas', NULL, NULL, 'AVA'),
-(11, NULL, 1, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(12, NULL, 12, 3, NULL, NULL, NULL, NULL, NULL, NULL, 'participação, tarefas', NULL, NULL, 'AVA');
 
 -- --------------------------------------------------------
 
@@ -724,7 +713,7 @@ ALTER TABLE `info_caso`
 -- AUTO_INCREMENT for table `pesquisas`
 --
 ALTER TABLE `pesquisas`
-  MODIFY `id_pesquisa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_pesquisa` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `polo`

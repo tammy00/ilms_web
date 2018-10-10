@@ -35,6 +35,7 @@ class Combinacao extends Model
         return [
         /*** Abaixo, os atributos de descricao_problema   ***/
             [['titulo_problema', 'tipo_problema', 'cbr', 'ava', 'esp'], 'integer'],
+            [['titulo_problema', 'tipo_problema', 'palavras_chaves'], 'required'],
             [['palavras_chaves'], 'string', 'max' => 400],  
         ];
     }
@@ -51,7 +52,7 @@ class Combinacao extends Model
             'titulo_problema' => 'Título do Problema',
             'tipo_problema' => 'Tipo do Problema',
             'ava' => 'AVA',
-            'cbr' => 'RBC',
+            'cbr' => 'CBR',
             'esp' => 'Esp.',
         ];
     }

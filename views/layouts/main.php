@@ -42,7 +42,7 @@ AppAsset::register($this);
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
                     ['label' => 'Home', 'url' => ['/site/index']],
-                    ['label' => 'RBC', 'url' => ['/site/cbrsearch']],
+                    ['label' => 'CBR', 'url' => ['/site/cbrsearch']],
                     ['label' => 'Dados AV', 'url' => ['/site/vlesearch']],
                     ['label' => 'Opinião Esp.', 'url' => ['/site/expsearch']],
                     Yii::$app->user->isGuest ? (

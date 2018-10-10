@@ -492,8 +492,7 @@ class SiteController extends Controller
 	    	{
 	    		$tipodoproblema = TipoProblema::find()->where(['id' => $model->tipo_problema])->one();
 
-                $resultado_id = $this->agenteRBC(NULL, $resumo, NULL, NULL, $model->palavras_chaves, $tipodoproblema->tipo);   
-                //($polo, $desc, $detalhado, $relator, $keywords, $natureza) 
+                $resultado_id = $this->agenteRBC(NULL, $resumo, NULL, NULL, $model->palavras_chaves, $tipodoproblema->tipo);
 
 	    	}
 	    	/***** RBC END  ******/
@@ -516,6 +515,9 @@ class SiteController extends Controller
 
 		            if ( $resposta != null )  // Verifica se existe ao menos um registro
 		            {
+                        //$id_titulo, $id_tipo, $id)  
+                        $resultado_id = $this->agenteExperts($model->titulo_problema, $model->tipo_problema, $resultado_id);
+/*
 		            	if ( $resultado_id == (-10) )  // Onde o rbc não foi seelcionado - não tem uma pesquisa combinada já criada
 		            	{
 			                $nova_pesquisa = new Pesquisas();
@@ -534,10 +536,12 @@ class SiteController extends Controller
 
 			                if ( !$atualiza->save() ) 
 			                	return $this->actionDoom('Solução existente. Porém, a pesquisa não salva com sucesso.');	
-		            	}
+		            	}  */
 
 		                
 		            }
+                    elseif ( $resultado_id == (-10)) $resultado_id = (-4);
+
 	            }
 	            else return $this->actionDoom('Por favor, informar o título e tipo do problema.'); 
 	    	}
@@ -843,7 +847,7 @@ class SiteController extends Controller
                 $nova_pesquisa->descricao_problema = $desc;
                 $nova_pesquisa->palavras_chaves = $keywords;
                 $nova_pesquisa->similaridade = $similaridadeCalculada;
-                $nova_pesquisa->metodo = 'RBC';
+                $nova_pesquisa->metodo = 'CBR';
 
                 if ($nova_pesquisa->save() )  // Se salvar a pesquisa
                 {
@@ -875,6 +879,8 @@ class SiteController extends Controller
 
                 $model_pesquisa->metodo = $model_pesquisa->metodo . ', AVA';
 
+                $model_pesquisa->status = 0;
+
                 if ( $model_pesquisa->save()) return $model_pesquisa->id_pesquisa;
                 else return (-1);
             }
@@ -887,6 +893,8 @@ class SiteController extends Controller
                 $novo_registro->metodo = 'AVA';
 
                 $novo_registro->palavras_chaves = $palavras_chaves;
+
+                $novo_registro->status = 0;
 
                 if ( $novo_registro->save() ) return $novo_registro->id_pesquisa;
                 else return (-1);
@@ -921,7 +929,8 @@ class SiteController extends Controller
                     $nova_pesquisa = new Pesquisas();
                     $nova_pesquisa->id_resposta = $resposta->id;
                     $nova_pesquisa->id_usuario = Yii::$app->user->identity->id;   
-                    $nova_pesquisa->metodo = 'Especialistas';                 
+                    $nova_pesquisa->metodo = 'Especialistas'; 
+                    $nova_pesquisa->status = 0;                
                     
                     if ( $nova_pesquisa->save() ) return $nova_pesquisa->id_pesquisa;// Se a pesquisa foi salva, retorna o id da pesquisa criada
                     else return (-1);
@@ -930,6 +939,7 @@ class SiteController extends Controller
                 {
                     $registro_pesquisa->metodo = $registro_pesquisa->metodo . ', Especialistas';
                     $registro_pesquisa->id_resposta = $resposta->id;
+                    $registro_pesquisa->status = 0;
                     
                     if ( $registro_pesquisa->save() ) return $registro_pesquisa->id_pesquisa;
                     else return (-1);
