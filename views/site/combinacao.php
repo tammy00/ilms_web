@@ -8,11 +8,12 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 $this->title = 'Busca combinada de solução';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div>
     <h1><?= Html::encode($this->title) ?></h1>
+
+    <a href="?r=site/index" class="btn btn-default">Voltar</a>
     
       <div class="col-xs-6 col-md-10"> 
       <br>

@@ -9,10 +9,11 @@ use yii\bootstrap\ActiveForm;
 use yii\captcha\Captcha;
 
 $this->title = 'Contact';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-contact">
     <h1><?= Html::encode($this->title) ?></h1>
+
+    <a href="?r=site/index" class="btn btn-default">Voltar</a>
 
     <?php if (Yii::$app->session->hasFlash('contactFormSubmitted')): ?>
 

@@ -11,13 +11,13 @@ use yii\helpers\Url;
 /** view da pesquisa geral  **/
 
 $this->title = 'Monitor de Comportamento';
-$this->params['breadcrumbs'][] = ['label' => 'Dados do Ambiente Virtual', 'url' => ['vlesearch']];
-$this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <div >
 
     <h1><?= Html::encode($this->title) ?></h1>
+
+    <a href="?r=site/vlesearch" class="btn btn-default">Voltar</a>
 
     <p>Curso: <?php echo $model->curso ?>	<br>
        Disciplina: <?php echo $model->disciplina ?>	<br>	

@@ -20,6 +20,8 @@ $this->title = 'Resultado(s) da busca'
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <a href="?r=index/combinacao" class="btn btn-default">Voltar</a>
+
     <?php if ( $model_descricao != null ) {   ?>
     <fieldset>
         <legend>Solução do RBC</legend>

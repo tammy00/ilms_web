@@ -42,16 +42,15 @@ AppAsset::register($this);
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
                     ['label' => 'Home', 'url' => ['/site/index']],
-                    ['label' => 'CBR', 'url' => ['/site/cbrsearch']],
-                    ['label' => 'Dados AV', 'url' => ['/site/vlesearch']],
-                    ['label' => 'Opinião Esp.', 'url' => ['/site/expsearch']],
+                    ['label' => 'About', 'url' => ['/site/about']],
+                    ['label' => 'Contact', 'url' => ['/site/contact']],
                     Yii::$app->user->isGuest ? (
                         ['label' => 'Login', 'url' => ['/site/login']]
                     ) : (
                         '<li>'
                         . Html::beginForm(['/site/logout'], 'post')
                         . Html::submitButton(
-                            'Logout (' . Yii::$app->user->identity->perfil . ')',
+                            'Logout (' . 'Mediador' . ')',
                             ['class' => 'btn btn-link logout']
                         )
                         . Html::endForm()

@@ -10,15 +10,15 @@ use yii\helpers\Url;
 
 /** view da pesquisa geral  **/
 
-$this->title = 'Grafo de Linha de Aprendizagem';
-$this->params['breadcrumbs'][] = ['label' => 'Dados do Ambiente Virtual', 'url' => ['vlesearch']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Grafo de Trilha de Aprendizagem';
 
 
 ?>
 <div >
 
     <h1><?= Html::encode($this->title) ?></h1>
+
+    <a href="?r=site/vlesearch" class="btn btn-default">Voltar</a>
 
     <p>Curso: <?php echo $model->curso ?>	<br>
        Disciplina: <?php echo $model->disciplina ?>	<br>	

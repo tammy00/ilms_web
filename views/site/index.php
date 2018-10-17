@@ -46,9 +46,9 @@ $this->title = 'iDE Framework';
             <div class="row">
 
                 <div class="col-lg-4" align="center">
-                    <h3>Combinações Anteriores</h3>
+                    <h3>Combinar Agentes</h3>
 
-                    <p><a class="btn btn-default" href='?r=site/combinacao&resumo='> Clicar aqui &raquo;</a></p>
+                    <p><a class="btn btn-default" href='?r=site/combinacao'> Clicar aqui &raquo;</a></p>
 
                 </div>
 

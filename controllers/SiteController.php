@@ -91,14 +91,13 @@ class SiteController extends Controller
     	if ( $model->load(Yii::$app->request->post() ))
     	{
 
-    		if ( $model->agente == 1 ) return $this->redirect(['site/cbrsearch', 'resumo' => $model->resumo]);
+    		if ( $model->agente == 1 ) return $this->redirect(['site/cbrsearch']);
     		//return $this->actionCbrsearch($model->resumo);
     		//return Yii::$app->runAction('site/cbrsearch',['resumo' => $resumo ]);
     		//return $this->actionCbrsearch();
-    		elseif ( $model->agente == 2) return $this->redirect(['site/vlesearch', 'resumo' => $model->resumo]);
-    		elseif ( $model->agente == 3) return $this->redirect(['site/expsearch', 'resumo' => $model->resumo]);
-            elseif ( $model->agente == 4) return $this->redirect(['site/combinacao', 'resumo' => $model->resumo]);
-    		//else return $this->actionDoom('não deu certo');
+    		elseif ( $model->agente == 2) return $this->redirect(['site/vlesearch']);
+    		elseif ( $model->agente == 3) return $this->redirect(['site/expsearch']);
+            //elseif ( $model->agente == 4) return $this->redirect(['site/combinacao']);
     	}
     	else
     	{
@@ -400,12 +399,20 @@ class SiteController extends Controller
                       ->andWhere(['curso' => $model1->curso])
                       ->andWhere(['disciplina' => $model1->disciplina])
                       ->andWhere(['ano_periodo' => $model1->ano_periodo])
-                      ->andWhere(['total_aluno' => $model1->total_aluno])
+                      ->andWhere(['total_alunos' => $model1->total_alunos])
                       ->one();
 
-            return $this->render('lpgraph', [
-                'model' => $model_verdadeiro,
-            ]);            
+            if ( $model_verdadeiro == null )
+            {
+                return $this->render('vlesearch', [])
+            }
+            else
+            {
+                return $this->render('lpgraph', [
+                    'model' => $model_verdadeiro,
+                ]);                  
+            }
+          
         }
 
 
@@ -429,7 +436,7 @@ class SiteController extends Controller
                       ->andWhere(['curso' => $model1->curso])
                       ->andWhere(['disciplina' => $model1->disciplina])
                       ->andWhere(['ano_periodo' => $model1->ano_periodo])
-                      ->andWhere(['total_aluno' => $model1->total_aluno])
+                      ->andWhere(['total_alunos' => $model1->total_alunos])
                       ->one();
 
             return $this->render('behaviour', [
@@ -457,7 +464,7 @@ class SiteController extends Controller
                       ->andWhere(['curso' => $model1->curso])
                       ->andWhere(['disciplina' => $model1->disciplina])
                       ->andWhere(['ano_periodo' => $model1->ano_periodo])
-                      ->andWhere(['total_aluno' => $model1->total_aluno])
+                      ->andWhere(['total_alunos' => $model1->total_alunos])
                       ->one();
 
             return $this->render('desempenho', [
@@ -478,7 +485,7 @@ class SiteController extends Controller
     Combina o uso de RBC, AVA e opinião dos especialistas 
     ****/
 
-    public function actionCombinacao ($resumo)
+    public function actionCombinacao ()
     {
     	$model = new Combinacao();
 
@@ -492,7 +499,7 @@ class SiteController extends Controller
 	    	{
 	    		$tipodoproblema = TipoProblema::find()->where(['id' => $model->tipo_problema])->one();
 
-                $resultado_id = $this->agenteRBC(NULL, $resumo, NULL, NULL, $model->palavras_chaves, $tipodoproblema->tipo);
+                $resultado_id = $this->agenteRBC(NULL, NULL, NULL, NULL, $model->palavras_chaves, $tipodoproblema->tipo);
 
 	    	}
 	    	/***** RBC END  ******/
@@ -517,27 +524,6 @@ class SiteController extends Controller
 		            {
                         //$id_titulo, $id_tipo, $id)  
                         $resultado_id = $this->agenteExperts($model->titulo_problema, $model->tipo_problema, $resultado_id);
-/*
-		            	if ( $resultado_id == (-10) )  // Onde o rbc não foi seelcionado - não tem uma pesquisa combinada já criada
-		            	{
-			                $nova_pesquisa = new Pesquisas();
-			                $nova_pesquisa->id_resposta = $resposta->id;
-			                $nova_pesquisa->id_usuario = Yii::$app->user->identity->id;
-
-			                if ( !$nova_pesquisa->save() )   // Se não salvar, tentar com false positivo
-			                	return $this->actionDoom('Solução existente. Porém, a pesquisa não salva com sucesso.');		       
-			                else $resultado_id = $nova_pesquisa->id_pesquisa;	
-		            	}
-		            	else
-		            	{
-		            		$atualiza = Pesquisas::find()->where(['id_pesquisa' => $resultado_id])->one();
-
-		            		$atualiza->id_resposta = $resultado_id;
-
-			                if ( !$atualiza->save() ) 
-			                	return $this->actionDoom('Solução existente. Porém, a pesquisa não salva com sucesso.');	
-		            	}  */
-
 		                
 		            }
                     elseif ( $resultado_id == (-10)) $resultado_id = (-4);
@@ -585,7 +571,7 @@ class SiteController extends Controller
 
 
 
-    public function actionVlesearch ($resumo)
+    public function actionVlesearch ()
     {
   
         //$searchModel = new CursoSearch();
@@ -602,7 +588,7 @@ class SiteController extends Controller
 
 
 
-    public function actionCbrsearch($resumo)  // Descricao vai ter todos os dados, independente de ser somente para o rbc
+    public function actionCbrsearch()  // Descricao vai ter todos os dados, independente de ser somente para o rbc
     { 
 
         //tipo_problema == natureza_problema
@@ -681,9 +667,6 @@ class SiteController extends Controller
         }   //else if request post
         else    // Primeiro acesso à tela de busca do agente RBC
         {
-        	//$arrayRelatores = $this->arrayhelper_relator();
-        	//$arrayPolos = $this->arrayhelper_polo();
-        	$model->descricao_problema = $resumo;
         	
 
             return $this->render('cbrsearch', [

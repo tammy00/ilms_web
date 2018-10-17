@@ -12,12 +12,14 @@ use app\models\Pesquisas;
 
 /** view da pesquisa geral  **/
 
-$this->title = 'Resultado(s) da busca'
+$this->title = 'Resultado da busca'
 
 ?>
 <div class="descricao-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
+
+    <a href="?r=site/cbrsearch" class="btn btn-default">Voltar</a>
 
     <?php if ( $pesquisa->relator != null ) {   ?>
     <fieldset>

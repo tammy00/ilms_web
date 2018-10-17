@@ -8,18 +8,17 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 $this->title = 'Busca de solução';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div>
     <h1><?= Html::encode($this->title) ?></h1>
+
+    <a href="?r=site/index" class="btn btn-default">Voltar</a>
     
       <div class="col-xs-6 col-md-10"> 
       <br>
         <?php $form = ActiveForm::begin(); ?>
 
-          <fieldset>   
-                <legend>Casos Passados</legend>
                 
           <?= $form->field($model, 'natureza_problema')->radioList(['Infraestrutura/Administrativa' => 'Infraestrutura/Administrativa', 'Pedagógica' => 'Pedagógica', 'Acadêmica' => 'Acadêmica'])->label('Selecione a natureza do problema:');   ?>
 
@@ -35,8 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'id_polo')->dropDownList([$arrayPolos],['style' => 'width:500px',
                                                       'prompt' => "Selecione um polo",]); ?>  
-                                                      
-          </fieldset>
+                         
 <br><br> 
 
           <div class="form-group">
@@ -50,70 +48,4 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </div>
 
-<?php
-/*
-    $this->registerJs('
-        $(document).ready(function(){
-            if ($("#site-cbr").is(":checked"))
-                $("#div_rbc").prop("style", "display: block");
-            else
-              $("#div_rbc").prop("style", "display: none");
 
-            if ($("#site-lms").is(":checked"))
-                $("#div_lms").prop("style", "display: block");
-            else
-              $("#div_lms").prop("style", "display: none");
-
-            if ($("#site-experts").is(":checked"))
-                $("#div_exp").prop("style", "display: block");
-            else
-              $("#div_exp").prop("style", "display: none");
-        });'
-    );    
-
-    $this->registerJs('
-        $(document).ready(function(){
-            $("#site-cbr").change(function(){
-                if ($("#site-cbr").is(":checked")) {
-                    $("#site-cbr").val("1");
-                    $("#div_rbc").prop("style", "display: block");
-                }
-                else {
-                    $("#site-cbr").val("0");
-                    $("#div_rbc").prop("style", "display: none");
-                }
-            });
-        });'
-    );
-
-    $this->registerJs('
-        $(document).ready(function(){
-            $("#site-lms").change(function(){
-                if ($("#site-lms").is(":checked")) {
-                    $("#site-lms").val("1");
-                    $("#div_lms").prop("style", "display: block");
-                }
-                else {
-                    $("#site-lms").val("0");
-                    $("#div_lms").prop("style", "display: none");
-                }
-            });
-        });'
-    );
-
-    $this->registerJs('
-        $(document).ready(function(){
-            $("#site-experts").change(function(){
-                if ($("#site-experts").is(":checked")) {
-                    $("#site-experts").val("1");
-                    $("#div_exp").prop("style", "display: block");
-                }
-                else {
-                    $("#site-experts").val("0");
-                    $("#div_exp").prop("style", "display: none");
-                }
-            });
-        });'
-    );   */
-
-?>
