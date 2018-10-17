@@ -17,7 +17,7 @@ $this->title = 'Monitor de Desempenho';
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <a href="?r=site/index" class="btn btn-default">Voltar</a>
+    <a href="?r=site/vlesearch" class="btn btn-default">Voltar</a>
 
     <p>Curso: <?php echo $model->curso ?>	<br>
        Disciplina: <?php echo $model->disciplina ?>	<br>	

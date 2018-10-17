@@ -386,34 +386,9 @@ class SiteController extends Controller
 
         $model1 = FigurasAva::find()->where(['id_figura' => $id])->one();
 
-        if ( $model1->aplicativo == 'LPGraph')
-        {
-            return $this->render('lpgraph', [
-                'model' => $model1,
-            ]);
-        }
-        else
-        {
-            $model_verdadeiro = FigurasAva::find()
-                      ->where(['aplicativo' => 'LPGraph'])
-                      ->andWhere(['curso' => $model1->curso])
-                      ->andWhere(['disciplina' => $model1->disciplina])
-                      ->andWhere(['ano_periodo' => $model1->ano_periodo])
-                      ->andWhere(['total_alunos' => $model1->total_alunos])
-                      ->one();
-
-            if ( $model_verdadeiro == null )
-            {
-                return $this->render('vlesearch', [])
-            }
-            else
-            {
-                return $this->render('lpgraph', [
-                    'model' => $model_verdadeiro,
-                ]);                  
-            }
-          
-        }
+        return $this->render('lpgraph', [
+                    'model' => $model1,
+                ]);
 
 
     }
@@ -423,55 +398,20 @@ class SiteController extends Controller
 
          $model1 = FigurasAva::find()->where(['id_figura' => $id])->one();
 
-        if ( $model1->aplicativo == 'LMSMonitor')
-        {
-            return $this->render('behaviour', [
+        return $this->render('behaviour', [
                 'model' => $model1,
-            ]);
-        }
-        else
-        {
-            $model_verdadeiro = FigurasAva::find()
-                      ->where(['aplicativo' => 'LMSMonitor'])
-                      ->andWhere(['curso' => $model1->curso])
-                      ->andWhere(['disciplina' => $model1->disciplina])
-                      ->andWhere(['ano_periodo' => $model1->ano_periodo])
-                      ->andWhere(['total_alunos' => $model1->total_alunos])
-                      ->one();
-
-            return $this->render('behaviour', [
-                'model' => $model_verdadeiro,
             ]);            
-        }
-
     }
+
 
     public function actionDesempenho($id)
     {
 
          $model1 = FigurasAva::find()->where(['id_figura' => $id])->one();
 
-        if ( $model1->aplicativo == 'WebMonitor')
-        {
-            return $this->render('desempenho', [
+        return $this->render('desempenho', [
                 'model' => $model1,
-            ]);
-        }
-        else
-        {
-            $model_verdadeiro = FigurasAva::find()
-                      ->where(['aplicativo' => 'WebMonitor'])
-                      ->andWhere(['curso' => $model1->curso])
-                      ->andWhere(['disciplina' => $model1->disciplina])
-                      ->andWhere(['ano_periodo' => $model1->ano_periodo])
-                      ->andWhere(['total_alunos' => $model1->total_alunos])
-                      ->one();
-
-            return $this->render('desempenho', [
-                'model' => $model_verdadeiro,
             ]);            
-        }
-      	
     }
 
 

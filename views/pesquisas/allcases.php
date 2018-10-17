@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\models\Polo;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\PesquisasSearch */
@@ -25,6 +26,26 @@ $this->title = 'Base de Casos - RBC';
                         'label' => 'Casos na Base',
                          'value'=>function ($model, $key, $index, $widget) { 
                                return 'Caso '.$model->id_descricao;
+                           },
+                    ],
+                    [
+                        'attribute' => 'id_polo',
+                        'headerOptions' => ['style' => 'text-align:center; color:#337AB7'],
+                        'contentOptions' => ['style' => 'text-align:center; vertical-align:middle'],
+                        //'label' => 'Casos na Base',
+                         'value'=>function ($model, $key, $index, $widget) { 
+                            $info_polo = Polo::find()->where(['id_polo' -> $model->id_polo])->one();
+                               return $info_polo->nome;
+                           },
+                    ],
+                    [
+                        'attribute' => 'natureza_problema',
+                        'headerOptions' => ['style' => 'text-align:center; color:#337AB7'],
+                        'contentOptions' => ['style' => 'text-align:center; vertical-align:middle'],
+                        //'label' => 'Casos na Base',
+                         'value'=>function ($model, $key, $index, $widget) { 
+                            //$info_polo = Polo::find()->where(['id_polo' -> $model->id_polo])->one();
+                               return $model->natureza_problema;
                            },
                     ],
                     [

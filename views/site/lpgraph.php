@@ -63,7 +63,29 @@ $this->title = 'Grafo de Trilha de Aprendizagem';
     ?>
 
 <br>
-    <?php echo $model->descricao ?>    
+    <?php //echo $model->descricao ?>    
+    <br>
+    <p>
+      <b>Dados do gráfico:</b> <br>
+- Cada Tópico corresponde a uma Unidade na sala virtual.<br>
+- Os Vértices armazenam as seguintes informações:<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp• Sequência definida pelo docente para recursos e atividades;<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp• Nome do recurso/atividade;<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp• Tipo do recurso/atividade;<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp• Tópico (unidade) do vértice;<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp• Número de interações (V): tamanho do vértice.<br><br>
+
+<b>Análise do gráfico:</b><br>
+- Navegação mais concentrada, o que pode ser observado pelas arestas mais largas.<br>
+-  Verificar que os alunos retornaram mais aos recursos anteriores, quando isso ocorre, indica que a turma teve dificuldades para compreender o assunto do tópico.<br>
+- Uma proporção maior do número de arestas vermelhas indica que há uma grande chance de a turma estar enfrentando dificuldades no aprendizado.<br><br>
+
+<b>Resultados a considerar:</b><br>
+- Verificar se a turma costuma acessar os recursos diretamente.<br>
+- Acessaram pouco alguns determinados recursos, como por exemplo, os links externos (URL)<br>
+- Alunos com notas altas: poucas arestas, em sua maioria de avanço.<br>
+- Alunos com notas baixas: há mais arestas e elas estão mais dispersas, em geral a quantidade de arestas de retorno (vermelhas) é maior que os demais tipos.<br>
+</p>
 
 
 </div>

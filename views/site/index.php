@@ -53,7 +53,7 @@ $this->title = 'iDE Framework';
                 </div>
 
                 <div class="col-lg-4" align="center">
-                    <h3>Casos Passados</h3>
+                    <h3>Base de Casos</h3>
 
                     <p><a class="btn btn-default" href="?r=pesquisas/allcases">Clicar aqui &raquo;</a></p>
                 </div>

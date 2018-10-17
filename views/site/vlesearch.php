@@ -59,43 +59,121 @@ $this->title = 'Dados do Ambiente Virtual';
 
                             'lpgraph' => function ($url, $model) 
                             {
-                            
-
-                                return Html::a(
-                                    'Trilha de Aprendizagem<br>',
-                                    ['site/lpgraph', 'id' => $model->id_figura], 
-                                    [
-                                        'title' => 'Trilha de Aprendizagem',
-                                        'aria-label' => 'Grafo Trilha de Aprendizagem',
-                                        'data-pjax' => '0',
-                                    ]
-                                );
+                                if ( $model->aplicativo != 'LPGraph')
+                                {
+                                    $model_verdadeiro = FigurasAva::find()
+                                              ->where(['aplicativo' => 'LPGraph'])
+                                              ->andWhere(['curso' => $model->curso])
+                                              ->andWhere(['disciplina' => $model->disciplina])
+                                              ->andWhere(['ano_periodo' => $model->ano_periodo])
+                                              ->andWhere(['total_alunos' => $model->total_alunos])
+                                              ->one();
+                                    if ( $model_verdadeiro == null )
+                                    {
+                                        return '';
+                                    }
+                                    else
+                                    {
+                                        return Html::a(
+                                            'Trilha de Aprendizagem<br>',
+                                            ['site/lpgraph', 'id' => $model_verdadeiro->id_figura], 
+                                            [
+                                                'title' => 'Grafo Trilha de Aprendizagem',
+                                                'data-pjax' => '0',
+                                            ]
+                                        );                                        
+                                    }
+                                }
+                                else
+                                {
+                                    return Html::a(
+                                        'Trilha de Aprendizagem<br>',
+                                        ['site/lpgraph', 'id' => $model->id_figura], 
+                                        [
+                                            'title' => 'Grafo Trilha de Aprendizagem',
+                                            'data-pjax' => '0',
+                                        ]
+                                    );  
+                                }
                             },
                             'behaviour' => function ($url, $model) 
                             {
+                                if ( $model->aplicativo != 'LMSMonitor')
+                                {
+                                    $model_verdadeiro = FigurasAva::find()
+                                              ->where(['aplicativo' => 'LMSMonitor'])
+                                              ->andWhere(['curso' => $model->curso])
+                                              ->andWhere(['disciplina' => $model->disciplina])
+                                              ->andWhere(['ano_periodo' => $model->ano_periodo])
+                                              ->andWhere(['total_alunos' => $model->total_alunos])
+                                              ->one();
+                                    if ( $model_verdadeiro == null )
+                                    {
+                                        return '';
+                                    }
+                                    else
+                                    {
+                                        return Html::a(
+                                            'Reprovação e Aprovação<br>',
+                                            ['site/behaviour', 'id' => $model_verdadeiro->id_figura], 
+                                            [
+                                                'title' => 'Monitoramento de Comportamento',
+                                                'data-pjax' => '0',
+                                            ]
+                                        );                                        
+                                    }
+                                }
+                                else
+                                {
+                                    return Html::a(
+                                        'Reprovação e Aprovação<br>',
+                                        ['site/behaviour', 'id' => $model->id_figura], 
+                                        [
+                                            'title' => 'Monitoramento de Comportamento',
+                                            'data-pjax' => '0',
+                                        ]
+                                    );  
+                                }
 
-                                return Html::a(
-                                    'Monitoramento de Comportamento<br>',
-                                    ['site/behaviour', 'id' => $model->id_figura], 
-                                    [
-                                        'title' => 'Parti',
-                                        'aria-label' => 'Reprovação e Aprovação',
-                                        'data-pjax' => '0',
-                                    ]
-                                );
                             },
                             'desempenho' => function ($url, $model) 
                             {
-
-                                return Html::a(
-                                    'Monitoramento de Desempenho<br>',
-                                    ['site/desempenho', 'id' => $model->id_figura], 
-                                    [
-                                        'title' => 'Participação, tarefas',
-                                        'aria-label' => 'Monitoramento de Desempenho',
-                                        'data-pjax' => '0',
-                                    ]
-                                );
+                                if ( $model->aplicativo != 'WebMonitor')
+                                {
+                                    $model_verdadeiro = FigurasAva::find()
+                                              ->where(['aplicativo' => 'WebMonitor'])
+                                              ->andWhere(['curso' => $model->curso])
+                                              ->andWhere(['disciplina' => $model->disciplina])
+                                              ->andWhere(['ano_periodo' => $model->ano_periodo])
+                                              ->andWhere(['total_alunos' => $model->total_alunos])
+                                              ->one();
+                                    if ( $model_verdadeiro == null )
+                                    {
+                                        return '';
+                                    }
+                                    else
+                                    {
+                                        return Html::a(
+                                            'Participação e Tarefas<br>',
+                                            ['site/desempenho', 'id' => $model_verdadeiro->id_figura], 
+                                            [
+                                                'title' => 'Monitoramento de Desempenho',
+                                                'data-pjax' => '0',
+                                            ]
+                                        );                                        
+                                    }
+                                }
+                                else
+                                {
+                                    return Html::a(
+                                        'Reprovação e Aprovação<br>',
+                                        ['site/desempenho', 'id' => $model->id_figura], 
+                                        [
+                                            'title' => 'Monitoramento de Desempenho',
+                                            'data-pjax' => '0',
+                                        ]
+                                    );  
+                                }
                             },
                         ],
                     ],
