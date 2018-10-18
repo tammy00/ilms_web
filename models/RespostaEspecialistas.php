@@ -74,7 +74,7 @@ class RespostaEspecialistas extends \yii\db\ActiveRecord
             'data_insercao' => 'Data de Inserção',
             'nome_especialista' => 'Nome do Especialista',
             'funcao_especialista' => 'Função do Especialista',
-            'relator' => 'Relator',
+            'relator' => 'Função do Relator',
             'dia' => 'Dia',
             'mes' => 'Mês',
             'ano' => 'Ano',

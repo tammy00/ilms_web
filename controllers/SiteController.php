@@ -92,9 +92,6 @@ class SiteController extends Controller
     	{
 
     		if ( $model->agente == 1 ) return $this->redirect(['site/cbrsearch']);
-    		//return $this->actionCbrsearch($model->resumo);
-    		//return Yii::$app->runAction('site/cbrsearch',['resumo' => $resumo ]);
-    		//return $this->actionCbrsearch();
     		elseif ( $model->agente == 2) return $this->redirect(['site/vlesearch']);
     		elseif ( $model->agente == 3) return $this->redirect(['site/expsearch']);
             //elseif ( $model->agente == 4) return $this->redirect(['site/combinacao']);

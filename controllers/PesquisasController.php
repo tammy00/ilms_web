@@ -199,57 +199,118 @@ class PesquisasController extends Controller
     }
 
 
-    public function actionNewcase($id)  // Registra um novo caso RBC no banco
+    public function actionNewcase($id, $evento)  // Registra um novo caso RBC no banco
     {
         $model = $this->findModel($id);
-        $solucao = Solucao::find()->where(['id_solucao' => $model->id_solucao])->one();
 
-        $nova_descricao = new Descricao();
-        $nova_descricao->natureza_problema = $model->natureza_problema;
-        $nova_descricao->palavras_chaves = $model->palavras_chaves;
-        $nova_descricao->relator = $model->relator;
-        $nova_descricao->id_polo = $model->id_polo;
-        $nova_descricao->descricao_problema = $model->descricao_problema;
-        $nova_descricao->problema_detalhado = $model->problema_detalhado;
+        $valor_retorno = (-10);
 
-        if ( $nova_descricao->save() )  // Se salvar a descricao do caso novo
+        if ( $model->id_solucao != null ) // caso RBC
         {
-            $nova_solucao = new Solucao();
-            $nova_solucao->solucao = $solucao->solucao;
-            $nova_solucao->palavras_chaves = $solucao->palavras_chaves;
-            $nova_solucao->acao_implementada = $solucao->acao_implementada;
-            $nova_solucao->solucao_implementada = $solucao->solucao_implementada;
-            $nova_solucao->efetividade_acao_implementada = $solucao->efetividade_acao_implementada;
-            $nova_solucao->custos = $solucao->custos;
-            $nova_solucao->impacto_pedagogico = $solucao->impacto_pedagogico;
-            $nova_solucao->atores_envolvidos = $solucao->atores_envolvidos;
+            $valor_retorno = $this->salva_rbc($id, $model->id_solucao);
 
-            if ( $nova_solucao->save() )  // Se salvar a solução do novo caso
+            switch ($valor_retorno)
             {
-                $relator = Relator::find()->where(['perfil' => $model->relator])->one();
-                $polo = Polo::find()->where(['id_polo' => $model->id_polo])->one();
-                $novo = new InfoCaso();
-                $novo->id_descricao = $nova_descricao->id_descricao;
-                $novo->tipo_caso = 'Tipo Caso';
-                $novo->polo = $polo->nome;
-                $novo->quantidade_alunos = 40; // MUDAR ISSO
-                $novo->date_created = date('Y-m-d');
-                $novo->id_relator = $relator->id_relator;
-
-                if ( $novo->save() ) // Se o info_caso foi salvo
-                {
-                    $model->status = 2;  // É um caso novo na base - só para diferenciar na tabela pesquisas
-                    $model->save();
-
-                    Yii::$app->session->setFlash('newcasesaved');
-
-                    return Yii::$app->runAction('site/index');
-                }
-                else return Yii::$app->runAction('site/index', ['message' => 'InfoCaso do caso novo não foi salvo.']);
+                 //case 1: 
+                     //return Yii::$app->runAction('site/index', ['mensagem_sim' => 'Caso salvo na base.']);
+                     //break;
+                 case 2: 
+                     return Yii::$app->runAction('site/index', ['mensagem_nao' => 'InfoCaso do caso novo não foi salvo.']);
+                     break;
+                 case 3: 
+                     return Yii::$app->runAction('site/index', ['mensagem_nao' => 'Solução do caso novo não foi salvo.']);
+                     break;
+                 case 4: 
+                     return Yii::$app->runAction('site/index', ['mensagem_nao' => 'Descrição do caso novo não foi salvo.']);
+                     break;
+                default:
+                    break; 
             }
-            else return Yii::$app->runAction('site/index', ['message' => 'Solução do caso novo não foi salvo.']);
         }
-        else return Yii::$app->runAction('site/index', ['message' => 'Descrição do caso novo não foi salvo.']);
+
+        if ( $model->id_resposta != null ) // caso Opinião de Especialista
+        {
+            $resposta_info = RespostaEspecialistas::find()->where(['id' => $model->id_resposta])->one();
+
+            $nova_opiniao = new RespostaEspecialistas();
+
+            $nova_opiniao->descricao_problema = $model->descricao_problema;
+
+            $nova_opiniao->id_titulo_problema = $resposta_info->id_titulo_problema;
+            $nova_opiniao->id_tipo_problema =  $resposta_info->id_tipo_problema;
+
+            $nova_opiniao->data_ocorrencia = $resposta_info->data_ocorrencia;
+
+            $nova_opiniao->nome_especialista = $resposta_info->nome_especialista;
+
+            $nova_opiniao->data_insercao = date('Y-m-d');
+
+            if ( $model->id_solucao != null ) {
+                $solucao_info = Solucao::find()->where(['id_solucao' => $model->id_solucao])->one();
+                $nova_opiniao->descricao_solucao = $solucao_info->solucao;
+            }
+            else $nova_opiniao->descricao_solucao = '';
+
+            $relator_info = Relator::find()->where(['perfil' => $model->relator])->one();
+            $nova_opiniao->relator = $relator_info->id_relator;
+
+            if ( $nova_opiniao->save()) return Yii::$app->runAction('site/index', ['mensagem_sim' => 'Casos salvos.']);
+            else Yii::$app->runAction('site/index', ['mensagem_nao' => 'Os casos não foram salvos.']);
+        }
+
+    }
+
+    protected function salva_rbc($id, $id_solucao)
+    {
+        $model = $this->findModel($id);
+
+            $solucao = Solucao::find()->where(['id_solucao' => $model->id_solucao])->one();
+
+            $nova_descricao = new Descricao();
+            $nova_descricao->natureza_problema = $model->natureza_problema;
+            $nova_descricao->palavras_chaves = $model->palavras_chaves;
+            $nova_descricao->relator = $model->relator;
+            $nova_descricao->id_polo = $model->id_polo;
+            $nova_descricao->descricao_problema = $model->descricao_problema;
+            $nova_descricao->problema_detalhado = $model->problema_detalhado;
+
+            if ( $nova_descricao->save() )  // Se salvar a descricao do caso novo
+            {
+                $nova_solucao = new Solucao();
+                $nova_solucao->solucao = $solucao->solucao;
+                $nova_solucao->palavras_chaves = $solucao->palavras_chaves;
+                $nova_solucao->acao_implementada = $solucao->acao_implementada;
+                $nova_solucao->solucao_implementada = $solucao->solucao_implementada;
+                $nova_solucao->efetividade_acao_implementada = $solucao->efetividade_acao_implementada;
+                $nova_solucao->custos = $solucao->custos;
+                $nova_solucao->impacto_pedagogico = $solucao->impacto_pedagogico;
+                $nova_solucao->atores_envolvidos = $solucao->atores_envolvidos;
+
+                if ( $nova_solucao->save() )  // Se salvar a solução do novo caso
+                {
+                    $relator = Relator::find()->where(['perfil' => $model->relator])->one();
+                    $polo = Polo::find()->where(['id_polo' => $model->id_polo])->one();
+                    $novo = new InfoCaso();
+                    $novo->id_descricao = $nova_descricao->id_descricao;
+                    $novo->tipo_caso = 'Tipo Caso';
+                    $novo->polo = $polo->nome;
+                    $novo->quantidade_alunos = 40; // MUDAR ISSO
+                    $novo->date_created = date('Y-m-d');
+                    $novo->id_relator = $relator->id_relator;
+
+                    if ( $novo->save() ) // Se o info_caso foi salvo
+                    {
+                        $model->status = 2;  // É um caso novo na base - só para diferenciar na tabela pesquisas
+                        $model->save();
+
+
+                        return 1;
+                    }
+                    else return 2;
+                }
+                else return 3;
+            }
+            else return 4;
     }
 
     /**

@@ -21,13 +21,30 @@ $this->title = 'iDE Framework';
 
     <?php if ( Yii::$app->user->identity->perfil === 'Mediador/a' ) {   ?>
 
+        <?php 
+              if ( isset($mensagem_nao) )
+              {    ?>
+                  <div class="alert alert-danger">
+                       <?php echo $mensagem_nao ?>
+                  </div>
+
+              <?php }
+
+              if ( isset($mensagem_sim) )
+              {    ?>
+                  <div class="alert alert-success">
+                       <?php echo $mensagem_sim ?>
+                  </div>
+
+              <?php }
+        ?>
+
         
 
         <div class="body-content">
 
           <?php $form = ActiveForm::begin(); ?>
 
-             <?= $form->field($model, 'resumo')->textarea(['rows' => 6])->label('Descreva o problema resumidamente:'); ?>
 
              <?= $form->field($model, 'agente')->radioList([ 1 => 'Busca com CBR', 2 => 'Dados do Ambiente Virtual   ', 3 => 'Opinião de Especialistas&raquo', 4 => 'Combinação']); 
 
