@@ -571,19 +571,49 @@ class SiteController extends Controller
                 switch ($resultado_id)
                 {
                     case 0:
-                        return $this->actionDoom('Solução existente. Porém, a pesquisa não salva com sucesso.');
+                        return $this->render('cbrsearch', [
+                            'model' => $model,
+                            'arrayRelatores' => $this->arrayhelper_relator(),
+                            'arrayPolos' => $this->arrayhelper_polo(),
+                            'mensagem' => 'Solução existente. Porém, a pesquisa não salva com sucesso.',
+                        ]); 
+                        //return $this->actionDoom('Solução existente. Porém, a pesquisa não salva com sucesso.');
                         break;
                     case (-1):
-                        return $this->actionDoom('Não foi possível registrar a pesquisa. Retorne à página anterior e tente novamente.');
+                        return $this->render('cbrsearch', [
+                            'model' => $model,
+                            'arrayRelatores' => $this->arrayhelper_relator(),
+                            'arrayPolos' => $this->arrayhelper_polo(),
+                            'mensagem' => 'Não foi possível registrar a pesquisa. Retorne à página anterior e tente novamente.',
+                        ]); 
+                        //return $this->actionDoom('Não foi possível registrar a pesquisa. Retorne à página anterior e tente novamente.');
                         break;
                     case (-2): 
-                        return $this->actionDoom('Problema ao conectar com o servidor. Tente novamente.');
+                        return $this->render('cbrsearch', [
+                            'model' => $model,
+                            'arrayRelatores' => $this->arrayhelper_relator(),
+                            'arrayPolos' => $this->arrayhelper_polo(),
+                            'mensagem' => 'Problema ao conectar com o servidor. Tente novamente.',
+                        ]); 
+                        //return $this->actionDoom('Problema ao conectar com o servidor. Tente novamente.');
                         break;
                     case (-3):
-                        return $this->actionDoom('Registro da solução não encontrada.');
+                        return $this->render('cbrsearch', [
+                            'model' => $model,
+                            'arrayRelatores' => $this->arrayhelper_relator(),
+                            'arrayPolos' => $this->arrayhelper_polo(),
+                            'mensagem' => 'Registro da solução não encontrada.',
+                        ]); 
+                        //return $this->actionDoom('Registro da solução não encontrada.');
                         break; 
                     case (-4):
-                        return $this->actionDoom('Não há solução na base de casos com a descrição apresentada.');
+                        return $this->render('cbrsearch', [
+                            'model' => $model,
+                            'arrayRelatores' => $this->arrayhelper_relator(),
+                            'arrayPolos' => $this->arrayhelper_polo(),
+                            'mensagem' => 'Não há solução na base de casos com a descrição apresentada.',
+                        ]); 
+                        //return $this->actionDoom('Não há solução na base de casos com a descrição apresentada.');
                         break;
                     default:
                     	return $this->actionCbrview ($resultado_id);  //
@@ -593,14 +623,13 @@ class SiteController extends Controller
 
             }  
             else
-            {/*
-            	$model->descricao_problema = $resumo;
-            	return $this->render('cbrsearch', [
-	                'model' => $model,
-	                'arrayRelatores' => $this->arrayhelper_relator(),
-	                'arrayPolos' => $this->arrayhelper_polo(),
-	            ]);   */
-	            return $this->actionDoom('Faltou pelo menos um dado.');
+            {       
+                 return $this->render('cbrsearch', [
+                    'model' => $model,
+                    'arrayRelatores' => $this->arrayhelper_relator(),
+                    'arrayPolos' => $this->arrayhelper_polo(),
+                    'mensagem' => 'Faltou pelo menos um dado.',
+                 ]); 
             }
 
             
@@ -635,14 +664,27 @@ class SiteController extends Controller
                 // A função acima retorna o id do registro da tabela pesquisa
                 // Dependendo do valor de $resultado_id, o registro é criado ou não
             }
-            else return $this->actionDoom('Por favor, informar o título do problema.'); 
+            else 
+            {
+                return $this->render('expsearch', [
+                    'model' => $model,
+                    'arrayTitulosProblemas' => $this->arrayhelper_tituloproblema(),
+                    'arrayTiposProblemas' => $this->arrayhelper_tipoproblema(),
+                    'mensagem' => 'Todos os dados são necessários.',
+                ]); 
+            }
 
             if ( $resultado_id == (-1) )
             {
             	$tipo = TipoProblema::find()->where(['id' => $model->tipo_problema])->one();
             	$titulo = TituloProblema::find()->where(['id' => $model->titulo_problema])->one();
 
-            	return $this->actionDoom('Não há opinião de especialista cadastrada no banco de dados que envolva o título de problema "'.$titulo->titulo.'" e o tipo de problema "'.$tipo->tipo.'".'); 
+                return $this->render('expsearch', [
+                    'model' => $model,
+                    'arrayTitulosProblemas' => $this->arrayhelper_tituloproblema(),
+                    'arrayTiposProblemas' => $this->arrayhelper_tipoproblema(),
+                    'mensagem' => 'Não há opinião de especialista cadastrada no banco de dados que envolva o título de problema "'.$titulo->titulo.'" e o tipo de problema "'.$tipo->tipo.'".',
+                ]); 
             }
             else return $this->actionExpview ($resultado_id);  //
 
@@ -650,13 +692,11 @@ class SiteController extends Controller
         }   //else if request post
         else    // Primeiro acesso à tela de busca
         {
-            $arrayTitulosProblemas = ArrayHelper::map(TituloProblemaSearch::find()->all(), 'id', 'titulo');
-            $arrayTiposProblemas = ArrayHelper::map(TipoProblemaSearch::find()->all(), 'id', 'tipo'); 
 
             return $this->render('expsearch', [
                 'model' => $model,
-                'arrayTitulosProblemas' => $arrayTitulosProblemas,
-                'arrayTiposProblemas' => $arrayTiposProblemas,
+                'arrayTitulosProblemas' => $this->arrayhelper_tituloproblema(),
+                'arrayTiposProblemas' => $this->arrayhelper_tipoproblema(),
             ]);        
         }
     }
@@ -926,6 +966,16 @@ class SiteController extends Controller
 	{
 		return ArrayHelper::map(PoloSearch::find()->all(), 'id_polo', 'nome');
 	}
+
+    protected function arrayhelper_tipoproblema ()
+    {
+        return ArrayHelper::map(TipoProblemaSearch::find()->all(), 'id', 'tipo');;
+    }
+
+    protected function arrayhelper_tituloproblema ()
+    {
+        return ArrayHelper::map(TituloProblemaSearch::find()->all(), 'id', 'titulo');;
+    }
 
 }
 

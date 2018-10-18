@@ -16,6 +16,18 @@ $this->title = 'Busca de solução';
     <a href="?r=site/index" class="btn btn-default">Voltar</a>
     
       <div class="col-xs-6 col-md-10"> 
+
+
+        <?php 
+              if ( isset($mensagem) )
+              {    ?>
+                  <div class="alert alert-danger">
+                      <?php echo $mensagem ?>
+                  </div>
+
+              <?php }
+        ?>
+
       <br>
         <?php $form = ActiveForm::begin(); ?>
 
