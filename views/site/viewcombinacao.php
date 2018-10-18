@@ -22,7 +22,12 @@ $this->title = 'Resultado(s) da busca'
 
     <a href="?r=index/combinacao" class="btn btn-default">Voltar</a>
 
-        <?php if ( $model_descricao != null ) {   ?>
+        <?php 
+
+        $tem_rbc = strpos( $model_descricao->metodo, 'CBR');
+
+
+        if ( $tem_rbc === true) {   ?>
         <fieldset>
             <legend>Solução do RBC</legend>
             <b> DESCRIÇÃO REALIZADA: </b>
@@ -58,7 +63,10 @@ $this->title = 'Resultado(s) da busca'
     </fieldset>
 
 
-    <?php if ( $model_esp != null ) {   ?>
+    <?php 
+
+
+    if ( $model_esp != null ) {   ?>
             <br><br>
             <fieldset>
                     <legend>Opinião do Especialista</legend>
@@ -72,7 +80,6 @@ $this->title = 'Resultado(s) da busca'
                             'data_ocorrencia',
                             'data_insercao',
                             'nome_especialista',
-                            'funcao_especialista',
                             'relator',
                         ],
                     ]); ?>

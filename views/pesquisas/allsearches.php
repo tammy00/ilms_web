@@ -9,7 +9,6 @@ use app\models\Polo;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Todas as buscas realizadas';
-$this->params['breadcrumbs'][] = 'Pesquisas';
 ?>
 <div class="pesquisas-index">
 
@@ -25,11 +24,14 @@ $this->params['breadcrumbs'][] = 'Pesquisas';
             [
                 'attribute' => 'id_polo',
                 'value' => function ($data) {
-                        $x = Polo::find()->where(['id_polo' => $data->id_polo])->one();
+                        $x = Polo::find()->where(['id_polo' => $data])->one();
                         return $x->nome;
                 },
             ],
-            'relator',
+            [
+                'attribute' => 'relator',
+
+            ],
              'natureza_problema:ntext',
             // 'descricao_problema:ntext',
             // 'problema_detalhado:ntext',

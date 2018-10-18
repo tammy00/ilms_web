@@ -438,15 +438,38 @@ class SiteController extends Controller
 
                 $resultado_id = $this->agenteRBC(NULL, NULL, NULL, NULL, $model->palavras_chaves, $tipodoproblema->tipo);
 
+                if ( $resultado_id <= 0 )
+                {
+                    return $this->render('combinacao', [
+                        'model' => $model,
+                        'arrayTiposProblemas' => $this->arrayhelper_tipoproblema(),
+                        'arrayTitulosProblemas' => $this->arrayhelper_tituloproblema(),
+                        'mensagem' => 'Erro ao consultar a base de casos.',
+                    ]);
+                }                
+
 	    	}
 	    	/***** RBC END  ******/
+
 
 	    	/***** AVA   ******/
 	    	if ( $model->ava != null ) // AVA foi selecionado
 	    	{
 	    		$resultado_id = $this->agenteLMS($resultado_id, $model->palavras_chaves);
+
+                if ( $resultado_id <= 0 )
+                {
+                    return $this->render('combinacao', [
+                        'model' => $model,
+                        'arrayTiposProblemas' => $this->arrayhelper_tipoproblema(),
+                        'arrayTitulosProblemas' => $this->arrayhelper_tituloproblema(),
+                        'mensagem' => 'Erro ao consultar o Ambiente Virtual de Aprendizagem. Código do erro: '.$resultado_id,
+                    ]);
+                } 
 	    	}
 	    	/***** AVA END  ******/
+
+            
 
 	    	/***** ESPECIALISTAS   ******/
 	    	if ( $model->esp != null ) // ESP foi selecionado
@@ -461,45 +484,44 @@ class SiteController extends Controller
 		            {
                         //$id_titulo, $id_tipo, $id)  
                         $resultado_id = $this->agenteExperts($model->titulo_problema, $model->tipo_problema, $resultado_id);
+
+                        if ( $resultado_id <= 0 )
+                        {
+                            return $this->render('combinacao', [
+                                'model' => $model,
+                                'arrayTiposProblemas' => $this->arrayhelper_tipoproblema(),
+                                'arrayTitulosProblemas' => $this->arrayhelper_tituloproblema(),
+                                'mensagem' => 'Erro ao consultar a opinião de um especialista.',
+                            ]);
+                        } 
 		                
 		            }
                     elseif ( $resultado_id == (-10)) $resultado_id = (-4);
 
 	            }
-	            else return $this->actionDoom('Por favor, informar o título e tipo do problema.'); 
-	    	}
-	    	/***** ESPECIALISTAS END  ******/   
-            switch ($resultado_id)
+	            else 
                 {
-                    case 0:
-                        return $this->actionDoom('Solução existente. Porém, a pesquisa não salva com sucesso.');
-                        break;
-                    case (-1):
-                        return $this->actionDoom('Não foi possível registrar a pesquisa. Retorne à página anterior e tente novamente.');
-                        break;
-                    case (-2): 
-                        return $this->actionDoom('Problema ao conectar com o servidor. Tente novamente.');
-                        break;
-                    case (-3):
-                        return $this->actionDoom('Registro da solução não encontrada.');
-                        break; 
-                    case (-4):
-                        return $this->actionDoom('Não há solução na base de casos com a descrição apresentada.');
-                        break;
-                    default:
-                        break;   
-                }  	
+                            return $this->render('combinacao', [
+                                'model' => $model,
+                                'arrayTiposProblemas' => $this->arrayhelper_tipoproblema(),
+                                'arrayTitulosProblemas' => $this->arrayhelper_tituloproblema(),
+                                'mensagem' => 'Por favor, informar tipo e título do problema.',
+                            ]);
+                }
+	    	}
+
+            
+	    	/***** ESPECIALISTAS END  ******/   
+	
 	    	return $this->actionViewcombinacao($resultado_id);
     	}
     	else
     	{
-    		$arrayTitulosProblemas = ArrayHelper::map(TituloProblemaSearch::find()->all(), 'id', 'titulo');
-            $arrayTiposProblemas = ArrayHelper::map(TipoProblemaSearch::find()->all(), 'id', 'tipo'); 
 
 	        return $this->render('combinacao', [
 	            'model' => $model,
-	            'arrayTiposProblemas' => $arrayTiposProblemas,
-	            'arrayTitulosProblemas' => $arrayTitulosProblemas,
+	            'arrayTiposProblemas' => $this->arrayhelper_tipoproblema(),
+	            'arrayTitulosProblemas' => $this->arrayhelper_tituloproblema(),
 	        ]);
     	}
 
@@ -711,7 +733,7 @@ class SiteController extends Controller
         //Cria a array com os dados recebido, sendo q o ID é gerado pelo WS
         $flag = 0;
 
-        if ( ($perfil == null) && ($detalhado == null) && ($relator == null ))
+        if ( ($perfil == null)  && ($relator == null ))
         {
             $postArray = array(
                 "poloId" => $polo,
@@ -973,6 +995,58 @@ class SiteController extends Controller
     {
         return ArrayHelper::map(TituloProblemaSearch::find()->all(), 'id', 'titulo');;
     }
+/*
+    public function verifica_valor ($valor)
+    {
+        //return $this->actionDoom('entrou');
+        switch ($valor)
+        {
+            case 0:
+                return $this->render('combinacao', [
+                    //'model' => $model,
+                   // 'arrayTiposProblemas' => $this->arrayhelper_tipoproblema(),
+                   // 'arrayTitulosProblemas' => $this->arrayhelper_tituloproblema(),
+                    'mensagem' => 'Solução existente. Porém, a pesquisa não salva com sucesso.',
+                ]);
+                break;
+            case (-1):
+                return $this->render('combinacao', [
+                    //'model' => $model,
+                   // 'arrayTiposProblemas' => $this->arrayhelper_tipoproblema(),
+                   // 'arrayTitulosProblemas' => $this->arrayhelper_tituloproblema(),
+                    'mensagem' => 'Não foi possível registrar a pesquisa. Retorne à página anterior e tente novamente.',
+                ]);
+                break;
+            case (-2): 
+                return $this->render('combinacao', [
+                    //'model' => $model,
+                    //'arrayTiposProblemas' => $this->arrayhelper_tipoproblema(),
+                    //'arrayTitulosProblemas' => $this->arrayhelper_tituloproblema(),
+                    'mensagem' => 'Problema ao conectar com o servidor.',
+                ]);
+                break;
+            case (-3):
+                return $this->render('combinacao', [
+                    //'model' => $model,
+                   // 'arrayTiposProblemas' => $this->arrayhelper_tipoproblema(),
+                   // 'arrayTitulosProblemas' => $this->arrayhelper_tituloproblema(),
+                    'mensagem' => 'Registro da solução não encontrada.',
+                ]);
+                break; 
+            case (-4):
+                return $this->render('combinacao', [
+                    //'model' => $model,
+                   // 'arrayTiposProblemas' => $this->arrayhelper_tipoproblema(),
+                   // 'arrayTitulosProblemas' => $this->arrayhelper_tituloproblema(),
+                    'mensagem' => 'Não há solução na base de casos com a descrição apresentada.',
+                ]);
+                break;
+            default:
+                break;   
+        }  
+        return null; 
+    }  */
+
 
 }
 
