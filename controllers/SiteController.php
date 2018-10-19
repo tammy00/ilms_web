@@ -424,6 +424,7 @@ class SiteController extends Controller
 
     public function actionCombinacao ()
     {
+        // Observação: tipo_aux e titulo_aux são strings. Fazer conversão onde for necessário!
     	$model = new Combinacao();
 
     	if ( $model->load(Yii::$app->request->post()) )
@@ -435,7 +436,7 @@ class SiteController extends Controller
 	    	/***** RBC   ******/
 	    	if ( $model->cbr != null )  // RBC foi selecionado
 	    	{
-                if ( $model->tipo_problema == null )
+                if ( $model->tipo_aux == null )
                 {
                     return $this->render('combinacao', [
                         'model' => $model,
@@ -446,9 +447,9 @@ class SiteController extends Controller
                 }
                 else
                 {
-                    $tipodoproblema = TipoProblema::find()->where(['id' => $model->tipo_problema])->one();
+                    //$tipodoproblema = TipoProblema::find()->where(['id' => $model->tipo_problema])->one();
 
-                    $resultado_id = $this->agenteRBC(NULL, NULL, NULL, NULL, $model->palavras_chaves, $tipodoproblema->tipo);
+                    $resultado_id = $this->agenteRBC(NULL, NULL, NULL, NULL, $model->palavras_chaves, $model->tipo_aux);
 
                     if ( $resultado_id <= 0 )
                     {
@@ -491,16 +492,21 @@ class SiteController extends Controller
 	    	/***** ESPECIALISTAS   ******/
 	    	if ( $model->esp != null ) // ESP foi selecionado
 	    	{
-	            if ( $this->verificadorDadosEXP($model->titulo_problema, $model->tipo_problema) == 0 ) 
+
+	            if ( $this->verificadorDadosEXP($model->titulo_aux, $model->tipo_aux) == 0 ) 
 	            {
-	            	$resposta = RespostaEspecialistas::find()->where(['id_titulo_problema' => $model->titulo_problema])
-                                                     ->andWhere(['id_tipo_problema' => $model->tipo_problema])
+                    $tipodoproblema = TipoProblema::find()->where(['tipo' => $model->tipo_aux])->one();
+
+                    $titulodoproblema = TituloProblema::find()->where(['titulo' => $model->titulo_aux])->one();
+
+	            	$resposta = RespostaEspecialistas::find()->where(['id_titulo_problema' => $titulodoproblema->id])
+                                                     ->andWhere(['id_tipo_problema' => $tipodoproblema->id])
                                                      ->one();
 
 		            if ( $resposta != null )  // Verifica se existe ao menos um registro
 		            {
                         //$id_titulo, $id_tipo, $id)  
-                        $resultado_id = $this->agenteExperts($model->titulo_problema, $model->tipo_problema, $resultado_id);
+                        $resultado_id = $this->agenteExperts($titulodoproblema->id, $tipodoproblema->id, $resultado_id);
 
                         if ( $resultado_id <= 0 )
                         {
@@ -1090,22 +1096,22 @@ class SiteController extends Controller
     {
         $list_titulos;
 
-        if ( $tipo === 1) // Pedagógico
+        if ( $tipo === "Pedagógico") // Pedagógico
         { 
             $list_titulos = array( 3 => 'Aprendizado', 5 => 'Reprovação', 9 => 'Notas', 10 => 'Professor', 11 => 'Tutoria', 13 => 'Atividades', 14 => 'Conteúdo', 4 => 'Relacionamento', 17 => 'AVA');
         }
         
-        if ( $tipo === 2) // Acadêmico
+        if ( $tipo === "Acadêmico") // Acadêmico
         { 
             $list_titulos = array( 8 => 'Saúde', 4 => 'Reprovação', 6 => 'Abandono', 10 => 'Professor', 11 => 'Tutoria', 12 => 'Coordenação', 7 => 'Faltas', 9 => 'Notas');
         }
         
-        if ( $tipo === 3) //Infraestrutura
+        if ( $tipo === "Infraestrutura") //Infraestrutura
         { 
             $list_titulos = array( 1 => 'Energia Elétrica', 15 => 'Infraestrutura', 2 => 'Internet');
         }
         // Repetição por Condição
-        if ( $tipo === 4) //Administrativo
+        if ( $tipo === "Administrativo") //Administrativo
         { 
             $list_titulos = array(12 => 'Coordenação', 15 => 'Infraestrutura',  20 => 'Recursos Financeiros');
         } 

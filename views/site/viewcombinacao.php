@@ -15,17 +15,17 @@ $this->title = 'Resultado(s) da busca'
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <a href="?r=index/combinacao" class="btn btn-default">Voltar</a><br>
+    <a href="?r=site/combinacao" class="btn btn-default">Voltar</a><br>
 
         <?php 
         $tem_rbc = strpos( $model_descricao->metodo, 'CBR');
 
         if ( $tem_rbc <= 0 ) {   ?>
-        <fieldset>
-            <legend>Solução da Base de Casos</legend>
-            <b> <h4>DESCRIÇÃO REALIZADA:</h4> </b><br>
+
+            
+            <b> <h4>PROBLEMA DESCRITO:</h4> </b>
             <?php 
-                            if (($model_descricao->descricao_problema != null) || ($model_descricao->descricao_problema != "")) 
+                if (($model_descricao->descricao_problema != null) || ($model_descricao->descricao_problema != "")) 
                 {
                     echo '<b>Descrição resumida:</b> '.$model_descricao->descricao_problema.'<br>';
                 }
@@ -39,6 +39,21 @@ $this->title = 'Resultado(s) da busca'
                 {
                     echo '<b>Palavras-chaves:</b> '.$model_descricao->palavras_chaves.'<br>';
                 }
+                if ( $model_esp != null )
+                {
+                    if (($model_esp->id_tipo_problema != null) || ($model_esp->id_tipo_problema != "")) 
+                    {
+                        //$procura_tipo = TipoProblema::find()->where(['id' => $model_esp->id_tipo_problema])->one();
+                        echo '<b>Tipo do Problema:</b> '.$model_esp->id_tipo_problema.'<br>';
+                    }
+                    if (($model_esp->id_titulo_problema != null) || ($model_esp->id_titulo_problema != "")) 
+                    {
+                        //$procura_titulo = TituloProblema::find()->where(['id' => $model_esp->id_titulo_problema])->one();
+                        echo '<b>Tìtulo do Problema:</b> '.$model_esp->id_titulo_problema.'<br>';
+                    }                    
+                }
+
+
             
             ?>
 <?php } ?>
@@ -46,7 +61,8 @@ $this->title = 'Resultado(s) da busca'
 
         <?php if ( $model_descricao->id_solucao!= null ) {   ?>
 <br><br>
-                <b><h4> SOLUÇÃO APRESENTADA:</h4> </b>
+            <fieldset>
+                    <legend>SOLUÇÃO da Base de Casos:</legend>
                 <?= DetailView::widget([
                     'model' => $model_solucao,
                     'attributes' => [

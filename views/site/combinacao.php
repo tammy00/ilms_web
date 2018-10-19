@@ -6,8 +6,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\models\TipoProblema;
-use app\models\TituloProblema;
+use app\models\TipoProblemaSearch;
+use app\models\TituloProblemaSearch;
+use app\controllers\SiteController;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
@@ -35,25 +36,27 @@ $this->title = 'Busca combinada de solução';
                 <fieldset>
                         <legend>Opções de combinação</legend> 
 
-                        <?= $form->field($model, 'cbr')->radio(['value' => 1, 'uncheck' => null]) ?>
-                        <?= $form->field($model, 'ava')->radio(['value' => 1, 'uncheck' => null]) ?>
-                        <?= $form->field($model, 'esp')->radio(['value' => 1, 'uncheck' => null]) ?>
+                        <?= $form->field($model, 'cbr')->checkbox(['value' => 1, 'uncheck' => null]) ?>
+                        <?= $form->field($model, 'ava')->checkbox(['value' => 1, 'uncheck' => null]) ?>
+                        <?= $form->field($model, 'esp')->checkbox(['value' => 1, 'uncheck' => null]) ?>
 
                 </fieldset>
 
                 <?= $form->field($model, 'palavras_chaves')->textInput(['maxlength' => true]) ?>
                 
 <!--   -->
-                <?= $form->field($model, 'tipo_problema')->dropDownList([$arrayTiposProblemas], 
+                <?= $form->field($model, 'tipo_aux')->dropDownList(ArrayHelper::map(TipoProblemaSearch::find()->all(), 'tipo', 'tipo'), 
                 ['style' => 'width:500px',
                 'prompt' => "Selecione um tipo de problema", 
                 'onchange'=>'$.get( "'.Url::toRoute(['site/list_titulo']).'", { tipo : $(this).val() })
                     .done(function(data) {
-                        $( "#'.Html::getInputId($model, 'titulo_problema').'").html(data);
-                });']) 
+                        $( "#'.Html::getInputId($model, 'titulo_aux').'").html(data);
+                });'
+                ]) 
                 ?>
+                 
                 
-                <?= $form->field($model, 'titulo_problema')->dropDownList([$arrayTitulosProblemas],['style' => 'width:500px',
+                <?= $form->field($model, 'titulo_aux')->dropDownList([$arrayTitulosProblemas],['style' => 'width:500px',
                                                       'prompt' => "Selecione um título de problema",]); ?> 
 <br><br> 
 

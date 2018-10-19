@@ -25,6 +25,9 @@ class Combinacao extends Model
     public $ava;
     public $esp;
 
+    public $tipo_aux;
+    public $titulo_aux;
+
 
 
     /**
@@ -34,8 +37,9 @@ class Combinacao extends Model
     {
         return [
         /*** Abaixo, os atributos de descricao_problema   ***/
-            [['titulo_problema', 'tipo_problema', 'cbr', 'ava', 'esp'], 'integer'],
+            [['titulo_problema', 'tipo_problema', 'cbr', 'ava', 'esp', ], 'integer'],
             //[['titulo_problema', 'tipo_problema', 'palavras_chaves'], 'required'],
+            [['tipo_aux', 'titulo_aux'], 'string'],
             [['palavras_chaves'], 'string', 'max' => 400],  
         ];
     }
@@ -51,9 +55,9 @@ class Combinacao extends Model
             // ABaixo, os atributos de 'resposta_esp'
             'titulo_problema' => 'Título do Problema',
             'tipo_problema' => 'Tipo do Problema',
-            'ava' => 'AVA',
-            'cbr' => 'CBR',
-            'esp' => 'Esp.',
+            'ava' => 'Busca em Dados do AVA',
+            'cbr' => 'Busca em casos passados',
+            'esp' => 'Busca em Opinião de Especialistas',
         ];
     }
 }

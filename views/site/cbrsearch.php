@@ -16,10 +16,10 @@ $this->title = 'Busca de solução';
 <div>
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <a href="?r=site/index" class="btn btn-default">Voltar</a>
+    
     
       <div class="col-xs-6 col-md-10"> 
-
+<a href="?r=site/index" class="btn btn-default">Voltar</a><br>
 
         <?php 
               if ( isset($mensagem) )
