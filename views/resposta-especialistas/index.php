@@ -25,14 +25,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'id_tipo_problema',
                         'value' => function ($data) {
-                                $x = TipoProblema::find()->where(['id' => $data->id_tipo_problema])->one();
-                                return $x->nome;
+                                $x = TipoProblema::find()->where(['id' => $data])->one();
+                                return $x->tipo;
                         },
                     ],
                     [
                         'attribute' => 'id_titulo_problema',
                         'value' => function ($data) {
-                                $tituloproblema = TituloProblema::find()->where(['id' => $data->id_titulo_problema])->one();
+                                $tituloproblema = TituloProblema::find()->where(['id' => $data])->one();
                                 return $tituloproblema->titulo;
                         },
                     ],

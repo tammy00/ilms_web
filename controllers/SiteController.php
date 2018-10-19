@@ -429,24 +429,38 @@ class SiteController extends Controller
     	if ( $model->load(Yii::$app->request->post()) )
     	{
     		$resultado_id = -10;
+            $anteior_id = 0;
     		$imagem_id = 0;
 
 	    	/***** RBC   ******/
 	    	if ( $model->cbr != null )  // RBC foi selecionado
 	    	{
-	    		$tipodoproblema = TipoProblema::find()->where(['id' => $model->tipo_problema])->one();
-
-                $resultado_id = $this->agenteRBC(NULL, NULL, NULL, NULL, $model->palavras_chaves, $tipodoproblema->tipo);
-
-                if ( $resultado_id <= 0 )
+                if ( $model->tipo_problema == null )
                 {
                     return $this->render('combinacao', [
                         'model' => $model,
                         'arrayTiposProblemas' => $this->arrayhelper_tipoproblema(),
                         'arrayTitulosProblemas' => $this->arrayhelper_tituloproblema(),
-                        'mensagem' => 'Erro ao consultar a base de casos.',
-                    ]);
-                }                
+                        'mensagem' => 'Por favor, informar o tipo do problema.',
+                    ]);                    
+                }
+                else
+                {
+                    $tipodoproblema = TipoProblema::find()->where(['id' => $model->tipo_problema])->one();
+
+                    $resultado_id = $this->agenteRBC(NULL, NULL, NULL, NULL, $model->palavras_chaves, $tipodoproblema->tipo);
+
+                    if ( $resultado_id <= 0 )
+                    {
+                        return $this->render('combinacao', [
+                            'model' => $model,
+                            'arrayTiposProblemas' => $this->arrayhelper_tipoproblema(),
+                            'arrayTitulosProblemas' => $this->arrayhelper_tituloproblema(),
+                            'mensagem' => 'Erro ao consultar a base de casos.',
+                        ]);
+                    }                     
+                }
+               
 
 	    	}
 	    	/***** RBC END  ******/
@@ -455,9 +469,11 @@ class SiteController extends Controller
 	    	/***** AVA   ******/
 	    	if ( $model->ava != null ) // AVA foi selecionado
 	    	{
+                $anteior_id = $resultado_id;
+
 	    		$resultado_id = $this->agenteLMS($resultado_id, $model->palavras_chaves);
 
-                if ( $resultado_id <= 0 )
+                if ( ($resultado_id <= 0) && ($resultado_id != (-13)) )
                 {
                     return $this->render('combinacao', [
                         'model' => $model,
@@ -465,7 +481,8 @@ class SiteController extends Controller
                         'arrayTitulosProblemas' => $this->arrayhelper_tituloproblema(),
                         'mensagem' => 'Erro ao consultar o Ambiente Virtual de Aprendizagem. Código do erro: '.$resultado_id,
                     ]);
-                } 
+                }
+                elseif ( $resultado_id == (-13)) $resultado_id = $anteior_id; 
 	    	}
 	    	/***** AVA END  ******/
 
@@ -846,46 +863,68 @@ class SiteController extends Controller
 
     public function agenteLMS($id, $palavras_chaves)   // Consulta AGENTE LMS linha 512
     {
-        $model = FigurasAva::find()->where(['palavras_chaves' => $palavras_chaves])->andWhere(['<>','aplicativo','LPGraph'])->one();
+        $aux = 0;
+        $id_procurado = 0;
 
-        if ( $model != null )
+        $registros = ArrayHelper::map(FigurasAvaSearch::find()->all(), 'id_figura', 'palavras_chaves');
+
+        foreach ($registros as $chave => $valor) 
         {
-            if ( $id != (-10) ) // Já tem uma pesquisa feita, pelo mesmo usuário e mesmo momento
+            $verifica = strpos( $valor, $palavras_chaves);
+
+              if ($verifica === false ) 
+              {
+                $aux++;
+              }
+              else 
+              {
+                if ( $id_procurado == 0 ) $id_procurado = $chave;
+              }
+        }
+
+        if ( $id_procurado > 0 )
+        {
+            $model = FigurasAva::find()->where(['id_figura' => $id_procurado])->one();
+
+            if ( $model != null )
             {
-                //
-                $model_pesquisa = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
+                if ( $id != (-10) ) // Já tem uma pesquisa feita, pelo mesmo usuário e mesmo momento
+                {
+                    //
+                    $model_pesquisa = Pesquisas::find()->where(['id_pesquisa' => $id])->one();
 
-                $model_pesquisa->id_ava = $model->id_figura;
+                    $model_pesquisa->id_ava = $model->id_figura;
 
-                $model_pesquisa->palavras_chaves = $palavras_chaves;
+                    $model_pesquisa->palavras_chaves = $palavras_chaves;
 
-                $model_pesquisa->metodo = $model_pesquisa->metodo . ', AVA';
+                    $model_pesquisa->metodo = $model_pesquisa->metodo . ', AVA';
 
-                $model_pesquisa->status = 0;
+                    $model_pesquisa->status = 0;
 
-                if ( $model_pesquisa->save()) return $model_pesquisa->id_pesquisa;
-                else return (-1);
-            }
-            else // Gerar registro de pesquisa nova
-            {
-                $novo_registro = new Pesquisas();
+                    if ( $model_pesquisa->save()) return $model_pesquisa->id_pesquisa;
+                    else return (-11);
+                }
+                else // Gerar registro de pesquisa nova
+                {
+                    $novo_registro = new Pesquisas();
 
-                $novo_registro->id_ava = $model->id_figura;
+                    $novo_registro->id_ava = $model->id_figura;
 
-                $novo_registro->metodo = 'AVA';
+                    $novo_registro->metodo = 'AVA';
 
-                $novo_registro->palavras_chaves = $palavras_chaves;
+                    $novo_registro->palavras_chaves = $palavras_chaves;
 
-                $novo_registro->status = 0;
+                    $novo_registro->status = 0;
 
-                if ( $novo_registro->save() ) return $novo_registro->id_pesquisa;
-                else return (-1);
+                    if ( $novo_registro->save() ) return $novo_registro->id_pesquisa;
+                    else return (-12);
+                }
             }
         }
         else
         {
-            return (-1);
-        }
+            return (-13);
+        }  
     }
 
 
@@ -978,7 +1017,7 @@ class SiteController extends Controller
 
 	protected function arrayhelper_relator ()
 	{
-		return ArrayHelper::map(RelatorSearch::find()->all(), 'id_relator', 'perfil');;
+		return ArrayHelper::map(RelatorSearch::find()->all(), 'id_relator', 'perfil');
 	}
 
 	protected function arrayhelper_polo ()
@@ -993,7 +1032,7 @@ class SiteController extends Controller
 
     protected function arrayhelper_tituloproblema ()
     {
-        return ArrayHelper::map(TituloProblemaSearch::find()->all(), 'id', 'titulo');;
+        return ArrayHelper::map(TituloProblemaSearch::find()->all(), 'id', 'titulo');
     }
 /*
     public function verifica_valor ($valor)
@@ -1046,6 +1085,37 @@ class SiteController extends Controller
         }  
         return null; 
     }  */
+
+    public function actionList_titulo ($tipo)
+    {
+        $list_titulos;
+
+        if ( $tipo === 1) // Pedagógico
+        { 
+            $list_titulos = array( 3 => 'Aprendizado', 5 => 'Reprovação', 9 => 'Notas', 10 => 'Professor', 11 => 'Tutoria', 13 => 'Atividades', 14 => 'Conteúdo', 4 => 'Relacionamento', 17 => 'AVA');
+        }
+        
+        if ( $tipo === 2) // Acadêmico
+        { 
+            $list_titulos = array( 8 => 'Saúde', 4 => 'Reprovação', 6 => 'Abandono', 10 => 'Professor', 11 => 'Tutoria', 12 => 'Coordenação', 7 => 'Faltas', 9 => 'Notas');
+        }
+        
+        if ( $tipo === 3) //Infraestrutura
+        { 
+            $list_titulos = array( 1 => 'Energia Elétrica', 15 => 'Infraestrutura', 2 => 'Internet');
+        }
+        // Repetição por Condição
+        if ( $tipo === 4) //Administrativo
+        { 
+            $list_titulos = array(12 => 'Coordenação', 15 => 'Infraestrutura',  20 => 'Recursos Financeiros');
+        } 
+       
+        //return ;
+        foreach ($list_titulos as $key => $value) {
+            echo "<option value'".$key."'>".$value."</option>";
+            # code...
+        }
+    }
 
 
 }

@@ -6,6 +6,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\TipoProblema;
+use app\models\TituloProblema;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 $this->title = 'Busca combinada de solução';
 ?>
@@ -39,8 +43,15 @@ $this->title = 'Busca combinada de solução';
 
                 <?= $form->field($model, 'palavras_chaves')->textInput(['maxlength' => true]) ?>
                 
-                <?= $form->field($model, 'tipo_problema')->dropDownList([$arrayTiposProblemas],['style' => 'width:500px',
-                                                      'prompt' => "Selecione um tipo de problema",]); ?> 
+<!--   -->
+                <?= $form->field($model, 'tipo_problema')->dropDownList([$arrayTiposProblemas], 
+                ['style' => 'width:500px',
+                'prompt' => "Selecione um tipo de problema", 
+                'onchange'=>'$.get( "'.Url::toRoute(['site/list_titulo']).'", { tipo : $(this).val() })
+                    .done(function(data) {
+                        $( "#'.Html::getInputId($model, 'titulo_problema').'").html(data);
+                });']) 
+                ?>
                 
                 <?= $form->field($model, 'titulo_problema')->dropDownList([$arrayTitulosProblemas],['style' => 'width:500px',
                                                       'prompt' => "Selecione um título de problema",]); ?> 

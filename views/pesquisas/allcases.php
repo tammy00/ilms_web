@@ -34,7 +34,7 @@ $this->title = 'Base de Casos - RBC';
                         'contentOptions' => ['style' => 'text-align:center; vertical-align:middle'],
                         //'label' => 'Casos na Base',
                          'value'=>function ($model, $key, $index, $widget) { 
-                            $info_polo = Polo::find()->where(['id_polo' -> $model->id_polo])->one();
+                            $info_polo = Polo::find()->where(['id_polo' => $model->id_polo])->one();
                                return $info_polo->nome;
                            },
                     ],

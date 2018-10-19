@@ -36,8 +36,7 @@ $this->title = 'iDE Framework';
                        <?php echo $mensagem_sim ?>
                   </div>
 
-              <?php }
-        ?>
+              <?php } ?>
 
         
 

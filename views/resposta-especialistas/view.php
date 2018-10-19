@@ -31,7 +31,6 @@ $this->title = 'Detalhes da solução';
             'data_ocorrencia',
             'data_insercao',
             'nome_especialista',
-            'funcao_especialista',
             'relator',
         ],
     ]) ?>

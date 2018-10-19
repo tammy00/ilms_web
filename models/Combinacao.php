@@ -35,7 +35,7 @@ class Combinacao extends Model
         return [
         /*** Abaixo, os atributos de descricao_problema   ***/
             [['titulo_problema', 'tipo_problema', 'cbr', 'ava', 'esp'], 'integer'],
-            [['titulo_problema', 'tipo_problema', 'palavras_chaves'], 'required'],
+            //[['titulo_problema', 'tipo_problema', 'palavras_chaves'], 'required'],
             [['palavras_chaves'], 'string', 'max' => 400],  
         ];
     }

@@ -65,4 +65,6 @@ class Pesquisas extends \yii\db\ActiveRecord
         ];
     }
 
+
+
 }

@@ -6,6 +6,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\Relator;
+use app\models\Polo;
+use yii\helpers\ArrayHelper;
 
 $this->title = 'Busca de solução';
 ?>
@@ -37,14 +40,14 @@ $this->title = 'Busca de solução';
           <?= $form->field($model, 'descricao_problema')->textarea(['rows' => 6])->label('Descreva o problema resumidamente:'); ?>
 
 
-                <?= $form->field($model, 'relator')->dropDownList([$arrayRelatores],['style' => 'width:500px',
+                <?= $form->field($model, 'relator')->dropDownList(ArrayHelper::map(Relator::find()->asArray()->all(), 'id_relator', 'perfil'),['style' => 'width:500px',
                                                       'prompt' => "Selecione um relator",]); ?>  
 
                 <?= $form->field($model, 'problema_detalhado')->textarea(['rows' => 6])->label('Descreva o problema detalhadamente:'); ?>
 
                 <?= $form->field($model, 'palavras_chaves')->textInput(['maxlength' => true]) ?>
 
-                <?= $form->field($model, 'id_polo')->dropDownList([$arrayPolos],['style' => 'width:500px',
+                <?= $form->field($model, 'id_polo')->dropDownList(ArrayHelper::map(Polo::find()->asArray()->all(), 'id_polo', 'nome'),['style' => 'width:500px',
                                                       'prompt' => "Selecione um polo",]); ?>  
                          
 <br><br> 

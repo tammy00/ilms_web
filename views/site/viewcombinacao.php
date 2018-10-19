@@ -1,5 +1,4 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\grid\GridView;
@@ -7,44 +6,47 @@ use app\models\TipoProblema;
 use app\models\TituloProblema;
 use app\models\Pesquisas;
 use yii\helpers\Url;
-
 /* @var $this yii\web\View */
 /* @var $model app\models\Descricao */
-
 /** view da pesquisa geral  **/
-
 $this->title = 'Resultado(s) da busca'
-
 ?>
 <div class="descricao-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <a href="?r=index/combinacao" class="btn btn-default">Voltar</a>
+    <a href="?r=index/combinacao" class="btn btn-default">Voltar</a><br>
 
         <?php 
-
         $tem_rbc = strpos( $model_descricao->metodo, 'CBR');
 
-
-        if ( $tem_rbc === true) {   ?>
+        if ( $tem_rbc <= 0 ) {   ?>
         <fieldset>
-            <legend>Solução do RBC</legend>
-            <b> DESCRIÇÃO REALIZADA: </b>
-            <?= DetailView::widget([
-                'model' => $model_descricao,
-                'attributes' => [
-                    'descricao_problema',
-                    'natureza_problema:ntext',
-                    'palavras_chaves',
+            <legend>Solução da Base de Casos</legend>
+            <b> <h4>DESCRIÇÃO REALIZADA:</h4> </b><br>
+            <?php 
+                            if (($model_descricao->descricao_problema != null) || ($model_descricao->descricao_problema != "")) 
+                {
+                    echo '<b>Descrição resumida:</b> '.$model_descricao->descricao_problema.'<br>';
+                }
 
-                ],
-            ]); } ?>
+                if (($model_descricao->natureza_problema != null) || ($model_descricao->natureza_problema != "")) 
+                {
+                    echo '<b>Natureza do Problema:</b> '.$model_descricao->natureza_problema.'<br>';
+                }
+
+                if (($model_descricao->palavras_chaves != null) || ($model_descricao->palavras_chaves != "")) 
+                {
+                    echo '<b>Palavras-chaves:</b> '.$model_descricao->palavras_chaves.'<br>';
+                }
+            
+            ?>
+<?php } ?>
 
 
         <?php if ( $model_descricao->id_solucao!= null ) {   ?>
-
-                <b> SOLUÇÃO APRESENTADA: </b>
+<br><br>
+                <b><h4> SOLUÇÃO APRESENTADA:</h4> </b>
                 <?= DetailView::widget([
                     'model' => $model_solucao,
                     'attributes' => [
@@ -64,8 +66,6 @@ $this->title = 'Resultado(s) da busca'
 
 
     <?php 
-
-
     if ( $model_esp != null ) {   ?>
             <br><br>
             <fieldset>

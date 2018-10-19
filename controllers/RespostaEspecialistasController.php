@@ -95,7 +95,15 @@ class RespostaEspecialistasController extends Controller
         $model->id_tipo_problema = $tipo->tipo;
         $model->id_titulo_problema = $titulo->titulo;
 
-        $r = Relator::find()->where(['id_relator' => $model->relator])->one();
+        if ( $model->relator == 0 ) $model->relator = "Não informado";
+        else
+        {
+            $relator_info = Relator::find()->where(['id_relator' => $model->relator])->one();
+            $model->relator = $relator_info->perfil;
+        }
+
+       // $r = Relator::find()->where(['id_relator' => $model->relator])->one();
+        /*
         if ( $model->funcao_especialista != $model->relator )
         {
             $novo_relator = Relator::find()->where(['id_relator' => $model->funcao_especialista])->one();
@@ -106,7 +114,7 @@ class RespostaEspecialistasController extends Controller
         {
             $model->relator = $r->perfil;
             $model->funcao_especialista = $model->relator;
-        }
+        } */
 
         return $this->render('view', [
             'model' => $model,

@@ -199,7 +199,7 @@ class PesquisasController extends Controller
     }
 
 
-    public function actionNewcase($id, $evento)  // Registra um novo caso RBC no banco
+    public function actionNewcase($id)  // Registra um novo caso RBC no banco
     {
         $model = $this->findModel($id);
 
@@ -234,7 +234,10 @@ class PesquisasController extends Controller
 
             $nova_opiniao = new RespostaEspecialistas();
 
-            $nova_opiniao->descricao_problema = $model->descricao_problema;
+            if ( ($model->descricao_problema == null ) || ($model->descricao_problema == ""))
+                $nova_opiniao->descricao_problema = "";
+            else
+                $nova_opiniao->descricao_problema = $model->descricao_problema;
 
             $nova_opiniao->id_titulo_problema = $resposta_info->id_titulo_problema;
             $nova_opiniao->id_tipo_problema =  $resposta_info->id_tipo_problema;
@@ -251,11 +254,19 @@ class PesquisasController extends Controller
             }
             else $nova_opiniao->descricao_solucao = '';
 
-            $relator_info = Relator::find()->where(['perfil' => $model->relator])->one();
-            $nova_opiniao->relator = $relator_info->id_relator;
+            if (  ($model->relator == null ) || ( $model->relator == ""))
+                $nova_opiniao->relator = 0;
+            else
+            {
+                $relator_info = Relator::find()->where(['perfil' => $model->relator])->one();
+                $nova_opiniao->relator = $relator_info->id_relator;                
+            }
 
-            if ( $nova_opiniao->save()) return Yii::$app->runAction('site/index', ['mensagem_sim' => 'Casos salvos.']);
-            else Yii::$app->runAction('site/index', ['mensagem_nao' => 'Os casos não foram salvos.']);
+            $model->status = 2;
+            $model->save();
+
+            if ( $nova_opiniao->save(false)) return Yii::$app->runAction('site/index');
+            else Yii::$app->runAction('site/about');
         }
 
     }
