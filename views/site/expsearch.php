@@ -6,9 +6,11 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\models\TipoProblema;
-use app\models\TituloProblema;
+use app\models\TipoProblemaSearch;
+use app\models\TituloProblemaSearch;
+use app\controllers\SiteController;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 $this->title = 'Consulta ao especialista';?>
 
@@ -33,10 +35,18 @@ $this->title = 'Consulta ao especialista';?>
         <?php $form = ActiveForm::begin(); ?>
 
 
-                <?= $form->field($model, 'tipo_problema')->dropDownList(ArrayHelper::map(TipoProblema::find()->asArray()->all(), 'id', 'tipo'),['style' => 'width:500px',
-                                                      'prompt' => "Selecione um tipo de problema",]); ?> 
+                <?= $form->field($model, 'tipo_aux')->dropDownList(ArrayHelper::map(TipoProblemaSearch::find()->all(), 'tipo', 'tipo'), 
+                ['style' => 'width:500px',
+                'prompt' => "Selecione um tipo de problema", 
+                'onchange'=>'$.get( "'.Url::toRoute(['site/list_titulo']).'", { tipo : $(this).val() })
+                    .done(function(data) {
+                        $( "#'.Html::getInputId($model, 'titulo_aux').'").html(data);
+                });'
+                ]) 
+                ?>
+                 
                 
-                <?= $form->field($model, 'titulo_problema')->dropDownList(ArrayHelper::map(TituloProblema::find()->asArray()->all(), 'id', 'titulo'),['style' => 'width:500px',
+                <?= $form->field($model, 'titulo_aux')->dropDownList([$arrayTitulosProblemas],['style' => 'width:500px',
                                                       'prompt' => "Selecione um título de problema",]); ?> 
                 <br><br>
   

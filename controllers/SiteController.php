@@ -693,16 +693,20 @@ class SiteController extends Controller
     public function actionExpsearch()  // Busca na base de dados de especialistas
     { 
 
-        $model = new BuscaGeral();
+        $model = new Combinacao();
 
         if ( $model->load(Yii::$app->request->post()) ) // Se algo for submetido
         {
             $verificacao_exp = -1;
             $resultado_id = -1;
 
-            if ( $this->verificadorDadosEXP($model->titulo_problema, $model->tipo_problema) == 0 ) 
+            if ( $this->verificadorDadosEXP($model->titulo_aux, $model->tipo_aux) == 0 ) 
             {
-                $resultado_id = $this->agenteExperts ($model->titulo_problema, $model->tipo_problema, $resultado_id);
+                $tipodoproblema = TipoProblema::find()->where(['tipo' => $model->tipo_aux])->one();
+
+                $titulodoproblema = TituloProblema::find()->where(['titulo' => $model->titulo_aux])->one();
+
+                $resultado_id = $this->agenteExperts ($titulodoproblema->id, $tipodoproblema->id, $resultado_id);
                 // A função acima retorna o id do registro da tabela pesquisa
                 // Dependendo do valor de $resultado_id, o registro é criado ou não
             }
@@ -718,14 +722,14 @@ class SiteController extends Controller
 
             if ( $resultado_id == (-1) )
             {
-            	$tipo = TipoProblema::find()->where(['id' => $model->tipo_problema])->one();
-            	$titulo = TituloProblema::find()->where(['id' => $model->titulo_problema])->one();
+            	//$tipo = TipoProblema::find()->where(['id' => $model->tipo_problema])->one();
+            	//$titulo = TituloProblema::find()->where(['id' => $model->titulo_problema])->one();
 
                 return $this->render('expsearch', [
                     'model' => $model,
                     'arrayTitulosProblemas' => $this->arrayhelper_tituloproblema(),
                     'arrayTiposProblemas' => $this->arrayhelper_tipoproblema(),
-                    'mensagem' => 'Não há opinião de especialista cadastrada no banco de dados que envolva o título de problema "'.$titulo->titulo.'" e o tipo de problema "'.$tipo->tipo.'".',
+                    'mensagem' => 'Não há opinião de especialista cadastrada no banco de dados que envolva o título de problema "'.$model->titulo_aux.'" e o tipo de problema "'.$model->tipo_aux.'".',
                 ]); 
             }
             else return $this->actionExpview ($resultado_id);  //

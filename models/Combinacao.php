@@ -58,6 +58,8 @@ class Combinacao extends Model
             'ava' => 'Busca em Dados do AVA',
             'cbr' => 'Busca em casos passados',
             'esp' => 'Busca em Opinião de Especialistas',
+            'tipo_aux' => 'Tipo do Problema',
+            'titulo_aux' => 'Título do Problema',
         ];
     }
 }
