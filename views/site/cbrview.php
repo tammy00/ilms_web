@@ -22,24 +22,46 @@ $this->title = 'Resultado da busca'
     <a href="?r=site/cbrsearch" class="btn btn-default">Voltar</a>
 
     <?php if ( $pesquisa->relator != null ) {   ?>
+
+
+            <b> <h4>PROBLEMA DESCRITO:</h4> </b>
+            <?php 
+                if (($pesquisa->descricao_problema != null) || ($pesquisa->descricao_problema != "")) 
+                {
+                    echo '<b>Descrição resumida:</b> '.$pesquisa->descricao_problema.'<br>';
+                }
+
+                if (($pesquisa->natureza_problema != null) || ($pesquisa->natureza_problema != "")) 
+                {
+                    echo '<b>Natureza do Problema:</b> '.$pesquisa->natureza_problema.'<br>';
+                }
+
+                if (($pesquisa->palavras_chaves != null) || ($pesquisa->palavras_chaves != "")) 
+                {
+                    echo '<b>Palavras-chaves:</b> '.$pesquisa->palavras_chaves.'<br>';
+                }
+
+                if (($pesquisa->relator != null) || ($pesquisa->relator != "")) 
+                {
+                    echo '<b>Função do Relator:</b> '.$pesquisa->relator.'<br>';
+                }
+
+
+                if (($pesquisa->id_polo != null) || ($pesquisa->id_polo != "")) 
+                {
+                    echo '<b>Polo:</b> '.$pesquisa->id_polo.'<br>';
+                }
+
+
+
+            
+            ?>
+    <?php }   ?>
+
+<br>
+        <?php if ( $sol != null ) {   ?>
     <fieldset>
         <legend>Solução sugerida</legend>
-        <b> DESCRIÇÃO REALIZADA: </b>
-        <?= DetailView::widget([
-            'model' => $pesquisa,
-            'attributes' => [
-                'natureza_problema:ntext',
-                'relator',
-                'descricao_problema:ntext',
-                'problema_detalhado:ntext',
-                'palavras_chaves',
-                'id_polo',
-            ],
-        ]); } ?>
-
-
-        <?php if ( $sol != null ) {   ?>
-        <b> SOLUÇÃO APRESENTADA: </b>
         <?= DetailView::widget([
             'model' => $sol,
             'attributes' => [

@@ -65,7 +65,6 @@ $this->title = 'Detalhes da busca';
                 'format' => ['date', 'php:d/m/Y']
             ], 
             'nome_especialista',
-            'funcao_especialista',
             'relator',
         ],
     ]) ?>

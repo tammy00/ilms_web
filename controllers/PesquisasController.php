@@ -137,18 +137,26 @@ class PesquisasController extends Controller
         }
         else $sol = null;
 
-        $polo = Polo::find()->where(['id_polo' => $model->id_polo])->one();
-        $model->id_polo = $polo->nome;
+        if ( ($model->id_polo != null ) || ($model->id_polo != ""))
+        {
+            $polo = Polo::find()->where(['id_polo' => $model->id_polo])->one();
+            $model->id_polo = $polo->nome;            
+        }
+        else $model->id_polo = "";
+
 
         $model->id_usuario = Yii::$app->user->identity->perfil . ' ('.Yii::$app->user->identity->email.')';
         
         if ( ($model->id_resposta > 0) || ($model->id_resposta != null) ) // Verifica se, na mesma pesquisa, tem registro de pesquisa à opinião de especialistas
         {
-            $exp_resposta = RespostaEspecialistas::find()->where(['id_resposta' => $model->id_resposta])->one();
+            $exp_resposta = RespostaEspecialistas::find()->where(['id' => $model->id_resposta])->one();
             $tipoproblema = TipoProblema::find()->where(['id' => $exp_resposta->id_tipo_problema])->one();
             $exp_resposta->id_tipo_problema = $tipoproblema->tipo;
             $tituloproblema = TituloProblema::find()->where(['id' => $exp_resposta->id_titulo_problema])->one();
             $exp_resposta->id_titulo_problema = $tituloproblema->titulo;
+
+            $relator_info = Relator::find()->where(['id_relator'=>$exp_resposta->relator])->one();
+            $exp_resposta->relator = $relator_info->perfil;
 
         }  
         else $exp_resposta = null;  
