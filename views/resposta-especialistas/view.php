@@ -35,4 +35,15 @@ $this->title = 'Detalhes da solução';
         ],
     ]) ?>
 
+    <b>A solução recomendada ajudou na sua dúvida?</b>
+
+          
+          
+        <a href='#' class="btn btn-primary">Sim</a>
+
+
+        <a href='#' class="btn btn-default">Não</a>
+
+    </p>
+
 </div>
