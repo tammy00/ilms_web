@@ -876,7 +876,7 @@ class SiteController extends Controller
         $aux = 0;
         $id_procurado = 0;
 
-        $registros = ArrayHelper::map(FigurasAvaSearch::find()->all(), 'id_figura', 'palavras_chaves');
+        $registros = ArrayHelper::map(FigurasAvaSearch::find()->orderBy(['id_figura' => SORT_DESC])->all(), 'id_figura', 'palavras_chaves');
 
         foreach ($registros as $chave => $valor) 
         {
@@ -888,7 +888,10 @@ class SiteController extends Controller
               }
               else 
               {
-                if ( $id_procurado == 0 ) $id_procurado = $chave;
+                if ( $id_procurado == 0 ){
+                     $id_procurado = $chave;
+                     //break;
+                }
               }
         }
 

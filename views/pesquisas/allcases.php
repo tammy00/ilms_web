@@ -8,7 +8,7 @@ use app\models\Polo;
 /* @var $searchModel app\models\PesquisasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Base de Casos - RBC';
+$this->title = 'Base de Casos';
 ?>
 <div class="pesquisas-index">
 

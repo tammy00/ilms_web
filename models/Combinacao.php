@@ -56,7 +56,7 @@ class Combinacao extends Model
             'titulo_problema' => 'Título do Problema',
             'tipo_problema' => 'Tipo do Problema',
             'ava' => 'Busca em Dados do AVA',
-            'cbr' => 'Busca em casos passados',
+            'cbr' => 'Busca em Casos Passados',
             'esp' => 'Busca em Opinião de Especialistas',
             'tipo_aux' => 'Tipo do Problema',
             'titulo_aux' => 'Título do Problema',
